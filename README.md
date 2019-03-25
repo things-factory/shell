@@ -13,7 +13,12 @@
   > Format on save: true
 
 - nodejs (v8.0.0 and above)
+
 - yarn
+
+- Chrome Browser Extension
+
+  > https://github.com/zalmoxisus/redux-devtools-extension
 
 # Create a new app
 
