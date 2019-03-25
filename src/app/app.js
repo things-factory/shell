@@ -1,13 +1,3 @@
-/**
-@license
-Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/
-
 import { LitElement, html, css } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
@@ -17,14 +7,11 @@ import { updateMetadata } from 'pwa-helpers/metadata.js'
 
 import { BoardAuthProvider } from '@things-shell/client-auth'
 
-// This element is connected to the Redux store.
 import { store } from '../store.js'
 
-// These are the actions needed by this element.
 import { navigate, updateOffline, updateLayout } from '../actions/app.js'
 import { updateUser, updateAuthenticated } from '../actions/auth.js'
 
-// These are the elements needed by this element.
 import './components/snack-bar'
 
 class ThingsApp extends connect(store)(LitElement) {
@@ -135,7 +122,7 @@ class ThingsApp extends connect(store)(LitElement) {
       </main>
 
       <footer>
-        <p>Made with &hearts; by the Polymer team.</p>
+        <p>Powered by Things-Factory&trade;.</p>
       </footer>
 
       <snack-bar ?active="${this._snackbarOpened}">
