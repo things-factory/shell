@@ -1,0 +1,9 @@
+{
+  "name": "things-app-starter-kit",
+  "version": "1.0.0",
+  "description": "things app starter kit",
+  "main": "src/index.js",
+  "repository": "http://github.com/things-factory/things-app-starter-kit",
+  "author": "Hearty Oh <heartyoh@hatiolab.com>",
+  "license": "MIT"
+}
