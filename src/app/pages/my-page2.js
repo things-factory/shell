@@ -23,6 +23,24 @@ class MyPage2 extends LitElement {
       <section>
         <h2>My Page 2</h2>
       </section>
+      <button
+        id="request-button"
+        @click=${e => {
+          fetch('http://board-demo.hatiolab.com/rest/scenes', {
+            credentials: 'include'
+          }).then(response => {
+            if (!response.ok)
+              this.dispatchEvent(
+                new CustomEvent('authentication-required', {
+                  bubbles: true,
+                  composed: true
+                })
+              )
+          })
+        }}
+      >
+        요청
+      </button>
     `
   }
 }

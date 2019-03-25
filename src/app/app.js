@@ -107,6 +107,7 @@ class ThingsApp extends connect(store)(LitElement) {
         @profile-changed=${this.onProfileChanged}
         @error-changed=${this.onAuthErrorChanged}
         .endpoint=${this.baseUrl}
+        auth-required-event="authentication-required"
         signin-path="login"
         signout-path="logout"
         profile-path="session_info"
