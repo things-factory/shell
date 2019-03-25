@@ -1,8 +1,8 @@
 # Prerequiestites
 
-VS Code (extension Prettier - code formatter)
-nodejs (v8.0.0 and above)
-yarn
+* VS Code (extension Prettier - code formatter)
+* nodejs (v8.0.0 and above)
+* yarn
 
 # Create a new app
 ```
