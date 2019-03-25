@@ -12,6 +12,8 @@ import { store } from '../store.js'
 import { navigate, updateOffline, updateLayout } from '../actions/app.js'
 import { updateUser, updateAuthenticated } from '../actions/auth.js'
 
+import { AppTheme } from './styles/app-theme'
+
 import './components/snack-bar'
 
 class ThingsApp extends connect(store)(LitElement) {
@@ -33,6 +35,7 @@ class ThingsApp extends connect(store)(LitElement) {
 
   static get styles() {
     return [
+      AppTheme,
       css`
         :host {
           display: block;
@@ -86,7 +89,6 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   render() {
-    // Anything that's related to rendering should be done in here.
     return html`
       <auth-router
         .authProvider=${this.authProvider}
@@ -161,13 +163,14 @@ class ThingsApp extends connect(store)(LitElement) {
   onAuthenticatedChanged(e) {
     var auth = e.detail
     store.dispatch(updateAuthenticated(auth))
-    // store.dispatch(
-    //   showSnackbar(
-    //     i18next.t('text.you.are.now.in', {
-    //       state: i18next.t(auth.authenticated ? 'text.signed in' : 'text.signed out')
-    //     })
-    //   )
-    // )
+    store.dispatch(
+      showSnackbar('you are now in', {
+        state: auth.authenticated ? 'text.signed in' : 'text.signed out'
+      })
+      //     i18next.t('text.you.are.now.in', {
+      //       state: i18next.t(auth.authenticated ? 'text.signed in' : 'text.signed out')
+      //     })
+    )
   }
 
   onAuthErrorChanged() {
