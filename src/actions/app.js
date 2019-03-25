@@ -33,6 +33,19 @@ const loadPage = page => dispatch => {
     case 'page2':
       import('../app/pages/my-page2.js')
       break
+
+    case 'signup':
+      import('@things-shell/client-auth/template-board/signup.js')
+      break
+
+    case 'signin':
+      import('@things-shell/client-auth/template-board/signin.js')
+      break
+
+    case 'profile':
+      import('@things-shell/client-auth/template-board/profile.js')
+      break
+
     default:
       page = 'page404'
       import('../app/pages/my-page404.js')

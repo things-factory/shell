@@ -15,16 +15,26 @@ import { installOfflineWatcher } from 'pwa-helpers/network.js'
 import { installRouter } from 'pwa-helpers/router.js'
 import { updateMetadata } from 'pwa-helpers/metadata.js'
 
+import { BoardAuthProvider } from '@things-shell/client-auth'
+
 // This element is connected to the Redux store.
 import { store } from '../store.js'
 
 // These are the actions needed by this element.
 import { navigate, updateOffline, updateLayout } from '../actions/app.js'
+import { updateUser, updateAuthenticated } from '../actions/auth.js'
 
 // These are the elements needed by this element.
 import './components/snack-bar'
 
 class ThingsApp extends connect(store)(LitElement) {
+  constructor() {
+    super()
+
+    this.baseUrl = 'http://board-demo.hatiolab.com/rest'
+    this.authProvider = BoardAuthProvider
+  }
+
   static get properties() {
     return {
       appTitle: { type: String },
@@ -91,6 +101,19 @@ class ThingsApp extends connect(store)(LitElement) {
   render() {
     // Anything that's related to rendering should be done in here.
     return html`
+      <auth-router
+        .authProvider=${this.authProvider}
+        @authenticated-changed=${this.onAuthenticatedChanged}
+        @profile-changed=${this.onProfileChanged}
+        @error-changed=${this.onAuthErrorChanged}
+        .endpoint=${this.baseUrl}
+        signin-path="login"
+        signout-path="logout"
+        profile-path="session_info"
+        signin-page="signin"
+        signup-page="signup"
+      ></auth-router>
+
       <header>
         <h1>${this.appTitle}</h1>
         <nav class="toolbar-list">
@@ -104,6 +127,10 @@ class ThingsApp extends connect(store)(LitElement) {
         <my-page1 class="page" ?active="${this._page === 'page1'}"></my-page1>
         <my-page2 class="page" ?active="${this._page === 'page2'}"></my-page2>
         <my-page404 class="page" ?active="${this._page === 'page404'}"></my-page404>
+
+        <auth-signin class="page" ?active=${this._page === 'signin'}></auth-signin>
+        <auth-signup class="page" ?active=${this._page === 'signup'}></auth-signup>
+        <auth-profile class="page" ?active=${this._page === 'profile'}></auth-profile>
       </main>
 
       <footer>
@@ -137,6 +164,28 @@ class ThingsApp extends connect(store)(LitElement) {
     this._page = state.app.page
     this._offline = state.app.offline
     this._snackbarOpened = state.app.snackbarOpened
+  }
+
+  onProfileChanged(e) {
+    store.dispatch(updateUser(e.detail.profile))
+  }
+
+  onAuthenticatedChanged(e) {
+    var auth = e.detail
+    store.dispatch(updateAuthenticated(auth))
+    // store.dispatch(
+    //   showSnackbar(
+    //     i18next.t('text.you.are.now.in', {
+    //       state: i18next.t(auth.authenticated ? 'text.signed in' : 'text.signed out')
+    //     })
+    //   )
+    // )
+  }
+
+  onAuthErrorChanged() {
+    if (this.authError) {
+      store.dispatch(showSnackbar(this.authError))
+    }
   }
 }
 

@@ -10,6 +10,7 @@
     "serve:dev": "webpack-dev-server --hot --mode development --config webpack.config.dev.js"
   },
   "dependencies": {
+    "@things-shell/client-auth": "^0.3.0",
     "@webcomponents/webcomponentsjs": "^2.2.7",
     "lit-element": "^2.1.0",
     "pwa-helpers": "^0.9.1",
