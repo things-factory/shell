@@ -1,4 +1,4 @@
-# Prerequiestites
+# Prerequisites
 
 * VS Code (extension Prettier - code formatter)
 * nodejs (v8.0.0 and above)
