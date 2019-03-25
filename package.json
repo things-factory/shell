@@ -5,5 +5,22 @@
   "main": "src/index.js",
   "repository": "http://github.com/things-factory/things-app-starter-kit",
   "author": "Hearty Oh <heartyoh@hatiolab.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "serve:dev": "webpack-dev-server --hot --mode development --config webpack.config.dev.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-decorators": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.4.2",
+    "clean-webpack-plugin": "^2.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1"
+  }
 }
