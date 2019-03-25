@@ -4,7 +4,6 @@ export const OPEN_SNACKBAR = 'OPEN_SNACKBAR'
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR'
 
 export const navigate = path => dispatch => {
-  // Extract the page name from path.
   const page = path === '/' ? 'page1' : path.slice(1)
 
   // Any other info you might want to extract from the path (like page type),
@@ -50,21 +49,27 @@ const updatePage = page => {
     page
   }
 }
-
 let snackbarTimer
 
-export const showSnackbar = () => dispatch => {
+export const showSnackbar = message => dispatch => {
   dispatch({
-    type: OPEN_SNACKBAR
+    type: OPEN_SNACKBAR,
+    message
   })
   window.clearTimeout(snackbarTimer)
   snackbarTimer = window.setTimeout(() => dispatch({ type: CLOSE_SNACKBAR }), 3000)
 }
 
 export const updateOffline = offline => (dispatch, getState) => {
-  // Show the snackbar only if offline status changes.
   if (offline !== getState().app.offline) {
-    dispatch(showSnackbar())
+    dispatch(
+      showSnackbar(`you are now in ${offline ? 'offline' : 'online'}`)
+      // showSnackbar(
+      //   i18next.t('text.you.are.now.in', {
+      //     state: i18next.t(offline ? 'text.offline' : 'text.online')
+      //   })
+      // )
+    )
   }
   dispatch({
     type: UPDATE_OFFLINE,

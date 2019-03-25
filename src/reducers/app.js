@@ -3,7 +3,8 @@ import { UPDATE_PAGE, UPDATE_OFFLINE, OPEN_SNACKBAR, CLOSE_SNACKBAR } from '../a
 const INITIAL_STATE = {
   page: '',
   offline: false,
-  snackbarOpened: false
+  snackbarOpened: false,
+  message: ''
 }
 
 const app = (state = INITIAL_STATE, action) => {
@@ -21,7 +22,8 @@ const app = (state = INITIAL_STATE, action) => {
     case OPEN_SNACKBAR:
       return {
         ...state,
-        snackbarOpened: true
+        snackbarOpened: true,
+        message: action.message
       }
     case CLOSE_SNACKBAR:
       return {

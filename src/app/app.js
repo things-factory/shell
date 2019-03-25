@@ -9,7 +9,7 @@ import { BoardAuthProvider } from '@things-shell/client-auth'
 
 import { store } from '../store.js'
 
-import { navigate, updateOffline, updateLayout } from '../actions/app.js'
+import { navigate, updateOffline, updateLayout, showSnackbar } from '../actions/app.js'
 import { updateUser, updateAuthenticated } from '../actions/auth.js'
 
 import { AppTheme } from './styles/app-theme'
@@ -29,7 +29,9 @@ class ThingsApp extends connect(store)(LitElement) {
       appTitle: { type: String },
       _page: { type: String },
       _snackbarOpened: { type: Boolean },
-      _offline: { type: Boolean }
+      _offline: { type: Boolean },
+      _authenticated: { type: Boolean },
+      _message: { type: String }
     }
   }
 
@@ -109,6 +111,13 @@ class ThingsApp extends connect(store)(LitElement) {
         <nav class="toolbar-list">
           <a ?selected="${this._page === 'page1'}" href="/page1">Page One</a>|
           <a ?selected="${this._page === 'page2'}" href="/page2">Page Two</a>|
+          ${this._authenticated
+            ? html`
+                <a ?selected="${this._page === 'profile'}" href="/profile">User Profile</a>
+              `
+            : html`
+                <a ?selected="${this._page === 'signin'}" href="/signin">Sign In</a>
+              `}
         </nav>
       </header>
 
@@ -127,9 +136,7 @@ class ThingsApp extends connect(store)(LitElement) {
         <p>Powered by Things-Factory&trade;.</p>
       </footer>
 
-      <snack-bar ?active="${this._snackbarOpened}">
-        You are now ${this._offline ? 'offline' : 'online'}.
-      </snack-bar>
+      <snack-bar ?active="${this._snackbarOpened}">${this._message}</snack-bar>
     `
   }
 
@@ -154,6 +161,8 @@ class ThingsApp extends connect(store)(LitElement) {
     this._page = state.app.page
     this._offline = state.app.offline
     this._snackbarOpened = state.app.snackbarOpened
+    this._message = state.app.message
+    this._authenticated = state.auth.authenticated
   }
 
   onProfileChanged(e) {
@@ -164,12 +173,10 @@ class ThingsApp extends connect(store)(LitElement) {
     var auth = e.detail
     store.dispatch(updateAuthenticated(auth))
     store.dispatch(
-      showSnackbar('you are now in', {
-        state: auth.authenticated ? 'text.signed in' : 'text.signed out'
-      })
-      //     i18next.t('text.you.are.now.in', {
-      //       state: i18next.t(auth.authenticated ? 'text.signed in' : 'text.signed out')
-      //     })
+      showSnackbar(`you are now in ${auth.authenticated ? 'signed in' : 'signed out'}`)
+      //showSnackbar(i18next.t('text.you.are.now.in', {
+      //  state: i18next.t(auth.authenticated ? 'text.signed in' : 'text.signed out')
+      //})
     )
   }
 
