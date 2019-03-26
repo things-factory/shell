@@ -2,6 +2,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const OUTPUT_PATH = 'dist'
+
 module.exports = {
   devServer: {
     historyApiFallback: true,

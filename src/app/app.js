@@ -13,20 +13,15 @@ import { navigate, updateOffline, updateLayout, showSnackbar } from '../actions/
 import { updateUser, updateAuthenticated } from '../actions/auth.js'
 
 import { AppTheme } from './styles/app-theme'
-import { i18next } from '@things-shell/client-i18n'
-// import en_us from '../../assets/locales/en-US.json'
-// import ko_kr from '../../assets/locales/ko-KR.json'
-// i18next.addResourceBundle('en-US', 'translations', en_us, true, true)
-// i18next.addResourceBundle('ko-KR', 'translations', ko_kr, true, true)
+import { i18next } from './i18next'
 
 import './components/snack-bar'
+import './components/i18n-msg'
 
 class ThingsApp extends connect(store)(LitElement) {
   constructor() {
     super()
-    i18next.on('initialized', () => {
-      console.log('initialized')
-    })
+
     i18next.on('languageChanged', e => {
       store.dispatch(
         showSnackbar(
@@ -128,12 +123,8 @@ class ThingsApp extends connect(store)(LitElement) {
       <header>
         <h1>${this.appTitle}</h1>
         <nav class="toolbar-list">
-          <a ?selected="${this._page === 'page1'}" href="/page1">
-            <things-i18n-msg msgid="menu.page">Page</things-i18n-msg>1</a
-          >|
-          <a ?selected="${this._page === 'page2'}" href="/page2">
-            <things-i18n-msg msgid="menu.page">Page</things-i18n-msg>2</a
-          >|
+          <a ?selected="${this._page === 'page1'}" href="/page1"> <i18n-msg msgid="menu.page">Page</i18n-msg>1</a>|
+          <a ?selected="${this._page === 'page2'}" href="/page2"> <i18n-msg msgid="menu.page">Page</i18n-msg>2</a>|
           ${this._authenticated
             ? html`
                 <a ?selected="${this._page === 'profile'}" href="/profile">User Profile</a>

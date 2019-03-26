@@ -11,8 +11,9 @@
   },
   "dependencies": {
     "@things-shell/client-auth": "^0.3.4",
-    "@things-shell/client-i18n": "^0.3.1",
     "@webcomponents/webcomponentsjs": "^2.2.7",
+    "i18next": "^15.0.7",
+    "i18next-browser-languagedetector": "^3.0.1",
     "i18next-xhr-backend": "^2.0.1",
     "lit-element": "^2.1.0",
     "pwa-helpers": "^0.9.1",

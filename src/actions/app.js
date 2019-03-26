@@ -1,3 +1,5 @@
+import { i18next } from '../app/i18next'
+
 export const UPDATE_PAGE = 'UPDATE_PAGE'
 export const UPDATE_OFFLINE = 'UPDATE_OFFLINE'
 export const OPEN_SNACKBAR = 'OPEN_SNACKBAR'
@@ -63,12 +65,13 @@ export const showSnackbar = message => dispatch => {
 export const updateOffline = offline => (dispatch, getState) => {
   if (offline !== getState().app.offline) {
     dispatch(
-      showSnackbar(`you are now in ${offline ? 'offline' : 'online'}`)
-      // showSnackbar(
-      //   i18next.t('text.you.are.now.in', {
-      //     state: i18next.t(offline ? 'text.offline' : 'text.online')
-      //   })
-      // )
+      showSnackbar(
+        i18next.t('text.you.are.now.in', {
+          state: {
+            text: i18next.t(offline ? 'text.offline' : 'text.online')
+          }
+        })
+      )
     )
   }
   dispatch({
