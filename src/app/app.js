@@ -13,12 +13,31 @@ import { navigate, updateOffline, updateLayout, showSnackbar } from '../actions/
 import { updateUser, updateAuthenticated } from '../actions/auth.js'
 
 import { AppTheme } from './styles/app-theme'
+import { i18next } from '@things-shell/client-i18n'
+// import en_us from '../../assets/locales/en-US.json'
+// import ko_kr from '../../assets/locales/ko-KR.json'
+// i18next.addResourceBundle('en-US', 'translations', en_us, true, true)
+// i18next.addResourceBundle('ko-KR', 'translations', ko_kr, true, true)
 
 import './components/snack-bar'
 
 class ThingsApp extends connect(store)(LitElement) {
   constructor() {
     super()
+    i18next.on('initialized', () => {
+      console.log('initialized')
+    })
+    i18next.on('languageChanged', e => {
+      store.dispatch(
+        showSnackbar(
+          i18next.t('text.you.are.now.in', {
+            state: {
+              text: i18next.t('text.current language')
+            }
+          })
+        )
+      )
+    })
 
     this.baseUrl = 'http://board-demo.hatiolab.com/rest'
     this.authProvider = BoardAuthProvider
@@ -109,8 +128,12 @@ class ThingsApp extends connect(store)(LitElement) {
       <header>
         <h1>${this.appTitle}</h1>
         <nav class="toolbar-list">
-          <a ?selected="${this._page === 'page1'}" href="/page1">Page One</a>|
-          <a ?selected="${this._page === 'page2'}" href="/page2">Page Two</a>|
+          <a ?selected="${this._page === 'page1'}" href="/page1">
+            <things-i18n-msg msgid="menu.page">Page</things-i18n-msg>1</a
+          >|
+          <a ?selected="${this._page === 'page2'}" href="/page2">
+            <things-i18n-msg msgid="menu.page">Page</things-i18n-msg>2</a
+          >|
           ${this._authenticated
             ? html`
                 <a ?selected="${this._page === 'profile'}" href="/profile">User Profile</a>
@@ -133,6 +156,14 @@ class ThingsApp extends connect(store)(LitElement) {
       </main>
 
       <footer>
+        <select
+          @change="${e => {
+            i18next.changeLanguage(e.target.value)
+          }}"
+        >
+          <option value="en-US" ?selected="${i18next.language == 'en-US'}">English</option>
+          <option value="ko-KR" ?selected="${i18next.language == 'ko-KR'}">한국어</option>
+        </select>
         <p>Powered by Things-Factory&trade;.</p>
       </footer>
 
@@ -173,10 +204,14 @@ class ThingsApp extends connect(store)(LitElement) {
     var auth = e.detail
     store.dispatch(updateAuthenticated(auth))
     store.dispatch(
-      showSnackbar(`you are now in ${auth.authenticated ? 'signed in' : 'signed out'}`)
-      //showSnackbar(i18next.t('text.you.are.now.in', {
-      //  state: i18next.t(auth.authenticated ? 'text.signed in' : 'text.signed out')
-      //})
+      // showSnackbar(`you are now in ${auth.authenticated ? 'signed in' : 'signed out'}`)
+      showSnackbar(
+        i18next.t('text.you.are.now.in', {
+          state: {
+            text: i18next.t(auth.authenticated ? 'text.signed in' : 'text.signed out')
+          }
+        })
+      )
     )
   }
 
