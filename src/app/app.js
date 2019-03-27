@@ -55,8 +55,6 @@ class ThingsApp extends connect(store)(LitElement) {
       css`
         :host {
           display: block;
-          padding: 24px;
-          max-width: 600px;
         }
 
         header {
@@ -120,19 +118,6 @@ class ThingsApp extends connect(store)(LitElement) {
         signup-page="signup"
       ></auth-router>
 
-      <header>
-        <h1>${this.appTitle}</h1>
-        <nav class="toolbar-list">
-          ${this._authenticated
-            ? html`
-                <a ?selected="${this._page === 'profile'}" href="/profile">User Profile</a>
-              `
-            : html`
-                <a ?selected="${this._page === 'signin'}" href="/signin">Sign In</a>
-              `}
-        </nav>
-      </header>
-
       <!-- Main content -->
       <main role="main" class="main-content">
         <menu-list class="page" ?active="${this._page === 'list'}"></menu-list>
@@ -149,14 +134,6 @@ class ThingsApp extends connect(store)(LitElement) {
       </main>
 
       <footer>
-        <select
-          @change="${e => {
-            i18next.changeLanguage(e.target.value)
-          }}"
-        >
-          <option value="en-US" ?selected="${i18next.language == 'en-US'}">English</option>
-          <option value="ko-KR" ?selected="${i18next.language == 'ko-KR'}">한국어</option>
-        </select>
         <p>Powered by Things-Factory&trade;.</p>
       </footer>
 

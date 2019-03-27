@@ -1,5 +1,7 @@
 import { html, LitElement } from 'lit-element'
 
+import '../layouts/page-toolbar'
+
 import { SharedStyles } from '../styles/shared-styles'
 
 class BoardViewer extends LitElement {
@@ -9,6 +11,8 @@ class BoardViewer extends LitElement {
 
   render() {
     return html`
+      <page-toolbar></page-toolbar>
+
       <section>
         <h2>Board Viewer</h2>
         <p>This is a text-only page.</p>

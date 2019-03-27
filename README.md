@@ -25,3 +25,7 @@
 ```
 $ git clone --depth 1 https://github.com/things-factory/things-app-starter-kit.git things-app
 ```
+
+# References
+
+- https://github.com/material-components/material-components-web-components
