@@ -12,7 +12,8 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, 'index.html')
+      template: path.resolve(__dirname, 'index.html'),
+      chunksSortMode: 'none'
     }),
     new CopyWebpackPlugin(['assets/**'])
   ],
