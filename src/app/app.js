@@ -123,8 +123,6 @@ class ThingsApp extends connect(store)(LitElement) {
       <header>
         <h1>${this.appTitle}</h1>
         <nav class="toolbar-list">
-          <a ?selected="${this._page === 'page1'}" href="/page1"> <i18n-msg msgid="menu.page">Page</i18n-msg>1</a>|
-          <a ?selected="${this._page === 'page2'}" href="/page2"> <i18n-msg msgid="menu.page">Page</i18n-msg>2</a>|
           ${this._authenticated
             ? html`
                 <a ?selected="${this._page === 'profile'}" href="/profile">User Profile</a>
@@ -137,9 +135,13 @@ class ThingsApp extends connect(store)(LitElement) {
 
       <!-- Main content -->
       <main role="main" class="main-content">
-        <my-page1 class="page" ?active="${this._page === 'page1'}"></my-page1>
-        <my-page2 class="page" ?active="${this._page === 'page2'}"></my-page2>
-        <my-page404 class="page" ?active="${this._page === 'page404'}"></my-page404>
+        <menu-list class="page" ?active="${this._page === 'list'}"></menu-list>
+        <form-viewer class="page" ?active="${this._page === 'form'}"></form-viewer>
+        <board-viewer class="page" ?active="${this._page === 'board'}"></board-viewer>
+        <board-player class="page" ?active="${this._page === 'player'}"></board-player>
+        <report-viewer class="page" ?active="${this._page === 'report'}"></report-viewer>
+
+        <page-404 class="page" ?active="${this._page === 'page404'}"></page-404>
 
         <auth-signin class="page" ?active=${this._page === 'signin'}></auth-signin>
         <auth-signup class="page" ?active=${this._page === 'signup'}></auth-signup>

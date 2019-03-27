@@ -2,7 +2,7 @@ import { html, LitElement } from 'lit-element'
 
 import { SharedStyles } from '../styles/shared-styles'
 
-class MyPage404 extends LitElement {
+class Page404 extends LitElement {
   static get styles() {
     return [SharedStyles]
   }
@@ -16,4 +16,4 @@ class MyPage404 extends LitElement {
   }
 }
 
-window.customElements.define('my-page404', MyPage404)
+window.customElements.define('page-404', Page404)

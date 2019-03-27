@@ -6,7 +6,7 @@ export const OPEN_SNACKBAR = 'OPEN_SNACKBAR'
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR'
 
 export const navigate = path => dispatch => {
-  const page = path === '/' ? 'page1' : path.slice(1)
+  const page = path === '/' ? 'list' : path.slice(1)
 
   // Any other info you might want to extract from the path (like page type),
   // you can do here
@@ -15,14 +15,26 @@ export const navigate = path => dispatch => {
 
 const loadPage = page => dispatch => {
   switch (page) {
-    case 'page1':
-      import('../app/pages/my-page1.js').then(module => {
+    case 'list':
+      import('../app/pages/menu-list.js').then(module => {
         // Put code in here that you want to run every time when
         // navigating to view1 after my-view1.js is loaded.
       })
       break
-    case 'page2':
-      import('../app/pages/my-page2.js')
+
+    case 'form':
+      import('../app/pages/form-viewer.js')
+      break
+
+    case 'board':
+      import('../app/pages/board-viewer.js')
+      break
+
+    case 'player':
+      import('../app/pages/board-player.js')
+      break
+    case 'report':
+      import('../app/pages/report-viewer.js')
       break
 
     case 'signup':
@@ -39,7 +51,7 @@ const loadPage = page => dispatch => {
 
     default:
       page = 'page404'
-      import('../app/pages/my-page404.js')
+      import('../app/pages/page-404.js')
   }
 
   dispatch(updatePage(page))

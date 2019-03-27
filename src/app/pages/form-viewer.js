@@ -1,9 +1,8 @@
 import { html, LitElement } from 'lit-element'
 
-// These are the shared styles needed by this element.
 import { SharedStyles } from '../styles/shared-styles'
 
-class MyPage1 extends LitElement {
+class FormViewer extends LitElement {
   static get styles() {
     return [SharedStyles]
   }
@@ -11,7 +10,7 @@ class MyPage1 extends LitElement {
   render() {
     return html`
       <section>
-        <h2>Static page 1</h2>
+        <h2>Form Viewer</h2>
         <p>This is a text-only page.</p>
         <p>It doesn't do anything other than display some static text.</p>
       </section>
@@ -19,4 +18,4 @@ class MyPage1 extends LitElement {
   }
 }
 
-window.customElements.define('my-page1', MyPage1)
+window.customElements.define('form-viewer', FormViewer)
