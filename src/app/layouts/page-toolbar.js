@@ -8,10 +8,6 @@ import { store } from '../../store'
 import { i18next } from '../i18next'
 
 class PageToolbar extends connect(store)(LitElement) {
-  static get is() {
-    return 'page-toolbar'
-  }
-
   constructor() {
     super()
 
@@ -191,4 +187,4 @@ class PageToolbar extends connect(store)(LitElement) {
   }
 }
 
-customElements.define(PageToolbar.is, PageToolbar)
+customElements.define('page-toolbar', PageToolbar)
