@@ -134,7 +134,7 @@ class ThingsApp extends connect(store)(LitElement) {
       </main>
 
       <footer>
-        <p>Powered by Things-Factory&trade;.</p>
+        <p>Powered by Things-Factory&trade;</p>
       </footer>
 
       <snack-bar ?active="${this._snackbarOpened}">${this._message}</snack-bar>
