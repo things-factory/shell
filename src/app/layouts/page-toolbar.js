@@ -34,6 +34,7 @@ class PageToolbar extends connect(store)(LitElement) {
         }
 
         [app-toolbar] {
+          display: flex;
           background-color: var(--primary-dark-color);
           justify-content: space-between;
           height: 45px;
