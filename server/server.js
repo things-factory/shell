@@ -1,9 +1,7 @@
 const Koa = require('koa')
-const routes = require('./routes')
-
-console.log
 
 const koaWebpack = require('koa-webpack')
+const koaApiFallback = require('koa-history-api-fallback')
 const args = require('args')
 
 args.option('port', 'The port on which the app will be running', 3000)
@@ -22,17 +20,6 @@ const FACTORY_MODULE_ROOT_DIR = path.join(__dirname, '..')
 const bootstrap = async () => {
   const app = new Koa()
 
-  app.on('error', (err, ctx) => {
-    console.log('error ===>', err)
-
-    /* centralized error handling:
-     *   console.log error
-     *   write error to log file
-     *   save error and request information to database if ctx.request match condition
-     *   ...
-     */
-  })
-
   koaWebpack({
     compiler,
     hotClient: {},
@@ -42,11 +29,10 @@ const bootstrap = async () => {
     }
   }).then(middleware => {
     app.use(middleware)
+    app.use(koaApiFallback())
 
     app.use(require('koa-static')('/'))
     app.use(require('koa-static')(FACTORY_MODULE_ROOT_DIR))
-
-    app.use(routes.routes())
 
     app.listen(PORT)
   })
