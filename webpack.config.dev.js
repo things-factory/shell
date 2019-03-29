@@ -40,7 +40,7 @@ module.exports = {
       ? {
           '@things-factory/shell$': shellModulePath
         }
-      : null,
+      : {},
     modules: [nodeModulePath]
   },
   resolveLoader: {
