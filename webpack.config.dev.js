@@ -69,7 +69,14 @@ module.exports = {
         loader: 'url-loader?limit=25000',
         query: {
           limit: 10000,
-          name: '[path][name].[hash:8].[ext]'
+          name: file => {
+            var dirname = path.dirname(file)
+            dirname = dirname.replace(process.cwd(), '')
+            dirname = dirname.replace('node_modules/@things-factory/', '')
+            dirname = dirname.replace('assets/', '')
+
+            return 'assets' + dirname + '/[name].[hash:8].[ext]'
+          }
         }
       },
       {

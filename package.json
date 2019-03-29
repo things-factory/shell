@@ -46,6 +46,6 @@
     "webpack-dev-server": "^3.2.1"
   },
   "devDependencies": {
-    "@things-factory/tester": "^0.0.3"
+    "@things-factory/tester": "*"
   }
 }
