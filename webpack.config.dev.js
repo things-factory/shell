@@ -15,9 +15,10 @@ try {
   var shellModulePath = path.resolve(pathName, '../..')
   var nodeModulePath = path.resolve(pathName, '../../../..')
 } catch (e) {
-  console.log('@things-factory/shell module not found.', e)
+  console.log('@things-factory/shell module not found.')
   var shellModulePath = path.resolve(__dirname)
   var nodeModulePath = path.resolve(__dirname, 'node_modules')
+  var localShell = true
 }
 
 console.log('FactoryShell Module Path', shellModulePath)
@@ -35,6 +36,11 @@ module.exports = {
     main: path.resolve(__dirname, 'src/index.js')
   },
   resolve: {
+    alias: localShell
+      ? {
+          '@things-factory/shell$': shellModulePath
+        }
+      : null,
     modules: [nodeModulePath]
   },
   resolveLoader: {
@@ -58,6 +64,14 @@ module.exports = {
       //     loader: 'babel-loader'
       //   }
       // }
+      {
+        test: /\.(gif|jpe?g|png)$/,
+        loader: 'url-loader?limit=25000',
+        query: {
+          limit: 10000,
+          name: '[path][name].[hash:8].[ext]'
+        }
+      },
       {
         test: /\module-importer.import$/,
         use: {
