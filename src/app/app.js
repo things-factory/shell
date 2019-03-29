@@ -45,7 +45,8 @@ class ThingsApp extends connect(store)(LitElement) {
       _snackbarOpened: { type: Boolean },
       _offline: { type: Boolean },
       _authenticated: { type: Boolean },
-      _message: { type: String }
+      _message: { type: String },
+      _modules: { type: Array }
     }
   }
 
@@ -156,6 +157,10 @@ class ThingsApp extends connect(store)(LitElement) {
         // This object also takes an image property, that points to an img src.
       })
     }
+
+    if (changedProps.has('_modules')) {
+      this.appendFactoryModules()
+    }
   }
 
   stateChanged(state) {
@@ -164,6 +169,19 @@ class ThingsApp extends connect(store)(LitElement) {
     this._snackbarOpened = state.app.snackbarOpened
     this._message = state.app.message
     this._authenticated = state.auth.authenticated
+    this._modules = state.factoryModule.modules
+  }
+
+  appendFactoryModules() {
+    var main = this.shadowRoot.querySelector('main')
+    ;(this._modules || []).forEach(m => {
+      m.routes.forEach(route => {
+        var el = document.createElement(route.tagname)
+        el.setAttribute('class', 'page')
+
+        main.appendChild(el)
+      })
+    })
   }
 
   onProfileChanged(e) {

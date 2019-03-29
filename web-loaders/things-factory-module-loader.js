@@ -52,7 +52,7 @@ module.exports = function(content) {
     'var metas = [];\n' +
     Object.keys(metas)
       .map((module, idx) => {
-        return `import v${idx} from "${metas[module]}";\nmetas["${module}"] = v${idx};`
+        return `import v${idx} from "${metas[module]}";\nmetas[${idx}] = v${idx};`
       })
       .join(';\n') +
     ';\nexport default metas;'
