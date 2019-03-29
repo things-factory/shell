@@ -146,6 +146,10 @@ class ThingsApp extends connect(store)(LitElement) {
     installRouter(location => store.dispatch(navigate(decodeURIComponent(location.pathname))))
     installOfflineWatcher(offline => store.dispatch(updateOffline(offline)))
     installMediaQueryWatcher(`(min-width: 460px)`, matches => store.dispatch(updateLayout(matches)))
+
+    this._modules.forEach(m => {
+      m.bootstrap && m.bootstrap()
+    })
   }
 
   updated(changedProps) {
