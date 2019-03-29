@@ -121,17 +121,17 @@ class ThingsApp extends connect(store)(LitElement) {
 
       <!-- Main content -->
       <main role="main" class="main-content">
-        <menu-list class="page" ?active="${this._page === 'list'}"></menu-list>
-        <form-viewer class="page" ?active="${this._page === 'form'}"></form-viewer>
-        <board-viewer class="page" ?active="${this._page === 'board'}"></board-viewer>
-        <board-player class="page" ?active="${this._page === 'player'}"></board-player>
-        <report-viewer class="page" ?active="${this._page === 'report'}"></report-viewer>
+        <menu-list class="page" data-page="list"></menu-list>
+        <form-viewer class="page" data-page="form"></form-viewer>
+        <board-viewer class="page" data-page="board"></board-viewer>
+        <board-player class="page" data-page="player"></board-player>
+        <report-viewer class="page" data-page="report"></report-viewer>
 
-        <page-404 class="page" ?active="${this._page === 'page404'}"></page-404>
+        <page-404 class="page" data-page="page404"></page-404>
 
-        <auth-signin class="page" ?active=${this._page === 'signin'}></auth-signin>
-        <auth-signup class="page" ?active=${this._page === 'signup'}></auth-signup>
-        <auth-profile class="page" ?active=${this._page === 'profile'}></auth-profile>
+        <auth-signin class="page" data-page="signin"></auth-signin>
+        <auth-signup class="page" data-page="signup"></auth-signup>
+        <auth-profile class="page" data-page="profile"></auth-profile>
       </main>
 
       <footer>
@@ -160,6 +160,14 @@ class ThingsApp extends connect(store)(LitElement) {
         description: pageTitle
         // This object also takes an image property, that points to an img src.
       })
+
+      var activePages = this.shadowRoot.querySelectorAll('main > .page[active]')
+      activePages.forEach(page => {
+        page.removeAttribute('active')
+      })
+
+      var activePage = this.shadowRoot.querySelector(`main > .page[data-page=${this._page}]`)
+      activePage && activePage.setAttribute('active', true)
     }
 
     if (changedProps.has('_modules')) {
@@ -182,6 +190,7 @@ class ThingsApp extends connect(store)(LitElement) {
       m.routes.forEach(route => {
         var el = document.createElement(route.tagname)
         el.setAttribute('class', 'page')
+        el.setAttribute('data-page', route.pageName)
 
         main.appendChild(el)
       })
@@ -196,7 +205,6 @@ class ThingsApp extends connect(store)(LitElement) {
     var auth = e.detail
     store.dispatch(updateAuthenticated(auth))
     store.dispatch(
-      // showSnackbar(`you are now in ${auth.authenticated ? 'signed in' : 'signed out'}`)
       showSnackbar(
         i18next.t('text.you.are.now.in', {
           state: {

@@ -78,7 +78,11 @@ class MenuList extends LitElement {
               ${c.map(
                 i =>
                   html`
-                    <li style="height: ${i.height}px"><a href="/board">${i.text}</a></li>
+                    <li style="height: ${i.height}px">
+                      <a href=${['/list', '/board', '/form', '/player', '/tester'][Math.round(Math.random() * 100) % 5]}
+                        >${i.text}</a
+                      >
+                    </li>
                   `
               )}
             </ul>
