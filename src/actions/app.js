@@ -5,6 +5,8 @@ export const UPDATE_OFFLINE = 'UPDATE_OFFLINE'
 export const OPEN_SNACKBAR = 'OPEN_SNACKBAR'
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR'
 
+import modules from '../module-importer.import'
+
 export const navigate = path => dispatch => {
   const page = path === '/' ? 'list' : path.slice(1)
 
@@ -50,8 +52,18 @@ const loadPage = page => dispatch => {
       break
 
     default:
-      page = 'page404'
-      import('../app/pages/page-404.js')
+      console.log('modules!', modules)
+      for (var i in modules) {
+        var module = modules[i]
+        console.log('route!!!', module)
+        var success = module.route(page)
+        if (success) break
+      }
+
+      if (!success) {
+        page = 'page404'
+        import('../app/pages/page-404.js')
+      }
   }
 
   dispatch(updatePage(page))
