@@ -122,6 +122,7 @@ class ThingsApp extends connect(store)(LitElement) {
       <!-- Main content -->
       <main role="main" class="main-content">
         <menu-list class="page" data-page="list"></menu-list>
+        <menu-grid-list class="page" data-page="grid-list"></menu-grid-list>
         <form-viewer class="page" data-page="form"></form-viewer>
         <board-viewer class="page" data-page="board"></board-viewer>
         <board-player class="page" data-page="player"></board-player>

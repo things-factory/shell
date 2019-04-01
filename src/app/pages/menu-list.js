@@ -15,6 +15,7 @@ class MenuList extends LitElement {
           justify-content: center;
         }
         #main > ul {
+          flex: 1;
           padding: 0;
           margin: 0;
           list-style: none;
@@ -51,6 +52,7 @@ class MenuList extends LitElement {
       items: {
         type: Array
       },
+      columnConfig: Object,
       _columnCount: {
         type: Number
       },
@@ -66,7 +68,13 @@ class MenuList extends LitElement {
         :host {
           --menu-list-item-margin: ${this.itemGap}px 0;
           --menu-list-column-margin: 0 ${this.columnGap}px;
-          --menu-list-column-width: ${this.columnWidth}px;
+        }
+
+        @media (max-width: 600px) {
+          :host {
+            --menu-list-item-margin: 0;
+            --menu-list-column-margin: 0;
+          }
         }
       </style>
       <page-toolbar></page-toolbar>
@@ -79,7 +87,10 @@ class MenuList extends LitElement {
                 i =>
                   html`
                     <li style="height: ${i.height}px">
-                      <a href=${['/list', '/board', '/form', '/player', '/tester'][Math.round(Math.random() * 100) % 5]}
+                      <a
+                        href=${['/list', '/board', '/form', '/player', '/tester', 'grid-list'][
+                          Math.round(Math.random() * 100) % 5
+                        ]}
                         >${i.text}</a
                       >
                     </li>
@@ -100,9 +111,17 @@ class MenuList extends LitElement {
     this.columnGap = 5
     this.itemGap = 5
     this.items = []
-    this._columnCount = 1
+
+    this.columnConfig = {
+      600: 3,
+      1200: 4,
+      1800: 5,
+      2400: 6
+    }
 
     this._columns = []
+
+    window.addEventListener('resize', this.onResize.bind(this))
   }
 
   firstUpdated() {
@@ -113,16 +132,7 @@ class MenuList extends LitElement {
       })
     }
 
-    var ro = new ResizeObserver(entries => {
-      for (let entry of entries) {
-        const cr = entry.contentRect
-        this.calculateColumnCount()
-        this.distributeColumnItems()
-      }
-    })
-
-    // Observe one or multiple elements
-    ro.observe(this.shadowRoot.getElementById('main'))
+    this.onResize()
   }
 
   distributeColumnItems() {
@@ -145,6 +155,20 @@ class MenuList extends LitElement {
       Math.floor(mainEl.clientWidth / (this.columnWidth + this.columnGap * 2)),
       this.maxColumnCount
     )
+  }
+
+  onResize() {
+    // innerWidth < width
+    var columnCount = 2
+    for (const width in this.columnConfig) {
+      var cnt = this.columnConfig[width]
+      if (innerWidth > width) {
+        columnCount = cnt
+      } else break
+    }
+
+    this._columnCount = columnCount
+    this.distributeColumnItems()
   }
 }
 

@@ -22,6 +22,12 @@ const loadPage = page => dispatch => {
         // navigating to view1 after my-view1.js is loaded.
       })
       break
+    case 'grid-list':
+      import('../app/pages/menu-grid-list.js').then(module => {
+        // Put code in here that you want to run every time when
+        // navigating to view1 after my-view1.js is loaded.
+      })
+      break
 
     case 'form':
       import('../app/pages/form-viewer.js')
