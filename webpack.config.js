@@ -98,6 +98,12 @@ module.exports = {
         {
           from: path.resolve(__dirname, 'assets/**/*'),
           to: OUTPUT_PATH
+        },
+        {
+          from: path.resolve(process.cwd(), 'node_modules/@things-factory/**/assets/locales/**/*'),
+          to: 'assets/[1]/locales/[name].[ext]',
+          toType: 'template',
+          test: /node_modules\/@things\-factory\/(\w+)/
         }
       ],
       {
