@@ -7,7 +7,7 @@ export const OPEN_SNACKBAR = 'OPEN_SNACKBAR'
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR'
 
 export const navigate = ({ pathname: path, search }) => dispatch => {
-  const reg = /\/(.+)\/(.+)/
+  const reg = /\/([^\/]+)\/*([^\/]*)/
   const decodePath = decodeURIComponent(path)
   const matchReturn = decodePath.match(reg) || []
   const page = matchReturn[1] || 'list'
@@ -17,7 +17,6 @@ export const navigate = ({ pathname: path, search }) => dispatch => {
   searchParams.forEach((value, key) => {
     params[key] = value
   })
-  console.log(page, id, params)
   // Any other info you might want to extract from the path (like page type),
   // you can do here
   dispatch(loadPage(page, id, params))
