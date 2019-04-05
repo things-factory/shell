@@ -34,7 +34,7 @@ class ThingsApp extends connect(store)(LitElement) {
       )
     })
 
-    this.baseUrl = 'http://board-demo.hatiolab.com/rest'
+    this.baseUrl = 'http://52.231.75.202/rest'
     this.authProvider = BoardAuthProvider
   }
 
