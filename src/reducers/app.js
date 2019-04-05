@@ -2,6 +2,8 @@ import { UPDATE_PAGE, UPDATE_OFFLINE, OPEN_SNACKBAR, CLOSE_SNACKBAR } from '../a
 
 const INITIAL_STATE = {
   page: '',
+  resourceId: '',
+  params: {},
   offline: false,
   snackbarOpened: false,
   message: ''
@@ -12,7 +14,9 @@ const app = (state = INITIAL_STATE, action) => {
     case UPDATE_PAGE:
       return {
         ...state,
-        page: action.page
+        page: action.page,
+        resourceId: action.resourceId,
+        params: action.params
       }
     case UPDATE_OFFLINE:
       return {

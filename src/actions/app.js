@@ -6,15 +6,24 @@ export const UPDATE_OFFLINE = 'UPDATE_OFFLINE'
 export const OPEN_SNACKBAR = 'OPEN_SNACKBAR'
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR'
 
-export const navigate = path => dispatch => {
-  const page = path === '/' ? 'list' : path.slice(1)
-
+export const navigate = ({ pathname: path, search }) => dispatch => {
+  const reg = /\/(.+)\/(.+)/
+  const decodePath = decodeURIComponent(path)
+  const matchReturn = decodePath.match(reg) || []
+  const page = matchReturn[1] || 'list'
+  const id = matchReturn[2]
+  var searchParams = new URLSearchParams(search)
+  var params = {}
+  searchParams.forEach((value, key) => {
+    params[key] = value
+  })
+  console.log(page, id, params)
   // Any other info you might want to extract from the path (like page type),
   // you can do here
-  dispatch(loadPage(page))
+  dispatch(loadPage(page, id, params))
 }
 
-const loadPage = page => dispatch => {
+const loadPage = (page, id, params) => dispatch => {
   switch (page) {
     case 'list':
       import('../app/pages/menu-list.js').then(module => {
@@ -73,13 +82,15 @@ const loadPage = page => dispatch => {
       }
   }
 
-  dispatch(updatePage(page))
+  dispatch(updatePage(page, id, params))
 }
 
-const updatePage = page => {
+const updatePage = (page, id, params) => {
   return {
     type: UPDATE_PAGE,
-    page
+    page,
+    resourceId: id,
+    params
   }
 }
 let snackbarTimer
