@@ -1,8 +1,45 @@
 const path = require('path')
 const fs = require('fs')
 const loaderUtils = require('loader-utils')
+const fetchPackage = require('package-json')
+const glob = require('glob')
+const { solve } = require('dependency-solver')
 
-module.exports = function(content) {
+const depMap = {}
+
+function getThingsFactoryDependencyNames() {
+  var files = glob.sync('node_modules/@things-factory/**/package.json', {})
+  return files.map(f => {
+    var matched = f.match(/(@things\-.+\/.+)\/package\.json$/)
+    var packageName = matched[1]
+    return packageName
+  })
+}
+
+async function getDependencies(packageNames = []) {
+  await new Promise(async (resolve, reject) => {
+    for (const name of packageNames) {
+      var packageJson = await fetchPackage(name, 'latest')
+      var deps = Object.keys(packageJson.dependencies || [])
+
+      // await getDeps.getByName(name).then(async deps => {
+      var filtered = deps.filter(d => {
+        return d.indexOf('@things-factory') !== -1
+      })
+
+      if (!filtered || filtered.length === 0) continue
+      if (depMap[name]) continue
+
+      depMap[name] = filtered
+      await getDependencies(filtered)
+      // })
+    }
+
+    return resolve()
+  })
+}
+
+module.exports = async function(content) {
   const module_folders = {}
 
   const options = loaderUtils.getOptions(this) || {}
@@ -46,6 +83,22 @@ module.exports = function(content) {
     } catch (e) {
       console.warn('[things-factory-module-loader]', 'things-factory.config.js file not found.')
     }
+  }
+
+  // currentModuleDependencies
+  try {
+    const cwd = process.cwd()
+    const pkg = require(path.resolve(cwd, 'package.json'))
+    var packageNames = getThingsFactoryDependencyNames()
+    packageNames.push(pkg.name)
+
+    await getDependencies(packageNames)
+
+    var topoSorted = solve(depMap)
+
+    console.log('TOPO SORTED', topoSorted)
+  } catch (e) {
+    console.error(e)
   }
 
   var result =
