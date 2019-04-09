@@ -80,13 +80,6 @@ module.exports = async function(content) {
 
     orderedModuleNames = solve(dependencyMap)
 
-    if (!pkg['things-factory']) {
-      let idx = orderedModuleNames.indexOf(pkg.name)
-      if (idx !== -1) {
-        orderedModuleNames.splice(idx, 1)
-      }
-    }
-
     console.log('Ordered Modules : ', orderedModuleNames)
   } catch (e) {
     console.error(e)
