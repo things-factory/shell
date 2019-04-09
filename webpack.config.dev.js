@@ -2,7 +2,6 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const OUTPUT_PATH = path.resolve('./dist')
-const PUBLIC_PATH = '/dist/'
 
 console.log('output path: ', OUTPUT_PATH)
 
@@ -28,7 +27,7 @@ module.exports = {
   mode: 'development',
   devServer: {
     historyApiFallback: true,
-    contentBase: path.join(process.cwd(), OUTPUT_PATH),
+    contentBase: OUTPUT_PATH,
     publicPath: '/',
     port: 8080
   },

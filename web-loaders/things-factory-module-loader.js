@@ -2,52 +2,41 @@ const path = require('path')
 const fs = require('fs')
 const loaderUtils = require('loader-utils')
 const fetchPackage = require('package-json')
-const glob = require('glob')
 const { solve } = require('dependency-solver')
 
-const depMap = {}
-
-function getThingsFactoryDependencyNames() {
-  var files = glob.sync('node_modules/@things-factory/**/package.json', {})
-  return files.map(f => {
-    var matched = f.match(/(@things\-.+\/.+)\/package\.json$/)
-    var packageName = matched[1]
-    return packageName
-  })
-}
-
 async function getDependencies(packageNames = []) {
-  await new Promise(async (resolve, reject) => {
-    for (const name of packageNames) {
-      var packageJson = await fetchPackage(name, 'latest')
-      var deps = Object.keys(packageJson.dependencies || [])
+  var dependencyMap = {}
 
-      // await getDeps.getByName(name).then(async deps => {
-      var filtered = deps.filter(d => {
-        return d.indexOf('@things-factory') !== -1
-      })
+  for (const name of packageNames) {
+    var packageJson = await fetchPackage(name, 'latest')
 
-      if (!filtered || filtered.length === 0) continue
-      if (depMap[name]) continue
+    var deps = Object.keys(packageJson.dependencies || [])
 
-      depMap[name] = filtered
-      await getDependencies(filtered)
-      // })
+    var filtered = deps.filter(d => d.startsWith('@things-factory/'))
+
+    if (!filtered || filtered.length === 0) continue
+    if (dependencyMap[name]) continue
+
+    dependencyMap[name] = filtered
+
+    dependencyMap = {
+      ...dependencyMap,
+      ...(await getDependencies(filtered))
     }
+  }
 
-    return resolve()
-  })
+  return dependencyMap
 }
 
 module.exports = async function(content) {
-  const module_folders = {}
+  const moduleConfigMap = {}
 
   const options = loaderUtils.getOptions(this) || {}
 
-  var module_path = options.module_path ? options.module_path : path.resolve(__dirname, '../node_modules')
+  var modulePath = options.module_path ? options.module_path : path.resolve(__dirname, '../node_modules')
 
   try {
-    const thingsdir = path.resolve(module_path, '@things-factory')
+    const thingsdir = path.resolve(modulePath, '@things-factory')
     const folders = fs.readdirSync(thingsdir)
 
     /**
@@ -56,7 +45,9 @@ module.exports = async function(content) {
     folders.forEach(folder => {
       try {
         const pkg = require(path.resolve(thingsdir, folder, 'package.json'))
-        if (pkg['things-factory']) module_folders[pkg.name] = path.resolve(thingsdir, folder)
+        if (pkg['things-factory']) {
+          moduleConfigMap[pkg.name] = path.resolve(thingsdir, folder, 'things-factory.config.js')
+        }
       } catch (e) {
         console.warn(e)
       }
@@ -65,51 +56,57 @@ module.exports = async function(content) {
     console.warn('[things-factory-module-loader]', '@things-factory module folder not found.')
   }
 
+  var orderedModuleNames = []
+
   try {
-    /* 현재폴더의 package.json을 보고 추가한다. */
+    /* 현재폴더의 package.json을 보고 moduleConfigMap에 추가한다. */
     const cwd = process.cwd()
     const pkg = require(path.resolve(cwd, 'package.json'))
-    if (pkg['things-factory']) module_folders[pkg.name] = cwd
-  } catch (e) {
-    console.error(e)
-  }
-
-  var metas = {}
-
-  for (let moduleName in module_folders) {
-    let folder = module_folders[moduleName]
-    try {
-      metas[moduleName] = `${folder}/things-factory.config.js`
-    } catch (e) {
-      console.warn('[things-factory-module-loader]', 'things-factory.config.js file not found.')
+    if (pkg['things-factory']) {
+      moduleConfigMap[pkg.name] = path.resolve(cwd, 'things-factory.config.js')
     }
-  }
 
-  // currentModuleDependencies
-  try {
-    const cwd = process.cwd()
-    const pkg = require(path.resolve(cwd, 'package.json'))
-    var packageNames = getThingsFactoryDependencyNames()
-    packageNames.push(pkg.name)
+    /* Project 의 dependencies/dev-dependencies를 시작으로 dependencies traverse를 정열한다. */
+    const deps = {
+      ...pkg.dependencies,
+      ...pkg.devDependencies
+    }
 
-    await getDependencies(packageNames)
+    const packageNames = Object.keys(deps).filter(dep => dep.startsWith('@things-factory/'))
+    const dependencyMap = {
+      [pkg.name]: packageNames,
+      ...(await getDependencies(packageNames))
+    }
 
-    var topoSorted = solve(depMap)
+    orderedModuleNames = solve(dependencyMap)
 
-    console.log('TOPO SORTED', topoSorted)
+    if (!pkg['things-factory']) {
+      let idx = orderedModuleNames.indexOf(pkg.name)
+      if (idx !== -1) {
+        orderedModuleNames.splice(idx, 1)
+      }
+    }
+
+    console.log('Ordered Modules : ', orderedModuleNames)
   } catch (e) {
     console.error(e)
   }
 
-  var result =
-    'var metas = [];\n' +
-    Object.keys(metas)
-      .map((module, idx) => {
-        return `import v${idx} from "${metas[module]}";\nmetas[${idx}] = v${idx};`
-      })
-      .join(';\n') +
-    ';\nexport default metas;'
+  var result = `
+  var metas = [];
 
+  ${orderedModuleNames
+    .filter(name => moduleConfigMap[name])
+    .map((module, idx) => {
+      return `
+        import v${idx} from "${moduleConfigMap[module]}";
+        metas[${idx}] = v${idx};
+      `
+    })
+    .join('')}
+  
+  export default metas;
+  `
   console.log('exports: ', result)
 
   return result
