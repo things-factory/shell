@@ -37,21 +37,6 @@ const loadPage = (page, id, params) => dispatch => {
       })
       break
 
-    case 'form':
-      import('../app/pages/form-viewer.js')
-      break
-
-    case 'board':
-      import('../app/pages/board-viewer.js')
-      break
-
-    case 'player':
-      import('../app/pages/board-player.js')
-      break
-    case 'report':
-      import('../app/pages/report-viewer.js')
-      break
-
     case 'signup':
       import('@things-shell/client-auth/template-board/signup.js')
       break
