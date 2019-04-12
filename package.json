@@ -6,9 +6,6 @@
   "repository": "http://github.com/things-factory/things-app-starter-kit",
   "author": "Hearty Oh <heartyoh@hatiolab.com>",
   "license": "MIT",
-  "bin": {
-    "things-factory": "bin/things-factory"
-  },
   "scripts": {
     "serve:dev": "webpack-dev-server --mode development --config webpack.config.dev.js",
     "build": "webpack --mode production",

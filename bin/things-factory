@@ -1,5 +1,0 @@
-#!/usr/bin/env node
-
-'use strict'
-
-require('@things-factory/shell/server/server')
