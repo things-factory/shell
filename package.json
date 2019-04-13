@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "things app starter kit",
   "main": "src/index.js",
   "repository": "http://github.com/things-factory/things-app-starter-kit",
@@ -19,7 +19,6 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.4.2",
-    "@hatiolab/things-scene": "*",
     "@material/mwc-button": "^0.5.0",
     "@material/mwc-icon": "^0.5.0",
     "@things-shell/client-auth": "^0.3.4",
