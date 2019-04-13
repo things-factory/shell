@@ -58,6 +58,10 @@ module.exports = {
       //   }
       // }
       {
+        test: /\.mjs$/,
+        type: 'javascript/auto'
+      },
+      {
         test: /\.(gif|jpe?g|png)$/,
         loader: 'url-loader?limit=25000',
         query: {
@@ -80,6 +84,20 @@ module.exports = {
             module_path: nodeModulePath
           }
         }
+      },
+      {
+        test: /things-scene-components.import$/,
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'things-scene-webpack-loader',
+            options: {
+              module_path: nodeModulePath
+            }
+          }
+        ]
       }
     ]
   },
@@ -95,6 +113,10 @@ module.exports = {
     new CopyWebpackPlugin(
       [
         {
+          from: path.resolve(__dirname, 'manifest.*'),
+          to: OUTPUT_PATH
+        },
+        {
           from: path.resolve(__dirname, 'assets/**/*'),
           to: OUTPUT_PATH
         },
@@ -106,7 +128,24 @@ module.exports = {
         }
       ],
       {
+        /* shell project base */
         context: __dirname
+      }
+    ),
+    new CopyWebpackPlugin(
+      [
+        {
+          from: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js*',
+          to: OUTPUT_PATH
+        },
+        {
+          from: 'node_modules/web-animations-js/web-animations-next.min.js*',
+          to: OUTPUT_PATH
+        }
+      ],
+      {
+        /* each project base */
+        context: process.cwd()
       }
     )
   ]
