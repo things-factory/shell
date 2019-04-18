@@ -100,9 +100,6 @@ class ThingsApp extends connect(store)(LitElement) {
     return html`
       <!-- Main content -->
       <main role="main" class="main-content">
-        <menu-list class="page" data-page="list"></menu-list>
-        <menu-grid-list class="page" data-page="grid-list"></menu-grid-list>
-
         <page-404 class="page" data-page="page404"></page-404>
       </main>
 

@@ -25,35 +25,20 @@ export const navigate = ({ pathname: path, search }) => dispatch => {
 }
 
 const loadPage = (page, id, params) => dispatch => {
-  switch (page) {
-    case 'list':
-      import('../app/pages/menu-list.js').then(module => {
-        // Put code in here that you want to run every time when
-        // navigating to view1 after my-view1.js is loaded.
-      })
-      break
-    case 'grid-list':
-      import('../app/pages/menu-grid-list.js').then(module => {
-        // Put code in here that you want to run every time when
-        // navigating to view1 after my-view1.js is loaded.
-      })
-      break
 
-    default:
-      let state = store.getState()
-      if (state.factoryModule) {
-        let modules = state.factoryModule.modules
-        for (let i in modules) {
-          let factoryModule = modules[i]
-          var success = factoryModule.route && factoryModule.route(page)
-          if (success) break
-        }
-      }
+  var state = store.getState()
+  if (state.factoryModule) {
+    let modules = state.factoryModule.modules
+    for (let i in modules) {
+      let factoryModule = modules[i]
+      var success = factoryModule.route && factoryModule.route(page)
+      if (success) break
+    }
+  }
 
-      if (!success) {
-        page = 'page404'
-        import('../app/pages/page-404.js')
-      }
+  if (!success) {
+    page = 'page404'
+    import('../app/pages/page-404.js')
   }
 
   dispatch(updatePage(page, id, params))
