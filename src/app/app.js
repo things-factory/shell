@@ -158,7 +158,7 @@ class ThingsApp extends connect(store)(LitElement) {
   appendFactoryModules() {
     var main = this.shadowRoot.querySelector('main')
     ;(this._modules || []).forEach(m => {
-      m &&
+      m.routes &&
         m.routes.forEach(route => {
           var el = document.createElement(route.tagname)
           el.setAttribute('class', 'page')
