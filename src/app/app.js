@@ -158,13 +158,14 @@ class ThingsApp extends connect(store)(LitElement) {
   appendFactoryModules() {
     var main = this.shadowRoot.querySelector('main')
     ;(this._modules || []).forEach(m => {
-      m.routes.forEach(route => {
-        var el = document.createElement(route.tagname)
-        el.setAttribute('class', 'page')
-        el.setAttribute('data-page', route.pageName)
+      m &&
+        m.routes.forEach(route => {
+          var el = document.createElement(route.tagname)
+          el.setAttribute('class', 'page')
+          el.setAttribute('data-page', route.pageName)
 
-        main.appendChild(el)
-      })
+          main.appendChild(el)
+        })
     })
   }
 }

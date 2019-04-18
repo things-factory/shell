@@ -45,7 +45,7 @@ const loadPage = (page, id, params) => dispatch => {
         let modules = state.factoryModule.modules
         for (let i in modules) {
           let factoryModule = modules[i]
-          var success = factoryModule.route(page)
+          var success = factoryModule.route && factoryModule.route(page)
           if (success) break
         }
       }
