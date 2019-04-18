@@ -20,3 +20,6 @@ export * from './app/layouts'
 
 // styles
 export * from './app/styles'
+
+// utils
+export * from './utils'
