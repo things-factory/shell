@@ -5,7 +5,7 @@ import '@material/mwc-button/mwc-button'
 
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { store } from '../../store'
-import { i18next } from '../i18next'
+import { i18next } from '../../base/i18next'
 
 class PageToolbar extends connect(store)(LitElement) {
   constructor() {

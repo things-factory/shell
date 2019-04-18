@@ -1,10 +1,11 @@
 import { html, LitElement } from 'lit-element'
 
 import '../layouts/page-toolbar'
+import { PageView } from '../layouts/page-view'
 
 import { SharedStyles } from '../styles/shared-styles'
 
-class ReportViewer extends LitElement {
+class ReportViewer extends PageView {
   static get styles() {
     return [SharedStyles]
   }

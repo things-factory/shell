@@ -1,16 +1,18 @@
 import { store } from '../store'
-import { i18next } from '../app/i18next'
+import { i18next } from '../base/i18next'
 
 export const UPDATE_PAGE = 'UPDATE_PAGE'
 export const UPDATE_OFFLINE = 'UPDATE_OFFLINE'
 export const OPEN_SNACKBAR = 'OPEN_SNACKBAR'
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR'
+export const UPDATE_BASE_URL = 'UPDATE_BASE_URL'
+export const HOMEPAGE = 'index'
 
 export const navigate = ({ pathname: path, search }) => dispatch => {
   const reg = /\/([^\/]+)\/*([^\/]*)/
   const decodePath = decodeURIComponent(path)
   const matchReturn = decodePath.match(reg) || []
-  const page = matchReturn[1] || 'list'
+  const page = matchReturn[1] || HOMEPAGE
   const id = matchReturn[2]
   var searchParams = new URLSearchParams(search)
   var params = {}
@@ -35,18 +37,6 @@ const loadPage = (page, id, params) => dispatch => {
         // Put code in here that you want to run every time when
         // navigating to view1 after my-view1.js is loaded.
       })
-      break
-
-    case 'signup':
-      import('@things-shell/client-auth/template-board/signup.js')
-      break
-
-    case 'signin':
-      import('@things-shell/client-auth/template-board/signin.js')
-      break
-
-    case 'profile':
-      import('@things-shell/client-auth/template-board/profile.js')
       break
 
     default:

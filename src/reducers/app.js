@@ -1,4 +1,4 @@
-import { UPDATE_PAGE, UPDATE_OFFLINE, OPEN_SNACKBAR, CLOSE_SNACKBAR } from '../actions/app.js'
+import { UPDATE_PAGE, UPDATE_OFFLINE, OPEN_SNACKBAR, CLOSE_SNACKBAR, UPDATE_BASE_URL } from '../actions/app.js'
 
 const INITIAL_STATE = {
   page: '',
@@ -6,7 +6,9 @@ const INITIAL_STATE = {
   params: {},
   offline: false,
   snackbarOpened: false,
-  message: ''
+  message: '',
+  baseUrl: '', //'http://52.231.75.202/rest'
+  homePage: ''
 }
 
 const app = (state = INITIAL_STATE, action) => {
@@ -33,6 +35,11 @@ const app = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         snackbarOpened: false
+      }
+    case UPDATE_BASE_URL:
+      return {
+        ...state,
+        baseUrl: action.baseUrl
       }
     default:
       return state

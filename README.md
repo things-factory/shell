@@ -1,6 +1,6 @@
 Things-Factory는 모바일 중심의 App을 개발할 수 있는 환경이다.
 
-[ 특징 ]
+# 특징
 
 - 모듈 구조 기반이다.
   - 모듈별로 관련된 기능셋을 구성할 수 있다.
@@ -19,7 +19,7 @@ Things-Factory는 모바일 중심의 App을 개발할 수 있는 환경이다.
 - Zero Configuration 기능. SSDP (Service Discovery Protocol)을 이용해서 자동 연결될 서비스들을 자동으로 찾아내서, 관련된 기능을 제공한다. 예를 들면, 주변에 접속할 서버를 찾아내서 자동으로 접속을 시도한다.
 - Token 기반의 authentication (서버 프레임워크에서 지원하도록 개선필요함.)
 
-[ 구조적 conventions ]
+# 구조적 conventions
 
 - Redux
   - Redux 패턴은 application(system) wide한 상태를 관리한다.
@@ -54,7 +54,7 @@ Things-Factory는 모바일 중심의 App을 개발할 수 있는 환경이다.
       - Server 접속 IP
       - 기타 소스/리소스 오버라이드
 
-[ 기타 코딩 conventions ]
+# 기타 코딩 conventions
 
 - 소스파일 길이 권장
   - 각 소스파일은 가장 중요한 한가지 목적을 구현한다. (복합목적 보다는 단순목적을 담당하도록 한다.)
@@ -66,6 +66,35 @@ Things-Factory는 모바일 중심의 App을 개발할 수 있는 환경이다.
     - public 속성, 메쏘드 : 소문자로 시작, camel-case
     - class 속성, 메쏘드 : 소문자로 시작, camel-case
     - 이벤트 핸들러 : on + EventName 으로 시작, camel-case
+
+# Authentication
+
+## things-factory/shell
+
+- auth base를 통해 authentication process를 제어한다.
+  - auth base를 통해서 authentication을 설정한다.
+- auth action을 제공한다.
+  - authentication 관련 action을 통해 store를 변경할 수 있다.
+- auth reducer를 제공한다.
+- 즉, auth base를 통해서 설정하고, auth 관련 extension point 를 제공한다.
+
+## things-factory/auth-provider-session
+
+- session 방식의 authentication provider의 샘플
+- auth-provider를 제공한다
+- things-factory server에 사용할 수 있다
+  things-factory/auth-ui-session
+- session 방식의 authentication 의 샘플 뷰페이지를 제공한다
+
+## things-factory/auth-provider-jwt
+
+- JSON token 방식의 authentication provider의 샘플
+- auth-provider를 제공한다
+- things-shell server에 사용할 수 있다
+
+## things-factory/auth-ui-jwt
+
+- JSON token 방식의 authentication 의 샘플 뷰페이지를 제공한다
 
 # Prerequisites
 

@@ -5,15 +5,12 @@ import { installOfflineWatcher } from 'pwa-helpers/network.js'
 import { installRouter } from 'pwa-helpers/router.js'
 import { updateMetadata } from 'pwa-helpers/metadata.js'
 
-import { BoardAuthProvider } from '@things-shell/client-auth'
-
 import { store } from '../store.js'
 
 import { navigate, updateOffline, updateLayout, showSnackbar } from '../actions/app.js'
-import { updateUser, updateAuthenticated } from '../actions/auth.js'
 
 import { AppTheme } from './styles/app-theme'
-import { i18next } from './i18next'
+import { i18next } from '../base/i18next'
 
 import './components/snack-bar'
 import './components/i18n-msg'
@@ -33,9 +30,6 @@ class ThingsApp extends connect(store)(LitElement) {
         )
       )
     })
-
-    this.baseUrl = 'http://52.231.75.202/rest'
-    this.authProvider = BoardAuthProvider
   }
 
   static get properties() {
@@ -44,7 +38,6 @@ class ThingsApp extends connect(store)(LitElement) {
       _page: { type: String },
       _snackbarOpened: { type: Boolean },
       _offline: { type: Boolean },
-      _authenticated: { type: Boolean },
       _message: { type: String },
       _modules: { type: Array }
     }
@@ -105,30 +98,12 @@ class ThingsApp extends connect(store)(LitElement) {
 
   render() {
     return html`
-      <auth-router
-        .authProvider=${this.authProvider}
-        @authenticated-changed=${this.onAuthenticatedChanged}
-        @profile-changed=${this.onProfileChanged}
-        @error-changed=${this.onAuthErrorChanged}
-        .endpoint=${this.baseUrl}
-        auth-required-event="authentication-required"
-        signin-path="login"
-        signout-path="logout"
-        profile-path="session_info"
-        signin-page="signin"
-        signup-page="signup"
-      ></auth-router>
-
       <!-- Main content -->
       <main role="main" class="main-content">
         <menu-list class="page" data-page="list"></menu-list>
         <menu-grid-list class="page" data-page="grid-list"></menu-grid-list>
 
         <page-404 class="page" data-page="page404"></page-404>
-
-        <auth-signin class="page" data-page="signin"></auth-signin>
-        <auth-signup class="page" data-page="signup"></auth-signup>
-        <auth-profile class="page" data-page="profile"></auth-profile>
       </main>
 
       <footer>
@@ -177,7 +152,6 @@ class ThingsApp extends connect(store)(LitElement) {
     this._offline = state.app.offline
     this._snackbarOpened = state.app.snackbarOpened
     this._message = state.app.message
-    this._authenticated = state.auth.authenticated
     this._modules = state.factoryModule.modules
   }
 
@@ -192,30 +166,6 @@ class ThingsApp extends connect(store)(LitElement) {
         main.appendChild(el)
       })
     })
-  }
-
-  onProfileChanged(e) {
-    store.dispatch(updateUser(e.detail.profile))
-  }
-
-  onAuthenticatedChanged(e) {
-    var auth = e.detail
-    store.dispatch(updateAuthenticated(auth))
-    store.dispatch(
-      showSnackbar(
-        i18next.t('text.you.are.now.in', {
-          state: {
-            text: i18next.t(auth.authenticated ? 'text.signed in' : 'text.signed out')
-          }
-        })
-      )
-    )
-  }
-
-  onAuthErrorChanged() {
-    if (this.authError) {
-      store.dispatch(showSnackbar(this.authError))
-    }
   }
 }
 

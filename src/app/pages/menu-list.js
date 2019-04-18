@@ -1,10 +1,11 @@
 import { html, css, LitElement, property } from 'lit-element'
 
 import '../layouts/page-toolbar'
+import { PageView } from '../layouts/page-view'
 
 import { SharedStyles } from '../styles/shared-styles'
 
-class MenuList extends LitElement {
+class MenuList extends PageView {
   static get styles() {
     return [
       SharedStyles,

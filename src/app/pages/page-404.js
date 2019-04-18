@@ -1,10 +1,11 @@
 import { html, LitElement } from 'lit-element'
 
 import '../layouts/page-toolbar'
+import { PageView } from '../layouts/page-view'
 
 import { SharedStyles } from '../styles/shared-styles'
 
-class Page404 extends LitElement {
+class Page404 extends PageView {
   static get styles() {
     return [SharedStyles]
   }
@@ -14,7 +15,7 @@ class Page404 extends LitElement {
       <page-toolbar></page-toolbar>
 
       <section>
-        page not found
+        page not found (Page-404)
       </section>
     `
   }

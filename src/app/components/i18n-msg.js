@@ -5,7 +5,7 @@
 import { LitElement, html } from 'lit-element'
 
 import { localize } from '../mixins/localize-mixin'
-import { i18next } from '../i18next'
+import { i18next } from '../../base/i18next'
 
 export default class I18nMsg extends localize(i18next)(LitElement) {
   static get properties() {

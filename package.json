@@ -21,7 +21,6 @@
     "@babel/preset-env": "^7.4.2",
     "@material/mwc-button": "^0.5.0",
     "@material/mwc-icon": "^0.5.0",
-    "@things-shell/client-auth": "^0.3.4",
     "@webcomponents/webcomponentsjs": "^2.2.7",
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^2.0.1",
