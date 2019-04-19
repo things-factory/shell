@@ -50,7 +50,8 @@ class ThingsApp extends connect(store)(LitElement) {
       AppTheme,
       css`
         :host {
-          display: block;
+          display: flex;
+          flex-direction: row;
         }
 
         header {
@@ -72,20 +73,24 @@ class ThingsApp extends connect(store)(LitElement) {
 
         /* Workaround for IE11 displaying <main> as inline */
         main {
-          display: block;
+          flex: 1;
+
+          display: flex;
+          flex-direction: column;
+
+          width: 100vw;
+          height: 100vh;
         }
 
-        .page {
+        main > * {
           display: none;
         }
 
-        .page[active] {
-          display: block;
-        }
+        main > *[active] {
+          flex: 1;
 
-        footer {
-          border-top: 1px solid #ccc;
-          text-align: center;
+          display: flex;
+          flex-direction: column;
         }
 
         /* Wide layout */
@@ -104,10 +109,6 @@ class ThingsApp extends connect(store)(LitElement) {
       <main role="main" class="main-content">
         <page-404 class="page" data-page="page404"></page-404>
       </main>
-
-      <footer>
-        <p>Powered by Things-Factory&trade;</p>
-      </footer>
 
       <snack-bar ?active="${this._snackbarOpened}">${this._message}</snack-bar>
     `
