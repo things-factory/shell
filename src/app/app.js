@@ -5,12 +5,14 @@ import { installOfflineWatcher } from 'pwa-helpers/network.js'
 import { installRouter } from 'pwa-helpers/router.js'
 import { updateMetadata } from 'pwa-helpers/metadata.js'
 
-import { store } from '../store.js'
+import { store } from '../store'
 
-import { navigate, updateOffline, updateLayout, showSnackbar } from '../actions/app.js'
+import { navigate, updateOffline, updateLayout, showSnackbar } from '../actions/app'
+import { updateAuthenticated, updateUser } from '../actions/auth'
 
 import { AppTheme } from './styles/app-theme'
 import { i18next } from '../base/i18next'
+import { auth } from '../base/auth'
 
 import './components/snack-bar'
 import './components/i18n-msg'
@@ -116,12 +118,36 @@ class ThingsApp extends connect(store)(LitElement) {
     installOfflineWatcher(offline => store.dispatch(updateOffline(offline)))
     installMediaQueryWatcher(`(min-width: 460px)`, matches => store.dispatch(updateLayout(matches)))
 
+    auth.on('signin', accessToken => {
+      store.dispatch(updateAuthenticated(true))
+    })
+
+    auth.on('signout', () => {
+      store.dispatch(updateAuthenticated(false))
+    })
+
+    auth.on('profile', profile => {
+      store.dispatch(updateUser(profile))
+    })
+
+    /* lifecycle - bootstrapping */
+    this.dispatchEvent(new Event('lifecycle-bootstrap-begin'))
     this._modules.forEach(m => {
       m.bootstrap && m.bootstrap()
     })
+    this.dispatchEvent(new Event('lifecycle-bootstrap-finish'))
   }
 
   updated(changedProps) {
+    /* lifecycle - online, offline */
+    if (changedProps.has('_offline')) {
+      if (this._offline) {
+        this.dispatchEvent(new Event('lifecycle-offline'))
+      } else {
+        this.dispatchEvent(new Event('lifecycle-online'))
+      }
+    }
+
     if (changedProps.has('_page')) {
       const pageTitle = this.appTitle + ' - ' + this._page
       updateMetadata({

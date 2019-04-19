@@ -25,7 +25,6 @@ export const navigate = ({ pathname: path, search }) => dispatch => {
 }
 
 const loadPage = (page, id, params) => dispatch => {
-
   var state = store.getState()
   if (state.factoryModule) {
     let modules = state.factoryModule.modules
