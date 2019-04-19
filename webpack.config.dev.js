@@ -29,6 +29,7 @@ module.exports = {
     historyApiFallback: true,
     contentBase: OUTPUT_PATH,
     publicPath: '/',
+    host: '0.0.0.0',
     port: 8080
   },
   entry: {
@@ -45,24 +46,12 @@ module.exports = {
   resolveLoader: {
     modules: [nodeModulePath, path.resolve(shellModulePath, 'web-loaders')]
   },
-  // entry: {
-  //   bundle: [
-  //     path.resolve(thingsShellModulePath, './src/index.js'),
-  //     'webpack-hot-client/client?path=/__webpack_hmr&timeout=20000&reload=true'
-  //   ]
-  // },
   // output: {
   //   path: OUTPUT_PATH,
   //   publicPath: PUBLIC_PATH
   // },
   module: {
     rules: [
-      // {
-      //   test: /\.js$/,
-      //   use: {
-      //     loader: 'babel-loader'
-      //   }
-      // }
       {
         test: /\.mjs$/,
         type: 'javascript/auto'
