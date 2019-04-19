@@ -133,7 +133,11 @@ class ThingsApp extends connect(store)(LitElement) {
     /* lifecycle - bootstrapping */
     this.dispatchEvent(new Event('lifecycle-bootstrap-begin'))
     this._modules.forEach(m => {
-      m.bootstrap && m.bootstrap()
+      try {
+        m.bootstrap && m.bootstrap()
+      } catch (e) {
+        console.error(e)
+      }
     })
     this.dispatchEvent(new Event('lifecycle-bootstrap-finish'))
   }
