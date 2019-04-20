@@ -35,12 +35,22 @@ Things-Factory는 모바일 중심의 App을 개발할 수 있는 환경이다.
       - 컴포넌트는 자신을 사용할 호스트(컨테이너)의 레이아웃(display, position)에 대한 전제를 갖지 않도록 한다.
   - page, layout 들은 redux에 커넥트한다.
   - component들은 redux에 커넥트하지 않고, 속성을 통해서 page와 연동한다.
-- Base Module 과 확장(common) Module
+- Base Module 과 확장(common) Modules (ex. provider, ui)
   - Base Module은 특별한 기능에 대한 추상적인 정의를 제공한다.
   - Base Module은 확장 모듈에게 기능적인 서비스를 제공한다고 할 수 있다.
   - 확장 모듈은 Base Module을 피종속모듈로 추가하고, Base Module에서 정의한 기능을 직접 사용할 수 있다.
   - 확장 모듈이 Base Module을 확장하는 또 다른 방법은 store에 추가된 reducer와 action을 사용하는 것이다.
   - Base Module은 일군의 모듈을 리딩하는 기반 모듈이라고 할 수 있다. 예를 들면, board-base 라는 모듈은 모든 board 기능과 관련한 기반 모듈이라고 할 수 있다. 또한 label-base 라는 모듈은 라벨과 관련한 기능을 정의하고 구현하게 되는데, 바코드라벨 팝업기능, 바코드라벨 스캔기능, 바코드라벨 렌더링 및 프린트 기능 등을 제공하게 된다.
+  - xxx 모듈의 Base 모듈 네이밍 컨벤션은 'xxx-base' 이다.
+- Provider Module
+  - Base 모듈의 데이타를 채워주는 서브 모듈
+  - 주로 외부 서버로부터 Base 모듈에서 정의한 데이타를 채워주는 역할을 한다.
+  - xxx 모듈의 Provider 모듈의 네이밍 컨벤션은 'xxx-provider' 이다.
+  - 데이타 제공 방식으로 구분될 필요가 있다면, yyy방식을 사용하는 xxx 모듈의 Provider 모듈의 네이밍 컨벤션은 'xxx-provider-yyy' 로 할 수 있다.
+- UI Module
+  - Base 모듈과 관련된 화면 구성을 담당하는 서브 모듈
+  - xxx 모듈의 Provider 모듈의 네이밍 컨벤션은 'xxx-ui' 이다.
+  - UI 구성 방식으로 구분될 필요가 있다면, yyy방식을 사용하는 xxx 모듈의 UI 모듈의 네이밍 컨벤션은 'xxx-ui-yyy' 로 할 수 있다.
 - Shell, Module 그리고 Application
   - Shell은 개발 및 실행 단계에서 모듈 구조를 가능하게 하는 모든 구조를 제공한다.
     - redux, assets, routing, authentication, localize
@@ -77,14 +87,18 @@ Things-Factory는 모바일 중심의 App을 개발할 수 있는 환경이다.
   - authentication 관련 action을 통해 store를 변경할 수 있다.
 - auth reducer를 제공한다.
 - 즉, auth base를 통해서 설정하고, auth 관련 extension point 를 제공한다.
+- 특별히, auth base 기능은 things-factory shell에서 직접 제공한다.
 
 ## things-factory/auth-provider-session
 
-- session 방식의 authentication provider의 샘플
+- Session key 방식의 authentication provider의 샘플
 - auth-provider를 제공한다
 - things-factory server에 사용할 수 있다
   things-factory/auth-ui-session
-- session 방식의 authentication 의 샘플 뷰페이지를 제공한다
+
+## things-factory/auth-ui-session
+
+- Session key 방식의 authentication 의 샘플 뷰페이지를 제공한다
 
 ## things-factory/auth-provider-jwt
 
