@@ -190,7 +190,7 @@ class ThingsApp extends connect(store)(LitElement) {
         m.routes.forEach(route => {
           var el = document.createElement(route.tagname)
           el.setAttribute('class', 'page')
-          el.setAttribute('data-page', route.pageName)
+          el.setAttribute('data-page', route.page)
 
           main.appendChild(el)
         })
