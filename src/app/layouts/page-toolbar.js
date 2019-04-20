@@ -65,7 +65,7 @@ class PageToolbar extends connect(store)(LitElement) {
           height: 100%;
           align-items: center;
           overflow: hidden;
-          padding: 10px;
+          padding: 0 10px 0 10px;
         }
 
         ::slotted(*) {
