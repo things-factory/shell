@@ -40,7 +40,7 @@ Things-Factory는 모바일 중심의 App을 개발할 수 있는 환경이다.
   - Base Module은 확장 모듈에게 기능적인 서비스를 제공한다고 할 수 있다.
   - 확장 모듈은 Base Module을 피종속모듈로 추가하고, Base Module에서 정의한 기능을 직접 사용할 수 있다.
   - 확장 모듈이 Base Module을 확장하는 또 다른 방법은 store에 추가된 reducer와 action을 사용하는 것이다.
-  - Base Module은 일군의 모듈을 리딩하는 기반 모듈이라고 할 수 있다. 예를 들면, base-board 라는 모듈은 모든 board 기능과 관련한 기반 모듈이라고 할 수 있다. 또한 base-label 라는 모듈은 라벨과 관련한 기능을 정의하고 구현하게 되는데, 바코드라벨 팝업기능, 바코드라벨 스캔기능, 바코드라벨 렌더링 및 프린트 기능 등을 제공하게 된다.
+  - Base Module은 일군의 모듈을 리딩하는 기반 모듈이라고 할 수 있다. 예를 들면, board-base 라는 모듈은 모든 board 기능과 관련한 기반 모듈이라고 할 수 있다. 또한 label-base 라는 모듈은 라벨과 관련한 기능을 정의하고 구현하게 되는데, 바코드라벨 팝업기능, 바코드라벨 스캔기능, 바코드라벨 렌더링 및 프린트 기능 등을 제공하게 된다.
 - Shell, Module 그리고 Application
   - Shell은 개발 및 실행 단계에서 모듈 구조를 가능하게 하는 모든 구조를 제공한다.
     - redux, assets, routing, authentication, localize
