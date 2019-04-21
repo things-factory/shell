@@ -6,6 +6,7 @@ export const UPDATE_OFFLINE = 'UPDATE_OFFLINE'
 export const OPEN_SNACKBAR = 'OPEN_SNACKBAR'
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR'
 export const UPDATE_BASE_URL = 'UPDATE_BASE_URL'
+export const UPDATE_LAYOUT = 'UPDATE_LAYOUT'
 export const HOMEPAGE = 'index'
 
 export const navigate = ({ pathname: path, search }) => dispatch => {
@@ -15,7 +16,7 @@ export const navigate = ({ pathname: path, search }) => dispatch => {
   const page = matchReturn[1] || HOMEPAGE
   const id = matchReturn[2]
   const searchParams = new URLSearchParams(search)
-  
+
   var params = {}
   searchParams.forEach((value, key) => {
     params[key] = value
@@ -26,7 +27,7 @@ export const navigate = ({ pathname: path, search }) => dispatch => {
   dispatch(loadPage(page, id, params))
 }
 
-const _preLoadPage = (page) => {
+const _preLoadPage = page => {
   /*
    * _preLoadPage 에서는 page를 load하기 전처리를 수행한다.
    * 예를 들면, page dynamic import 또는 page re-routing
@@ -39,8 +40,8 @@ const _preLoadPage = (page) => {
     for (let i in modules) {
       let factoryModule = modules[i]
       var _page = factoryModule.route && factoryModule.route(page)
-      if(_page) {
-        if(_page !== page) {
+      if (_page) {
+        if (_page !== page) {
           // routing 된 경우는 _preLoadPage를 다시 실행한다.
           return _preLoadPage(_page)
         } else {
@@ -102,4 +103,8 @@ export const updateOffline = offline => (dispatch, getState) => {
 
 export const updateLayout = wide => (dispatch, getState) => {
   console.log(`The window changed to a ${wide ? 'wide' : 'narrow'} layout`)
+  dispatch({
+    type: UPDATE_LAYOUT,
+    layout: wide ? 'WIDE' : 'NARROW'
+  })
 }

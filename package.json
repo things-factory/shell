@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "things app starter kit",
   "main": "src/index.js",
   "repository": "http://github.com/things-factory/things-app-starter-kit",
