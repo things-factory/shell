@@ -18,5 +18,15 @@ export const AppTheme = css`
     --mdc-theme-primary: tomato;
     --mdc-theme-on-secondary: white;
     --mdc-theme-secondary: tomato;
+
+    /* simple grid themes */
+    --grid-header-background-color:#eceff4;
+    --grid-header-border-color:#b9c4d7;
+    --grid-record-background-color: #fff;
+    --grid-record-odd-background-color: #f3f4f6;      
+    --grid-footer-background-color:#93a4c3;
+    --grid-header-color:#47596d;
+    --grid-header-fontsize: 13px;
+    --grid-record-wide-fontsize: 13px;
   }
 `
