@@ -49,7 +49,7 @@ Things-Factory는 모바일 중심의 App을 개발할 수 있는 환경이다.
   - 데이타 제공 방식으로 구분될 필요가 있다면, yyy방식을 사용하는 xxx 모듈의 Provider 모듈의 네이밍 컨벤션은 'xxx-provider-yyy' 로 할 수 있다.
 - UI Module
   - Base 모듈과 관련된 화면 구성을 담당하는 서브 모듈
-  - xxx 모듈의 Provider 모듈의 네이밍 컨벤션은 'xxx-ui' 이다.
+  - xxx 모듈의 UI 모듈의 네이밍 컨벤션은 'xxx-ui' 이다.
   - UI 구성 방식으로 구분될 필요가 있다면, yyy방식을 사용하는 xxx 모듈의 UI 모듈의 네이밍 컨벤션은 'xxx-ui-yyy' 로 할 수 있다.
 - Shell, Module 그리고 Application
   - Shell은 개발 및 실행 단계에서 모듈 구조를 가능하게 하는 모든 구조를 제공한다.
