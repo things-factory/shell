@@ -7,23 +7,9 @@ import { connect } from 'pwa-helpers/connect-mixin.js'
 import { store } from '../../store'
 import { i18next } from '../../base/i18next'
 
-class PageToolbar extends connect(store)(LitElement) {
-  constructor() {
-    super()
-
-    this.email = ''
-    this.drawerOpened = false
-  }
-
+class AppToolbar extends connect(store)(LitElement) {
   static get properties() {
-    return {
-      // statePath: 'auth.locale'
-      locale: Object,
-      // statePath: 'app.drawerOpened'
-      drawerOpened: Boolean,
-      // statePath: 'app.auth.user.email
-      email: String
-    }
+    return {}
   }
 
   static get styles() {
@@ -98,16 +84,12 @@ class PageToolbar extends connect(store)(LitElement) {
           font-size: 20px;
         }
 
-        [logo] {
-          width: 45px;
-          height: 45px;
-        }
-
         span.space {
           width: 10px;
         }
 
-        [user] {
+        [user],
+        [setting] {
           border-radius: 50%;
           background-color: var(--secondary-color);
           padding: 2px;
@@ -129,33 +111,19 @@ class PageToolbar extends connect(store)(LitElement) {
   render() {
     return html`
       <div app-toolbar>
-
-        <img
-          src="/assets/images/logo.png"
-          class="menu-btn"
-          title="Menu"
-          @click=${e => this._onDrawerOpen(e)}
-          ?hidden=${this.drawerOpened}
-          logo>
-        </img>
+        <mwc-icon setting>settings</mwc-icon>
 
         <slot></slot>
-        
+
         <span class="padding"></span>
 
         <div id="user-box">
           <a href="/profile">
-            <mwc-icon title="acting" user>person</mwc-icon>
+            <mwc-icon title="user" user>person</mwc-icon>
           </a>
 
-          <mwc-button .label=${this.email}
-            slot="dropdown-trigger"></mwc-button>
-
-          <!-- <div id="more"
-          @click=${this.showMorePanel}>...</div> -->
-
+          <!-- <div id="more" @click=${this.showMorePanel}>...</div> -->
         </div>
-
       </div>
     `
   }
@@ -165,8 +133,6 @@ class PageToolbar extends connect(store)(LitElement) {
   // }
 
   // addMorenda() {
-  //   var name = Math.random()
-
   //   store.dispatch({
   //     type: ADD_MORENDA,
   //     morenda: {
@@ -184,8 +150,8 @@ class PageToolbar extends connect(store)(LitElement) {
   //         i18next.changeLanguage(e.target.value)
   //       }}"
   //     >
-  //       <option value="en-US" ?selected="${i18next.language == 'en-US'}">English</option>
-  //       <option value="ko-KR" ?selected="${i18next.language == 'ko-KR'}">한국어</option>
+  //       <option value="en-US" ?selected=${i18next.language == 'en-US'}>English</option>
+  //       <option value="ko-KR" ?selected=${i18next.language == 'ko-KR'}>한국어</option>
   //     </select>
   //   `
   // }
@@ -218,4 +184,4 @@ class PageToolbar extends connect(store)(LitElement) {
   }
 }
 
-customElements.define('page-toolbar', PageToolbar)
+customElements.define('app-toolbar', AppToolbar)

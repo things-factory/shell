@@ -17,7 +17,7 @@ import { auth } from '../base/auth'
 import './components/snack-bar'
 import './components/i18n-msg'
 
-import './layouts/more-panel'
+import './layouts/app-toolbar'
 
 class ThingsApp extends connect(store)(LitElement) {
   constructor() {
@@ -44,7 +44,9 @@ class ThingsApp extends connect(store)(LitElement) {
       _offline: { type: Boolean },
       _message: { type: String },
       _modules: { type: Array },
-      _showMore: Boolean
+      _sidebarLeft: Array,
+      _sidebarRight: Array,
+      _footer: Array
     }
   }
 
@@ -54,7 +56,7 @@ class ThingsApp extends connect(store)(LitElement) {
       css`
         :host {
           display: flex;
-          flex-direction: row;
+          flex-direction: column;
         }
 
         header {
@@ -79,25 +81,30 @@ class ThingsApp extends connect(store)(LitElement) {
           flex: 1;
 
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
 
           width: 100vw;
           height: 100vh;
         }
 
-        main > * {
-          display: none;
-        }
-
-        main > *[active] {
+        #main-content {
           flex: 1;
 
           display: flex;
           flex-direction: column;
+
+          width: 100vw;
         }
 
-        more-panel {
+        #main-content > * {
           display: none;
+        }
+
+        #main-content > *[active] {
+          flex: 1;
+
+          display: flex;
+          flex-direction: column;
         }
 
         /* Wide layout */
@@ -112,14 +119,39 @@ class ThingsApp extends connect(store)(LitElement) {
 
   render() {
     return html`
+      <app-toolbar></app-toolbar>
+
       <!-- Main content -->
-      <main role="main" class="main-content">
-        <page-404 class="page" data-page="page404"></page-404>
+      <main role="main">
+        <slot id="sidebar-left">
+          ${this._sidebarLeft.map(
+            sidebar => html`
+              ${sidebar.template}
+            `
+          )}
+        </slot>
+
+        <div id="main-content">
+          <page-404 class="page" data-page="page404"></page-404>
+        </div>
+
+        <slot id="sidebar-right">
+          ${this._sidebarRight.map(
+            sidebar => html`
+              ${sidebar.template}
+            `
+          )}
+        </slot>
       </main>
 
-      <more-panel></more-panel>
-
-      <snack-bar ?active="${this._snackbarOpened}">${this._message}</snack-bar>
+      <slot id="footer">
+        <snack-bar ?active="${this._snackbarOpened}">${this._message}</snack-bar>
+        ${this._footer.map(
+          footer => html`
+            ${footer.template}
+          `
+        )}
+      </slot>
     `
   }
 
@@ -175,12 +207,12 @@ class ThingsApp extends connect(store)(LitElement) {
         // This object also takes an image property, that points to an img src.
       })
 
-      var activePages = this.shadowRoot.querySelectorAll('main > .page[active]')
+      let activePages = this.shadowRoot.querySelectorAll('#main-content > .page[active]')
       activePages.forEach(page => {
         page.removeAttribute('active')
       })
 
-      var activePage = this.shadowRoot.querySelector(`main > .page[data-page=${this._page}]`)
+      let activePage = this.shadowRoot.querySelector(`#main-content > .page[data-page=${this._page}]`)
       activePage && activePage.setAttribute('active', true)
     }
 
@@ -195,11 +227,13 @@ class ThingsApp extends connect(store)(LitElement) {
     this._snackbarOpened = state.app.snackbarOpened
     this._message = state.app.message
     this._modules = state.factoryModule.modules
-    this._showMore = state.more.show
+    this._sidebarLeft = state.layout.sidebarLeft
+    this._sidebarRight = state.layout.sidebarRight
+    this._footer = state.layout.footer
   }
 
   appendFactoryModules() {
-    var main = this.shadowRoot.querySelector('main')
+    var main = this.shadowRoot.querySelector('#main-content')
     ;(this._modules || []).forEach(m => {
       m.routes &&
         m.routes.forEach(route => {
