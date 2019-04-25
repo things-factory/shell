@@ -17,6 +17,8 @@ import { auth } from '../base/auth'
 import './components/snack-bar'
 import './components/i18n-msg'
 
+import './layouts/more-panel'
+
 class ThingsApp extends connect(store)(LitElement) {
   constructor() {
     super()
@@ -41,7 +43,8 @@ class ThingsApp extends connect(store)(LitElement) {
       _snackbarOpened: { type: Boolean },
       _offline: { type: Boolean },
       _message: { type: String },
-      _modules: { type: Array }
+      _modules: { type: Array },
+      _showMore: Boolean
     }
   }
 
@@ -93,6 +96,10 @@ class ThingsApp extends connect(store)(LitElement) {
           flex-direction: column;
         }
 
+        more-panel {
+          display: none;
+        }
+
         /* Wide layout */
         @media (min-width: 460px) {
           header {
@@ -109,6 +116,8 @@ class ThingsApp extends connect(store)(LitElement) {
       <main role="main" class="main-content">
         <page-404 class="page" data-page="page404"></page-404>
       </main>
+
+      <more-panel></more-panel>
 
       <snack-bar ?active="${this._snackbarOpened}">${this._message}</snack-bar>
     `
@@ -144,6 +153,11 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   updated(changedProps) {
+    if (changedProps.has('_showMore')) {
+      let morePanel = this.shadowRoot.querySelector('more-panel')
+      morePanel.style.display = this._showMore ? 'block' : 'none'
+    }
+
     /* lifecycle - online, offline */
     if (changedProps.has('_offline')) {
       if (this._offline) {
@@ -181,6 +195,7 @@ class ThingsApp extends connect(store)(LitElement) {
     this._snackbarOpened = state.app.snackbarOpened
     this._message = state.app.message
     this._modules = state.factoryModule.modules
+    this._showMore = state.more.show
   }
 
   appendFactoryModules() {

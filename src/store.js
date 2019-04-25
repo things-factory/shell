@@ -5,6 +5,7 @@ import { lazyReducerEnhancer } from 'pwa-helpers/lazy-reducer-enhancer.js'
 import app from './reducers/app.js'
 import auth from './reducers/auth.js'
 import factoryModule from './reducers/module.js'
+import more from './reducers/more.js'
 
 // Sets up a Chrome extension for time travel debugging.
 // See https://github.com/zalmoxisus/redux-devtools-extension for more information.
@@ -24,5 +25,6 @@ export const store = createStore(
 store.addReducers({
   app,
   auth,
-  factoryModule
+  factoryModule,
+  more
 })

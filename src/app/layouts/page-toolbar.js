@@ -7,6 +7,8 @@ import { connect } from 'pwa-helpers/connect-mixin.js'
 import { store } from '../../store'
 import { i18next } from '../../base/i18next'
 
+import { TOGGLE_MORE_PANEL, ADD_MORENDA } from '../../actions/more'
+
 class PageToolbar extends connect(store)(LitElement) {
   constructor() {
     super()
@@ -160,10 +162,35 @@ class PageToolbar extends connect(store)(LitElement) {
             <option value="ko-KR" ?selected="${i18next.language == 'ko-KR'}">한국어</option>
           </select>
 
+          <div id="addmorenda"
+          @click=${this.addMorenda}>+++</div>
+
+          <div id="more"
+          @click=${this.showMorePanel}>...</div>
+
         </div>
 
       </div>
     `
+  }
+
+  addMorenda() {
+    store.dispatch({
+      type: ADD_MORENDA,
+      morenda: {
+        icon: 'aaa.png',
+        name: Math.random(),
+        action: e => {
+          alert(`HELLO`)
+        }
+      }
+    })
+  }
+
+  showMorePanel() {
+    store.dispatch({
+      type: TOGGLE_MORE_PANEL
+    })
   }
 
   stateChanged(state) {
