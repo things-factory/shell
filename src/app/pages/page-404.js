@@ -17,8 +17,6 @@ class Page404 extends PageView {
 
   render() {
     return html`
-      <page-toolbar></page-toolbar>
-
       <section>
         page not found (Page-404)
       </section>
