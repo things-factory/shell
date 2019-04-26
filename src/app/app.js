@@ -40,12 +40,13 @@ class ThingsApp extends connect(store)(LitElement) {
 
   static get properties() {
     return {
-      appTitle: { type: String },
-      _page: { type: String },
-      _snackbarOpened: { type: Boolean },
-      _offline: { type: Boolean },
-      _message: { type: String },
-      _modules: { type: Array },
+      appTitle: String,
+      _page: String,
+      _activePage: Object,
+      _snackbarOpened: Boolean,
+      _offline: Boolean,
+      _message: String,
+      _modules: Array,
       _sidebarLeft: Array,
       _sidebarRight: Array,
       _footer: Array
@@ -58,7 +59,7 @@ class ThingsApp extends connect(store)(LitElement) {
 
   render() {
     return html`
-      <app-toolbar></app-toolbar>
+      <app-toolbar .activePage=${this._activePage}></app-toolbar>
 
       <!-- Main content -->
       <main role="main">
@@ -155,8 +156,9 @@ class ThingsApp extends connect(store)(LitElement) {
         page.removeAttribute('active')
       })
 
-      let activePage = this.shadowRoot.querySelector(`#main-content > .page[data-page=${this._page}]`)
-      activePage && activePage.setAttribute('active', true)
+      console.log('app page updated', this._page)
+      this._activePage = this.shadowRoot.querySelector(`#main-content > .page[data-page=${this._page}]`)
+      this._activePage && this._activePage.setAttribute('active', true)
     }
 
     if (changedProps.has('_modules')) {

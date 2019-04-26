@@ -10,8 +10,9 @@ import { TOOL_POSITION } from '../../actions/layout'
 class AppToolbar extends connect(store)(LitElement) {
   static get properties() {
     return {
+      activePage: Object,
       _appTools: Array,
-      _page: String
+      _pageTools: Object
     }
   }
 
@@ -103,6 +104,7 @@ class AppToolbar extends connect(store)(LitElement) {
               ${tool.template}
             `
         )}
+        ${this._pageTools || html``}
       </slot>
 
       <span class="padding"></span>
@@ -174,7 +176,25 @@ class AppToolbar extends connect(store)(LitElement) {
 
   stateChanged(state) {
     this._appTools = state.layout.appTools
-    this._page = state.app.page
+  }
+
+  updated(changedProps) {
+    if (changedProps.has('activePage')) {
+      // TODO active page가 바뀐 이후에도 아직 import(lazy loading)되지 않은 상황에서는
+      // activePage.tools 결과가 undefined 이다.
+      // 일단은, 100ms마다 계속 시도하는 것으로 하였으나, 더 좋은 방법이 있다면 개선한다.
+
+      clearTimeout(this._timeout)
+
+      var _ = () => {
+        this._pageTools = this.activePage && this.activePage.tools
+        if (!this._pageTools) {
+          this._timeout = setTimeout(_, 100)
+        }
+      }
+
+      _()
+    }
   }
 
   _onDrawerOpen(e) {

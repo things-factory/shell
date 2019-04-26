@@ -53,6 +53,8 @@ const _preLoadPage = page => {
 }
 
 const loadPage = (page, id, params) => dispatch => {
+  console.log('load page updated', page)
+
   page = _preLoadPage(page)
 
   if (!page) {
@@ -60,16 +62,12 @@ const loadPage = (page, id, params) => dispatch => {
     import('../app/pages/page-404.js')
   }
 
-  dispatch(updatePage(page, id, params))
-}
-
-const updatePage = (page, id, params) => {
-  return {
+  dispatch({
     type: UPDATE_PAGE,
     page,
     resourceId: id,
     params
-  }
+  })
 }
 
 let snackbarTimer

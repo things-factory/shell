@@ -1,4 +1,4 @@
-import { LitElement } from 'lit-element'
+import { LitElement, html } from 'lit-element'
 
 export class PageView extends LitElement {
   // Only render this page if it's actually visible.
@@ -8,7 +8,9 @@ export class PageView extends LitElement {
 
   static get properties() {
     return {
-      active: { type: Boolean }
+      active: Boolean
     }
   }
+
+  get tools() {}
 }

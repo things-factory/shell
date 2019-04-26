@@ -1,6 +1,5 @@
-import { html, LitElement } from 'lit-element'
+import { html } from 'lit-element'
 
-import '../layouts/page-toolbar'
 import { PageView } from '../layouts/page-view'
 
 import { SharedStyles } from '../styles/shared-styles'
@@ -8,6 +7,12 @@ import { SharedStyles } from '../styles/shared-styles'
 class Page404 extends PageView {
   static get styles() {
     return [SharedStyles]
+  }
+
+  get tools() {
+    return html`
+      <label>Page Not Found</label>
+    `
   }
 
   render() {
