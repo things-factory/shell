@@ -5,11 +5,13 @@ import '@material/mwc-button/mwc-button'
 
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { store } from '../../store'
-import { i18next } from '../../base/i18next'
 
 class AppToolbar extends connect(store)(LitElement) {
   static get properties() {
-    return {}
+    return {
+      _appTools: Array,
+      _page: String
+    }
   }
 
   static get styles() {
@@ -109,13 +111,32 @@ class AppToolbar extends connect(store)(LitElement) {
   }
 
   render() {
+    var contextTools = this._page.contextTools
+    var frontMostTools = []
+    var frontTools = []
+    var backTools = []
+    var backMostTools = []
+
     return html`
       <div app-toolbar>
         <mwc-icon setting>settings</mwc-icon>
+        <slot id="frontMost">
+          ${frontMostTools}
+        </slot>
 
-        <slot></slot>
+        <slot id="front">
+          ${frontTools}
+        </slot>
 
         <span class="padding"></span>
+
+        <slot id="back">
+          ${backTools}
+        </slot>
+
+        <slot id="backMost">
+          ${backMostTools}
+        </slot>
 
         <div id="user-box">
           <a href="/profile">
@@ -162,25 +183,24 @@ class AppToolbar extends connect(store)(LitElement) {
   //   })
   // }
 
+  // _onChangeLocale(e) {
+  //   var locale = e.target.getAttribute('locale')
+
+  //   i18next.changeLanguage(locale)
+
+  //   store.dispatch({
+  //     type: 'SET-LOCALE',
+  //     locale
+  //   })
+  // }
+
   stateChanged(state) {
-    this.locale = state.auth.locale
-    this.drawerOpened = state.app.drawerOpened
-    this.email = state.auth.user && state.auth.user.email
+    this._appTools = state.layout.appTools
+    this._page = state.app.page
   }
 
   _onDrawerOpen(e) {
     store.dispatch(updateDrawerState(true))
-  }
-
-  _onChangeLocale(e) {
-    var locale = e.target.getAttribute('locale')
-
-    i18next.changeLanguage(locale)
-
-    store.dispatch({
-      type: 'SET-LOCALE',
-      locale
-    })
   }
 }
 

@@ -1,11 +1,12 @@
-import { APPEND_SIDEBAR_LEFT, APPEND_SIDEBAR_RIGHT, APPEND_FOOTER } from '../actions/layout'
+import { APPEND_SIDEBAR_LEFT, APPEND_SIDEBAR_RIGHT, APPEND_FOOTER, APPEND_APP_TOOL } from '../actions/layout'
 
 import { html } from 'lit-html'
 
 const INITIAL_STATE = {
   sidebarLeft: [],
   sidebarRight: [],
-  footer: []
+  footer: [],
+  appTools: []
 }
 
 const layout = (state = INITIAL_STATE, action) => {
@@ -29,6 +30,13 @@ const layout = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         footer: [...state.footer, footer]
+      }
+
+    case APPEND_APP_TOOL:
+      let tool = action.tool
+      return {
+        ...state,
+        appTools: [...state.appTools, tool]
       }
 
     default:
