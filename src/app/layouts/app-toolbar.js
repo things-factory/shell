@@ -5,6 +5,7 @@ import '@material/mwc-button/mwc-button'
 
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { store } from '../../store'
+import { TOOL_POSITION } from '../../actions/layout'
 
 class AppToolbar extends connect(store)(LitElement) {
   static get properties() {
@@ -57,7 +58,6 @@ class AppToolbar extends connect(store)(LitElement) {
         }
 
         ::slotted(*) {
-          flex: 1;
           padding: 0px;
         }
 
@@ -86,6 +86,10 @@ class AppToolbar extends connect(store)(LitElement) {
           font-size: 20px;
         }
 
+        ::slotted(#rightEnd *) {
+          justify-content: right;
+        }
+
         span.space {
           width: 10px;
         }
@@ -111,40 +115,50 @@ class AppToolbar extends connect(store)(LitElement) {
   }
 
   render() {
-    var contextTools = this._page.contextTools
-    var frontMostTools = []
-    var frontTools = []
-    var backTools = []
-    var backMostTools = []
+    var leftEndTools = this._appTools.filter(tool => tool.position == TOOL_POSITION.LEFT_END)
+    var leftTools = this._appTools.filter(tool => tool.position == TOOL_POSITION.LEFT)
+    var rightTools = this._appTools.filter(tool => tool.position == TOOL_POSITION.RIGHT)
+    var rightEndTools = this._appTools.filter(tool => tool.position == TOOL_POSITION.RIGHT_END)
 
     return html`
       <div app-toolbar>
-        <mwc-icon setting>settings</mwc-icon>
-        <slot id="frontMost">
-          ${frontMostTools}
+        <slot id="leftEnd">
+          ${leftEndTools.map(
+            tool =>
+              html`
+                ${tool.template}
+              `
+          )}
         </slot>
 
-        <slot id="front">
-          ${frontTools}
+        <slot id="left">
+          ${leftTools.map(
+            tool =>
+              html`
+                ${tool.template}
+              `
+          )}
         </slot>
 
         <span class="padding"></span>
 
-        <slot id="back">
-          ${backTools}
+        <slot id="right">
+          ${rightTools.map(
+            tool =>
+              html`
+                ${tool.template}
+              `
+          )}
         </slot>
 
-        <slot id="backMost">
-          ${backMostTools}
+        <slot id="rightEnd">
+          ${rightEndTools.map(
+            tool =>
+              html`
+                ${tool.template}
+              `
+          )}
         </slot>
-
-        <div id="user-box">
-          <a href="/profile">
-            <mwc-icon title="user" user>person</mwc-icon>
-          </a>
-
-          <!-- <div id="more" @click=${this.showMorePanel}>...</div> -->
-        </div>
       </div>
     `
   }
