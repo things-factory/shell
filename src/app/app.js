@@ -14,6 +14,8 @@ import { AppTheme } from './styles/app-theme'
 import { i18next } from '../base/i18next'
 import { auth } from '../base/auth'
 
+import { AppStyle } from './app-style'
+
 import './components/snack-bar'
 import './components/i18n-msg'
 
@@ -51,70 +53,7 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   static get styles() {
-    return [
-      AppTheme,
-      css`
-        :host {
-          display: flex;
-          flex-direction: column;
-        }
-
-        header {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .toolbar-list > a {
-          display: inline-block;
-          color: black;
-          text-decoration: none;
-          padding: 0 8px;
-        }
-
-        .toolbar-list > a[selected] {
-          font-weight: bold;
-        }
-
-        /* Workaround for IE11 displaying <main> as inline */
-        main {
-          flex: 1;
-
-          display: flex;
-          flex-direction: row;
-
-          width: 100vw;
-          height: 100vh;
-        }
-
-        #main-content {
-          flex: 1;
-
-          display: flex;
-          flex-direction: column;
-
-          width: 100vw;
-        }
-
-        #main-content > * {
-          display: none;
-        }
-
-        #main-content > *[active] {
-          flex: 1;
-
-          display: flex;
-          flex-direction: column;
-        }
-
-        /* Wide layout */
-        @media (min-width: 460px) {
-          header {
-            flex-direction: row;
-          }
-        }
-      `
-    ]
+    return [AppTheme, AppStyle]
   }
 
   render() {
@@ -126,7 +65,9 @@ class ThingsApp extends connect(store)(LitElement) {
         <slot id="sidebar-left">
           ${this._sidebarLeft.map(
             sidebar => html`
-              ${sidebar.template}
+              <div ?hovering=${sidebar.hovering}>
+                ${sidebar.template}
+              </div>
             `
           )}
         </slot>
@@ -138,7 +79,9 @@ class ThingsApp extends connect(store)(LitElement) {
         <slot id="sidebar-right">
           ${this._sidebarRight.map(
             sidebar => html`
-              ${sidebar.template}
+              <div ?hovering=${sidebar.hovering}>
+                ${sidebar.template}
+              </div>
             `
           )}
         </slot>

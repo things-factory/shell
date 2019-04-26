@@ -19,10 +19,6 @@ class AppToolbar extends connect(store)(LitElement) {
     return [
       css`
         :host {
-          display: block;
-        }
-
-        [app-toolbar] {
           display: flex;
           background-color: var(--primary-dark-color);
           justify-content: space-between;
@@ -31,25 +27,12 @@ class AppToolbar extends connect(store)(LitElement) {
           color: var(--third-color);
         }
 
-        paper-menu-button {
-          padding-left: 0px;
-        }
-
-        mwc-button {
-          font-size: 14px;
-          margin: 0px;
-          padding: 0px;
-          vertical-align: middle;
-        }
-
         .padding {
           flex: 1;
         }
 
         slot {
           display: flex;
-          flex: 1;
-          flex-basis: 1280px;
           flex-wrap: nowrap;
           height: 100%;
           align-items: center;
@@ -93,23 +76,6 @@ class AppToolbar extends connect(store)(LitElement) {
         span.space {
           width: 10px;
         }
-
-        [user],
-        [setting] {
-          border-radius: 50%;
-          background-color: var(--secondary-color);
-          padding: 2px;
-          margin: 2px;
-
-          font-size: 1em;
-        }
-
-        #user-box {
-          flex-basis: 270px;
-          justify-content: flex-end;
-          align-items: center;
-          display: flex;
-        }
       `
     ]
   }
@@ -121,45 +87,43 @@ class AppToolbar extends connect(store)(LitElement) {
     var rightEndTools = this._appTools.filter(tool => tool.position == TOOL_POSITION.RIGHT_END)
 
     return html`
-      <div app-toolbar>
-        <slot id="leftEnd">
-          ${leftEndTools.map(
-            tool =>
-              html`
-                ${tool.template}
-              `
-          )}
-        </slot>
+      <slot id="leftEnd">
+        ${leftEndTools.map(
+          tool =>
+            html`
+              ${tool.template}
+            `
+        )}
+      </slot>
 
-        <slot id="left">
-          ${leftTools.map(
-            tool =>
-              html`
-                ${tool.template}
-              `
-          )}
-        </slot>
+      <slot id="left">
+        ${leftTools.map(
+          tool =>
+            html`
+              ${tool.template}
+            `
+        )}
+      </slot>
 
-        <span class="padding"></span>
+      <span class="padding"></span>
 
-        <slot id="right">
-          ${rightTools.map(
-            tool =>
-              html`
-                ${tool.template}
-              `
-          )}
-        </slot>
+      <slot id="right">
+        ${rightTools.map(
+          tool =>
+            html`
+              ${tool.template}
+            `
+        )}
+      </slot>
 
-        <slot id="rightEnd">
-          ${rightEndTools.map(
-            tool =>
-              html`
-                ${tool.template}
-              `
-          )}
-        </slot>
-      </div>
+      <slot id="rightEnd">
+        ${rightEndTools.map(
+          tool =>
+            html`
+              ${tool.template}
+            `
+        )}
+      </slot>
     `
   }
 
