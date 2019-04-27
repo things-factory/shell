@@ -156,7 +156,6 @@ class ThingsApp extends connect(store)(LitElement) {
         page.removeAttribute('active')
       })
 
-      console.log('app page updated', this._page)
       this._activePage = this.shadowRoot.querySelector(`#main-content > .page[data-page=${this._page}]`)
       this._activePage && this._activePage.setAttribute('active', true)
     }

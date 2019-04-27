@@ -53,8 +53,6 @@ const _preLoadPage = page => {
 }
 
 const loadPage = (page, id, params) => dispatch => {
-  console.log('load page updated', page)
-
   page = _preLoadPage(page)
 
   if (!page) {
@@ -100,7 +98,6 @@ export const updateOffline = offline => (dispatch, getState) => {
 }
 
 export const updateLayout = wide => (dispatch, getState) => {
-  console.log(`The window changed to a ${wide ? 'wide' : 'narrow'} layout`)
   dispatch({
     type: UPDATE_LAYOUT,
     layout: wide ? 'WIDE' : 'NARROW'

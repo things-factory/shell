@@ -1,6 +1,9 @@
-const HTMLWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
+const webpack = require('webpack')
+const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const NodePackage = require('./package.json')
+
 const OUTPUT_PATH = path.resolve('./dist')
 
 console.log('output path: ', OUTPUT_PATH)
@@ -142,7 +145,13 @@ module.exports = {
         /* each project base */
         context: process.cwd()
       }
-    )
+    ),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE-ENV': JSON.stringify('production'),
+        'APP-VERSION': JSON.stringify(NodePackage.version)
+      }
+    })
   ],
   devtool: 'cheap-module-source-map'
 }

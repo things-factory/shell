@@ -4,6 +4,9 @@ export const AppStyle = css`
   :host {
     display: flex;
     flex-direction: column;
+
+    width: 100vw;
+    height: 100vh;
   }
 
   header {
@@ -12,26 +15,12 @@ export const AppStyle = css`
     align-items: center;
   }
 
-  .toolbar-list > a {
-    display: inline-block;
-    color: black;
-    text-decoration: none;
-    padding: 0 8px;
-  }
-
-  .toolbar-list > a[selected] {
-    font-weight: bold;
-  }
-
   /* Workaround for IE11 displaying <main> as inline */
   main {
     flex: 1;
 
     display: flex;
     flex-direction: row;
-
-    width: 100vw;
-    height: 100vh;
   }
 
   #main-content {
@@ -40,14 +29,14 @@ export const AppStyle = css`
     display: flex;
     flex-direction: column;
 
-    width: 100vw;
+    height: 100%;
   }
 
-  #main-content > * {
+  #main-content * {
     display: none;
   }
 
-  #main-content > *[active] {
+  #main-content *[active] {
     flex: 1;
 
     display: flex;

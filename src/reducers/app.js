@@ -14,7 +14,7 @@ const INITIAL_STATE = {
   offline: false,
   snackbarOpened: false,
   message: '',
-  baseUrl: '', //'http://52.231.75.202/rest'
+  baseUrl: location.origin,
   homePage: '',
   layout: 'WIDE'
 }
@@ -50,6 +50,8 @@ const app = (state = INITIAL_STATE, action) => {
         baseUrl: action.baseUrl
       }
     case UPDATE_LAYOUT:
+      console.log(`The layout changed to a ${action.layout} layout`)
+
       return {
         ...state,
         layout: action.layout

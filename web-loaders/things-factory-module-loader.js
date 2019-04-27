@@ -46,7 +46,13 @@ module.exports = async function(content) {
       try {
         const pkg = require(path.resolve(thingsdir, folder, 'package.json'))
         if (pkg['things-factory']) {
-          moduleConfigMap[pkg.name] = path.resolve(thingsdir, folder, 'things-factory.config.js')
+          moduleConfigMap[pkg.name] = {
+            name: pkg.name,
+            version: pkg.version,
+            config: path.resolve(thingsdir, folder, 'things-factory.config.js')
+          }
+
+          console.log(moduleConfigMap[pkg.name])
         }
       } catch (e) {
         console.warn(e)
@@ -86,19 +92,21 @@ module.exports = async function(content) {
   }
 
   var result = `
-  var metas = [];
+  export var modules = [];
 
   ${orderedModuleNames
     .filter(name => moduleConfigMap[name])
     .map((module, idx) => {
       return `
-        import v${idx} from "${moduleConfigMap[module]}";
-        metas[${idx}] = v${idx};
+        import v${idx} from "${moduleConfigMap[module].config}";
+        modules[${idx}] = {
+          ...v${idx},
+          name: "${moduleConfigMap[module].name}",
+          version: "${moduleConfigMap[module].version}",
+        }
       `
     })
     .join('')}
-  
-  export default metas;
   `
   console.log('exports: ', result)
 

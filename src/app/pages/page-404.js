@@ -11,7 +11,7 @@ class Page404 extends PageView {
 
   get tools() {
     return html`
-      <label>Page Not Found</label>
+      <label>♥Page Not Found♥</label>
     `
   }
 
