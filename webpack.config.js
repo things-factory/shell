@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
-const NodePackage = require('./package.json')
+const AppPackage = require('./package.json')
 
 const OUTPUT_PATH = path.resolve('./dist')
 
@@ -25,6 +25,8 @@ try {
 
 console.log('FactoryShell Module Path', shellModulePath)
 console.log('Extern Module Path', nodeModulePath)
+
+const ShellPackage = require(path.resolve(shellModulePath, 'package.json'))
 
 module.exports = {
   mode: 'production',
@@ -141,8 +143,11 @@ module.exports = {
     ),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE-ENV': JSON.stringify('development'),
-        'APP-VERSION': JSON.stringify(NodePackage.version)
+        'NODE-ENV': JSON.stringify('production'),
+        'SHELL-VERSION': JSON.stringify(ShellPackage.version),
+        'SHELL-LICENSE': JSON.stringify(ShellPackage.license),
+        'APP-VERSION': JSON.stringify(AppPackage.version),
+        'APP-LICENSE': JSON.stringify(AppPackage.license)
       }
     })
   ]

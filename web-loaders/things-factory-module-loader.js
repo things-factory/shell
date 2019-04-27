@@ -47,12 +47,9 @@ module.exports = async function(content) {
         const pkg = require(path.resolve(thingsdir, folder, 'package.json'))
         if (pkg['things-factory']) {
           moduleConfigMap[pkg.name] = {
-            name: pkg.name,
-            version: pkg.version,
+            pkg,
             config: path.resolve(thingsdir, folder, 'things-factory.config.js')
           }
-
-          console.log(moduleConfigMap[pkg.name])
         }
       } catch (e) {
         console.warn(e)
@@ -69,7 +66,10 @@ module.exports = async function(content) {
     const cwd = process.cwd()
     const pkg = require(path.resolve(cwd, 'package.json'))
     if (pkg['things-factory']) {
-      moduleConfigMap[pkg.name] = path.resolve(cwd, 'things-factory.config.js')
+      moduleConfigMap[pkg.name] = {
+        pkg,
+        config: path.resolve(cwd, 'things-factory.config.js')
+      }
     }
 
     /* Project 의 dependencies/dev-dependencies를 시작으로 dependencies traverse를 정열한다. */
@@ -85,30 +85,31 @@ module.exports = async function(content) {
     }
 
     orderedModuleNames = solve(dependencyMap)
-
-    console.log('Ordered Modules : ', orderedModuleNames)
   } catch (e) {
     console.error(e)
   }
 
+  console.info('\n[ ORDERED MODULE LIST ]')
+  orderedModuleNames.map((m, idx) => console.info(`- ${idx} : ${m}`))
+  console.info('[/ ORDERED MODULE LIST ]\n')
+
   var result = `
-  export var modules = [];
+export var modules = [];
 
   ${orderedModuleNames
     .filter(name => moduleConfigMap[name])
     .map((module, idx) => {
       return `
-        import v${idx} from "${moduleConfigMap[module].config}";
-        modules[${idx}] = {
-          ...v${idx},
-          name: "${moduleConfigMap[module].name}",
-          version: "${moduleConfigMap[module].version}",
-        }
-      `
+import v${idx} from "${moduleConfigMap[module].config}";
+modules[${idx}] = {
+  ...v${idx},
+  name: "${moduleConfigMap[module].pkg.name}",
+  version: "${moduleConfigMap[module].pkg.version}",
+  license: "${moduleConfigMap[module].pkg.license}"
+}
+`
     })
     .join('')}
   `
-  console.log('exports: ', result)
-
   return result
 }
