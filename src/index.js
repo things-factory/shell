@@ -18,11 +18,8 @@ export * from './store'
 // actions
 export * from './actions'
 
-// mixins
-export * from './app/mixins'
-
-// layouts
-export * from './app/layouts'
+// base class for page
+export * from './app/pages/page-view'
 
 // styles
 export * from './app/styles'

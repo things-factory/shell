@@ -1,22 +1,12 @@
-import {
-  UPDATE_PAGE,
-  UPDATE_OFFLINE,
-  OPEN_SNACKBAR,
-  CLOSE_SNACKBAR,
-  UPDATE_BASE_URL,
-  UPDATE_LAYOUT
-} from '../actions/app.js'
+import { UPDATE_PAGE, UPDATE_OFFLINE, UPDATE_BASE_URL } from '../actions/app.js'
 
 const INITIAL_STATE = {
   page: '',
   resourceId: '',
   params: {},
   offline: false,
-  snackbarOpened: false,
-  message: '',
   baseUrl: location.origin,
-  homePage: '',
-  layout: 'WIDE'
+  homePage: ''
 }
 
 const app = (state = INITIAL_STATE, action) => {
@@ -33,28 +23,10 @@ const app = (state = INITIAL_STATE, action) => {
         ...state,
         offline: action.offline
       }
-    case OPEN_SNACKBAR:
-      return {
-        ...state,
-        snackbarOpened: true,
-        message: action.message
-      }
-    case CLOSE_SNACKBAR:
-      return {
-        ...state,
-        snackbarOpened: false
-      }
     case UPDATE_BASE_URL:
       return {
         ...state,
         baseUrl: action.baseUrl
-      }
-    case UPDATE_LAYOUT:
-      console.log(`The layout changed to a ${action.layout} layout`)
-
-      return {
-        ...state,
-        layout: action.layout
       }
     default:
       return state

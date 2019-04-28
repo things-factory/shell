@@ -2,51 +2,48 @@ import { css } from 'lit-element'
 
 export const AppStyle = css`
   :host {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+
+    grid-template-rows: var(--app-grid-template-rows, auto 1fr auto);
+    grid-template-columns: var(--app-grid-template-columns, auto 1fr auto);
+    grid-template-areas: var(--app-grid-template-area, 'header header header' 'nav main aside' 'footer footer footer');
+    grid-gap: var(--app-grid-gap, 0em);
 
     width: 100vw;
     height: 100vh;
   }
 
+  header-bar {
+    grid-area: header;
+  }
+
+  nav-bar {
+    grid-area: nav;
+  }
+
   main {
-    flex: 1;
+    grid-area: main;
+
     overflow: hidden;
 
     display: flex;
     flex-direction: row;
   }
 
-  #main-content {
-    flex: 1;
-    overflow: hidden;
-
-    display: flex;
-    flex-direction: column;
+  aside-bar {
+    grid-area: aside;
   }
 
-  #main-content * {
+  footer-bar {
+    grid-area: footer;
+  }
+
+  main * {
     flex: 1;
   }
 
-  #main-content *:not([active]) {
+  main *:not([active]) {
     display: none;
-  }
-
-  #sidebar-left,
-  #sidebar-right {
-    display: flex;
-    flex-direction: column;
-  }
-
-  #sidebar-left *[hovering] {
-    position: absolute;
-    left: 0;
-  }
-
-  #sidebar-right *[hovering] {
-    position: absolute;
-    right: 0;
   }
 
   /* Wide layout */

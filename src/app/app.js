@@ -1,55 +1,27 @@
 import { LitElement, html, css } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
-import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js'
 import { installOfflineWatcher } from 'pwa-helpers/network.js'
 import { installRouter } from 'pwa-helpers/router.js'
 import { updateMetadata } from 'pwa-helpers/metadata.js'
 
 import { store } from '../store'
 
-import { navigate, updateOffline, updateLayout, showSnackbar } from '../actions/app'
+import { navigate, updateOffline } from '../actions/app'
 import { updateAuthenticated, updateUser } from '../actions/auth'
 
 import { AppTheme } from './styles/app-theme'
-import { i18next } from '../base/i18next'
 import { auth } from '../base/auth'
 
 import { AppStyle } from './app-style'
 
-import './components/snack-bar'
-import './components/i18n-msg'
-
-import './layouts/app-toolbar'
-
 class ThingsApp extends connect(store)(LitElement) {
-  constructor() {
-    super()
-
-    i18next.on('languageChanged', e => {
-      store.dispatch(
-        showSnackbar(
-          i18next.t('text.you.are.now.in', {
-            state: {
-              text: i18next.t('text.current language')
-            }
-          })
-        )
-      )
-    })
-  }
-
   static get properties() {
     return {
       appTitle: String,
       _page: String,
       _activePage: Object,
-      _snackbarOpened: Boolean,
       _offline: Boolean,
-      _message: String,
-      _modules: Array,
-      _sidebarLeft: Array,
-      _sidebarRight: Array,
-      _footer: Array
+      _modules: Array
     }
   }
 
@@ -59,50 +31,23 @@ class ThingsApp extends connect(store)(LitElement) {
 
   render() {
     return html`
-      <app-toolbar .activePage=${this._activePage}></app-toolbar>
+      <header-bar></header-bar>
 
-      <!-- Main content -->
+      <nav-bar></nav-bar>
+
       <main>
-        <slot id="sidebar-left">
-          ${this._sidebarLeft.map(
-            sidebar => html`
-              <div ?hovering=${sidebar.hovering}>
-                ${sidebar.template}
-              </div>
-            `
-          )}
-        </slot>
-
-        <div id="main-content">
-          <page-404 class="page" data-page="page404"></page-404>
-        </div>
-
-        <slot id="sidebar-right">
-          ${this._sidebarRight.map(
-            sidebar => html`
-              <div ?hovering=${sidebar.hovering}>
-                ${sidebar.template}
-              </div>
-            `
-          )}
-        </slot>
+        <page-404 class="page" data-page="page404"></page-404>
       </main>
 
-      <slot id="footer">
-        <snack-bar ?active="${this._snackbarOpened}">${this._message}</snack-bar>
-        ${this._footer.map(
-          footer => html`
-            ${footer.template}
-          `
-        )}
-      </slot>
+      <aside-bar></aside-bar>
+
+      <footer-bar></footer-bar>
     `
   }
 
   firstUpdated() {
     installRouter(location => store.dispatch(navigate(location)))
     installOfflineWatcher(offline => store.dispatch(updateOffline(offline)))
-    installMediaQueryWatcher(`(min-width: 460px)`, matches => store.dispatch(updateLayout(matches)))
 
     auth.on('signin', accessToken => {
       store.dispatch(updateAuthenticated(true))
@@ -129,11 +74,6 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   updated(changedProps) {
-    if (changedProps.has('_showMore')) {
-      let morePanel = this.shadowRoot.querySelector('more-panel')
-      morePanel.style.display = this._showMore ? 'block' : 'none'
-    }
-
     /* lifecycle - online, offline */
     if (changedProps.has('_offline')) {
       if (this._offline) {
@@ -151,33 +91,28 @@ class ThingsApp extends connect(store)(LitElement) {
         // This object also takes an image property, that points to an img src.
       })
 
-      let activePages = this.shadowRoot.querySelectorAll('#main-content > .page[active]')
+      let activePages = this.shadowRoot.querySelectorAll('main > .page[active]')
       activePages.forEach(page => {
         page.removeAttribute('active')
       })
 
-      this._activePage = this.shadowRoot.querySelector(`#main-content > .page[data-page=${this._page}]`)
+      this._activePage = this.shadowRoot.querySelector(`main > .page[data-page=${this._page}]`)
       this._activePage && this._activePage.setAttribute('active', true)
     }
 
     if (changedProps.has('_modules')) {
-      this.appendFactoryModules()
+      this._appendFactoryModulePages()
     }
   }
 
   stateChanged(state) {
     this._page = state.app.page
     this._offline = state.app.offline
-    this._snackbarOpened = state.app.snackbarOpened
-    this._message = state.app.message
     this._modules = state.factoryModule.modules
-    this._sidebarLeft = state.layout.sidebarLeft
-    this._sidebarRight = state.layout.sidebarRight
-    this._footer = state.layout.footer
   }
 
-  appendFactoryModules() {
-    var main = this.shadowRoot.querySelector('#main-content')
+  _appendFactoryModulePages() {
+    var main = this.shadowRoot.querySelector('main')
     ;(this._modules || []).forEach(m => {
       m.routes &&
         m.routes.forEach(route => {

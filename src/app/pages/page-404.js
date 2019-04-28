@@ -1,6 +1,6 @@
 import { html } from 'lit-element'
 
-import { PageView } from '../layouts/page-view'
+import { PageView } from './page-view'
 
 import { SharedStyles } from '../styles/shared-styles'
 

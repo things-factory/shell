@@ -1,12 +1,8 @@
 import { store } from '../store'
-import { i18next } from '../base/i18next'
 
 export const UPDATE_PAGE = 'UPDATE_PAGE'
 export const UPDATE_OFFLINE = 'UPDATE_OFFLINE'
-export const OPEN_SNACKBAR = 'OPEN_SNACKBAR'
-export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR'
 export const UPDATE_BASE_URL = 'UPDATE_BASE_URL'
-export const UPDATE_LAYOUT = 'UPDATE_LAYOUT'
 export const HOMEPAGE = 'index'
 
 export const navigate = ({ pathname: path, search }) => dispatch => {
@@ -68,38 +64,20 @@ export const loadPage = (page, id, params) => dispatch => {
   })
 }
 
-let snackbarTimer
-
-export const showSnackbar = message => dispatch => {
-  dispatch({
-    type: OPEN_SNACKBAR,
-    message
-  })
-  window.clearTimeout(snackbarTimer)
-  snackbarTimer = window.setTimeout(() => dispatch({ type: CLOSE_SNACKBAR }), 3000)
-}
-
 export const updateOffline = offline => (dispatch, getState) => {
   if (offline !== getState().app.offline) {
-    dispatch(
-      showSnackbar(
-        i18next.t('text.you.are.now.in', {
-          state: {
-            text: i18next.t(offline ? 'text.offline' : 'text.online')
-          }
-        })
-      )
-    )
+    // dispatch(
+    //   showSnackbar(
+    //     i18next.t('text.you.are.now.in', {
+    //       state: {
+    //         text: i18next.t(offline ? 'text.offline' : 'text.online')
+    //       }
+    //     })
+    //   )
+    // )
   }
   dispatch({
     type: UPDATE_OFFLINE,
     offline
-  })
-}
-
-export const updateLayout = wide => (dispatch, getState) => {
-  dispatch({
-    type: UPDATE_LAYOUT,
-    layout: wide ? 'WIDE' : 'NARROW'
   })
 }
