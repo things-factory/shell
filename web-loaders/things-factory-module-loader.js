@@ -101,15 +101,16 @@ export var modules = [];
     .map((module, idx) => {
       return `
 import v${idx} from "${moduleConfigMap[module].config}";
-modules[${idx}] = {
+modules.push({
   ...v${idx},
   name: "${moduleConfigMap[module].pkg.name}",
   version: "${moduleConfigMap[module].pkg.version}",
   license: "${moduleConfigMap[module].pkg.license}"
-}
+})
 `
     })
     .join('')}
   `
+
   return result
 }

@@ -62,7 +62,7 @@ class ThingsApp extends connect(store)(LitElement) {
       <app-toolbar .activePage=${this._activePage}></app-toolbar>
 
       <!-- Main content -->
-      <main role="main">
+      <main>
         <slot id="sidebar-left">
           ${this._sidebarLeft.map(
             sidebar => html`

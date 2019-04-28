@@ -9,15 +9,9 @@ export const AppStyle = css`
     height: 100vh;
   }
 
-  header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* Workaround for IE11 displaying <main> as inline */
   main {
     flex: 1;
+    overflow: hidden;
 
     display: flex;
     flex-direction: row;
@@ -25,35 +19,29 @@ export const AppStyle = css`
 
   #main-content {
     flex: 1;
+    overflow: hidden;
 
     display: flex;
     flex-direction: column;
-
-    height: 100%;
   }
 
   #main-content * {
+    flex: 1;
+  }
+
+  #main-content *:not([active]) {
     display: none;
   }
 
-  #main-content *[active] {
-    flex: 1;
-
+  #sidebar-left,
+  #sidebar-right {
     display: flex;
     flex-direction: column;
-  }
-
-  #sidebar-left * {
-    height: 100%;
   }
 
   #sidebar-left *[hovering] {
     position: absolute;
     left: 0;
-  }
-
-  #sidebar-right * {
-    height: 100%;
   }
 
   #sidebar-right *[hovering] {
@@ -63,8 +51,5 @@ export const AppStyle = css`
 
   /* Wide layout */
   @media (min-width: 460px) {
-    header {
-      flex-direction: row;
-    }
   }
 `

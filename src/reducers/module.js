@@ -1,16 +1,12 @@
-import { UPDATE_MODULES } from '../actions/module.js'
-
 import { modules } from '../module-importer.import'
 
 const INITIAL_STATE = {
-  modules
+  /* FIXME. 왜 modules의 순서가 뒤집어지는 지 이해할 수 없음. */
+  modules: modules.reverse()
 }
 
 const factoryModule = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case UPDATE_MODULES:
-      return { ...state }
-
     default:
       return state
   }
