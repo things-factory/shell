@@ -52,7 +52,7 @@ const _preLoadPage = page => {
   }
 }
 
-const loadPage = (page, id, params) => dispatch => {
+export const loadPage = (page, id, params) => dispatch => {
   page = _preLoadPage(page)
 
   if (!page) {
