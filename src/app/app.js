@@ -1,15 +1,12 @@
 import { LitElement, html, css } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
-import { installOfflineWatcher } from 'pwa-helpers/network.js'
 import { installRouter } from 'pwa-helpers/router.js'
 import { updateMetadata } from 'pwa-helpers/metadata.js'
 
 import { store } from '../store'
-
-import { navigate, updateOffline } from '../actions/app'
+import { navigate, UPDATE_ACTIVE_PAGE } from '../actions/route'
 
 import { AppTheme } from './styles/app-theme'
-
 import { AppStyle } from './app-style'
 
 class ThingsApp extends connect(store)(LitElement) {
@@ -18,7 +15,6 @@ class ThingsApp extends connect(store)(LitElement) {
       appTitle: String,
       _page: String,
       _activePage: Object,
-      _offline: Boolean,
       _modules: Array
     }
   }
@@ -45,7 +41,6 @@ class ThingsApp extends connect(store)(LitElement) {
 
   firstUpdated() {
     installRouter(location => store.dispatch(navigate(location)))
-    installOfflineWatcher(offline => store.dispatch(updateOffline(offline)))
 
     /* lifecycle - bootstrapping */
     this.dispatchEvent(new Event('lifecycle-bootstrap-begin'))
@@ -60,15 +55,6 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   updated(changedProps) {
-    /* lifecycle - online, offline */
-    if (changedProps.has('_offline')) {
-      if (this._offline) {
-        this.dispatchEvent(new Event('lifecycle-offline'))
-      } else {
-        this.dispatchEvent(new Event('lifecycle-online'))
-      }
-    }
-
     if (changedProps.has('_page')) {
       const pageTitle = this.appTitle + ' - ' + this._page
       updateMetadata({
@@ -84,6 +70,11 @@ class ThingsApp extends connect(store)(LitElement) {
 
       this._activePage = this.shadowRoot.querySelector(`main > .page[data-page=${this._page}]`)
       this._activePage && this._activePage.setAttribute('active', true)
+
+      store.dispatch({
+        type: UPDATE_ACTIVE_PAGE,
+        activePage: this._activePage
+      })
     }
 
     if (changedProps.has('_modules')) {
@@ -92,8 +83,7 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   stateChanged(state) {
-    this._page = state.app.page
-    this._offline = state.app.offline
+    this._page = state.route.page
     this._modules = state.app.modules
   }
 
