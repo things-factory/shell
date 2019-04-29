@@ -7,10 +7,8 @@ import { updateMetadata } from 'pwa-helpers/metadata.js'
 import { store } from '../store'
 
 import { navigate, updateOffline } from '../actions/app'
-import { updateAuthenticated, updateUser } from '../actions/auth'
 
 import { AppTheme } from './styles/app-theme'
-import { auth } from '../base/auth'
 
 import { AppStyle } from './app-style'
 
@@ -48,18 +46,6 @@ class ThingsApp extends connect(store)(LitElement) {
   firstUpdated() {
     installRouter(location => store.dispatch(navigate(location)))
     installOfflineWatcher(offline => store.dispatch(updateOffline(offline)))
-
-    auth.on('signin', accessToken => {
-      store.dispatch(updateAuthenticated(true))
-    })
-
-    auth.on('signout', () => {
-      store.dispatch(updateAuthenticated(false))
-    })
-
-    auth.on('profile', profile => {
-      store.dispatch(updateUser(profile))
-    })
 
     /* lifecycle - bootstrapping */
     this.dispatchEvent(new Event('lifecycle-bootstrap-begin'))
@@ -108,7 +94,7 @@ class ThingsApp extends connect(store)(LitElement) {
   stateChanged(state) {
     this._page = state.app.page
     this._offline = state.app.offline
-    this._modules = state.factoryModule.modules
+    this._modules = state.app.modules
   }
 
   _appendFactoryModulePages() {

@@ -31,8 +31,8 @@ const _preLoadPage = page => {
   var state = store.getState()
 
   /* overide 기능을 위해서 dependency 관계의 역순으로 route를 실행한다. */
-  if (state.factoryModule) {
-    let modules = state.factoryModule.modules.reverse()
+  if (state.app.modules) {
+    let modules = state.app.modules.reverse()
     for (let i in modules) {
       let factoryModule = modules[i]
       var _page = factoryModule.route && factoryModule.route(page)

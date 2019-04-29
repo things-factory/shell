@@ -9,14 +9,11 @@ export const PROCESS = {
 
 /* Export APIs */
 
-// base
-export * from './base'
-
 // store
 export * from './store'
 
 // actions
-export * from './actions'
+export * from './actions/app'
 
 // base class for page
 export * from './app/pages/page-view'
