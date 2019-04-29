@@ -1,4 +1,4 @@
-import { UPDATE_BASE_URL } from '../actions/app.js'
+import { UPDATE_BASE_URL, UPDATE_CONTEXT_PATH } from '../actions/app.js'
 
 import { modules } from '../module-importer.import'
 
