@@ -9,10 +9,10 @@ class Page404 extends PageView {
     return [SharedStyles]
   }
 
-  get tools() {
-    return html`
-      <label>♥Page Not Found♥</label>
-    `
+  get context() {
+    return {
+      title: 'Page Not Found'
+    }
   }
 
   render() {

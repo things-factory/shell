@@ -1,6 +1,7 @@
 import { store } from '../store'
 
 export const UPDATE_PAGE = 'UPDATE_PAGE'
+export const UPDATE_CONTEXT = 'UPDATE_CONTEXT'
 export const UPDATE_ACTIVE_PAGE = 'UPDATE_ACTIVE_PAGE'
 export const UPDATE_DEFAULT_ROUTE_PAGE = 'UPDATE_DEFAULT_ROUTE_PAGE'
 export const HOMEPAGE = 'index'

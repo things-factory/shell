@@ -1,10 +1,17 @@
-import { UPDATE_PAGE, UPDATE_ACTIVE_PAGE, UPDATE_DEFAULT_ROUTE_PAGE, HOMEPAGE } from '../actions/route.js'
+import {
+  UPDATE_PAGE,
+  UPDATE_CONTEXT,
+  UPDATE_ACTIVE_PAGE,
+  UPDATE_DEFAULT_ROUTE_PAGE,
+  HOMEPAGE
+} from '../actions/route.js'
 
 const INITIAL_STATE = {
   page: '',
   resourceId: '',
   params: {},
   activePage: null,
+  context: {},
   defaultRoutePage: HOMEPAGE
 }
 
@@ -21,6 +28,11 @@ const route = (state = INITIAL_STATE, action) => {
         page: action.page,
         resourceId: action.resourceId,
         params: action.params
+      }
+    case UPDATE_CONTEXT:
+      return {
+        ...state,
+        context: action.context
       }
     case UPDATE_ACTIVE_PAGE:
       return {
