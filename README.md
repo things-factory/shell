@@ -104,7 +104,6 @@ Things-Factory is an environment to develop mobile-oriented apps.
 
 - Sample of authentication provider in JSON token type.
 - Provide auth-provider.
-- Can be used for things-shell server.
 
 ## things-factory/auth-ui-jwt
 

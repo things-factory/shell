@@ -1,0 +1,19 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "types": ["node"],
+    "module": "commonjs",
+    "target": "es2017",
+    "outDir": "./dist-server",
+    "sourceMap": true,
+    "baseUrl": "./",
+    "lib": ["esnext.asynciterable", "es7", "es2017"]
+  },
+  "include": ["./server/**/*"],
+  "exclude": ["**/*.spec.ts"]
+}

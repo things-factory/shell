@@ -1,0 +1,5 @@
+{
+  "watch": ["./server"],
+  "ext": "ts",
+  "exec": "node --inspect -r ts-node/register -r tsconfig-paths/register ./server/server.ts"
+}

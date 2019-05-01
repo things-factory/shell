@@ -4,7 +4,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const AppPackage = require('./package.json')
 
-const OUTPUT_PATH = path.resolve('./dist')
+const OUTPUT_PATH = path.resolve('./dist-client')
 
 console.log('output path: ', OUTPUT_PATH)
 
@@ -38,7 +38,7 @@ module.exports = {
     port: 8080
   },
   entry: {
-    main: path.resolve(__dirname, 'src/index.js')
+    main: path.resolve(__dirname, 'client/index.js')
   },
   resolve: {
     alias: localShell

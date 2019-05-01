@@ -40,7 +40,7 @@ module.exports = async function(content) {
     const folders = fs.readdirSync(thingsdir)
 
     /**
-     * package.json의 things-shell 속성이 truthy 인 경우를 필터링한다.
+     * package.json의 things-factory 속성이 truthy 인 경우를 필터링한다.
      */
     folders.forEach(folder => {
       try {

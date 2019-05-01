@@ -104,7 +104,6 @@ Things-Factory는 모바일 중심의 App을 개발할 수 있는 환경이다.
 
 - JSON token 방식의 authentication provider의 샘플
 - auth-provider를 제공한다
-- things-shell server에 사용할 수 있다
 
 ## things-factory/auth-ui-jwt
 

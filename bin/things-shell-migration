@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const args = require('args')
+const path = require('path')
+
+const createConnection = require('typeorm').createConnection
+
+const appRootPath = require('app-root-path').path
+let thingsShellPath
+try {
+  thingsShellPath = path.dirname(require.resolve('@hatiolab/things-factory/package.json'))
+} catch (e) {
+  thingsShellPath = appRootPath
+}
+
+let ormconfig
+try {
+  ormconfig = require(path.resolve(appRootPath, 'ormconfig'))
+} catch (e) {
+  ormconfig = require('@hatiolab/things-factory/ormconfig')
+}
+
+createConnection({
+  ...ormconfig,
+  logging: true,
+  entities: [path.resolve(thingsShellPath, 'dist-server/entities/**/*.js')],
+  migrations: [path.resolve(thingsShellPath, 'dist-server/migrations/**/*.js')],
+  subscribers: [path.resolve(thingsShellPath, 'dist-server/subscribers/**/*.js')]
+}).then((connection, ...others) => {
+  debugger
+
+  args.option('undo', 'Reverts last executed migration')
+  const flags = args.parse(process.argv)
+
+  console.log('Database connection established')
+  if (flags.undo) {
+    connection.undoLastMigration()
+  } else {
+    connection.runMigrations()
+  }
+  console.log('Database Migration Done.')
+})
