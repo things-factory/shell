@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -14,14 +14,14 @@
   "scripts": {
     "serve": "env node --inspect -r ts-node/register -r tsconfig-paths/register ./server/server.ts",
     "serve:dev": "env node --inspect -r ts-node/register -r tsconfig-paths/register ./server/server-dev.ts",
-    "serve:dev:client": "webpack-dev-server --mode development --config webpack.config.dev.js",
+    "serve:dev:client": "env node --inspect -r ts-node/register -r tsconfig-paths/register ./server/server-dev.ts",
     "serve:dev:server": "nodemon --config nodemon-server.json",
     "serve:dev:full": "nodemon --config nodemon-full.json",
     "build": "tsc && webpack --mode production",
     "build:server": "tsc",
     "build:client": "webpack --mode production",
     "prepublish": "tsc && webpack --mode production",
-    "start": "ts-node src/index.ts",
+    "start": "node dist-server/server.js",
     "migration:generate": "node ./node_modules/typeorm/cli.js migration:generate",
     "migration:run": "node ./node_modules/typeorm/cli.js migration:run",
     "migration:revert": "node ./node_modules/typeorm/cli.js migration:revert"

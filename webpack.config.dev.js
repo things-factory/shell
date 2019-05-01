@@ -30,13 +30,6 @@ const ShellPackage = require(path.resolve(shellModulePath, 'package.json'))
 
 module.exports = {
   mode: 'development',
-  devServer: {
-    historyApiFallback: true,
-    contentBase: OUTPUT_PATH,
-    publicPath: '/',
-    host: '0.0.0.0',
-    port: 8080
-  },
   entry: {
     main: [
       path.resolve(__dirname, 'client/index.js'),
