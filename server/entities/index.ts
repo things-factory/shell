@@ -1,8 +1,15 @@
-import { User } from "./user";
+import { User } from './user'
 
-import { File } from "./file";
-import { Setting } from "./setting";
+import { File } from './file'
+import { Setting } from './setting'
+import { Font } from './font'
+import { DataSource } from './datasource'
+import { Publisher } from './publisher'
 
-export const entities = [User, File, Setting];
+import { Board } from './board'
+import { Group } from './group'
+import { PlayGroup } from './play-group'
 
-export { User, File, Setting };
+export const entities = [User, File, Setting, Font, DataSource, Publisher, Group, Board, PlayGroup]
+
+export { User, File, Setting, Font, DataSource, Publisher, Group, Board, PlayGroup }
