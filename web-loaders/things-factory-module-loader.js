@@ -29,6 +29,7 @@ async function getDependencies(packageNames = []) {
 }
 
 module.exports = async function(content) {
+  console.time('Module Ordering')
   const moduleConfigMap = {}
 
   const options = loaderUtils.getOptions(this) || {}
@@ -112,5 +113,8 @@ modules.push({
     .join('')}
   `
 
+  console.log('\x1b[31m')
+  console.timeEnd('Module Ordering')
+  console.log('\x1b[0m')
   return result
 }
