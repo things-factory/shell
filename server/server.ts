@@ -15,7 +15,7 @@ import { authMiddleware } from './middlewares/auth-middleware'
 ;(authMiddleware as any).unless = unless
 
 const koaStatic = require('koa-static')
-const historyFallback = require('koa2-history-api-fallback')
+import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
 const args = require('args')
 
@@ -70,9 +70,6 @@ const bootstrap = async () => {
      */
   })
 
-  /* history fallback */
-  app.use(historyFallback())
-
   /* authentication error handling */
   app.use(async (ctx, next) => {
     return next().catch(err => {
@@ -108,9 +105,11 @@ const bootstrap = async () => {
 
   /* jwt 인증에 graphql middleware를 포함하기 위해서 jwt 인증 설정 다음에 둔다. */
   server.applyMiddleware({
-    path: '/graphiql',
     app
   })
+
+  /* history fallback */
+  app.use(historyApiFallback({ whiteList: ['/graphql', '/file', '/uploads', '/authcheck'] }))
 
   app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
   app.use(koaStatic(process.cwd()))

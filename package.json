@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -71,8 +71,8 @@
     "koa-static": "^5.0.0",
     "koa-unless": "^1.0.7",
     "koa-webpack": "^5.1.0",
+    "koa2-connect-history-api-fallback": "^0.1.2",
     "koa2-cors": "^2.0.6",
-    "koa2-history-api-fallback": "^0.1.0",
     "lit-element": "^2.1.0",
     "mkdirp": "^0.5.1",
     "nodemon": "^1.19.0",

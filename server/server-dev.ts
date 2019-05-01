@@ -16,7 +16,7 @@ import { authMiddleware } from './middlewares/auth-middleware'
 
 const koaWebpack = require('koa-webpack')
 const koaStatic = require('koa-static')
-const historyFallback = require('koa2-history-api-fallback')
+import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
 const args = require('args')
 
@@ -76,7 +76,7 @@ const bootstrap = async () => {
   })
 
   /* history fallback */
-  app.use(historyFallback())
+  app.use(historyApiFallback({ whiteList: ['/graphql', '/file', '/uploads', '/authcheck'] }))
 
   /* authentication error handling */
   app.use(async (ctx, next) => {
@@ -122,7 +122,6 @@ const bootstrap = async () => {
 
     /* jwt 인증에 graphql middleware를 포함하기 위해서 jwt 인증 설정 다음에 둔다. */
     server.applyMiddleware({
-      path: '/graphiql',
       app
     })
 
