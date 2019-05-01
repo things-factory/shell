@@ -10,7 +10,7 @@ const createConnection = require('typeorm').createConnection
 const appRootPath = require('app-root-path').path
 let thingsShellPath
 try {
-  thingsShellPath = path.dirname(require.resolve('@hatiolab/things-factory/package.json'))
+  thingsShellPath = path.dirname(require.resolve('@things-factory/shell/package.json'))
 } catch (e) {
   thingsShellPath = appRootPath
 }
@@ -19,7 +19,7 @@ let ormconfig
 try {
   ormconfig = require(path.resolve(appRootPath, 'ormconfig'))
 } catch (e) {
-  ormconfig = require('@hatiolab/things-factory/ormconfig')
+  ormconfig = require('@things-factory/shell/ormconfig')
 }
 
 createConnection({
