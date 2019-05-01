@@ -26,7 +26,6 @@ const flags = args.parse(process.argv)
 const path = require('path')
 
 const PORT = (process.env.PORT = flags.port)
-const SHELL_MODULE_ROOT_DIR = path.join(__dirname, '../dist-client')
 
 const UPLOAD_DIR = (process.env.UPLOAD_DIR = path.join(process.cwd(), 'uploads'))
 
@@ -112,8 +111,7 @@ const bootstrap = async () => {
   app.use(historyApiFallback({ whiteList: ['/graphql', '/file', '/uploads', '/authcheck'] }))
 
   app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
-  app.use(koaStatic(process.cwd()))
-  app.use(koaStatic(SHELL_MODULE_ROOT_DIR))
+  app.use(koaStatic(path.join(process.cwd(), 'dist-client')))
 
   app.use(routes.routes())
   app.use(routes.allowedMethods())

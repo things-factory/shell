@@ -31,7 +31,6 @@ const config = require('../webpack.config.dev.js')
 const compiler = webpack(config)
 
 const PORT = (process.env.PORT = flags.port)
-const SHELL_MODULE_ROOT_DIR = path.join(__dirname, '..')
 
 const UPLOAD_DIR = (process.env.UPLOAD_DIR = path.join(process.cwd(), 'uploads'))
 
@@ -127,8 +126,7 @@ const bootstrap = async () => {
 
     app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
 
-    app.use(koaStatic(path.join(config.output.path, '..')))
-    app.use(koaStatic(SHELL_MODULE_ROOT_DIR))
+    app.use(koaStatic(path.join(config.output.path)))
 
     app.use(routes.routes())
     app.use(routes.allowedMethods())
