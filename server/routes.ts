@@ -93,14 +93,3 @@ routes.get('/authcheck', async (context, next) => {
 routes.get('/file/:file', async (context, next) => {
   await send(context, context.params.file, { root: process.env.UPLOAD_DIR })
 })
-
-routes
-  .get('/', async (context, next) => {
-    await send(context, 'index.html', { root })
-  })
-  .get('/:page', async (context, next) => {
-    await send(context, 'index.html', { root })
-  })
-  .get('/:page/:id', async (context, next) => {
-    await send(context, 'index.html', { root })
-  })

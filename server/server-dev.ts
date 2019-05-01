@@ -16,6 +16,8 @@ import { authMiddleware } from './middlewares/auth-middleware'
 
 const koaWebpack = require('koa-webpack')
 const koaStatic = require('koa-static')
+const historyFallback = require('koa2-history-api-fallback')
+
 const args = require('args')
 
 args.option('port', 'The port on which the app will be running', 3000)
@@ -72,6 +74,9 @@ const bootstrap = async () => {
      *   ...
      */
   })
+
+  /* history fallback */
+  app.use(historyFallback())
 
   /* authentication error handling */
   app.use(async (ctx, next) => {
