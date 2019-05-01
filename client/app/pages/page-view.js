@@ -7,6 +7,7 @@ export class PageView extends LitElement {
   // Only render this page if it's actually visible.
   shouldUpdate() {
     if (!this.active) {
+      this._oldactive$ = false
       return false
     }
 
