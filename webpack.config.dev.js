@@ -154,7 +154,7 @@ module.exports = {
     ),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE-ENV': JSON.stringify('production'),
+        'NODE-ENV': JSON.stringify('development'),
         'SHELL-VERSION': JSON.stringify(ShellPackage.version),
         'SHELL-LICENSE': JSON.stringify(ShellPackage.license),
         'APP-VERSION': JSON.stringify(AppPackage.version),
