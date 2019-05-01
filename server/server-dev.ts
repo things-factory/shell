@@ -14,6 +14,7 @@ import { schema } from './graphql/schema'
 import { authMiddleware } from './middlewares/auth-middleware'
 ;(authMiddleware as any).unless = unless
 
+const koaWebpack = require('koa-webpack')
 const koaStatic = require('koa-static')
 const args = require('args')
 
@@ -22,9 +23,13 @@ args.option('port', 'The port on which the app will be running', 3000)
 const flags = args.parse(process.argv)
 
 const path = require('path')
+const webpack = require('webpack')
+const config = require('../webpack.config.dev.js')
+
+const compiler = webpack(config)
 
 const PORT = (process.env.PORT = flags.port)
-const SHELL_MODULE_ROOT_DIR = path.join(__dirname, '../dist-client')
+const SHELL_MODULE_ROOT_DIR = path.join(__dirname, '..')
 
 const UPLOAD_DIR = (process.env.UPLOAD_DIR = path.join(process.cwd(), 'uploads'))
 
@@ -93,27 +98,39 @@ const bootstrap = async () => {
     debug: false
   })
 
-  app.use(koaBodyParser(bodyParserOption))
-  app.use(
-    (authMiddleware as any).unless({
-      path: [/^(?!.graphql|.file|.uploads|.authcheck).*$/]
+  koaWebpack({
+    compiler,
+    hotClient: {},
+    devMiddleware: {
+      publicPath: config.output.publicPath,
+      stats: { colors: true }
+    }
+  }).then(middleware => {
+    app.use(middleware)
+
+    app.use(koaBodyParser(bodyParserOption))
+
+    app.use(
+      (authMiddleware as any).unless({ path: [/^(?!.graphql|.file|.uploads|.authcheck).*$/] })
+      /* 위의 path로 시작하는 경우에만, authcheck를 한다. */
+    )
+
+    /* jwt 인증에 graphql middleware를 포함하기 위해서 jwt 인증 설정 다음에 둔다. */
+    server.applyMiddleware({
+      path: '/graphiql',
+      app
     })
-    /* 위의 path로 시작하는 경우에만, authcheck를 한다. */
-  )
 
-  /* jwt 인증에 graphql middleware를 포함하기 위해서 jwt 인증 설정 다음에 둔다. */
-  server.applyMiddleware({
-    path: '/graphiql',
-    app
+    app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
+
+    app.use(koaStatic(path.join(config.output.path, '..')))
+    app.use(koaStatic(SHELL_MODULE_ROOT_DIR))
+
+    app.use(routes.routes())
+    app.use(routes.allowedMethods())
+
+    app.listen(PORT)
   })
-
-  app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
-  app.use(koaStatic(process.cwd()))
-  app.use(koaStatic(SHELL_MODULE_ROOT_DIR))
-
-  app.use(routes.routes())
-  app.use(routes.allowedMethods())
-  app.listen(PORT)
 }
 
 bootstrap()

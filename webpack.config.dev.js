@@ -4,7 +4,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const AppPackage = require('./package.json')
 
-const OUTPUT_PATH = path.resolve('./dist-client')
+const OUTPUT_PATH = path.resolve('.')
 
 console.log('output path: ', OUTPUT_PATH)
 
@@ -38,7 +38,10 @@ module.exports = {
     port: 8080
   },
   entry: {
-    main: path.resolve(__dirname, 'client/index.js')
+    main: [
+      path.resolve(__dirname, 'client/index.js'),
+      'webpack-hot-client/client?path=/__webpack_hmr&timeout=20000&reload=true'
+    ]
   },
   resolve: {
     alias: localShell
@@ -51,10 +54,10 @@ module.exports = {
   resolveLoader: {
     modules: [nodeModulePath, path.resolve(shellModulePath, 'web-loaders')]
   },
-  // output: {
-  //   path: OUTPUT_PATH,
-  //   publicPath: PUBLIC_PATH
-  // },
+  output: {
+    path: OUTPUT_PATH,
+    publicPath: '/'
+  },
   module: {
     rules: [
       {
@@ -103,7 +106,7 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, 'index.html'),
+      template: path.resolve(__dirname, '_index.html'),
       /*
       Allows to control how chunks should be sorted before they are included to the HTML.
       Allowed values are 'none' | 'auto' | 'dependency' | 'manual' | {Function}

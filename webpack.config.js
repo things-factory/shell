@@ -44,10 +44,10 @@ module.exports = {
   resolveLoader: {
     modules: [nodeModulePath, path.resolve(shellModulePath, 'web-loaders')]
   },
-  // output: {
-  //   path: OUTPUT_PATH,
-  //   publicPath: PUBLIC_PATH
-  // },
+  output: {
+    path: OUTPUT_PATH,
+    publicPath: '/'
+  },
   module: {
     rules: [
       {
@@ -96,7 +96,7 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, 'index.html'),
+      template: path.resolve(__dirname, '_index.html'),
       /*
       Allows to control how chunks should be sorted before they are included to the HTML.
       Allowed values are 'none' | 'auto' | 'dependency' | 'manual' | {Function}

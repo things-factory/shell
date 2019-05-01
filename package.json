@@ -7,7 +7,7 @@
     "things-factory-dev": "bin/things-factory-dev",
     "things-factory-migration": "bin/things-factory-migration"
   },
-  "main": "dist-server/server.js",
+  "main": "client/index.js",
   "repository": "http://github.com/things-factory/shell",
   "author": "Hearty Oh <heartyoh@hatiolab.com>",
   "license": "MIT",
