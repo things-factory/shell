@@ -97,6 +97,7 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, '_index.html'),
+      hash: true,
       /*
       Allows to control how chunks should be sorted before they are included to the HTML.
       Allowed values are 'none' | 'auto' | 'dependency' | 'manual' | {Function}
