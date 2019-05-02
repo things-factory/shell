@@ -17,6 +17,12 @@ export class SeedMenu1556791108085 implements MigrationInterface {
         await repository.save({
           ...menu
         })
+
+        let foundMenu = await repository.findOne({ name: menu.name })
+        await repository.save({
+          name: menu.name + 'children',
+          parentId: foundMenu.id
+        })
       })
     } catch (e) {
       console.error(e)

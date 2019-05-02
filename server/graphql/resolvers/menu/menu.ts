@@ -2,11 +2,11 @@ import { getRepository } from 'typeorm'
 import { Menu } from '../../../entities'
 
 export const menuResolver = {
-  async menu(_, { id }, context, info) {
+  async menu(_, { name }, context, info) {
     const repository = getRepository(Menu)
 
     return await repository.findOne(
-      { id },
+      { name },
       {
         relations: ['children']
       }

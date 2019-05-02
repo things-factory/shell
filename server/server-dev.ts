@@ -75,7 +75,7 @@ const bootstrap = async () => {
   })
 
   /* history fallback */
-  app.use(historyApiFallback({ whiteList: ['/graphql', '/file', '/uploads', '/authcheck'] }))
+  app.use(historyApiFallback({ whiteList: ['/graphql', '/graphiql', '/file', '/uploads', '/authcheck'] }))
 
   /* authentication error handling */
   app.use(async (ctx, next) => {
@@ -115,9 +115,8 @@ const bootstrap = async () => {
     app.use(koaBodyParser(bodyParserOption))
 
     app.use(
+      (authMiddleware as any).unless({ path: [/^(?!.graphql|.file|.uploads|.authcheck).*$/] })
       /* 위의 path로 시작하는 경우에만, authcheck를 한다. */
-      // (authMiddleware as any).unless({ path: [/^(?!.graphql|.file|.uploads|.authcheck).*$/] })
-      (authMiddleware as any).unless({ path: [/^(?!.file|.uploads|.authcheck).*$/] })
     )
 
     /* jwt 인증에 graphql middleware를 포함하기 위해서 jwt 인증 설정 다음에 둔다. */
