@@ -10,6 +10,8 @@ import { Board } from './board'
 import { Group } from './group'
 import { PlayGroup } from './play-group'
 
-export const entities = [User, File, Setting, Font, DataSource, Publisher, Group, Board, PlayGroup]
+import { Menu } from './menu'
 
-export { User, File, Setting, Font, DataSource, Publisher, Group, Board, PlayGroup }
+export const entities = [User, File, Setting, Font, DataSource, Publisher, Group, Board, PlayGroup, Menu]
+
+export { User, File, Setting, Font, DataSource, Publisher, Group, Board, PlayGroup, Menu }

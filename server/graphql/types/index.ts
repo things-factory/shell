@@ -10,6 +10,8 @@ import * as Board from './board'
 import * as Group from './group'
 import * as PlayGroup from './play-group'
 
+import * as Menu from './menu'
+
 const Query = [
   'type Query {',
   User.Query,
@@ -23,6 +25,8 @@ const Query = [
   Board.Query,
   Group.Query,
   PlayGroup.Query,
+
+  Menu.Query,
   '}'
 ].join('\n')
 
@@ -39,6 +43,8 @@ const Mutation = [
   Board.Mutation,
   Group.Mutation,
   PlayGroup.Mutation,
+
+  Menu.Mutation,
   '}'
 ].join('\n')
 
@@ -64,5 +70,7 @@ export const typeDefs = [
 
   ...Board.Types,
   ...Group.Types,
-  ...PlayGroup.Types
+  ...PlayGroup.Types,
+
+  ...Menu.Types
 ]
