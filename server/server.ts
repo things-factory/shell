@@ -69,6 +69,9 @@ const bootstrap = async () => {
      */
   })
 
+  /* history fallback */
+  app.use(historyApiFallback({ whiteList: ['/graphql', '/file', '/uploads', '/authcheck'] }))
+
   /* authentication error handling */
   app.use(async (ctx, next) => {
     return next().catch(err => {
@@ -106,9 +109,6 @@ const bootstrap = async () => {
   server.applyMiddleware({
     app
   })
-
-  /* history fallback */
-  app.use(historyApiFallback({ whiteList: ['/graphql', '/file', '/uploads', '/authcheck'] }))
 
   app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
   app.use(koaStatic(path.join(process.cwd(), 'dist-client')))
