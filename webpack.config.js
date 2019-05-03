@@ -91,6 +91,20 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /things-scene-components-with-tools.import$/,
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'things-scene-config-webpack-loader',
+            options: {
+              module_path: nodeModulePath
+            }
+          }
+        ]
       }
     ]
   },
