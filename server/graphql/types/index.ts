@@ -11,6 +11,7 @@ import * as Group from './group'
 import * as PlayGroup from './play-group'
 
 import * as Menu from './menu'
+import * as Domain from './domain'
 
 const Query = [
   'type Query {',
@@ -27,6 +28,7 @@ const Query = [
   PlayGroup.Query,
 
   Menu.Query,
+  Domain.Query,
   '}'
 ].join('\n')
 
@@ -45,6 +47,7 @@ const Mutation = [
   PlayGroup.Mutation,
 
   Menu.Mutation,
+  Domain.Mutation,
   '}'
 ].join('\n')
 
@@ -72,5 +75,6 @@ export const typeDefs = [
   ...Group.Types,
   ...PlayGroup.Types,
 
-  ...Menu.Types
+  ...Menu.Types,
+  ...Domain.Types
 ]

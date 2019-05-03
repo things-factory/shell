@@ -11,7 +11,8 @@ import { Group } from './group'
 import { PlayGroup } from './play-group'
 
 import { Menu } from './menu'
+import { Domain } from './domain'
 
-export const entities = [User, File, Setting, Font, DataSource, Publisher, Group, Board, PlayGroup, Menu]
+export const entities = [User, File, Setting, Font, DataSource, Publisher, Group, Board, PlayGroup, Menu, Domain]
 
-export { User, File, Setting, Font, DataSource, Publisher, Group, Board, PlayGroup, Menu }
+export { User, File, Setting, Font, DataSource, Publisher, Group, Board, PlayGroup, Menu, Domain }

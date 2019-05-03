@@ -73,6 +73,19 @@ module.exports = {
         }
       },
       {
+        test: /\.css$/,
+        use: ['css-loader']
+      },
+      {
+        test: /\.(obj|mtl|tga|3ds|max|dae)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {}
+          }
+        ]
+      },
+      {
         test: /\module-importer.import$/,
         use: {
           loader: 'things-factory-module-loader',
@@ -89,6 +102,20 @@ module.exports = {
           },
           {
             loader: 'things-scene-webpack-loader',
+            options: {
+              module_path: nodeModulePath
+            }
+          }
+        ]
+      },
+      {
+        test: /things-scene-components-with-tools.import$/,
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'things-scene-config-webpack-loader',
             options: {
               module_path: nodeModulePath
             }
