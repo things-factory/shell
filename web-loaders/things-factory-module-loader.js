@@ -19,7 +19,6 @@ async function getDependencies(packageNames = []) {
     var filtered = deps.filter(d => d.startsWith('@things-factory/'))
 
     if (!filtered || filtered.length === 0) continue
-    if (DEPENDENCY_MAP[name]) continue
 
     DEPENDENCY_MAP[name] = filtered
 
