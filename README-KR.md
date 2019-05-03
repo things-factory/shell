@@ -53,7 +53,7 @@ Things-Factory는 모바일 중심의 App을 개발할 수 있는 환경이다.
   - UI 구성 방식으로 구분될 필요가 있다면, yyy방식을 사용하는 xxx 모듈의 UI 모듈의 네이밍 컨벤션은 'xxx-ui-yyy' 로 할 수 있다.
 - Shell, Module 그리고 Application
   - Shell은 개발 및 실행 단계에서 모듈 구조를 가능하게 하는 모든 구조를 제공한다.
-    - redux, assets, routing, authentication, localize
+    - redux, assets, routing
     - build module, build application
   - Module은 Shell의 기반에서 자신의 목적과 관련한 구현만을 담당한다.
   - Application은 Shell과 사용자의 목적에 필요한 모듈들로 구성되는 최종 산출물이다.

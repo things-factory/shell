@@ -23,11 +23,11 @@ Things-Factory is an environment to develop mobile-oriented apps.
 
 - Redux
   - The way to manage the overall state of an Application is using Redux pattern.
-  - The application, or base modules, can have points in the store that can be extended by a sub-module and provide an action.
+  - The application, or base modules, can prepare points in the store that can be extended by a sub-module and provide an action.
   - The sub-modules connect to the extension structure of the application or parent module using the action defined in the parent (base) module.
 - Page, Layout and Component
   - Pages are activated by associating with the URL. (route)
-  - Layouts provide a framework for the layout and structure of the entire application UI element.
+  - Layouts provide a framework for the layout and structure of the entire application UI elements.
   - The components provide independent (atomic) functionality.
     - The component excludes dependencies on the application in order to maintain implementation independence.
       - Style maintains its independence by using css variables.
@@ -53,7 +53,7 @@ Things-Factory is an environment to develop mobile-oriented apps.
   - If it is necessary to be distinguished by UI configuration method, the naming convention for UI module of xxx module using yyy method may be 'xxx-ui-yyy'.
 - Shell, Module and Application
   - Shell provides all the structures that enable the module structure in the development and execution stages.
-    - redux, assets, routing, authentication, localize
+    - redux, assets, routing
     - build module, build application
   - Module is only responsible for implementing its own purpose in the Shell base.
   - Application is the final product that consists of the modules necessary for the purpose of Shell and the user.
