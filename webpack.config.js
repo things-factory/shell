@@ -51,6 +51,39 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            [
+              '@babel/env',
+              {
+                targets: {
+                  browsers: ['last 2 Chrome versions', 'Safari 10']
+                },
+                debug: false
+              }
+            ]
+          ],
+          plugins: [
+            [
+              '@babel/plugin-proposal-decorators',
+              {
+                decoratorsBeforeExport: false
+              }
+            ],
+            ['@babel/plugin-proposal-class-properties'],
+            ['@babel/plugin-syntax-dynamic-import'],
+            [
+              '@babel/plugin-proposal-object-rest-spread',
+              {
+                useBuiltIns: true
+              }
+            ]
+          ]
+        }
+      },
+      {
         test: /\.mjs$/,
         type: 'javascript/auto'
       },
