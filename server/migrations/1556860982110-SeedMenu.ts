@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm'
 import { getRepository } from 'typeorm'
-import { Menu } from '../entities'
+import { Menu, Domain } from '../entities'
 
 const SEED_MENUS = [
   {
@@ -8,19 +8,22 @@ const SEED_MENUS = [
   }
 ]
 
-export class SeedMenu1556791108085 implements MigrationInterface {
+export class SeedMenu1556860982110 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     const repository = getRepository(Menu)
+    const domainRepository = getRepository(Domain)
+    const foundDomains = await domainRepository.find()
 
     try {
       SEED_MENUS.forEach(async menu => {
         await repository.save({
-          ...menu
+          ...menu,
+          domainId: foundDomains[0].id
         })
-
         let foundMenu = await repository.findOne({ name: menu.name })
         await repository.save({
-          name: menu.name + 'children',
+          name: `${menu.name} children`,
+          domainId: foundDomains[0].id,
           parentId: foundMenu.id
         })
       })
@@ -37,4 +40,6 @@ export class SeedMenu1556791108085 implements MigrationInterface {
       await repository.remove(record)
     })
   }
+
+  async getDomain(name: string) {}
 }

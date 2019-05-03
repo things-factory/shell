@@ -9,7 +9,7 @@ const SEED_DOMAINS = [
   }
 ]
 
-export class SeedDomain1556847297073 implements MigrationInterface {
+export class SeedDomain1000000000000 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     const repository = getRepository(Domain)
 

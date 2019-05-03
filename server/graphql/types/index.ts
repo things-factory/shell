@@ -12,6 +12,8 @@ import * as PlayGroup from './play-group'
 
 import * as Menu from './menu'
 import * as Domain from './domain'
+import * as CommonCode from './common-code'
+import * as CommonCodeDetail from './common-code-detail'
 
 const Query = [
   'type Query {',
@@ -29,6 +31,8 @@ const Query = [
 
   Menu.Query,
   Domain.Query,
+  CommonCode.Query,
+  CommonCodeDetail.Query,
   '}'
 ].join('\n')
 
@@ -48,6 +52,8 @@ const Mutation = [
 
   Menu.Mutation,
   Domain.Mutation,
+  CommonCode.Mutation,
+  CommonCodeDetail.Mutation,
   '}'
 ].join('\n')
 
@@ -76,5 +82,7 @@ export const typeDefs = [
   ...PlayGroup.Types,
 
   ...Menu.Types,
-  ...Domain.Types
+  ...Domain.Types,
+  ...CommonCode.Types,
+  ...CommonCodeDetail.Types
 ]

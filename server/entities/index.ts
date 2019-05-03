@@ -12,7 +12,37 @@ import { PlayGroup } from './play-group'
 
 import { Menu } from './menu'
 import { Domain } from './domain'
+import { CommonCode } from './common-code'
+import { CommonCodeDetail } from './common-code-detail'
 
-export const entities = [User, File, Setting, Font, DataSource, Publisher, Group, Board, PlayGroup, Menu, Domain]
+export const entities = [
+  User,
+  File,
+  Setting,
+  Font,
+  DataSource,
+  Publisher,
+  Group,
+  Board,
+  PlayGroup,
+  Menu,
+  Domain,
+  CommonCode,
+  CommonCodeDetail
+]
 
-export { User, File, Setting, Font, DataSource, Publisher, Group, Board, PlayGroup, Menu, Domain }
+export {
+  User,
+  File,
+  Setting,
+  Font,
+  DataSource,
+  Publisher,
+  Group,
+  Board,
+  PlayGroup,
+  Menu,
+  Domain,
+  CommonCode,
+  CommonCodeDetail
+}

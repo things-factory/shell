@@ -1,18 +1,17 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, Index, Column } from 'typeorm'
+import { DomainBasedStamp } from './stamps/domain-based-stamp'
 
 @Entity('settings')
-export class Setting {
-  @PrimaryColumn()
+@Index('ix_setting_0', (setting: Setting) => [setting.category, setting.name], { unique: true })
+export class Setting extends DomainBasedStamp {
+  @Column('text')
   name: string
+
+  @Column('text')
+  category: string
 
   @Column('text', {
     nullable: true
   })
   value: string
-
-  @CreateDateColumn()
-  createdAt: Date
-
-  @UpdateDateColumn()
-  updatedAt: Date
 }

@@ -1,16 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Column, Entity } from 'typeorm'
+import { DomainBasedStamp } from './stamps/domain-based-stamp'
 
 @Entity('files')
-export class File {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
-  @CreateDateColumn()
-  createdAt: Date
-
-  @UpdateDateColumn()
-  updatedAt: Date
-
+export class File extends DomainBasedStamp {
   @Column('text')
   filename: string
 

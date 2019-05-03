@@ -1,17 +1,20 @@
 import { MigrationInterface, QueryRunner, Repository } from 'typeorm'
 
 import { getRepository } from 'typeorm'
-import { Font } from '../entities'
+import { Font, Domain } from '../entities'
 
 const SEED_FONTS = ['Roboto', 'Pangolin', 'Railway', 'Slabo', 'Skranji']
 
-export class seedFonts1525758367829 implements MigrationInterface {
+export class seedFonts1556862253039 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     const repository = getRepository(Font)
+    const domainRepository = getRepository(Domain)
+    const foundDomains = await domainRepository.find()
 
     SEED_FONTS.forEach(async font => {
       await repository.save({
         name: font,
+        domainId: foundDomains[0].id,
         provider: 'google',
         uri: '',
         path: '',

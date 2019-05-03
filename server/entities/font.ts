@@ -1,13 +1,13 @@
 import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { DomainBasedStamp } from './stamps/domain-based-stamp'
+import { cpus } from 'os'
 
 @Entity('fonts')
-export class Font {
-  @PrimaryColumn()
-  name: string // Font Family Name for google / custom, ID for typekit
+export class Font extends DomainBasedStamp {
+  @Column('text')
+  name: string
 
-  @Column('text', {
-    nullable: false
-  })
+  @Column('text')
   provider: string // custom, typekit, google,
 
   @Column('text', {
@@ -22,10 +22,4 @@ export class Font {
 
   @Column('boolean')
   active: boolean
-
-  @CreateDateColumn()
-  createdAt: Date
-
-  @UpdateDateColumn()
-  updatedAt: Date
 }

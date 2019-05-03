@@ -12,6 +12,8 @@ import * as PlayGroup from './play-group'
 
 import * as Menu from './menu'
 import * as Domain from './domain'
+import * as CommonCode from './common-code'
+import * as CommonCodeDetail from './common-code-detail'
 
 import { GraphQLUpload } from 'graphql-upload'
 
@@ -30,7 +32,9 @@ export const resolvers = {
     ...PlayGroup.Query,
 
     ...Menu.Query,
-    ...Domain.Query
+    ...Domain.Query,
+    ...CommonCode.Query,
+    ...CommonCodeDetail.Query
   },
 
   Mutation: {
@@ -47,7 +51,9 @@ export const resolvers = {
     ...PlayGroup.Mutation,
 
     ...Menu.Mutation,
-    ...Domain.Mutation
+    ...Domain.Mutation,
+    ...CommonCode.Mutation,
+    ...CommonCodeDetail.Mutation
   },
 
   Upload: GraphQLUpload

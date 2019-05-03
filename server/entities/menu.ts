@@ -1,18 +1,8 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  CreateDateColumn,
-  UpdateDateColumn,
-  OneToMany
-} from 'typeorm'
+import { Entity, Column, ManyToOne, OneToMany } from 'typeorm'
+import { DomainBasedStamp } from './stamps/domain-based-stamp'
 
 @Entity('menus')
-export class Menu {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
+export class Menu extends DomainBasedStamp {
   @Column('text', {
     unique: true
   })
@@ -133,10 +123,4 @@ export class Menu {
     nullable: true
   })
   fixedColumns: number
-
-  @CreateDateColumn()
-  createdAt: Date
-
-  @UpdateDateColumn()
-  updatedAt: Date
 }

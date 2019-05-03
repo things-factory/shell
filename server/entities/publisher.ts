@@ -1,18 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm'
-
+import { Column, Entity, ManyToOne } from 'typeorm'
 import { DataSource } from './datasource'
+import { DomainBasedStamp } from './stamps/domain-based-stamp'
 
 @Entity('publishers')
-export class Publisher {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
-  @CreateDateColumn()
-  createdAt: Date
-
-  @UpdateDateColumn()
-  updatedAt: Date
-
+export class Publisher extends DomainBasedStamp {
   @Column('text', {
     unique: true
   })

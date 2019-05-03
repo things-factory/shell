@@ -1,18 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm'
-
+import { Column, Entity, OneToMany } from 'typeorm'
 import { Board } from './board'
+import { DomainBasedStamp } from './stamps/domain-based-stamp'
 
 @Entity('groups')
-export class Group {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
-  @CreateDateColumn()
-  createdAt: Date
-
-  @UpdateDateColumn()
-  updatedAt: Date
-
+export class Group extends DomainBasedStamp {
   @Column('text', {
     unique: true,
     nullable: false
