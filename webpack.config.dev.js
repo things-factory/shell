@@ -73,6 +73,19 @@ module.exports = {
         }
       },
       {
+        test: /\.css$/,
+        use: ['css-loader']
+      },
+      {
+        test: /\.(obj|mtl|tga|3ds|max|dae)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {}
+          }
+        ]
+      },
+      {
         test: /\module-importer.import$/,
         use: {
           loader: 'things-factory-module-loader',
