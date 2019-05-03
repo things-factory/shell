@@ -4,10 +4,14 @@ const loaderUtils = require('loader-utils')
 const fetchPackage = require('package-json')
 const { solve } = require('dependency-solver')
 
-async function getDependencies(packageNames = []) {
-  var dependencyMap = {}
+var DEPENDENCY_MAP = {}
 
+async function getDependencies(packageNames = []) {
   for (const name of packageNames) {
+    if (DEPENDENCY_MAP[name] || name == '@things-factory/shell') {
+      continue
+    }
+
     var packageJson = await fetchPackage(name, 'latest')
 
     var deps = Object.keys(packageJson.dependencies || [])
@@ -15,21 +19,16 @@ async function getDependencies(packageNames = []) {
     var filtered = deps.filter(d => d.startsWith('@things-factory/'))
 
     if (!filtered || filtered.length === 0) continue
-    if (dependencyMap[name]) continue
+    if (DEPENDENCY_MAP[name]) continue
 
-    dependencyMap[name] = filtered
+    DEPENDENCY_MAP[name] = filtered
 
-    dependencyMap = {
-      ...dependencyMap,
-      ...(await getDependencies(filtered))
-    }
+    await getDependencies(filtered)
   }
-
-  return dependencyMap
 }
 
 module.exports = async function(content) {
-  console.time('Module Ordering')
+  console.time('Module Configuration')
   const moduleConfigMap = {}
 
   const options = loaderUtils.getOptions(this) || {}
@@ -80,12 +79,16 @@ module.exports = async function(content) {
     }
 
     const packageNames = Object.keys(deps).filter(dep => dep.startsWith('@things-factory/'))
-    const dependencyMap = {
-      [pkg.name]: packageNames,
-      ...(await getDependencies(packageNames))
-    }
+    // const DEPENDENCY_MAP = {
+    //   [pkg.name]: packageNames,
+    //   ...(await getDependencies(packageNames))
+    // }
 
-    orderedModuleNames = solve(dependencyMap)
+    DEPENDENCY_MAP[pkg.name] = packageNames
+
+    await getDependencies(packageNames)
+
+    orderedModuleNames = solve(DEPENDENCY_MAP)
   } catch (e) {
     console.error(e)
   }
@@ -114,7 +117,8 @@ modules.push({
   `
 
   console.log('\x1b[31m')
-  console.timeEnd('Module Ordering')
+  console.timeEnd('Module Configuration')
   console.log('\x1b[0m')
+
   return result
 }
