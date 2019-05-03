@@ -11,6 +11,7 @@ import * as Group from './group'
 import * as PlayGroup from './play-group'
 
 import * as Menu from './menu'
+import * as Domain from './domain'
 
 import { GraphQLUpload } from 'graphql-upload'
 
@@ -28,7 +29,8 @@ export const resolvers = {
     ...Group.Query,
     ...PlayGroup.Query,
 
-    ...Menu.Query
+    ...Menu.Query,
+    ...Domain.Query
   },
 
   Mutation: {
@@ -44,7 +46,8 @@ export const resolvers = {
     ...Group.Mutation,
     ...PlayGroup.Mutation,
 
-    ...Menu.Mutation
+    ...Menu.Mutation,
+    ...Domain.Mutation
   },
 
   Upload: GraphQLUpload
