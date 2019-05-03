@@ -14,6 +14,7 @@ import * as Menu from './menu'
 import * as Domain from './domain'
 import * as CommonCode from './common-code'
 import * as CommonCodeDetail from './common-code-detail'
+import * as Resource from './resource'
 
 const Query = [
   'type Query {',
@@ -33,6 +34,7 @@ const Query = [
   Domain.Query,
   CommonCode.Query,
   CommonCodeDetail.Query,
+  Resource.Query,
   '}'
 ].join('\n')
 
@@ -54,6 +56,7 @@ const Mutation = [
   Domain.Mutation,
   CommonCode.Mutation,
   CommonCodeDetail.Mutation,
+  Resource.Mutation,
   '}'
 ].join('\n')
 
@@ -84,5 +87,6 @@ export const typeDefs = [
   ...Menu.Types,
   ...Domain.Types,
   ...CommonCode.Types,
-  ...CommonCodeDetail.Types
+  ...CommonCodeDetail.Types,
+  ...Resource.Types
 ]

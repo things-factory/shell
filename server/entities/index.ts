@@ -14,6 +14,7 @@ import { Menu } from './menu'
 import { Domain } from './domain'
 import { CommonCode } from './common-code'
 import { CommonCodeDetail } from './common-code-detail'
+import { Resource } from './resource'
 
 export const entities = [
   User,
@@ -28,7 +29,8 @@ export const entities = [
   Menu,
   Domain,
   CommonCode,
-  CommonCodeDetail
+  CommonCodeDetail,
+  Resource
 ]
 
 export {
@@ -44,5 +46,6 @@ export {
   Menu,
   Domain,
   CommonCode,
-  CommonCodeDetail
+  CommonCodeDetail,
+  Resource
 }
