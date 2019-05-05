@@ -12,13 +12,14 @@ const SEED_SETTING = [
 
 export class SeedSetting1556864112795 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
-    const repository = getRepository(Setting)
     const domainRepository = getRepository(Domain)
     const domain = await domainRepository.findOne({
       name: 'SYSTEM'
     })
 
+    const repository = getRepository(Setting)
     const commonCodeRepository = getRepository(CommonCode)
+
     const foundCode = await commonCodeRepository.findOne(
       { name: 'CATEGORIES' },
       {
@@ -30,7 +31,7 @@ export class SeedSetting1556864112795 implements MigrationInterface {
       SEED_SETTING.forEach(async setting => {
         await repository.save({
           ...setting,
-          domainId: domain.id,
+          domain,
           category: foundCode.commonCodeDetails[0].name
         })
       })

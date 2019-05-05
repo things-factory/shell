@@ -8,7 +8,7 @@ export const menuResolver = {
     return await repository.findOne(
       { name },
       {
-        relations: ['children']
+        relations: ['domain', 'parent', 'children']
       }
     )
   }

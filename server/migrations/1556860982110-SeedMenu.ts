@@ -18,13 +18,16 @@ export class SeedMenu1556860982110 implements MigrationInterface {
       SEED_MENUS.forEach(async menu => {
         await repository.save({
           ...menu,
-          domainId: domain.id
+          domain
         })
         let foundMenu = await repository.findOne({ name: menu.name })
+
+        console.log('00000000000000000000000', foundMenu.domain)
+
         await repository.save({
           name: `${menu.name} children`,
-          domainId: domain.id,
-          parentId: foundMenu.id
+          domain,
+          parent: foundMenu
         })
       })
     } catch (e) {

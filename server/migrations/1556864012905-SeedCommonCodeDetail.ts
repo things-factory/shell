@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner, getRepository } from 'typeorm'
-import { CommonCode, CommonCodeDetail } from '../entities'
+import { Domain, CommonCode, CommonCodeDetail } from '../entities'
 
 const SEED_COMMON_CODE_DETAILS = {
   CATEGORIES: [
@@ -23,6 +23,11 @@ const SEED_COMMON_CODE_DETAILS = {
 
 export class SeedCommonCodeDetail1556864012905 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
+    const domainRepository = getRepository(Domain)
+    const domain = await domainRepository.findOne({
+      name: 'SYSTEM'
+    })
+
     const parentRepository = getRepository(CommonCode)
     const repository = getRepository(CommonCodeDetail)
 
@@ -33,8 +38,8 @@ export class SeedCommonCodeDetail1556864012905 implements MigrationInterface {
         SEED_COMMON_CODE_DETAILS[categoryName].forEach(async categoryDetail => {
           await repository.save({
             ...categoryDetail,
-            parentId: foundParent.id,
-            domainId: foundParent.domainId
+            parent: foundParent,
+            domain
           })
         })
       }

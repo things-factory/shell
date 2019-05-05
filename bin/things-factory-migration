@@ -8,14 +8,22 @@ const path = require('path')
 const createConnection = require('typeorm').createConnection
 
 const appRootPath = require('app-root-path').path
-let thingsShellPath
-try {
-  thingsShellPath = path.dirname(require.resolve('@things-factory/shell/package.json'))
-} catch (e) {
-  thingsShellPath = appRootPath
+const appPackage = require(path.resolve(appRootPath, 'package.json'))
+
+let factoryShellPath
+if (appPackage.name === '@things-factory/shell') {
+  factoryShellPath = appRootPath
+} else {
+  try {
+    factoryShellPath = path.dirname(require.resolve('@things-factory/shell/package.json'))
+  } catch (e) {
+    console.error(e, '@things-factory/shell module not found.')
+    return
+  }
 }
 
 let ormconfig
+
 try {
   ormconfig = require(path.resolve(appRootPath, 'ormconfig'))
 } catch (e) {
@@ -25,9 +33,9 @@ try {
 createConnection({
   ...ormconfig,
   logging: true,
-  entities: [path.resolve(thingsShellPath, 'dist-server/entities/**/*.js')],
-  migrations: [path.resolve(thingsShellPath, 'dist-server/migrations/**/*.js')],
-  subscribers: [path.resolve(thingsShellPath, 'dist-server/subscribers/**/*.js')]
+  entities: [path.resolve(factoryShellPath, 'dist-server/entities/**/*.js')],
+  migrations: [path.resolve(factoryShellPath, 'dist-server/migrations/**/*.js')],
+  subscribers: [path.resolve(factoryShellPath, 'dist-server/subscribers/**/*.js')]
 }).then((connection, ...others) => {
   args.option('undo', 'Reverts last executed migration')
   const flags = args.parse(process.argv)

@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, OneToMany } from 'typeorm'
+import { Entity, Column, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
 import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('menus')
@@ -13,12 +13,7 @@ export class Menu extends DomainBaseEntity {
   })
   description: string
 
-  @Column('text', {
-    nullable: true
-  })
-  parentId: string
-
-  @ManyToOne(type => Menu, parent => parent.children)
+  @ManyToOne(type => Menu, parent => parent.children, { nullable: true })
   parent: Menu
 
   @OneToMany(type => Menu, child => child.parent)

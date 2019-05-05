@@ -21,14 +21,14 @@ export class SeedEntity1556878324336 implements MigrationInterface {
       SEED_ENTITIES.forEach(async entity => {
         await repository.save({
           ...entity,
-          domainId: domain.id
+          domain
         })
 
         let foundEntity = await repository.findOne({ name: entity.name })
         await repository.save({
           name: `${entity.name} detail`,
-          domainId: foundEntity.domainId,
-          parentId: foundEntity.id,
+          domain: foundEntity.domain,
+          parent: foundEntity,
           bundle: foundEntity.bundle,
           tableName: `${entity.name}-detail`
         })

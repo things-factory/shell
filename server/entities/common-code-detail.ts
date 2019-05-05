@@ -5,20 +5,17 @@ import { DomainBaseEntity } from './domain-base-entity'
 @Entity('common-code-details')
 @Index(
   'ix_common_code_detail_0',
-  (commonCodeDetail: CommonCodeDetail) => [commonCodeDetail.name, commonCodeDetail.parentId],
+  (commonCodeDetail: CommonCodeDetail) => [commonCodeDetail.name, commonCodeDetail.parent],
   { unique: true }
 )
 @Index(
   'ix_common_code_detail_1',
-  (commonCodeDetail: CommonCodeDetail) => [commonCodeDetail.name, commonCodeDetail.parentId],
+  (commonCodeDetail: CommonCodeDetail) => [commonCodeDetail.name, commonCodeDetail.parent],
   { unique: true }
 )
 export class CommonCodeDetail extends DomainBaseEntity {
   @Column('text')
   name: string
-
-  @Column('text')
-  parentId: string
 
   @ManyToOne(type => CommonCode, commonCode => commonCode.commonCodeDetails)
   parent: CommonCode

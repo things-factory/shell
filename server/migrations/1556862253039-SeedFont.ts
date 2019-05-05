@@ -16,7 +16,7 @@ export class seedFonts1556862253039 implements MigrationInterface {
     SEED_FONTS.forEach(async font => {
       await repository.save({
         name: font,
-        domainId: domain.id,
+        domain,
         provider: 'google',
         uri: '',
         path: '',

@@ -20,7 +20,7 @@ export class SeedCommonCode1556863924822 implements MigrationInterface {
       SEED_COMMON_CODES.forEach(async commonCode => {
         await repository.save({
           ...commonCode,
-          domainId: domain.id
+          domain
         })
       })
     } catch (e) {

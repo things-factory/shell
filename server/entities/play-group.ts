@@ -16,6 +16,6 @@ export class PlayGroup extends DomainBaseEntity {
   description: string
 
   @ManyToMany(type => Board)
-  @JoinTable()
+  @JoinTable({ name: 'play-groups-boards' })
   boards: Board[]
 }
