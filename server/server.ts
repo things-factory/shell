@@ -115,7 +115,8 @@ const bootstrap = async () => {
 
   app.use(routes.routes())
   app.use(routes.allowedMethods())
-  app.listen(PORT)
+
+  app.listen({ port: PORT }, () => console.log(`\n🚀  Server ready at http://0.0.0.0:${PORT}\n`))
 }
 
 bootstrap()

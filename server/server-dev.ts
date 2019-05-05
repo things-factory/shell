@@ -91,7 +91,17 @@ const bootstrap = async () => {
     })
   })
 
-  const server = new ApolloServer({ schema })
+  const server = new ApolloServer({
+    ...schema,
+    formatError: error => {
+      console.log(error)
+      return error
+    },
+    formatResponse: response => {
+      console.log(response)
+      return response
+    }
+  })
 
   const render = require('koa-ejs')
   render(app, {
@@ -142,7 +152,7 @@ const bootstrap = async () => {
     app.use(routes.routes())
     app.use(routes.allowedMethods())
 
-    app.listen(PORT)
+    app.listen({ port: PORT }, () => console.log(`\n🚀  Server ready at http://0.0.0.0:${PORT}\n`))
   })
 }
 
