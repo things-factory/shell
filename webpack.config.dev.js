@@ -10,14 +10,19 @@ console.log('output path: ', OUTPUT_PATH)
 
 const module_resolve = require('resolve')
 
-try {
-  let pathName = module_resolve.sync('@things-factory/shell', {
-    basedir: process.cwd()
-  })
-  var shellModulePath = path.resolve(pathName, '../..')
-  var nodeModulePath = path.resolve(pathName, '../../../..')
-} catch (e) {
-  console.log('@things-factory/shell module not found.')
+if (AppPackage.name !== '@things-factory/shell') {
+  try {
+    let pathName = module_resolve.sync('@things-factory/shell', {
+      basedir: process.cwd()
+    })
+    var shellModulePath = path.resolve(pathName, '../..')
+    var nodeModulePath = path.resolve(pathName, '../../../..')
+  } catch (e) {
+    console.log('@things-factory/shell module not found.')
+    var shellModulePath = path.resolve(__dirname)
+    var nodeModulePath = path.resolve(__dirname, 'node_modules')
+  }
+} else {
   var shellModulePath = path.resolve(__dirname)
   var nodeModulePath = path.resolve(__dirname, 'node_modules')
 }

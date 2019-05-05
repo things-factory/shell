@@ -1,3 +1,6 @@
+import { BaseEntity } from './base-entity'
+import { DomainBaseEntity } from './domain-base-entity'
+
 import { User } from './user'
 
 import { File } from './file'
@@ -17,6 +20,9 @@ import { CommonCodeDetail } from './common-code-detail'
 import { Resource } from './resource'
 
 export const entities = [
+  BaseEntity,
+  DomainBaseEntity,
+
   User,
   File,
   Setting,
@@ -34,6 +40,8 @@ export const entities = [
 ]
 
 export {
+  BaseEntity,
+  DomainBaseEntity,
   User,
   File,
   Setting,

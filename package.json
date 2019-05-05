@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.2.24",
+  "version": "0.2.25",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -39,6 +39,8 @@
     "@babel/register": "^7.4.0",
     "@material/mwc-button": "^0.5.0",
     "@material/mwc-icon": "^0.5.0",
+    "@things-factory/i18n-ui": "*",
+    "@things-factory/print-ui": "*",
     "@types/graphql": "^14.2.0",
     "@types/node": "^11.13.0",
     "@webcomponents/webcomponentsjs": "^2.2.7",
@@ -104,6 +106,18 @@
     "webpack-hot-client": "^4.1.1"
   },
   "devDependencies": {
+    "@things-factory/auth-provider-jwt": "*",
+    "@things-factory/auth-ui-jwt": "*",
+    "@things-factory/board-provider-gql": "*",
+    "@things-factory/board-ui": "*",
+    "@things-factory/layout-ui": "*",
+    "@things-factory/menu-provider": "*",
+    "@things-factory/menu-ui": "*",
+    "@things-factory/more-ui": "*",
+    "@things-factory/offline-ui": "*",
+    "@things-factory/resource-ui-mobile": "*",
+    "@things-factory/setting-ui": "*",
+    "@things-factory/system-ui": "*",
     "@things-factory/tester": "*"
   }
 }

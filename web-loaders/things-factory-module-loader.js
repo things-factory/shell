@@ -71,21 +71,15 @@ module.exports = async function(content) {
       }
     }
 
-    /* Project 의 dependencies/dev-dependencies를 시작으로 dependencies traverse를 정열한다. */
-    const deps = {
-      ...pkg.dependencies,
-      ...pkg.devDependencies
+    const dependencyNames = Object.keys(pkg.dependencies).filter(dep => dep.startsWith('@things-factory/'))
+    const devDependencyNames = Object.keys(pkg.devDependencies).filter(dep => dep.startsWith('@things-factory/'))
+
+    if (pkg.name !== '@things-factory/shell') {
+      DEPENDENCY_MAP[pkg.name] = dependencyNames
     }
 
-    const packageNames = Object.keys(deps).filter(dep => dep.startsWith('@things-factory/'))
-    // const DEPENDENCY_MAP = {
-    //   [pkg.name]: packageNames,
-    //   ...(await getDependencies(packageNames))
-    // }
-
-    DEPENDENCY_MAP[pkg.name] = packageNames
-
-    await getDependencies(packageNames)
+    await getDependencies(dependencyNames)
+    await getDependencies(devDependencyNames)
 
     orderedModuleNames = solve(DEPENDENCY_MAP)
   } catch (e) {
