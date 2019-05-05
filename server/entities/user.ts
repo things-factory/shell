@@ -8,7 +8,7 @@ const SECRET = '0xD58F835B69D207A76CC5F84a70a1D0d4C79dAC95'
 
 @Entity('user')
 export class User extends BaseEntity {
-  @Column('text')
+  @PrimaryColumn('text')
   email: string
 
   @Column('text', {
@@ -64,7 +64,9 @@ export class User extends BaseEntity {
     var decoded = await jwt.verify(token, SECRET)
 
     const repository = getRepository(User)
-    var user = await repository.findOne(decoded.email)
+    var user = await repository.findOne({
+      email: decoded.email
+    })
 
     if (!user) {
       throw new Error('user notfound.')

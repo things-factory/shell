@@ -92,7 +92,7 @@ const bootstrap = async () => {
   })
 
   const server = new ApolloServer({
-    ...schema,
+    schema,
     formatError: error => {
       console.log(error)
       return error
