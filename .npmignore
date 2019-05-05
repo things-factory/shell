@@ -6,7 +6,6 @@ node_modules/
 test/
 db.sqlite
 npm-debug.log
-server/
 dist-client/
 uploads/
 nodemon.json

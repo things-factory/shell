@@ -20,7 +20,6 @@ try {
   console.log('@things-factory/shell module not found.')
   var shellModulePath = path.resolve(__dirname)
   var nodeModulePath = path.resolve(__dirname, 'node_modules')
-  var localShell = true
 }
 
 console.log('FactoryShell Module Path', shellModulePath)
@@ -34,11 +33,9 @@ module.exports = {
     main: path.resolve(__dirname, 'client/index.js')
   },
   resolve: {
-    alias: localShell
-      ? {
-          '@things-factory/shell$': shellModulePath
-        }
-      : {},
+    alias: {
+      [AppPackage.name]: path.resolve(__dirname)
+    },
     modules: [nodeModulePath]
   },
   resolveLoader: {
