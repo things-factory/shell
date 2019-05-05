@@ -121,6 +121,16 @@ const bootstrap = async () => {
 
     /* jwt 인증에 graphql middleware를 포함하기 위해서 jwt 인증 설정 다음에 둔다. */
     server.applyMiddleware({
+      app
+    })
+
+    /* 개발 환경에서는 두개의 graphql path를 둔다. 
+      /graphql : application 에서 사용.
+      /graphiql : graphql test UI 에서 사용.
+
+      /graphql 을 test UI에서 시도하면, authcheck 대상에 해당되어, 미인증 이유로 테스트가 불가능하기 때문이다.
+    */
+    server.applyMiddleware({
       path: '/graphiql',
       app
     })
