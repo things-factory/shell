@@ -29,8 +29,6 @@ createConnection({
   migrations: [path.resolve(thingsShellPath, 'dist-server/migrations/**/*.js')],
   subscribers: [path.resolve(thingsShellPath, 'dist-server/subscribers/**/*.js')]
 }).then((connection, ...others) => {
-  debugger
-
   args.option('undo', 'Reverts last executed migration')
   const flags = args.parse(process.argv)
 

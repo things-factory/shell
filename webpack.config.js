@@ -2,7 +2,9 @@ const path = require('path')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
-const AppPackage = require('./package.json')
+const AppPackage = require(path.resolve(process.cwd(), 'package.json'))
+
+console.log('CWD', process.cwd())
 
 const OUTPUT_PATH = path.resolve('./dist-client')
 

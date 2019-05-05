@@ -16,7 +16,6 @@ export const databaseInitializer = async () => {
     ...ormconfig,
     entities
   }).then(async (connection, ...others) => {
-    debugger
     console.log('Database connection established')
   })
 }
