@@ -3,8 +3,8 @@ import { Domain } from '../entities'
 
 const SEED_DOMAINS = [
   {
-    name: 'HatioSEA',
-    subdomain: 'www.hatiosea.com',
+    name: 'SYSTEM',
+    subdomain: 'system',
     systemFlag: true
   }
 ]

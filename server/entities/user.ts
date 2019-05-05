@@ -2,12 +2,12 @@ import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, getR
 
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
-import { DomainBasedStamp } from './stamps/domain-based-stamp'
+import { DomainBaseEntity } from './domain-base-entity'
 
 const SECRET = '0xD58F835B69D207A76CC5F84a70a1D0d4C79dAC95'
 
 @Entity('user')
-export class User extends DomainBasedStamp {
+export class User extends DomainBaseEntity {
   @Column('text')
   email: string
 

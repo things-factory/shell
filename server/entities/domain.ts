@@ -1,16 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column } from 'typeorm'
+import { Entity, Column } from 'typeorm'
+
+import { BaseEntity } from './base-entity'
 
 @Entity('domains')
-export class Domain {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
-
-  @CreateDateColumn()
-  createdAt: Date
-
-  @CreateDateColumn()
-  updatedAt: Date
-
+export class Domain extends BaseEntity {
   @Column('text', {
     unique: true
   })

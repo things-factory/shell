@@ -1,9 +1,9 @@
 import { Column, Entity, OneToMany } from 'typeorm'
 import { Board } from './board'
-import { DomainBasedStamp } from './stamps/domain-based-stamp'
+import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('groups')
-export class Group extends DomainBasedStamp {
+export class Group extends DomainBaseEntity {
   @Column('text', {
     unique: true,
     nullable: false

@@ -12,18 +12,18 @@ export class SeedMenu1556860982110 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     const repository = getRepository(Menu)
     const domainRepository = getRepository(Domain)
-    const foundDomains = await domainRepository.find()
+    const domain = await domainRepository.findOne({ name: 'SYSTEM' })
 
     try {
       SEED_MENUS.forEach(async menu => {
         await repository.save({
           ...menu,
-          domainId: foundDomains[0].id
+          domainId: domain.id
         })
         let foundMenu = await repository.findOne({ name: menu.name })
         await repository.save({
           name: `${menu.name} children`,
-          domainId: foundDomains[0].id,
+          domainId: domain.id,
           parentId: foundMenu.id
         })
       })
@@ -40,6 +40,4 @@ export class SeedMenu1556860982110 implements MigrationInterface {
       await repository.remove(record)
     })
   }
-
-  async getDomain(name: string) {}
 }

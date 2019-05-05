@@ -1,8 +1,8 @@
 import { Entity, Column, ManyToOne, OneToMany } from 'typeorm'
-import { DomainBasedStamp } from './stamps/domain-based-stamp'
+import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('entities')
-export class Resource extends DomainBasedStamp {
+export class Resource extends DomainBaseEntity {
   @Column('text')
   name: string
 

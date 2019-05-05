@@ -1,9 +1,9 @@
 import { Entity, Index, Column } from 'typeorm'
-import { DomainBasedStamp } from './stamps/domain-based-stamp'
+import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('settings')
 @Index('ix_setting_0', (setting: Setting) => [setting.category, setting.name], { unique: true })
-export class Setting extends DomainBasedStamp {
+export class Setting extends DomainBaseEntity {
   @Column('text')
   name: string
 

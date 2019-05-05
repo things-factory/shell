@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToOne } from 'typeorm'
 import { DataSource } from './datasource'
-import { DomainBasedStamp } from './stamps/domain-based-stamp'
+import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('publishers')
-export class Publisher extends DomainBasedStamp {
+export class Publisher extends DomainBaseEntity {
   @Column('text', {
     unique: true
   })

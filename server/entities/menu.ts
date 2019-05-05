@@ -1,8 +1,8 @@
 import { Entity, Column, ManyToOne, OneToMany } from 'typeorm'
-import { DomainBasedStamp } from './stamps/domain-based-stamp'
+import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('menus')
-export class Menu extends DomainBasedStamp {
+export class Menu extends DomainBaseEntity {
   @Column('text', {
     unique: true
   })

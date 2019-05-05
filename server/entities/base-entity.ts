@@ -1,11 +1,8 @@
 import { Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
 
-export abstract class DomainBasedStamp {
+export abstract class BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string
-
-  @Column('text')
-  domainId: string
 
   @CreateDateColumn()
   createdAt: Date

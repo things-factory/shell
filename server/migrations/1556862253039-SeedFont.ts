@@ -9,12 +9,14 @@ export class seedFonts1556862253039 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     const repository = getRepository(Font)
     const domainRepository = getRepository(Domain)
-    const foundDomains = await domainRepository.find()
+    const domain = await domainRepository.findOne({
+      name: 'SYSTEM'
+    })
 
     SEED_FONTS.forEach(async font => {
       await repository.save({
         name: font,
-        domainId: foundDomains[0].id,
+        domainId: domain.id,
         provider: 'google',
         uri: '',
         path: '',

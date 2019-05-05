@@ -1,8 +1,8 @@
 import { Column, Entity } from 'typeorm'
-import { DomainBasedStamp } from './stamps/domain-based-stamp'
+import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('files')
-export class File extends DomainBasedStamp {
+export class File extends DomainBaseEntity {
   @Column('text')
   filename: string
 

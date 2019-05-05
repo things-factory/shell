@@ -1,6 +1,6 @@
 import { Column, Entity, Index, ManyToOne } from 'typeorm'
 import { CommonCode } from './common-code'
-import { DomainBasedStamp } from './stamps/domain-based-stamp'
+import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('common-code-details')
 @Index(
@@ -13,7 +13,7 @@ import { DomainBasedStamp } from './stamps/domain-based-stamp'
   (commonCodeDetail: CommonCodeDetail) => [commonCodeDetail.name, commonCodeDetail.parentId],
   { unique: true }
 )
-export class CommonCodeDetail extends DomainBasedStamp {
+export class CommonCodeDetail extends DomainBaseEntity {
   @Column('text')
   name: string
 

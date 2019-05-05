@@ -1,9 +1,9 @@
 import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
-import { DomainBasedStamp } from './stamps/domain-based-stamp'
+import { DomainBaseEntity } from './domain-base-entity'
 import { cpus } from 'os'
 
 @Entity('fonts')
-export class Font extends DomainBasedStamp {
+export class Font extends DomainBaseEntity {
   @Column('text')
   name: string
 
