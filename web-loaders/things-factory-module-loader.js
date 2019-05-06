@@ -1,30 +1,8 @@
 const path = require('path')
 const fs = require('fs')
 const loaderUtils = require('loader-utils')
-const fetchPackage = require('package-json')
-const { solve } = require('dependency-solver')
 
-var DEPENDENCY_MAP = {}
-
-async function getDependencies(packageNames = []) {
-  for (const name of packageNames) {
-    if (DEPENDENCY_MAP[name] || name == '@things-factory/shell') {
-      continue
-    }
-
-    var packageJson = await fetchPackage(name, 'latest')
-
-    var deps = Object.keys(packageJson.dependencies || [])
-
-    var filtered = deps.filter(d => d.startsWith('@things-factory/'))
-
-    if (!filtered || filtered.length === 0) continue
-
-    DEPENDENCY_MAP[name] = filtered
-
-    await getDependencies(filtered)
-  }
-}
+const dependencyOrders = require('./dependency-order')
 
 module.exports = async function(content) {
   console.time('Module Configuration')
@@ -44,6 +22,7 @@ module.exports = async function(content) {
     folders.forEach(folder => {
       try {
         const pkg = require(path.resolve(thingsdir, folder, 'package.json'))
+
         if (pkg['things-factory']) {
           moduleConfigMap[pkg.name] = {
             pkg,
@@ -58,37 +37,22 @@ module.exports = async function(content) {
     console.warn('[things-factory-module-loader]', '@things-factory module folder not found.')
   }
 
-  var orderedModuleNames = []
-
   try {
     /* 현재폴더의 package.json을 보고 moduleConfigMap에 추가한다. */
-    const cwd = process.cwd()
-    const pkg = require(path.resolve(cwd, 'package.json'))
+    const appRootPath = require('app-root-path').path
+    const pkg = require(path.resolve(appRootPath, 'package.json'))
+
     if (pkg['things-factory']) {
       moduleConfigMap[pkg.name] = {
         pkg,
         config: path.resolve(cwd, 'things-factory.config.js')
       }
     }
-
-    const dependencyNames = Object.keys(pkg.dependencies).filter(dep => dep.startsWith('@things-factory/'))
-    const devDependencyNames = Object.keys(pkg.devDependencies).filter(dep => dep.startsWith('@things-factory/'))
-
-    if (pkg.name !== '@things-factory/shell') {
-      DEPENDENCY_MAP[pkg.name] = dependencyNames
-    }
-
-    await getDependencies(dependencyNames)
-    await getDependencies(devDependencyNames)
-
-    orderedModuleNames = solve(DEPENDENCY_MAP)
   } catch (e) {
     console.error(e)
   }
 
-  console.info('\n[ ORDERED MODULE LIST ]')
-  orderedModuleNames.map((m, idx) => console.info(`- ${idx} : ${m}`))
-  console.info('[/ ORDERED MODULE LIST ]\n')
+  let orderedModuleNames = await dependencyOrders()
 
   var result = `
 export var modules = [];
