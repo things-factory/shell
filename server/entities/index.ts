@@ -20,6 +20,7 @@ import { Domain } from './domain'
 import { CommonCode } from './common-code'
 import { CommonCodeDetail } from './common-code-detail'
 import { Resource } from './resource'
+import { Terminology } from './terminology'
 
 export const entities = [
   BaseEntity,
@@ -40,7 +41,8 @@ export const entities = [
   Domain,
   CommonCode,
   CommonCodeDetail,
-  Resource
+  Resource,
+  Terminology
 ]
 
 export {
@@ -61,5 +63,6 @@ export {
   Domain,
   CommonCode,
   CommonCodeDetail,
-  Resource
+  Resource,
+  Terminology
 }
