@@ -8,7 +8,7 @@ export const updateMenu = {
     const menu = await repository.findOne(
       { id },
       {
-        relations: ['children']
+        relations: ['children', 'buttons']
       }
     )
 

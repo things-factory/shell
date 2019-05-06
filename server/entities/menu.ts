@@ -1,5 +1,6 @@
 import { Entity, Column, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
 import { DomainBaseEntity } from './domain-base-entity'
+import { MenuButton } from './menu-button'
 
 @Entity('menus')
 export class Menu extends DomainBaseEntity {
@@ -118,4 +119,7 @@ export class Menu extends DomainBaseEntity {
     nullable: true
   })
   fixedColumns: number
+
+  @OneToMany(type => MenuButton, menuButton => menuButton.menu)
+  buttons: MenuButton[]
 }

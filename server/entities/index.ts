@@ -14,6 +14,7 @@ import { Group } from './group'
 import { PlayGroup } from './play-group'
 
 import { Menu } from './menu'
+import { MenuButton } from './menu-button'
 import { Domain } from './domain'
 import { CommonCode } from './common-code'
 import { CommonCodeDetail } from './common-code-detail'
@@ -33,6 +34,7 @@ export const entities = [
   Board,
   PlayGroup,
   Menu,
+  MenuButton,
   Domain,
   CommonCode,
   CommonCodeDetail,
@@ -52,6 +54,7 @@ export {
   Board,
   PlayGroup,
   Menu,
+  MenuButton,
   Domain,
   CommonCode,
   CommonCodeDetail,

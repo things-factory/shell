@@ -11,6 +11,7 @@ import * as Group from './group'
 import * as PlayGroup from './play-group'
 
 import * as Menu from './menu'
+import * as MenuButton from './menu-button'
 import * as Domain from './domain'
 import * as CommonCode from './common-code'
 import * as CommonCodeDetail from './common-code-detail'
@@ -31,6 +32,7 @@ const Query = [
   PlayGroup.Query,
 
   Menu.Query,
+  MenuButton.Query,
   Domain.Query,
   CommonCode.Query,
   CommonCodeDetail.Query,
@@ -53,6 +55,7 @@ const Mutation = [
   PlayGroup.Mutation,
 
   Menu.Mutation,
+  MenuButton.Mutation,
   Domain.Mutation,
   CommonCode.Mutation,
   CommonCodeDetail.Mutation,
@@ -85,6 +88,7 @@ export const typeDefs = [
   ...PlayGroup.Types,
 
   ...Menu.Types,
+  ...MenuButton.Types,
   ...Domain.Types,
   ...CommonCode.Types,
   ...CommonCodeDetail.Types,
