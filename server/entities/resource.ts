@@ -3,9 +3,9 @@ import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('entities')
 @Index('ix_entity_0', (resource: Resource) => [resource.domain, resource.name], { unique: true })
-@Index('ix_entity_0', (resource: Resource) => [resource.domain], { unique: true })
-@Index('ix_entity_0', (resource: Resource) => [resource.bundle], { unique: true })
-@Index('ix_entity_0', (resource: Resource) => [resource.domain, resource.masterId], { unique: true })
+@Index('ix_entity_1', (resource: Resource) => [resource.domain])
+@Index('ix_entity_2', (resource: Resource) => [resource.bundle])
+@Index('ix_entity_3', (resource: Resource) => [resource.domain, resource.masterId])
 export class Resource extends DomainBaseEntity {
   @Column('text')
   name: string

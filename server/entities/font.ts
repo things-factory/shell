@@ -2,7 +2,7 @@ import { Column, Entity, Index } from 'typeorm'
 import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('fonts')
-@Index('ix_file_0', (font: Font) => [font.domain, font.name], { unique: true })
+@Index('ix_font_0', (font: Font) => [font.domain, font.name], { unique: true })
 export class Font extends DomainBaseEntity {
   @Column('text')
   name: string

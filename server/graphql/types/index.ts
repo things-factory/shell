@@ -12,10 +12,12 @@ import * as PlayGroup from './play-group'
 
 import * as Menu from './menu'
 import * as MenuButton from './menu-button'
+import * as MenuColumn from './menu-column'
 import * as Domain from './domain'
 import * as CommonCode from './common-code'
 import * as CommonCodeDetail from './common-code-detail'
 import * as Resource from './resource'
+import * as Terminology from './terminology'
 
 const Query = [
   'type Query {',
@@ -33,10 +35,12 @@ const Query = [
 
   Menu.Query,
   MenuButton.Query,
+  MenuColumn.Query,
   Domain.Query,
   CommonCode.Query,
   CommonCodeDetail.Query,
   Resource.Query,
+  Terminology.Query,
   '}'
 ].join('\n')
 
@@ -56,10 +60,12 @@ const Mutation = [
 
   Menu.Mutation,
   MenuButton.Mutation,
+  MenuColumn.Mutation,
   Domain.Mutation,
   CommonCode.Mutation,
   CommonCodeDetail.Mutation,
   Resource.Mutation,
+  Terminology.Mutation,
   '}'
 ].join('\n')
 
@@ -89,8 +95,10 @@ export const typeDefs = [
 
   ...Menu.Types,
   ...MenuButton.Types,
+  ...MenuColumn.Types,
   ...Domain.Types,
   ...CommonCode.Types,
   ...CommonCodeDetail.Types,
-  ...Resource.Types
+  ...Resource.Types,
+  ...Terminology.Types
 ]
