@@ -45,7 +45,7 @@ module.exports = async function(content) {
     if (pkg['things-factory']) {
       moduleConfigMap[pkg.name] = {
         pkg,
-        config: path.resolve(cwd, 'things-factory.config.js')
+        config: path.resolve(appRootPath, 'things-factory.config.js')
       }
     }
   } catch (e) {
