@@ -23,7 +23,7 @@ export class SeedSetting1556864112795 implements MigrationInterface {
     const foundCode = await commonCodeRepository.findOne(
       { name: 'CATEGORIES' },
       {
-        relations: ['commonCodeDetails']
+        relations: ['details']
       }
     )
 
@@ -32,7 +32,7 @@ export class SeedSetting1556864112795 implements MigrationInterface {
         await repository.save({
           ...setting,
           domain,
-          category: foundCode.commonCodeDetails[0].name
+          category: foundCode.details[0].name
         })
       })
     } catch (e) {
