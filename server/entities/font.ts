@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Column, Entity, Index } from 'typeorm'
 import { DomainBaseEntity } from './domain-base-entity'
-import { cpus } from 'os'
 
 @Entity('fonts')
+@Index('ix_file_0', (font: Font) => [font.domain, font.name], { unique: true })
 export class Font extends DomainBaseEntity {
   @Column('text')
   name: string

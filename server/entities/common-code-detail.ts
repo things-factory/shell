@@ -5,14 +5,13 @@ import { DomainBaseEntity } from './domain-base-entity'
 @Entity('common-code-details')
 @Index(
   'ix_common_code_detail_0',
-  (commonCodeDetail: CommonCodeDetail) => [commonCodeDetail.name, commonCodeDetail.parent],
+  (commonCodeDetail: CommonCodeDetail) => [commonCodeDetail.domain, commonCodeDetail.parent, commonCodeDetail.name],
   { unique: true }
 )
-@Index(
-  'ix_common_code_detail_1',
-  (commonCodeDetail: CommonCodeDetail) => [commonCodeDetail.name, commonCodeDetail.parent],
-  { unique: true }
-)
+@Index('ix_common_code_detail_1', (commonCodeDetail: CommonCodeDetail) => [
+  commonCodeDetail.parent,
+  commonCodeDetail.rank
+])
 export class CommonCodeDetail extends DomainBaseEntity {
   @Column('text')
   name: string

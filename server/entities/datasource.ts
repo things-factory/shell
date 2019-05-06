@@ -1,8 +1,9 @@
-import { Column, Entity, OneToMany } from 'typeorm'
+import { Column, Entity, Index, OneToMany } from 'typeorm'
 import { Publisher } from './publisher'
 import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('datasources')
+@Index('ix_data_source_0', (dataSource: DataSource) => [dataSource.domain, dataSource.name], { unique: true })
 export class DataSource extends DomainBaseEntity {
   @Column('text', {
     unique: true,

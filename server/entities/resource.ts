@@ -1,7 +1,11 @@
-import { Entity, Column, ManyToOne, OneToMany } from 'typeorm'
+import { Column, Entity, Index, ManyToOne, OneToMany } from 'typeorm'
 import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('entities')
+@Index('ix_entity_0', (resource: Resource) => [resource.domain, resource.name], { unique: true })
+@Index('ix_entity_0', (resource: Resource) => [resource.domain], { unique: true })
+@Index('ix_entity_0', (resource: Resource) => [resource.bundle], { unique: true })
+@Index('ix_entity_0', (resource: Resource) => [resource.domain, resource.masterId], { unique: true })
 export class Resource extends DomainBaseEntity {
   @Column('text')
   name: string

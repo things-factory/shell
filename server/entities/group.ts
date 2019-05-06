@@ -1,8 +1,9 @@
-import { Column, Entity, OneToMany } from 'typeorm'
+import { Column, Entity, Index, OneToMany } from 'typeorm'
 import { Board } from './board'
 import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('groups')
+@Index('ix_group_0', (group: Group) => [group.domain, group.name], { unique: true })
 export class Group extends DomainBaseEntity {
   @Column('text', {
     unique: true,
