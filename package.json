@@ -1,13 +1,14 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.2.29",
+  "version": "0.2.30",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
     "things-factory-dev": "bin/things-factory-dev",
     "things-factory-migration": "bin/things-factory-migration"
   },
-  "main": "client/index.js",
+  "main": "server/index.ts",
+  "browser": "client/index.js",
   "repository": "http://github.com/things-factory/shell",
   "author": "Hearty Oh <heartyoh@hatiolab.com>",
   "license": "MIT",

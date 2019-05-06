@@ -8,7 +8,7 @@ const AppPackage = require(path.resolve(appRootPath, 'package.json'))
 
 const OUTPUT_PATH = path.resolve('./dist-client')
 
-console.log('output path: ', OUTPUT_PATH)
+console.log('Output Path: ', OUTPUT_PATH)
 
 const module_resolve = require('resolve')
 
