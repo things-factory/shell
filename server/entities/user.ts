@@ -1,12 +1,12 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, getRepository } from 'typeorm'
-
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
+import { Column, CreateDateColumn, Entity, getRepository, Index, PrimaryColumn, UpdateDateColumn } from 'typeorm'
 import { BaseEntity } from './base-entity'
 
 const SECRET = '0xD58F835B69D207A76CC5F84a70a1D0d4C79dAC95'
 
 @Entity('user')
+@Index('ix_user_0', (user: User) => [user.email], { unique: true })
 export class User extends BaseEntity {
   @PrimaryColumn('text')
   email: string

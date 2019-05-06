@@ -1,8 +1,11 @@
-import { Entity, Column } from 'typeorm'
+import { Entity, Index, Column } from 'typeorm'
 
 import { BaseEntity } from './base-entity'
 
 @Entity('domains')
+@Index('ix_domain_0', (domain: Domain) => [domain.name], { unique: true })
+@Index('ix_domain_0', (domain: Domain) => [domain.subdomain])
+@Index('ix_domain_0', (domain: Domain) => [domain.systemFlag])
 export class Domain extends BaseEntity {
   @Column('text', {
     unique: true

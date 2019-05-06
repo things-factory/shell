@@ -1,7 +1,10 @@
+import { Column, Entity, Index, ManyToOne } from 'typeorm'
 import { DomainBaseEntity } from '.'
 import { Menu } from './menu'
-import { Column, ManyToOne } from 'typeorm'
 
+@Entity('menu-columns')
+@Index('ix_menu_column_0', (menuColumn: MenuColumn) => [menuColumn.menu, menuColumn.name], { unique: true })
+@Index('ix_menu_column_1', (menuColumn: MenuColumn) => [menuColumn.menu, menuColumn.rank], { unique: true })
 export class MenuColumn extends DomainBaseEntity {
   @Column('text')
   menuId: string

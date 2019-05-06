@@ -1,9 +1,12 @@
-import { Entity, Column, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
+import { Column, Entity, Index, ManyToOne, OneToMany } from 'typeorm'
 import { DomainBaseEntity } from './domain-base-entity'
 import { MenuButton } from './menu-button'
 import { MenuColumn } from './menu-column'
 
 @Entity('menus')
+@Index('ix_menu_0', (menu: Menu) => [menu.domain, menu.name], { unique: true })
+@Index('ix_menu_1', (menu: Menu) => [menu.domain, menu.parent])
+@Index('ix_menu_2', (menu: Menu) => [menu.domain, menu.category, menu.menuType, menu.rank])
 export class Menu extends DomainBaseEntity {
   @Column('text', {
     unique: true
