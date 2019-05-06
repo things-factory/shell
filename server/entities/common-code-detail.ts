@@ -16,7 +16,7 @@ export class CommonCodeDetail extends DomainBaseEntity {
   @Column('text')
   name: string
 
-  @ManyToOne(type => CommonCode, commonCode => commonCode.commonCodeDetails)
+  @ManyToOne(type => CommonCode, commonCode => commonCode.details)
   parent: CommonCode
 
   @Column('text')

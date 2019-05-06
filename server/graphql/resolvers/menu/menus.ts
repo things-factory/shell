@@ -5,6 +5,8 @@ export const menusResolver = {
   async menus() {
     const repository = getRepository(Menu)
 
-    return await repository.find()
+    return await repository.find({
+      relations: ['domain', 'parent', 'children', 'buttons', 'columns']
+    })
   }
 }

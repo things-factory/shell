@@ -6,6 +6,8 @@ export const Menu = gql`
     domain: Domain
     name: String
     children: [Menu]
+    buttons: [MenuButton]
+    columns: [MenuColumn]
     createdAt: String
     updatedAt: String
   }

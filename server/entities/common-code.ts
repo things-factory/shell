@@ -18,5 +18,5 @@ export class CommonCode extends DomainBaseEntity {
   bundle: string
 
   @OneToMany(type => CommonCodeDetail, commonCodeDetail => commonCodeDetail.parent)
-  commonCodeDetails: CommonCodeDetail[]
+  details: CommonCodeDetail[]
 }
