@@ -2,11 +2,13 @@ const path = require('path')
 const webpack = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const AppPackage = require(path.resolve(process.cwd(), 'package.json'))
+
+const appRootPath = require('app-root-path').path
+const AppPackage = require(path.resolve(appRootPath, 'package.json'))
 
 const OUTPUT_PATH = path.resolve('./dist-client')
 
-console.log('output path: ', OUTPUT_PATH)
+console.log('Output Path: ', OUTPUT_PATH)
 
 const module_resolve = require('resolve')
 
@@ -18,9 +20,7 @@ if (AppPackage.name !== '@things-factory/shell') {
     var shellModulePath = path.resolve(pathName, '../..')
     var nodeModulePath = path.resolve(pathName, '../../../..')
   } catch (e) {
-    console.log('@things-factory/shell module not found.')
-    var shellModulePath = path.resolve(__dirname)
-    var nodeModulePath = path.resolve(__dirname, 'node_modules')
+    throw new Exception('@things-factory/shell module not found.', e)
   }
 } else {
   var shellModulePath = path.resolve(__dirname)
@@ -41,6 +41,7 @@ module.exports = {
     ]
   },
   resolve: {
+    aliasFields: ['browser'],
     alias: {
       [AppPackage.name]: path.resolve(__dirname)
     },
