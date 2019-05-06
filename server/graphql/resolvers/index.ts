@@ -12,6 +12,7 @@ import * as PlayGroup from './play-group'
 
 import * as Menu from './menu'
 import * as MenuButton from './menu-button'
+import * as MenuColumn from './menu-column'
 import * as Domain from './domain'
 import * as CommonCode from './common-code'
 import * as CommonCodeDetail from './common-code-detail'
@@ -35,6 +36,7 @@ export const resolvers = {
 
     ...Menu.Query,
     ...MenuButton.Query,
+    ...MenuColumn.Query,
     ...Domain.Query,
     ...CommonCode.Query,
     ...CommonCodeDetail.Query,
@@ -56,6 +58,7 @@ export const resolvers = {
 
     ...Menu.Mutation,
     ...MenuButton.Mutation,
+    ...MenuColumn.Mutation,
     ...Domain.Mutation,
     ...CommonCode.Mutation,
     ...CommonCodeDetail.Mutation,
