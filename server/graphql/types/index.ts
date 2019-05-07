@@ -1,4 +1,5 @@
 import * as User from './user'
+import * as UserHistory from './user-history'
 
 import * as File from './file'
 import * as Setting from './setting'
@@ -24,6 +25,7 @@ import * as PermitUrl from './permit-url'
 const Query = [
   'type Query {',
   User.Query,
+  UserHistory.Query,
 
   File.Query,
   Setting.Query,
@@ -51,6 +53,7 @@ const Query = [
 const Mutation = [
   'type Mutation {',
   User.Mutation,
+  UserHistory.Mutation,
 
   File.Mutation,
   Setting.Mutation,
@@ -88,6 +91,7 @@ export const typeDefs = [
   `scalar Upload`,
 
   ...User.Types,
+  ...UserHistory.Types,
 
   ...File.Types,
   ...Setting.Types,

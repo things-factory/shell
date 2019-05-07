@@ -2,6 +2,7 @@ import { BaseEntity } from './base-entity'
 import { DomainBaseEntity } from './domain-base-entity'
 
 import { User } from './user'
+import { UserHistory } from './user-history'
 
 import { File } from './file'
 import { Setting } from './setting'
@@ -29,6 +30,7 @@ export const entities = [
   DomainBaseEntity,
 
   User,
+  UserHistory,
   File,
   Setting,
   Font,
@@ -53,6 +55,7 @@ export {
   BaseEntity,
   DomainBaseEntity,
   User,
+  UserHistory,
   File,
   Setting,
   Font,

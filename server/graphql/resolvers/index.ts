@@ -1,4 +1,5 @@
 import * as User from './user'
+import * as UserHistory from './user-history'
 
 import * as File from './file'
 import * as Setting from './setting'
@@ -26,6 +27,7 @@ import { GraphQLUpload } from 'graphql-upload'
 export const resolvers = {
   Query: {
     ...User.Query,
+    ...UserHistory.Query,
 
     ...File.Query,
     ...Setting.Query,
@@ -51,6 +53,7 @@ export const resolvers = {
 
   Mutation: {
     ...User.Mutation,
+    ...UserHistory.Mutation,
 
     ...File.Mutation,
     ...Setting.Mutation,
