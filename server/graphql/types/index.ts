@@ -17,6 +17,7 @@ import * as Domain from './domain'
 import * as CommonCode from './common-code'
 import * as CommonCodeDetail from './common-code-detail'
 import * as Resource from './resource'
+import * as ResourceColumn from './resource-column'
 import * as Terminology from './terminology'
 
 const Query = [
@@ -40,6 +41,7 @@ const Query = [
   CommonCode.Query,
   CommonCodeDetail.Query,
   Resource.Query,
+  ResourceColumn.Query,
   Terminology.Query,
   '}'
 ].join('\n')
@@ -65,6 +67,7 @@ const Mutation = [
   CommonCode.Mutation,
   CommonCodeDetail.Mutation,
   Resource.Mutation,
+  ResourceColumn.Mutation,
   Terminology.Mutation,
   '}'
 ].join('\n')
@@ -100,5 +103,6 @@ export const typeDefs = [
   ...CommonCode.Types,
   ...CommonCodeDetail.Types,
   ...Resource.Types,
+  ...ResourceColumn.Types,
   ...Terminology.Types
 ]

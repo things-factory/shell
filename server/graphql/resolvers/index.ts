@@ -17,6 +17,7 @@ import * as Domain from './domain'
 import * as CommonCode from './common-code'
 import * as CommonCodeDetail from './common-code-detail'
 import * as Resource from './resource'
+import * as ResourceColumn from './resource-column'
 import * as Terminology from './terminology'
 
 import { GraphQLUpload } from 'graphql-upload'
@@ -42,6 +43,7 @@ export const resolvers = {
     ...CommonCode.Query,
     ...CommonCodeDetail.Query,
     ...Resource.Query,
+    ...ResourceColumn.Query,
     ...Terminology.Query
   },
 
@@ -65,6 +67,7 @@ export const resolvers = {
     ...CommonCode.Mutation,
     ...CommonCodeDetail.Mutation,
     ...Resource.Mutation,
+    ...ResourceColumn.Mutation,
     ...Terminology.Mutation
   },
 

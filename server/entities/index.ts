@@ -20,6 +20,7 @@ import { Domain } from './domain'
 import { CommonCode } from './common-code'
 import { CommonCodeDetail } from './common-code-detail'
 import { Resource } from './resource'
+import { ResourceColumn } from './resource-column'
 import { Terminology } from './terminology'
 
 export const entities = [
@@ -42,6 +43,7 @@ export const entities = [
   CommonCode,
   CommonCodeDetail,
   Resource,
+  ResourceColumn,
   Terminology
 ]
 
@@ -64,5 +66,6 @@ export {
   CommonCode,
   CommonCodeDetail,
   Resource,
+  ResourceColumn,
   Terminology
 }
