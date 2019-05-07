@@ -9,7 +9,8 @@ import unless from 'koa-unless'
 import { graphqlUploadKoa } from 'graphql-upload'
 import { databaseInitializer } from './initializers/database'
 import { routes } from './routes'
-import { schema } from './graphql/schema'
+// import { schema } from './graphql/schema'
+import { getSchema } from './schema'
 
 import { authMiddleware } from './middlewares/auth-middleware'
 ;(authMiddleware as any).unless = unless
@@ -92,7 +93,7 @@ const bootstrap = async () => {
   })
 
   const server = new ApolloServer({
-    schema,
+    schema: await getSchema(),
     formatError: error => {
       console.log(error)
       return error
