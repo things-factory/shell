@@ -2,6 +2,7 @@ import { BaseEntity } from './base-entity'
 import { DomainBaseEntity } from './domain-base-entity'
 
 import { User } from './user'
+import { UserHistory } from './user-history'
 
 import { File } from './file'
 import { Setting } from './setting'
@@ -20,13 +21,19 @@ import { Domain } from './domain'
 import { CommonCode } from './common-code'
 import { CommonCodeDetail } from './common-code-detail'
 import { Resource } from './resource'
+import { ResourceColumn } from './resource-column'
 import { Terminology } from './terminology'
+import { PermitUrl } from './permit-url'
+import { Role } from './role'
+import { UsersRole } from './users-role'
+import { UserRoleHistory } from './user-role-history'
 
 export const entities = [
   BaseEntity,
   DomainBaseEntity,
 
   User,
+  UserHistory,
   File,
   Setting,
   Font,
@@ -42,13 +49,19 @@ export const entities = [
   CommonCode,
   CommonCodeDetail,
   Resource,
-  Terminology
+  ResourceColumn,
+  Terminology,
+  PermitUrl,
+  Role,
+  UsersRole,
+  UserRoleHistory
 ]
 
 export {
   BaseEntity,
   DomainBaseEntity,
   User,
+  UserHistory,
   File,
   Setting,
   Font,
@@ -64,5 +77,10 @@ export {
   CommonCode,
   CommonCodeDetail,
   Resource,
-  Terminology
+  ResourceColumn,
+  Terminology,
+  PermitUrl,
+  Role,
+  UsersRole,
+  UserRoleHistory
 }

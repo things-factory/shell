@@ -1,4 +1,5 @@
 import * as User from './user'
+import * as UserHistory from './user-history'
 
 import * as File from './file'
 import * as Setting from './setting'
@@ -17,11 +18,17 @@ import * as Domain from './domain'
 import * as CommonCode from './common-code'
 import * as CommonCodeDetail from './common-code-detail'
 import * as Resource from './resource'
+import * as ResourceColumn from './resource-column'
 import * as Terminology from './terminology'
+import * as PermitUrl from './permit-url'
+import * as Role from './role'
+import * as UsersRole from './users-role'
+import * as UserRoleHistory from './user-role-history'
 
 const Query = [
   'type Query {',
   User.Query,
+  UserHistory.Query,
 
   File.Query,
   Setting.Query,
@@ -40,13 +47,19 @@ const Query = [
   CommonCode.Query,
   CommonCodeDetail.Query,
   Resource.Query,
+  ResourceColumn.Query,
   Terminology.Query,
+  PermitUrl.Query,
+  Role.Query,
+  UsersRole.Query,
+  UserRoleHistory.Query,
   '}'
 ].join('\n')
 
 const Mutation = [
   'type Mutation {',
   User.Mutation,
+  UserHistory.Mutation,
 
   File.Mutation,
   Setting.Mutation,
@@ -65,7 +78,12 @@ const Mutation = [
   CommonCode.Mutation,
   CommonCodeDetail.Mutation,
   Resource.Mutation,
+  ResourceColumn.Mutation,
   Terminology.Mutation,
+  PermitUrl.Mutation,
+  Role.Mutation,
+  UsersRole.Mutation,
+  UserRoleHistory.Mutation,
   '}'
 ].join('\n')
 
@@ -82,6 +100,7 @@ export const typeDefs = [
   `scalar Upload`,
 
   ...User.Types,
+  ...UserHistory.Types,
 
   ...File.Types,
   ...Setting.Types,
@@ -100,5 +119,10 @@ export const typeDefs = [
   ...CommonCode.Types,
   ...CommonCodeDetail.Types,
   ...Resource.Types,
-  ...Terminology.Types
+  ...ResourceColumn.Types,
+  ...Terminology.Types,
+  ...PermitUrl.Types,
+  ...Role.Types,
+  ...UsersRole.Types,
+  ...UserRoleHistory.Types
 ]

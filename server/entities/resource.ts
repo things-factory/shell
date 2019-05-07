@@ -1,5 +1,6 @@
 import { Column, Entity, Index, ManyToOne, OneToMany } from 'typeorm'
 import { DomainBaseEntity } from './domain-base-entity'
+import { ResourceColumn } from './resource-column'
 
 @Entity('entities')
 @Index('ix_entity_0', (resource: Resource) => [resource.domain, resource.name], { unique: true })
@@ -91,4 +92,7 @@ export class Resource extends DomainBaseEntity {
     nullable: true
   })
   extEntity: boolean
+
+  @OneToMany(type => ResourceColumn, resourceColumn => resourceColumn.entity)
+  columns: ResourceColumn
 }
