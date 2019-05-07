@@ -3,6 +3,10 @@ import { Resource } from './resource'
 import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('entity-columns')
+@Index('ix_entity_col_0', (resourceColumn: ResourceColumn) => [resourceColumn.entity, resourceColumn.name], {
+  unique: true
+})
+@Index('ix_entity_col_1', (resourceColumn: ResourceColumn) => [resourceColumn.entity, resourceColumn.rank])
 export class ResourceColumn extends DomainBaseEntity {
   @Column('text')
   entityId: string
