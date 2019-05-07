@@ -22,6 +22,7 @@ import { CommonCodeDetail } from './common-code-detail'
 import { Resource } from './resource'
 import { ResourceColumn } from './resource-column'
 import { Terminology } from './terminology'
+import { PermitUrl } from './permit-url'
 
 export const entities = [
   BaseEntity,
@@ -44,7 +45,8 @@ export const entities = [
   CommonCodeDetail,
   Resource,
   ResourceColumn,
-  Terminology
+  Terminology,
+  PermitUrl
 ]
 
 export {
@@ -67,5 +69,6 @@ export {
   CommonCodeDetail,
   Resource,
   ResourceColumn,
-  Terminology
+  Terminology,
+  PermitUrl
 }

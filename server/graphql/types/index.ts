@@ -19,6 +19,7 @@ import * as CommonCodeDetail from './common-code-detail'
 import * as Resource from './resource'
 import * as ResourceColumn from './resource-column'
 import * as Terminology from './terminology'
+import * as PermitUrl from './permit-url'
 
 const Query = [
   'type Query {',
@@ -43,6 +44,7 @@ const Query = [
   Resource.Query,
   ResourceColumn.Query,
   Terminology.Query,
+  PermitUrl.Query,
   '}'
 ].join('\n')
 
@@ -69,6 +71,7 @@ const Mutation = [
   Resource.Mutation,
   ResourceColumn.Mutation,
   Terminology.Mutation,
+  PermitUrl.Mutation,
   '}'
 ].join('\n')
 
@@ -104,5 +107,6 @@ export const typeDefs = [
   ...CommonCodeDetail.Types,
   ...Resource.Types,
   ...ResourceColumn.Types,
-  ...Terminology.Types
+  ...Terminology.Types,
+  ...PermitUrl.Types
 ]

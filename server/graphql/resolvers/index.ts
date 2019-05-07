@@ -19,6 +19,7 @@ import * as CommonCodeDetail from './common-code-detail'
 import * as Resource from './resource'
 import * as ResourceColumn from './resource-column'
 import * as Terminology from './terminology'
+import * as PermitUrl from './permit-url'
 
 import { GraphQLUpload } from 'graphql-upload'
 
@@ -44,7 +45,8 @@ export const resolvers = {
     ...CommonCodeDetail.Query,
     ...Resource.Query,
     ...ResourceColumn.Query,
-    ...Terminology.Query
+    ...Terminology.Query,
+    ...PermitUrl.Query
   },
 
   Mutation: {
@@ -68,7 +70,8 @@ export const resolvers = {
     ...CommonCodeDetail.Mutation,
     ...Resource.Mutation,
     ...ResourceColumn.Mutation,
-    ...Terminology.Mutation
+    ...Terminology.Mutation,
+    ...PermitUrl.Mutation
   },
 
   Upload: GraphQLUpload
