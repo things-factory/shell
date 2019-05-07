@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.2.39",
+  "version": "0.2.40",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -40,6 +40,7 @@
     "@babel/register": "^7.4.0",
     "@material/mwc-button": "^0.5.0",
     "@material/mwc-icon": "^0.5.0",
+    "@things-factory/env": "*",
     "@things-factory/i18n-ui": "*",
     "@things-factory/print-ui": "*",
     "@types/graphql": "^14.2.0",
