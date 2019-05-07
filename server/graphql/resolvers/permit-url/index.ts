@@ -6,8 +6,8 @@ import { createPermitUrl } from './create-permit-url'
 import { deletePermitUrl } from './delete-permit-url'
 
 export const Query = {
-  ...permitUrlResolver,
-  ...permitUrlsResolver
+  ...permitUrlsResolver,
+  ...permitUrlResolver
 }
 
 export const Mutation = {

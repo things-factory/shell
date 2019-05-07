@@ -14,7 +14,7 @@ export class ResourceColumn extends DomainBaseEntity {
   @ManyToOne(type => Resource, resource => resource.columns)
   entity: Resource
 
-  @Column('test')
+  @Column('text')
   name: string
 
   @Column('text', {

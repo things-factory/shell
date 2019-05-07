@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-koa'
 
-export const NewPermitUrl = gql`
-  input NewPermitUrl {
+export const NewRole = gql`
+  input NewRole {
     name: String!
     description: String
   }

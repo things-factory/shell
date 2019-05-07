@@ -4,7 +4,7 @@ import { PermitUrlPatch } from './permit-url-patch'
 
 export const Mutation = `
   createPermitUrl (
-    permit-url: NewPermitUrl!
+    permitUrl: NewPermitUrl!
   ): PermitUrl
 
   updatePermitUrl (
@@ -18,8 +18,8 @@ export const Mutation = `
 `
 
 export const Query = `
-  permit-urls: [PermitUrl]
-  permit-url(name: String!): PermitUrl
+  permitUrls: [PermitUrl]
+  permitUrl(name: String!): PermitUrl
 `
 
 export const Types = [PermitUrl, NewPermitUrl, PermitUrlPatch]

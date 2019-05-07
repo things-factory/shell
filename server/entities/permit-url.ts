@@ -1,4 +1,4 @@
-import { DomainBaseEntity } from '.'
+import { DomainBaseEntity } from './domain-base-entity'
 import { Entity, Column, Index } from 'typeorm'
 
 @Entity('permit-urls')

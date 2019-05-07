@@ -24,6 +24,7 @@ import { Resource } from './resource'
 import { ResourceColumn } from './resource-column'
 import { Terminology } from './terminology'
 import { PermitUrl } from './permit-url'
+import { Role } from './role'
 
 export const entities = [
   BaseEntity,
@@ -48,7 +49,8 @@ export const entities = [
   Resource,
   ResourceColumn,
   Terminology,
-  PermitUrl
+  PermitUrl,
+  Role
 ]
 
 export {
@@ -73,5 +75,6 @@ export {
   Resource,
   ResourceColumn,
   Terminology,
-  PermitUrl
+  PermitUrl,
+  Role
 }

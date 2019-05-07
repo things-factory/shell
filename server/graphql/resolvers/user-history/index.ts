@@ -1,9 +1,9 @@
-import { userHistoryResolver } from './userHistory'
-import { userHistoriesResolver } from './userHistories'
+import { userHistoryResolver } from './user-history'
+import { userHistoriesResolver } from './user-histories'
 
-import { updateUserHistory } from './update-userHistory'
-import { createUserHistory } from './create-userHistory'
-import { deleteUserHistory } from './delete-userHistory'
+import { updateUserHistory } from './update-user-history'
+import { createUserHistory } from './create-user-history'
+import { deleteUserHistory } from './delete-user-history'
 
 export const Query = {
   ...userHistoriesResolver,

@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-koa'
 
-export const PermitUrl = gql`
-  type PermitUrl {
+export const Role = gql`
+  type Role {
     name: String
     description: String
     createdAt: String

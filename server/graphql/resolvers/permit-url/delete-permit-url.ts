@@ -1,10 +1,10 @@
 import { getRepository } from 'typeorm'
-import { PermitUrl } from '../../../entities/permit-url'
+import { PermitUrl } from '../../../entities'
 
 export const deletePermitUrl = {
-  async deletePermitUrl(_, { id }) {
+  async deletePermitUrl(_, { name, patch }) {
     const repository = getRepository(PermitUrl)
 
-    return await repository.delete(id)
+    return await repository.delete(name)
   }
 }
