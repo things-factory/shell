@@ -22,6 +22,7 @@ import * as ResourceColumn from './resource-column'
 import * as Terminology from './terminology'
 import * as PermitUrl from './permit-url'
 import * as Role from './role'
+import * as UsersRole from './users-role'
 
 import { GraphQLUpload } from 'graphql-upload'
 
@@ -50,7 +51,8 @@ export const resolvers = {
     ...ResourceColumn.Query,
     ...Terminology.Query,
     ...PermitUrl.Query,
-    ...Role.Query
+    ...Role.Query,
+    ...UsersRole.Query
   },
 
   Mutation: {
@@ -77,7 +79,8 @@ export const resolvers = {
     ...ResourceColumn.Mutation,
     ...Terminology.Mutation,
     ...PermitUrl.Mutation,
-    ...Role.Mutation
+    ...Role.Mutation,
+    ...UsersRole.Mutation
   },
 
   Upload: GraphQLUpload

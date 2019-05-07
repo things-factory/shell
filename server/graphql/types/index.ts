@@ -22,6 +22,7 @@ import * as ResourceColumn from './resource-column'
 import * as Terminology from './terminology'
 import * as PermitUrl from './permit-url'
 import * as Role from './role'
+import * as UsersRole from './users-role'
 
 const Query = [
   'type Query {',
@@ -49,6 +50,7 @@ const Query = [
   Terminology.Query,
   PermitUrl.Query,
   Role.Query,
+  UsersRole.Query,
   '}'
 ].join('\n')
 
@@ -78,6 +80,7 @@ const Mutation = [
   Terminology.Mutation,
   PermitUrl.Mutation,
   Role.Mutation,
+  UsersRole.Mutation,
   '}'
 ].join('\n')
 
@@ -116,5 +119,6 @@ export const typeDefs = [
   ...ResourceColumn.Types,
   ...Terminology.Types,
   ...PermitUrl.Types,
-  ...Role.Types
+  ...Role.Types,
+  ...UsersRole.Types
 ]
