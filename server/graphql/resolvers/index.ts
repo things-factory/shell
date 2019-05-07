@@ -23,6 +23,7 @@ import * as Terminology from './terminology'
 import * as PermitUrl from './permit-url'
 import * as Role from './role'
 import * as UsersRole from './users-role'
+import * as UserRoleHistory from './user-role-history'
 
 import { GraphQLUpload } from 'graphql-upload'
 
@@ -52,7 +53,8 @@ export const resolvers = {
     ...Terminology.Query,
     ...PermitUrl.Query,
     ...Role.Query,
-    ...UsersRole.Query
+    ...UsersRole.Query,
+    ...UserRoleHistory.Query
   },
 
   Mutation: {
@@ -80,7 +82,8 @@ export const resolvers = {
     ...Terminology.Mutation,
     ...PermitUrl.Mutation,
     ...Role.Mutation,
-    ...UsersRole.Mutation
+    ...UsersRole.Mutation,
+    ...UserRoleHistory.Mutation
   },
 
   Upload: GraphQLUpload

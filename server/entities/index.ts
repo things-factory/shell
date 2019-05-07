@@ -26,6 +26,7 @@ import { Terminology } from './terminology'
 import { PermitUrl } from './permit-url'
 import { Role } from './role'
 import { UsersRole } from './users-role'
+import { UserRoleHistory } from './user-role-history'
 
 export const entities = [
   BaseEntity,
@@ -52,7 +53,8 @@ export const entities = [
   Terminology,
   PermitUrl,
   Role,
-  UsersRole
+  UsersRole,
+  UserRoleHistory
 ]
 
 export {
@@ -79,5 +81,6 @@ export {
   Terminology,
   PermitUrl,
   Role,
-  UsersRole
+  UsersRole,
+  UserRoleHistory
 }

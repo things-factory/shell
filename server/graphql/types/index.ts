@@ -23,6 +23,7 @@ import * as Terminology from './terminology'
 import * as PermitUrl from './permit-url'
 import * as Role from './role'
 import * as UsersRole from './users-role'
+import * as UserRoleHistory from './user-role-history'
 
 const Query = [
   'type Query {',
@@ -51,6 +52,7 @@ const Query = [
   PermitUrl.Query,
   Role.Query,
   UsersRole.Query,
+  UserRoleHistory.Query,
   '}'
 ].join('\n')
 
@@ -81,6 +83,7 @@ const Mutation = [
   PermitUrl.Mutation,
   Role.Mutation,
   UsersRole.Mutation,
+  UserRoleHistory.Mutation,
   '}'
 ].join('\n')
 
@@ -120,5 +123,6 @@ export const typeDefs = [
   ...Terminology.Types,
   ...PermitUrl.Types,
   ...Role.Types,
-  ...UsersRole.Types
+  ...UsersRole.Types,
+  ...UserRoleHistory.Types
 ]
