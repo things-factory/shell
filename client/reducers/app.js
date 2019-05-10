@@ -1,4 +1,4 @@
-import { UPDATE_BASE_URL, UPDATE_CONTEXT_PATH } from '../actions/app.js'
+import { UPDATE_BASE_URL, UPDATE_CONTEXT_PATH, TOGGLE_OVERLAY } from '../actions/app.js'
 
 import { modules } from '../module-importer.import'
 
@@ -6,7 +6,11 @@ const INITIAL_STATE = {
   baseUrl: location.origin,
   contextPath: '',
   /* FIXME. 왜 modules의 순서가 뒤집어지는 지 이해할 수 없음. */
-  modules: modules.reverse()
+  modules: modules.reverse(),
+  overlayTemplate: {
+    show: false,
+    template: ''
+  }
 }
 
 const app = (state = INITIAL_STATE, action) => {
@@ -20,6 +24,15 @@ const app = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         contextPath: action.contextPath
+      }
+
+    case TOGGLE_OVERLAY:
+      return {
+        ...state,
+        overlayTemplate: {
+          show: !state.overlayTemplate.show,
+          template: action.template
+        }
       }
     default:
       return state

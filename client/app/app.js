@@ -8,6 +8,7 @@ import { navigate, UPDATE_ACTIVE_PAGE } from '../actions/route'
 
 import { AppTheme } from './styles/app-theme'
 import { AppStyle } from './app-style'
+import { TOGGLE_OVERLAY } from '../actions/app'
 
 class ThingsApp extends connect(store)(LitElement) {
   static get properties() {
@@ -15,12 +16,28 @@ class ThingsApp extends connect(store)(LitElement) {
       appTitle: String,
       _page: String,
       _activePage: Object,
-      _modules: Array
+      _modules: Array,
+      _overlayTemplate: Object
     }
   }
 
   static get styles() {
-    return [AppTheme, AppStyle]
+    return [
+      AppTheme,
+      AppStyle,
+      css`
+        #modal[active] {
+          display: flex;
+          flex-direction: column;
+          background-color: rgba(0, 0, 0, 0.5);
+          margin-right: -100%;
+          z-index: 10;
+        }
+        #modal[active] * {
+          display: block;
+        }
+      `
+    ]
   }
 
   render() {
@@ -30,6 +47,9 @@ class ThingsApp extends connect(store)(LitElement) {
       <nav-bar></nav-bar>
 
       <main>
+        <div id="modal" ?active="${this._overlayTemplate.show}" @click="${this._toggleOverlay}">
+          ${this._overlayTemplate.template}
+        </div>
         <page-404 class="page" data-page="page404"></page-404>
       </main>
 
@@ -85,6 +105,7 @@ class ThingsApp extends connect(store)(LitElement) {
   stateChanged(state) {
     this._page = state.route.page
     this._modules = state.app.modules
+    this._overlayTemplate = state.app.overlayTemplate
   }
 
   _appendFactoryModulePages() {
@@ -98,6 +119,12 @@ class ThingsApp extends connect(store)(LitElement) {
 
           main.appendChild(el)
         })
+    })
+  }
+
+  _toggleOverlay() {
+    store.dispatch({
+      type: TOGGLE_OVERLAY
     })
   }
 }
