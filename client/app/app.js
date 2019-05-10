@@ -1,14 +1,11 @@
-import { LitElement, html, css } from 'lit-element'
+import { html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
-import { installRouter } from 'pwa-helpers/router.js'
 import { updateMetadata } from 'pwa-helpers/metadata.js'
-
-import { store } from '../store'
+import { installRouter } from 'pwa-helpers/router.js'
 import { navigate, UPDATE_ACTIVE_PAGE } from '../actions/route'
-
-import { AppTheme } from './styles/app-theme'
+import { store } from '../store'
 import { AppStyle } from './app-style'
-import { TOGGLE_OVERLAY } from '../actions/app'
+import { AppTheme } from './styles/app-theme'
 
 class ThingsApp extends connect(store)(LitElement) {
   static get properties() {
@@ -16,28 +13,12 @@ class ThingsApp extends connect(store)(LitElement) {
       appTitle: String,
       _page: String,
       _activePage: Object,
-      _modules: Array,
-      _overlayTemplate: Object
+      _modules: Array
     }
   }
 
   static get styles() {
-    return [
-      AppTheme,
-      AppStyle,
-      css`
-        #modal[active] {
-          display: flex;
-          flex-direction: column;
-          background-color: rgba(0, 0, 0, 0.5);
-          margin-right: -100%;
-          z-index: 10;
-        }
-        #modal[active] * {
-          display: block;
-        }
-      `
-    ]
+    return [AppTheme, AppStyle]
   }
 
   render() {
@@ -46,12 +27,7 @@ class ThingsApp extends connect(store)(LitElement) {
 
       <nav-bar></nav-bar>
 
-      <main>
-        <div id="modal" ?active="${this._overlayTemplate.show}" @click="${this._toggleOverlay}">
-          ${this._overlayTemplate.template}
-        </div>
-        <page-404 class="page" data-page="page404"></page-404>
-      </main>
+      <main></main>
 
       <aside-bar></aside-bar>
 
@@ -119,12 +95,6 @@ class ThingsApp extends connect(store)(LitElement) {
 
           main.appendChild(el)
         })
-    })
-  }
-
-  _toggleOverlay() {
-    store.dispatch({
-      type: TOGGLE_OVERLAY
     })
   }
 }
