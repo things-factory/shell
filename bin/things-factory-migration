@@ -8,19 +8,23 @@ const path = require('path')
 const createConnection = require('typeorm').createConnection
 
 const appRootPath = require('app-root-path').path
-const appPackage = require(path.resolve(appRootPath, 'package.json'))
+const selfModulePackage = require(path.resolve(appRootPath, 'package.json'))
+const selfModuleName = selfModulePackage.name
+const selfModule = require(path.resolve(appRootPath, selfModulePackage.main))
 
-let factoryShellPath
-if (appPackage.name === '@things-factory/shell') {
-  factoryShellPath = appRootPath
-} else {
-  try {
-    factoryShellPath = path.dirname(require.resolve('@things-factory/shell/package.json'))
-  } catch (e) {
-    console.error(e, '@things-factory/shell module not found.')
-    return
-  }
-}
+const getOrderedModuleNames = require('@things-factory/env').getOrderedModuleNames
+
+// let factoryShellPath
+// if (selfModulePackage.name === '@things-factory/shell') {
+//   factoryShellPath = appRootPath
+// } else {
+//   try {
+//     factoryShellPath = path.dirname(require.resolve('@things-factory/shell/package.json'))
+//   } catch (e) {
+//     console.error(e, '@things-factory/shell module not found.')
+//     return
+//   }
+// }
 
 let ormconfig
 
@@ -30,21 +34,81 @@ try {
   ormconfig = require('@things-factory/shell/ormconfig')
 }
 
-createConnection({
-  ...ormconfig,
-  logging: true,
-  entities: [path.resolve(factoryShellPath, 'dist-server/entities/**/*.js')],
-  migrations: [path.resolve(factoryShellPath, 'dist-server/migrations/**/*.js')],
-  subscribers: [path.resolve(factoryShellPath, 'dist-server/subscribers/**/*.js')]
-}).then((connection, ...others) => {
-  args.option('undo', 'Reverts last executed migration')
-  const flags = args.parse(process.argv)
+/*
+  dependencies list를 받아서, entities, migrations, subscribers 폴더 어레이를 빌드한다.
+*/
+getOrderedModuleNames().then(orderedModuleNames => {
+  const entities = [...orderedModuleNames]
+    .map(dep => {
+      try {
+        if (selfModuleName == dep) {
+          /* self module entities */
+          return selfModule.entities
+        } else {
+          return require(dep).entities
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    })
+    .filter(entity => entity && entity.length > 0)
+    .flat()
 
-  console.log('Database connection established')
-  if (flags.undo) {
-    connection.undoLastMigration()
-  } else {
-    connection.runMigrations()
-  }
-  console.log('Database Migration Done.')
+  const migrations = [...orderedModuleNames]
+    .map(dep => {
+      try {
+        if (selfModuleName == dep) {
+          /* self module migrations */
+          return selfModule.migrations
+        } else {
+          return require(dep).migrations
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    })
+    .filter(entity => entity && entity.length > 0)
+    .flat()
+
+  const subscribers = [...orderedModuleNames]
+    .map(dep => {
+      try {
+        if (selfModuleName == dep) {
+          /* self module subscribers */
+          return selfModule.subscribers
+        } else {
+          return require(dep).subscribers
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    })
+    .filter(entity => entity && entity.length > 0)
+    .flat()
+
+  console.log('entities', entities)
+  console.log('migrations', migrations)
+  console.log('subscribers', subscribers)
+
+  createConnection({
+    ...ormconfig,
+    logging: true
+    // entities,
+    // migrations,
+    // subscribers
+    // entities: [path.resolve(factoryShellPath, 'dist-server/entities/**/*.js')],
+    // migrations: [path.resolve(factoryShellPath, 'dist-server/migrations/**/*.js')],
+    // subscribers: [path.resolve(factoryShellPath, 'dist-server/subscribers/**/*.js')]
+  }).then((connection, ...others) => {
+    args.option('undo', 'Reverts last executed migration')
+    const flags = args.parse(process.argv)
+
+    console.log('Database connection established')
+    if (flags.undo) {
+      connection.undoLastMigration()
+    } else {
+      connection.runMigrations()
+    }
+    console.log('Database Migration Done.')
+  })
 })
