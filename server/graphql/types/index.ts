@@ -2,7 +2,6 @@ import * as User from './user'
 import * as UserHistory from './user-history'
 
 import * as File from './file'
-import * as Setting from './setting'
 import * as Font from './font'
 import * as DataSource from './datasource'
 import * as Publisher from './publisher'
@@ -25,13 +24,11 @@ import * as Role from './role'
 import * as UsersRole from './users-role'
 import * as UserRoleHistory from './user-role-history'
 
-const Query = [
-  'type Query {',
+export const queries = [
   User.Query,
   UserHistory.Query,
 
   File.Query,
-  Setting.Query,
   Font.Query,
   DataSource.Query,
   Publisher.Query,
@@ -52,17 +49,14 @@ const Query = [
   PermitUrl.Query,
   Role.Query,
   UsersRole.Query,
-  UserRoleHistory.Query,
-  '}'
-].join('\n')
+  UserRoleHistory.Query
+]
 
-const Mutation = [
-  'type Mutation {',
+export const mutations = [
   User.Mutation,
   UserHistory.Mutation,
 
   File.Mutation,
-  Setting.Mutation,
   Font.Mutation,
   DataSource.Mutation,
   Publisher.Mutation,
@@ -83,27 +77,14 @@ const Mutation = [
   PermitUrl.Mutation,
   Role.Mutation,
   UsersRole.Mutation,
-  UserRoleHistory.Mutation,
-  '}'
-].join('\n')
+  UserRoleHistory.Mutation
+]
 
-export const typeDefs = [
-  `
-    schema {
-      query: Query
-      mutation: Mutation
-    }
-  `,
-  Query,
-  Mutation,
-
-  `scalar Upload`,
-
+export const types = [
   ...User.Types,
   ...UserHistory.Types,
 
   ...File.Types,
-  ...Setting.Types,
   ...Font.Types,
   ...DataSource.Types,
   ...Publisher.Types,

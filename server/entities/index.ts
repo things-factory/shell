@@ -5,7 +5,6 @@ import { User } from './user'
 import { UserHistory } from './user-history'
 
 import { File } from './file'
-import { Setting } from './setting'
 import { Font } from './font'
 import { DataSource } from './datasource'
 import { Publisher } from './publisher'
@@ -35,7 +34,6 @@ export const entities = [
   User,
   UserHistory,
   File,
-  Setting,
   Font,
   DataSource,
   Publisher,
@@ -63,7 +61,6 @@ export {
   User,
   UserHistory,
   File,
-  Setting,
   Font,
   DataSource,
   Publisher,

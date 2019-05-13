@@ -2,9 +2,9 @@ const path = require('path')
 const fs = require('fs')
 const loaderUtils = require('loader-utils')
 
-const getOrderedModuleNames = require('@things-factory/env').getOrderedModuleNames
+const orderedModuleNames = require('@things-factory/env').orderedModuleNames
 
-module.exports = async function(content) {
+module.exports = function(content) {
   console.time('Module Configuration')
   const moduleConfigMap = {}
 
@@ -51,8 +51,6 @@ module.exports = async function(content) {
   } catch (e) {
     console.error(e)
   }
-
-  var orderedModuleNames = await getOrderedModuleNames()
 
   var result = `
 export var modules = [];

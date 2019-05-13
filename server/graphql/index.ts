@@ -1,13 +1,7 @@
-// import { makeExecutableSchema } from 'graphql-tools'
-
-import { typeDefs } from './types'
-import { resolvers } from './resolvers'
+import * as typeDefs from './types'
+import * as resolvers from './resolvers'
 
 export const schema = {
   typeDefs,
   resolvers
 }
-// export const schema = makeExecutableSchema({
-//   typeDefs,
-//   resolvers
-// })
