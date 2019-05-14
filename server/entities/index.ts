@@ -9,10 +9,6 @@ import { Font } from './font'
 import { DataSource } from './datasource'
 import { Publisher } from './publisher'
 
-import { Board } from './board'
-import { Group } from './group'
-import { PlayGroup } from './play-group'
-
 import { Domain } from './domain'
 import { Terminology } from './terminology'
 import { PermitUrl } from './permit-url'
@@ -30,9 +26,6 @@ export const entities = [
   Font,
   DataSource,
   Publisher,
-  Group,
-  Board,
-  PlayGroup,
   Domain,
   Terminology,
   PermitUrl,
@@ -50,9 +43,6 @@ export {
   Font,
   DataSource,
   Publisher,
-  Group,
-  Board,
-  PlayGroup,
   Domain,
   Terminology,
   PermitUrl,
