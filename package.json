@@ -22,7 +22,7 @@
     "build:server": "tsc",
     "build:client": "webpack --mode production",
     "clean": "rm -rf dist-server dist-client",
-    "prepublish": "npm run clean && npm run build:server && npm run build:client",
+    "prepublish": "npm run clean && npm run build:server",
     "start": "node dist-server/server.js",
     "migration": "node bin/things-factory-migration",
     "migration:generate": "node ./node_modules/typeorm/cli.js migration:generate",
