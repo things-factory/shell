@@ -13,12 +13,7 @@ import { Board } from './board'
 import { Group } from './group'
 import { PlayGroup } from './play-group'
 
-import { Menu } from './menu'
-import { MenuButton } from './menu-button'
-import { MenuColumn } from './menu-column'
 import { Domain } from './domain'
-import { CommonCode } from './common-code'
-import { CommonCodeDetail } from './common-code-detail'
 import { Resource } from './resource'
 import { ResourceColumn } from './resource-column'
 import { Terminology } from './terminology'
@@ -40,12 +35,7 @@ export const entities = [
   Group,
   Board,
   PlayGroup,
-  Menu,
-  MenuButton,
-  MenuColumn,
   Domain,
-  CommonCode,
-  CommonCodeDetail,
   Resource,
   ResourceColumn,
   Terminology,
@@ -67,12 +57,7 @@ export {
   Group,
   Board,
   PlayGroup,
-  Menu,
-  MenuColumn,
-  MenuButton,
   Domain,
-  CommonCode,
-  CommonCodeDetail,
   Resource,
   ResourceColumn,
   Terminology,

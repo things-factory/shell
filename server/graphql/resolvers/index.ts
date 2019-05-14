@@ -10,12 +10,7 @@ import * as Board from './board'
 import * as Group from './group'
 import * as PlayGroup from './play-group'
 
-import * as Menu from './menu'
-import * as MenuButton from './menu-button'
-import * as MenuColumn from './menu-column'
 import * as Domain from './domain'
-import * as CommonCode from './common-code'
-import * as CommonCodeDetail from './common-code-detail'
 import * as Resource from './resource'
 import * as ResourceColumn from './resource-column'
 import * as Terminology from './terminology'
@@ -37,12 +32,7 @@ export const queries = [
   Group.Query,
   PlayGroup.Query,
 
-  Menu.Query,
-  MenuButton.Query,
-  MenuColumn.Query,
   Domain.Query,
-  CommonCode.Query,
-  CommonCodeDetail.Query,
   Resource.Query,
   ResourceColumn.Query,
   Terminology.Query,
@@ -65,12 +55,7 @@ export const mutations = [
   Group.Mutation,
   PlayGroup.Mutation,
 
-  Menu.Mutation,
-  MenuButton.Mutation,
-  MenuColumn.Mutation,
   Domain.Mutation,
-  CommonCode.Mutation,
-  CommonCodeDetail.Mutation,
   Resource.Mutation,
   ResourceColumn.Mutation,
   Terminology.Mutation,
