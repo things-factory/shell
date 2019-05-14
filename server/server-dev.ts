@@ -149,6 +149,14 @@ const bootstrap = async () => {
 
     app.use(koaStatic(path.join(config.output.path)))
 
+    const orderedModuleNames = require('@things-factory/env').orderedModuleNames
+    orderedModuleNames.reverse().forEach(mod => {
+      if(mod.routes) {
+        app.use(mod.routes.routes())
+        app.use(mod.routes.allowedMethods())
+      }
+    })
+
     app.use(routes.routes())
     app.use(routes.allowedMethods())
 
