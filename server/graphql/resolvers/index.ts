@@ -7,7 +7,6 @@ import * as DataSource from './datasource'
 import * as Publisher from './publisher'
 
 import * as Domain from './domain'
-import * as Terminology from './terminology'
 import * as PermitUrl from './permit-url'
 import * as Role from './role'
 import * as UsersRole from './users-role'
@@ -23,7 +22,6 @@ export const queries = [
   Publisher.Query,
 
   Domain.Query,
-  Terminology.Query,
   PermitUrl.Query,
   Role.Query,
   UsersRole.Query,
@@ -40,7 +38,6 @@ export const mutations = [
   Publisher.Mutation,
 
   Domain.Mutation,
-  Terminology.Mutation,
   PermitUrl.Mutation,
   Role.Mutation,
   UsersRole.Mutation,
