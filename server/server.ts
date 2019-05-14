@@ -11,8 +11,8 @@ import { databaseInitializer } from './initializers/database'
 import { routes } from './routes'
 import { schema } from './schema'
 
-import { authMiddleware } from './middlewares/auth-middleware'
-;(authMiddleware as any).unless = unless
+// import { authMiddleware } from './middlewares/auth-middleware'
+// ;(authMiddleware as any).unless = unless
 
 const koaStatic = require('koa-static')
 import { historyApiFallback } from 'koa2-connect-history-api-fallback'
@@ -100,12 +100,29 @@ const bootstrap = async () => {
   })
 
   app.use(koaBodyParser(bodyParserOption))
-  app.use(
-    (authMiddleware as any).unless({
-      path: [/^(?!.graphql|.file|.uploads|.authcheck).*$/]
-    })
-    /* 위의 path로 시작하는 경우에만, authcheck를 한다. */
-  )
+
+  /* dependency 역순으로 middleware 를 적용한다. */
+  const orderedModuleNames = require('@things-factory/env').orderedModuleNames
+  orderedModuleNames.reverse().forEach(dep => {
+    try {
+      let mod = require(dep)
+
+      if (mod.middlewares) {
+        mod.middlewares.forEach(middleware => {
+          app.use(middleware)
+        })
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  })
+
+  // app.use(
+  //   (authMiddleware as any).unless({
+  //     path: [/^(?!.graphql|.file|.uploads|.authcheck).*$/]
+  //   })
+  //   /* 위의 path로 시작하는 경우에만, authcheck를 한다. */
+  // )
 
   /* jwt 인증에 graphql middleware를 포함하기 위해서 jwt 인증 설정 다음에 둔다. */
   server.applyMiddleware({
@@ -114,6 +131,20 @@ const bootstrap = async () => {
 
   app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
   app.use(koaStatic(path.join(process.cwd(), 'dist-client')))
+
+  /* dependency 역순으로 routes 를 적용한다. */
+  orderedModuleNames.reverse().forEach(dep => {
+    try {
+      let mod = require(dep)
+
+      if (mod.routes) {
+        app.use(mod.routes.routes())
+        app.use(mod.routes.allowedMethods())
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  })
 
   app.use(routes.routes())
   app.use(routes.allowedMethods())
