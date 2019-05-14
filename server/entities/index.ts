@@ -14,8 +14,6 @@ import { Group } from './group'
 import { PlayGroup } from './play-group'
 
 import { Domain } from './domain'
-import { Resource } from './resource'
-import { ResourceColumn } from './resource-column'
 import { Terminology } from './terminology'
 import { PermitUrl } from './permit-url'
 import { Role } from './role'
@@ -36,8 +34,6 @@ export const entities = [
   Board,
   PlayGroup,
   Domain,
-  Resource,
-  ResourceColumn,
   Terminology,
   PermitUrl,
   Role,
@@ -58,8 +54,6 @@ export {
   Board,
   PlayGroup,
   Domain,
-  Resource,
-  ResourceColumn,
   Terminology,
   PermitUrl,
   Role,

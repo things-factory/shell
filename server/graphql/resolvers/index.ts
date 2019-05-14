@@ -11,8 +11,6 @@ import * as Group from './group'
 import * as PlayGroup from './play-group'
 
 import * as Domain from './domain'
-import * as Resource from './resource'
-import * as ResourceColumn from './resource-column'
 import * as Terminology from './terminology'
 import * as PermitUrl from './permit-url'
 import * as Role from './role'
@@ -33,8 +31,6 @@ export const queries = [
   PlayGroup.Query,
 
   Domain.Query,
-  Resource.Query,
-  ResourceColumn.Query,
   Terminology.Query,
   PermitUrl.Query,
   Role.Query,
@@ -56,8 +52,6 @@ export const mutations = [
   PlayGroup.Mutation,
 
   Domain.Mutation,
-  Resource.Mutation,
-  ResourceColumn.Mutation,
   Terminology.Mutation,
   PermitUrl.Mutation,
   Role.Mutation,
