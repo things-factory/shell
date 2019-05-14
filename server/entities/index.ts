@@ -10,8 +10,6 @@ import { DataSource } from './datasource'
 import { Publisher } from './publisher'
 
 import { Domain } from './domain'
-import { Resource } from './resource'
-import { ResourceColumn } from './resource-column'
 import { Terminology } from './terminology'
 import { PermitUrl } from './permit-url'
 import { Role } from './role'
@@ -29,8 +27,6 @@ export const entities = [
   DataSource,
   Publisher,
   Domain,
-  Resource,
-  ResourceColumn,
   Terminology,
   PermitUrl,
   Role,
@@ -48,8 +44,6 @@ export {
   DataSource,
   Publisher,
   Domain,
-  Resource,
-  ResourceColumn,
   Terminology,
   PermitUrl,
   Role,
