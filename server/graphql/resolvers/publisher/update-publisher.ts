@@ -1,15 +1,12 @@
 import { getRepository } from 'typeorm'
-import { Publisher, Group } from '../../../entities'
+import { Publisher } from '../../../entities'
 
 export const updatePublisher = {
   async updatePublisher(_, { id, patch }) {
     const repository = getRepository(Publisher)
 
     const publisher = await repository.findOne(
-      { id },
-      {
-        relations: ['group']
-      }
+      { id }
     )
 
     return await repository.save({

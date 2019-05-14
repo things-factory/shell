@@ -9,10 +9,6 @@ import { Font } from './font'
 import { DataSource } from './datasource'
 import { Publisher } from './publisher'
 
-import { Board } from './board'
-import { Group } from './group'
-import { PlayGroup } from './play-group'
-
 import { Domain } from './domain'
 import { Resource } from './resource'
 import { ResourceColumn } from './resource-column'
@@ -32,9 +28,6 @@ export const entities = [
   Font,
   DataSource,
   Publisher,
-  Group,
-  Board,
-  PlayGroup,
   Domain,
   Resource,
   ResourceColumn,
@@ -54,9 +47,6 @@ export {
   Font,
   DataSource,
   Publisher,
-  Group,
-  Board,
-  PlayGroup,
   Domain,
   Resource,
   ResourceColumn,

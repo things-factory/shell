@@ -6,10 +6,6 @@ import * as Font from './font'
 import * as DataSource from './datasource'
 import * as Publisher from './publisher'
 
-import * as Board from './board'
-import * as Group from './group'
-import * as PlayGroup from './play-group'
-
 import * as Domain from './domain'
 import * as Resource from './resource'
 import * as ResourceColumn from './resource-column'
@@ -27,10 +23,6 @@ export const queries = [
   Font.Query,
   DataSource.Query,
   Publisher.Query,
-
-  Board.Query,
-  Group.Query,
-  PlayGroup.Query,
 
   Domain.Query,
   Resource.Query,
@@ -51,10 +43,6 @@ export const mutations = [
   DataSource.Mutation,
   Publisher.Mutation,
 
-  Board.Mutation,
-  Group.Mutation,
-  PlayGroup.Mutation,
-
   Domain.Mutation,
   Resource.Mutation,
   ResourceColumn.Mutation,
@@ -73,10 +61,6 @@ export const types = [
   ...Font.Types,
   ...DataSource.Types,
   ...Publisher.Types,
-
-  ...Board.Types,
-  ...Group.Types,
-  ...PlayGroup.Types,
 
   ...Domain.Types,
   ...Resource.Types,
