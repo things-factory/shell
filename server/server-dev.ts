@@ -75,7 +75,7 @@ const bootstrap = async () => {
   })
 
   /* history fallback */
-  app.use(historyApiFallback({ whiteList: ['/graphql', '/graphiql', '/file', '/uploads', '/authcheck'] }))
+  app.use(historyApiFallback({ whiteList: ['/graphql', '/graphiql', '/file', '/uploads', '/authcheck', '/thumbnail'] }))
 
   /* authentication error handling */
   app.use(async (ctx, next) => {
@@ -149,11 +149,18 @@ const bootstrap = async () => {
 
     app.use(koaStatic(path.join(config.output.path)))
 
+    /* dependency 역순으로 routes 를 적용한다. */
     const orderedModuleNames = require('@things-factory/env').orderedModuleNames
-    orderedModuleNames.reverse().forEach(mod => {
-      if(mod.routes) {
-        app.use(mod.routes.routes())
-        app.use(mod.routes.allowedMethods())
+    orderedModuleNames.reverse().forEach(dep => {
+      try {
+        let mod = require(dep)
+
+        if(mod.routes) {
+          app.use(mod.routes.routes())
+          app.use(mod.routes.allowedMethods())
+        }
+      } catch (e) {
+        console.error(e)
       }
     })
 

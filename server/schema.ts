@@ -10,7 +10,7 @@ const selfModule = require(path.resolve(appRootPath, selfModulePackage.main))
 const orderedModuleNames = require('@things-factory/env').orderedModuleNames
 import { makeExecutableSchema } from 'graphql-tools'
 
-const schemas = [...orderedModuleNames]
+const schemas = orderedModuleNames
   .map(dep => {
     try {
       if (selfModuleName == dep) {
