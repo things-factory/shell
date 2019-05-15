@@ -128,6 +128,7 @@ const bootstrap = async () => {
     const orderedModuleNames = require('@things-factory/env').orderedModuleNames
     orderedModuleNames.reverse().forEach(dep => {
       try {
+        console.log(`>>> Loading middlewares for ${dep}`)
         let mod = require(dep)
 
         if (mod.middlewares) {
@@ -169,6 +170,7 @@ const bootstrap = async () => {
     /* dependency 역순으로 routes 를 적용한다. */
     orderedModuleNames.reverse().forEach(dep => {
       try {
+        console.log(`>>> Loading routes for ${dep}`)
         let mod = require(dep)
 
         if (mod.routes) {
