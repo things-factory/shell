@@ -61,9 +61,9 @@ module.exports = function(content) {
       .join(';\n') +
     ';\nexport default metas;'
 
-  console.log('***************************** [ Things Scene Components - BEGIN ]')
+  console.log('***************************** [ Things Scene Components for Modeller - BEGIN ]')
   console.log(script)
-  console.log('***************************** [ Things Scene Components - END   ] ')
+  console.log('***************************** [ Things Scene Components for Modeller - END   ] ')
 
   return script
 }
