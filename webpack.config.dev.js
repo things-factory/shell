@@ -43,12 +43,12 @@ module.exports = {
   resolve: {
     aliasFields: ['browser'],
     alias: {
-      [AppPackage.name]: path.resolve(__dirname)
+      [AppPackage.name]: appRootPath
     },
     modules: [nodeModulePath]
   },
   resolveLoader: {
-    modules: [nodeModulePath, path.resolve(shellModulePath, 'web-loaders')]
+    modules: [path.resolve(shellModulePath, 'web-loaders'), nodeModulePath]
   },
   output: {
     path: OUTPUT_PATH,

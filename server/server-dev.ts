@@ -131,6 +131,7 @@ const bootstrap = async () => {
         let mod = require(dep)
 
         if (mod.middlewares) {
+          console.log(mod.middlewares)
           mod.middlewares.forEach(middleware => {
             app.use(middleware)
           })

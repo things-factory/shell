@@ -10,7 +10,7 @@ const orderedModuleNames = require('@things-factory/env').orderedModuleNames
 /*
   dependencies list를 받아서, entities, migrations, subscribers 폴더 어레이를 빌드한다.
 */
-const entities = [...orderedModuleNames]
+const entities = orderedModuleNames
   .map(dep => {
     try {
       if (selfModuleName == dep) {
@@ -26,7 +26,7 @@ const entities = [...orderedModuleNames]
   .filter(entity => entity && entity.length > 0)
   .flat()
 
-const migrations = [...orderedModuleNames]
+const migrations = orderedModuleNames
   .map(dep => {
     try {
       if (selfModuleName == dep) {
@@ -42,7 +42,7 @@ const migrations = [...orderedModuleNames]
   .filter(entity => entity && entity.length > 0)
   .flat()
 
-const subscribers = [...orderedModuleNames]
+const subscribers = orderedModuleNames
   .map(dep => {
     try {
       if (selfModuleName == dep) {
