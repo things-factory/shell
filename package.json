@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.2.67",
+  "version": "0.2.68",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -84,8 +84,6 @@
     "package-json": "^6.3.0",
     "pg": "^7.9.0",
     "promises-all": "^1.0.0",
-    "puppeteer": "^1.15.0",
-    "puppeteer-recorder": "^1.0.7",
     "pwa-helpers": "^0.9.1",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
