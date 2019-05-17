@@ -7,9 +7,7 @@ export const fontResolver = {
     const domain = context.domain
 
     const params: any = { name }
-    if (domain) {
-      params.domain = domain
-    }
+    if (domain) params.domain = domain
 
     return await repository.findOne(params)
   }
