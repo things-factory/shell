@@ -35,6 +35,8 @@ const bodyParserOption = {
   textLimit: '10mb'
 }
 
+const { context } = require('./server-context')
+
 const bootstrap = async () => {
   await databaseInitializer()
 
@@ -87,7 +89,8 @@ const bootstrap = async () => {
   })
 
   const server = new ApolloServer({
-    schema
+    schema,
+    context
   })
 
   const render = require('koa-ejs')

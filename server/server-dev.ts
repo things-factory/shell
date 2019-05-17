@@ -40,6 +40,8 @@ const bodyParserOption = {
   textLimit: '10mb'
 }
 
+const { context } = require('./server-context')
+
 const bootstrap = async () => {
   await databaseInitializer()
 
@@ -100,7 +102,8 @@ const bootstrap = async () => {
     formatResponse: response => {
       console.log(response)
       return response
-    }
+    },
+    context
   })
 
   const render = require('koa-ejs')
