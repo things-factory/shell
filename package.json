@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.2.70",
+  "version": "0.2.71",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -107,11 +107,9 @@
   "devDependencies": {
     "@things-factory/auth-provider-jwt": "*",
     "@things-factory/auth-ui-jwt": "*",
-    "@things-factory/board-provider-gql": "*",
     "@things-factory/board-ui": "*",
     "@things-factory/i18n-ui": "*",
     "@things-factory/layout-ui": "*",
-    "@things-factory/menu-provider": "*",
     "@things-factory/menu-ui": "*",
     "@things-factory/more-ui": "*",
     "@things-factory/offline-ui": "*",
