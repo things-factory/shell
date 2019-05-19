@@ -24,3 +24,6 @@ export * from './app/styles'
 
 // utils
 export * from './utils'
+
+// graphql-client
+export * from './graphql-client'

@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.2.71",
+  "version": "0.2.72",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -14,17 +14,19 @@
   "license": "MIT",
   "scripts": {
     "serve": "env node --inspect -r ts-node/register -r tsconfig-paths/register ./server/server.ts",
-    "serve:dev": "env node --inspect -r ts-node/register -r tsconfig-paths/register ./server/server-dev.ts",
+    "serve:dev": "npm run build:server && env node --inspect -r ts-node/register -r tsconfig-paths/register ./server/server-dev.ts",
     "serve:dev:client": "env node --inspect -r ts-node/register -r tsconfig-paths/register ./server/server-dev.ts",
     "serve:dev:server": "nodemon --config nodemon-server.json",
     "serve:dev:full": "nodemon --config nodemon-full.json",
-    "build": "tsc && webpack --mode production",
-    "build:server": "tsc",
-    "build:client": "webpack --mode production",
-    "clean": "rm -rf dist-server dist-client",
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "npm run clean:server && tsc",
+    "build:client": "npm run clean:client && webpack --mode production",
+    "clean": "npm run clean:server && npm run clean:client",
+    "clean:server": "rm -rf dist-server",
+    "clean:client": "rm -rf dist-client",
     "prepublish": "npm run clean && npm run build:server",
     "start": "node dist-server/server.js",
-    "migration": "node bin/things-factory-migration",
+    "migration": "npm run build:server && node bin/things-factory-migration",
     "migration:generate": "node ./node_modules/typeorm/cli.js migration:generate",
     "migration:run": "node ./node_modules/typeorm/cli.js migration:run",
     "migration:revert": "node ./node_modules/typeorm/cli.js migration:revert"

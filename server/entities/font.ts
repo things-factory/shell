@@ -1,9 +1,16 @@
-import { Column, Entity, Index } from 'typeorm'
+import { Column, Entity, Index, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
+import { Domain } from './domain'
 import { DomainBaseEntity } from './domain-base-entity'
 
 @Entity('fonts')
 @Index('ix_font_0', (font: Font) => [font.domain, font.name], { unique: true })
 export class Font extends DomainBaseEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string
+
+  @ManyToOne(type => Domain)
+  domain: Domain
+
   @Column('text')
   name: string
 
