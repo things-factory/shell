@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.2.74",
+  "version": "0.2.75",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -49,6 +49,7 @@
     "@webcomponents/webcomponentsjs": "^2.2.7",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
+    "apollo-link-error": "^1.1.10",
     "apollo-link-http": "^1.5.14",
     "apollo-server-koa": "^2.4.8",
     "app-root-path": "^2.2.1",

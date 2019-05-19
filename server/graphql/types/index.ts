@@ -1,12 +1,11 @@
 import * as File from './file'
-import * as Font from './font'
 import * as DataSource from './datasource'
 import * as Publisher from './publisher'
 
 import * as Domain from './domain'
 
-export const queries = [File.Query, Font.Query, DataSource.Query, Publisher.Query, Domain.Query]
+export const queries = [Domain.Query, File.Query, DataSource.Query, Publisher.Query]
 
-export const mutations = [File.Mutation, Font.Mutation, DataSource.Mutation, Publisher.Mutation, Domain.Mutation]
+export const mutations = [Domain.Mutation, File.Mutation, DataSource.Mutation, Publisher.Mutation]
 
-export const types = [...File.Types, ...Font.Types, ...DataSource.Types, ...Publisher.Types, ...Domain.Types]
+export const types = [...Domain.Types, ...File.Types, ...DataSource.Types, ...Publisher.Types]

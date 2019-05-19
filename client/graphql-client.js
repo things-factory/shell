@@ -4,8 +4,6 @@ import { ApolloLink } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import { onError } from 'apollo-link-error'
 
-import { auth } from '@things-factory/auth-base'
-
 const GRAPHQL_URI = '/graphql'
 
 const defaultOptions = {
@@ -33,8 +31,8 @@ const ERROR_HANDLER = ({ graphQLErrors, networkError }) => {
     console.error(`[Network error - ${networkError.statusCode}]: ${networkError}`)
     switch (networkError.statusCode) {
       case 401:
-        /* 401 에러가 리턴되면, 인증이 필요하다는 메시지를 dispatch 한다. 이 메시지는 auth 모듈에서 받아서 signin 프로세스를 진행한다. */
-        document.dispatchEvent(new CustomEvent(auth.authRequiredEvent, { bubbles: true, composed: true }))
+        /* 401 에러가 리턴되면, 인증이 필요하다는 메시지를 dispatch 한다. 이 auth 모듈 등에서 이 메시지를 받아서 signin 프로세스를 진행할 수 있다. */
+        document.dispatchEvent(new CustomEvent('auth-required', { bubbles: true, composed: true }))
         break
       default:
       // ThingsSnackbar.toast(`[Network error - ${networkError.statusCode}]: ${networkError}`)
