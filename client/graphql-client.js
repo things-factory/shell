@@ -23,19 +23,38 @@ const defaultOptions = {
 const ERROR_HANDLER = ({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
     graphQLErrors.map(({ message, locations, path }) => {
-      console.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
-      // ThingsSnackbar.toast(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
+      document.dispatchEvent(
+        new CustomEvent('notify', {
+          detail: {
+            type: 'error',
+            message: `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+            e: graphQLErrors
+          }
+        })
+      )
     })
 
   if (networkError) {
-    console.error(`[Network error - ${networkError.statusCode}]: ${networkError}`)
     switch (networkError.statusCode) {
       case 401:
         /* 401 에러가 리턴되면, 인증이 필요하다는 메시지를 dispatch 한다. 이 auth 모듈 등에서 이 메시지를 받아서 signin 프로세스를 진행할 수 있다. */
-        document.dispatchEvent(new CustomEvent('auth-required', { bubbles: true, composed: true }))
+        document.dispatchEvent(
+          new CustomEvent('auth-required', {
+            bubbles: true,
+            composed: true
+          })
+        )
         break
       default:
-      // ThingsSnackbar.toast(`[Network error - ${networkError.statusCode}]: ${networkError}`)
+        document.dispatchEvent(
+          new CustomEvent('notify', {
+            detail: {
+              type: 'error',
+              message: `[Network error - ${networkError.statusCode}]: ${networkError}`,
+              e: networkError
+            }
+          })
+        )
     }
   }
 }
