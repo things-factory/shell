@@ -28,7 +28,7 @@ const ERROR_HANDLER = ({ graphQLErrors, networkError }) => {
           detail: {
             type: 'error',
             message: `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-            e: graphQLErrors
+            ex: graphQLErrors
           }
         })
       )
@@ -51,7 +51,7 @@ const ERROR_HANDLER = ({ graphQLErrors, networkError }) => {
             detail: {
               type: 'error',
               message: `[Network error - ${networkError.statusCode}]: ${networkError}`,
-              e: networkError
+              ex: networkError
             }
           })
         )
