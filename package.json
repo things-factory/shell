@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.2.78",
+  "version": "0.2.79",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -117,7 +117,7 @@
     "@things-factory/more-ui": "*",
     "@things-factory/offline-ui": "*",
     "@things-factory/print-ui": "*",
-    "@things-factory/resource-ui-mobile": "*",
+    "@things-factory/resource-ui": "*",
     "@things-factory/setting-ui": "*",
     "@things-factory/system-ui": "*"
   }
