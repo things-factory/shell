@@ -1,4 +1,4 @@
-import { Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
+import { Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 
 export abstract class BaseEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -7,7 +7,7 @@ export abstract class BaseEntity {
   @CreateDateColumn()
   createdAt: Date
 
-  @CreateDateColumn()
+  @UpdateDateColumn()
   updatedAt: Date
 
   @Column('text', {
