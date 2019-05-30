@@ -1,7 +1,8 @@
 import * as File from './file'
 import * as DataSource from './datasource'
 import * as Publisher from './publisher'
-import { Filter } from './filter'
+export { Filter } from './filter'
+export { Pagination } from './pagination'
 
 import * as Domain from './domain'
 
@@ -9,4 +10,4 @@ export const queries = [Domain.Query, File.Query, DataSource.Query, Publisher.Qu
 
 export const mutations = [Domain.Mutation, File.Mutation, DataSource.Mutation, Publisher.Mutation]
 
-export const types = [...Domain.Types, ...File.Types, ...DataSource.Types, ...Publisher.Types, Filter]
+export const types = [...Domain.Types, ...File.Types, ...DataSource.Types, ...Publisher.Types]
