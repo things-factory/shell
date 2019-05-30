@@ -3,6 +3,7 @@ import * as DataSource from './datasource'
 import * as Publisher from './publisher'
 export { Filter } from './filter'
 export { Pagination } from './pagination'
+export { Sorting } from './sorting'
 
 import * as Domain from './domain'
 
