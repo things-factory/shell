@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.2.81",
+  "version": "0.2.82",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -110,6 +110,7 @@
   "devDependencies": {
     "@things-factory/auth-provider-jwt": "*",
     "@things-factory/auth-ui-jwt": "*",
+    "@things-factory/biz-test": "*",
     "@things-factory/board-ui": "*",
     "@things-factory/i18n-ui": "*",
     "@things-factory/layout-ui": "*",

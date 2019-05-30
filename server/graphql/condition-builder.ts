@@ -98,6 +98,9 @@ export const conditionBuilder = function(fieldName: string, operator: string, va
       }
 
     case 'between':
-      return {}
+      return {
+        clause: `${fieldName} BETWEEN  :args1 AND :args2`,
+        parameters: { args1: value[0], args2: value[1] }
+      }
   }
 }
