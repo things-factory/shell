@@ -1,4 +1,4 @@
-export const conditionBuilder = function(fieldName: string, operator: string, value: any) {
+export const buildCondition = function(fieldName: string, operator: string, value: any) {
   switch (operator) {
     case 'eq':
       return {
