@@ -78,7 +78,7 @@ const bootstrap = async () => {
 
   /* history fallback */
   var fallbackOption = {
-    whiteList: ['/graphql', '/graphiql', '/file', '/uploads', '/authcheck', '/thumbnail']
+    whiteList: ['/graphql', '/graphiql', '/file', '/uploads']
   }
   process.emit('bootstrap-module-history-fallback' as any, app, fallbackOption)
   app.use(historyApiFallback(fallbackOption))
