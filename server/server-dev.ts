@@ -170,6 +170,8 @@ const bootstrap = async () => {
 
     app.use(koaStatic(path.join(config.output.path)))
 
+    process.emit('bootstrap-route' as any, app, routes)
+
     /* dependency 역순으로 routes 를 적용한다. */
     orderedModuleNames.reverse().forEach(dep => {
       try {
