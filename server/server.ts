@@ -72,7 +72,11 @@ const bootstrap = async () => {
   })
 
   /* history fallback */
-  app.use(historyApiFallback({ whiteList: ['/graphql', '/file', '/uploads', '/authcheck'] }))
+  var fallbackOption = {
+    whiteList: ['/graphql', '/graphiql', '/file', '/uploads', '/authcheck', '/thumbnail']
+  }
+  process.emit('bootstrap-module-history-fallback' as any, app, fallbackOption)
+  app.use(historyApiFallback(fallbackOption))
 
   /* authentication error handling */
   app.use(async (ctx, next) => {
@@ -104,6 +108,8 @@ const bootstrap = async () => {
 
   app.use(koaBodyParser(bodyParserOption))
 
+  process.emit('bootstrap-module-middleware' as any, app as any)
+
   /* dependency 역순으로 middleware 를 적용한다. */
   const orderedModuleNames = require('@things-factory/env').orderedModuleNames
   orderedModuleNames.reverse().forEach(dep => {
@@ -134,6 +140,8 @@ const bootstrap = async () => {
 
   app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
   app.use(koaStatic(path.join(process.cwd(), 'dist-client')))
+
+  process.emit('bootstrap-module-route' as any, app, routes)
 
   /* dependency 역순으로 routes 를 적용한다. */
   orderedModuleNames.reverse().forEach(dep => {
