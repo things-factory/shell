@@ -3,16 +3,12 @@ import cors from 'koa2-cors'
 
 import { ApolloServer } from 'apollo-server-koa'
 import koaBodyParser from 'koa-bodyparser'
-import unless from 'koa-unless'
 
 // @ts-ignore
 import { graphqlUploadKoa } from 'graphql-upload'
 import { databaseInitializer } from './initializers/database'
 import { routes } from './routes'
 import { schema } from './schema'
-
-// import { authMiddleware } from './middlewares/auth-middleware'
-// ;(authMiddleware as any).unless = unless
 
 const koaWebpack = require('koa-webpack')
 const koaStatic = require('koa-static')
@@ -42,6 +38,10 @@ const bodyParserOption = {
 
 const { context } = require('./server-context')
 
+/* NEVER-DELETE-ME load dependency modules. */
+const orderedModuleNames = require('@things-factory/env')
+
+/* bootstrap */
 const bootstrap = async () => {
   await databaseInitializer()
 
@@ -133,29 +133,6 @@ const bootstrap = async () => {
 
     process.emit('bootstrap-module-middleware' as any, app as any)
 
-    /* TODO : to be removed. dependency 역순으로 middleware 를 적용한다. */
-    const orderedModuleNames = require('@things-factory/env').orderedModuleNames
-    orderedModuleNames.reverse().forEach(dep => {
-      try {
-        console.log(`>>> Loading middlewares for ${dep}`)
-        let mod = require(dep)
-
-        if (mod.middlewares) {
-          console.log(mod.middlewares)
-          mod.middlewares.forEach(middleware => {
-            app.use(middleware)
-          })
-        }
-      } catch (e) {
-        console.error(e)
-      }
-    })
-
-    // app.use(
-    //   (authMiddleware as any).unless({ path: [/^(?!.graphql|.file|.uploads|.authcheck).*$/] })
-    //   /* 위의 path로 시작하는 경우에만, authcheck를 한다. */
-    // )
-
     /* jwt 인증에 graphql middleware를 포함하기 위해서 jwt 인증 설정 다음에 둔다. */
     server.applyMiddleware({
       app
@@ -177,21 +154,6 @@ const bootstrap = async () => {
     app.use(koaStatic(path.join(config.output.path)))
 
     process.emit('bootstrap-module-route' as any, app, routes)
-
-    /* TODO : to be removed. dependency 역순으로 routes 를 적용한다. */
-    orderedModuleNames.reverse().forEach(dep => {
-      try {
-        console.log(`>>> Loading routes for ${dep}`)
-        let mod = require(dep)
-
-        if (mod.routes) {
-          app.use(mod.routes.routes())
-          app.use(mod.routes.allowedMethods())
-        }
-      } catch (e) {
-        console.error(e)
-      }
-    })
 
     app.use(routes.routes())
     app.use(routes.allowedMethods())
