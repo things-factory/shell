@@ -5,7 +5,6 @@ import { installRouter } from 'pwa-helpers/router.js'
 import { navigate, UPDATE_ACTIVE_PAGE } from '../actions/route'
 import { store } from '../store'
 import { AppStyle } from './app-style'
-import { AppTheme } from './styles/app-theme'
 
 class ThingsApp extends connect(store)(LitElement) {
   static get properties() {
@@ -18,7 +17,7 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   static get styles() {
-    return [AppTheme, AppStyle]
+    return [AppStyle]
   }
 
   render() {
