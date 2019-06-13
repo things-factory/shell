@@ -1,10 +1,11 @@
 const path = require('path')
+const fs = require('fs')
 const webpack = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-const appRootPath = require('app-root-path').path
-const AppPackage = require(path.resolve(appRootPath, 'package.json'))
+const AppRootPath = require('app-root-path').path
+const AppPackage = require(path.resolve(AppRootPath, 'package.json'))
 
 const OUTPUT_PATH = path.resolve('./dist-client')
 
@@ -17,20 +18,31 @@ if (AppPackage.name !== '@things-factory/shell') {
     let pathName = module_resolve.sync('@things-factory/shell', {
       basedir: process.cwd()
     })
-    var shellModulePath = path.resolve(pathName, '../..')
-    var nodeModulePath = path.resolve(pathName, '../../../..')
+    var ShellModulePath = path.resolve(pathName, '../..')
+    var NodeModulePath = path.resolve(pathName, '../../../..')
   } catch (e) {
     throw new Exception('@things-factory/shell module not found.', e)
   }
 } else {
-  var shellModulePath = path.resolve(__dirname)
-  var nodeModulePath = path.resolve(__dirname, 'node_modules')
+  var ShellModulePath = path.resolve(__dirname)
+  var NodeModulePath = path.resolve(__dirname, 'node_modules')
 }
 
-console.log('FactoryShell Module Path', shellModulePath)
-console.log('Extern Module Path', nodeModulePath)
+console.log('FactoryShell Module Path', ShellModulePath)
+console.log('Extern Module Path', NodeModulePath)
 
-const ShellPackage = require(path.resolve(shellModulePath, 'package.json'))
+const ShellPackage = require(path.resolve(ShellModulePath, 'package.json'))
+
+/* check if application root has _index.html for override template */
+try {
+  if (fs.existsSync(path.resolve(AppRootPath, '_index.html'))) {
+    var TemplatePath = path.resolve(AppRootPath, '_index.html')
+  } else {
+    var TemplatePath = path.resolve(ShellModulePath, '_index.html')
+  }
+} catch (e) {
+  var TemplatePath = path.resolve(ShellModulePath, '_index.html')
+}
 
 module.exports = {
   mode: 'development',
@@ -43,12 +55,12 @@ module.exports = {
   resolve: {
     aliasFields: ['browser'],
     alias: {
-      [AppPackage.name]: appRootPath
+      [AppPackage.name]: AppRootPath
     },
-    modules: [nodeModulePath]
+    modules: [NodeModulePath]
   },
   resolveLoader: {
-    modules: [path.resolve(shellModulePath, 'web-loaders'), nodeModulePath]
+    modules: [path.resolve(ShellModulePath, 'web-loaders'), NodeModulePath]
   },
   output: {
     path: OUTPUT_PATH,
@@ -126,7 +138,7 @@ module.exports = {
         use: {
           loader: 'things-factory-module-loader',
           options: {
-            module_path: nodeModulePath
+            module_path: NodeModulePath
           }
         }
       },
@@ -139,7 +151,7 @@ module.exports = {
           {
             loader: 'things-scene-webpack-loader',
             options: {
-              module_path: nodeModulePath
+              module_path: NodeModulePath
             }
           }
         ]
@@ -153,7 +165,7 @@ module.exports = {
           {
             loader: 'things-scene-config-webpack-loader',
             options: {
-              module_path: nodeModulePath
+              module_path: NodeModulePath
             }
           }
         ]
@@ -162,7 +174,7 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, '_index.html'),
+      template: TemplatePath,
       hash: true,
       /*
       Allows to control how chunks should be sorted before they are included to the HTML.
@@ -173,23 +185,43 @@ module.exports = {
     new CopyWebpackPlugin(
       [
         {
-          from: path.resolve(__dirname, 'manifest.*'),
-          to: OUTPUT_PATH
+          /* shell의 manifest를 default로 복사함 */
+          from: path.resolve(ShellModulePath, 'manifest.*'),
+          to: path.resolve(OUTPUT_PATH, '[name].[ext]'),
+          toType: 'template'
         },
         {
-          from: path.resolve(__dirname, 'assets/**/*'),
-          to: OUTPUT_PATH
+          /* shell의 asset을 default로 복사함 */
+          from: path.resolve(ShellModulePath, 'assets'),
+          to: path.resolve(OUTPUT_PATH, 'assets'),
+          toType: 'dir'
         },
         {
-          from: path.resolve(process.cwd(), 'node_modules/@things-factory/**/assets/locales/**/*'),
-          to: 'assets/[1]/locales/[name].[ext]',
+          /* 각 모듈의 locales를 default로 복사함 */
+          from: path.resolve(AppRootPath, 'node_modules/@things-factory/**/assets/locales/**/*'),
+          to: path.resolve(OUTPUT_PATH, 'assets/[1]/locales', '[name].[ext]'),
           toType: 'template',
-          test: /node_modules\/@things\-factory\/(\w+)/
+          test: /node_modules\/@things\-factory\/(\w+)/,
+          force: true
+        },
+        {
+          /* application에서 manifest를 overide 하기위해서 */
+          from: path.resolve(AppRootPath, 'manifest.*'),
+          to: path.resolve(OUTPUT_PATH, '[name].[ext]'),
+          toType: 'template',
+          force: true
+        },
+        {
+          /* application에서 assets를 overide 하기위해서 */
+          from: path.resolve(AppRootPath, 'assets'),
+          to: path.resolve(OUTPUT_PATH, 'assets'),
+          toType: 'dir',
+          force: true
         }
       ],
       {
-        /* shell project base */
-        context: __dirname
+        /* application base */
+        context: AppRootPath
       }
     ),
     new CopyWebpackPlugin(
@@ -204,8 +236,8 @@ module.exports = {
         }
       ],
       {
-        /* each project base */
-        context: process.cwd()
+        /* application base */
+        context: AppRootPath
       }
     ),
     new webpack.DefinePlugin({
