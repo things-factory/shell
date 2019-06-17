@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -89,6 +89,7 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
+    "resize-observer-polyfill": "^1.5.1",
     "sqlite3": "^4.0.4",
     "terser": "4.0.0",
     "text-loader": "^0.0.1",
