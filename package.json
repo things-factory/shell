@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -71,7 +71,7 @@
     "koa": "^2.6.2",
     "koa-body": "^4.0.4",
     "koa-bodyparser": "^4.2.0",
-    "koa-ejs": "^4.1.1",
+    "koa-ejs-remote": "^1.1.6",
     "koa-router": "^7.4.0",
     "koa-send": "^5.0.0",
     "koa-static": "^5.0.0",
@@ -107,18 +107,6 @@
     "webpack-hot-client": "^4.1.1"
   },
   "devDependencies": {
-    "@things-factory/auth-provider-jwt": "*",
-    "@things-factory/auth-ui-jwt": "*",
-    "@things-factory/biz-test": "*",
-    "@things-factory/board-ui": "*",
-    "@things-factory/i18n-ui": "*",
-    "@things-factory/layout-ui": "*",
-    "@things-factory/menu-ui": "*",
-    "@things-factory/more-ui": "*",
-    "@things-factory/offline-ui": "*",
-    "@things-factory/print-ui": "*",
-    "@things-factory/resource-ui": "*",
-    "@things-factory/setting-ui": "*",
-    "@things-factory/system-ui": "*"
+    "@things-factory/tester": "*"
   }
 }
