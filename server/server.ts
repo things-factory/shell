@@ -97,6 +97,8 @@ const bootstrap = async () => {
     context
   })
 
+  process.emit('bootstrap-module-middleware' as any, app as any)
+
   const render = require('koa-ejs')
   render(app, {
     root: path.join(__dirname, '..', 'views'),
@@ -107,8 +109,6 @@ const bootstrap = async () => {
   })
 
   app.use(koaBodyParser(bodyParserOption))
-
-  process.emit('bootstrap-module-middleware' as any, app as any)
 
   /* jwt 인증에 graphql middleware를 포함하기 위해서 jwt 인증 설정 다음에 둔다. */
   server.applyMiddleware({
