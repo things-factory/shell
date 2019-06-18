@@ -97,14 +97,13 @@ const bootstrap = async () => {
     context
   })
 
-  const render = require('koa-ejs-remote')
+  const render = require('koa-ejs')
   render(app, {
-    root: '/views',
-    host: `http://127.0.0.1:${PORT}`,
+    root: path.join(__dirname, '..', 'views'),
     layout: 'template',
     viewExt: 'html',
-    cache: true,
-    debug: false
+    cache: false,
+    debug: true
   })
 
   app.use(koaBodyParser(bodyParserOption))

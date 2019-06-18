@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -71,7 +71,7 @@
     "koa": "^2.6.2",
     "koa-body": "^4.0.4",
     "koa-bodyparser": "^4.2.0",
-    "koa-ejs-remote": "^1.1.6",
+    "koa-ejs": "^4.2.0",
     "koa-router": "^7.4.0",
     "koa-send": "^5.0.0",
     "koa-static": "^5.0.0",
@@ -99,6 +99,7 @@
     "typescript": "^3.5.1",
     "url-loader": "^2.0.0",
     "web-animations-js": "^2.3.1",
+    "webfontloader": "^1.6.28",
     "webpack": "^4.33.0",
     "webpack-cleanup-plugin": "^0.5.1",
     "webpack-cli": "^3.3.0",
