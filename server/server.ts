@@ -102,8 +102,8 @@ const bootstrap = async () => {
     root: path.join(__dirname, '..', 'views'),
     layout: 'template',
     viewExt: 'html',
-    cache: false,
-    debug: true
+    cache: true,
+    debug: false
   })
 
   app.use(koaBodyParser(bodyParserOption))
