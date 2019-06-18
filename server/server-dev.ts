@@ -110,13 +110,14 @@ const bootstrap = async () => {
     context
   })
 
-  const render = require('koa-ejs')
+  const render = require('koa-ejs-remote')
   render(app, {
-    root: path.join(__dirname, '..', 'views'),
+    root: '/views',
+    host: `http://127.0.0.1:${PORT}`,
     layout: 'template',
     viewExt: 'html',
     cache: false,
-    debug: false
+    debug: true
   })
 
   koaWebpack({

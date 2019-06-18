@@ -205,6 +205,14 @@ module.exports = {
           force: true
         },
         {
+          /* 각 모듈의 views를 application/views로 복사함 */
+          from: path.resolve(AppRootPath, 'node_modules/@things-factory/**/views/*'),
+          to: path.resolve(OUTPUT_PATH, 'assets/[1]/locales', '[name].[ext]'),
+          toType: 'template',
+          test: /node_modules\/@things\-factory\/(\w+)/,
+          force: true
+        },
+        {
           /* application에서 manifest를 overide 하기위해서 */
           from: path.resolve(AppRootPath, 'manifest.*'),
           to: path.resolve(OUTPUT_PATH, '[name].[ext]'),
