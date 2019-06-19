@@ -233,6 +233,10 @@ module.exports = {
         {
           from: 'node_modules/web-animations-js/web-animations-next.min.js*',
           to: OUTPUT_PATH
+        },
+        {
+          from: 'node_modules/@hatiolab/things-scene/*.js*',
+          to: OUTPUT_PATH
         }
       ],
       {
