@@ -183,23 +183,37 @@ module.exports = {
     new CopyWebpackPlugin(
       [
         {
-          /* shell의 manifest를 default로 복사함 */
+          /* shell의 manifest를 application base로 복사함 */
           from: path.resolve(ShellModulePath, 'manifest.*'),
           to: path.resolve(OUTPUT_PATH, '[name].[ext]'),
           toType: 'template'
         },
         {
-          /* shell의 asset을 default로 복사함 */
+          /* shell의 asset을 application base로 복사함 */
           from: path.resolve(ShellModulePath, 'assets'),
           to: path.resolve(OUTPUT_PATH, 'assets'),
           toType: 'dir'
         },
         {
-          /* 각 모듈의 locales를 default로 복사함 */
+          /* 각 모듈의 locales를 application base로 복사함 */
           from: path.resolve(AppRootPath, 'node_modules/@things-factory/**/assets/locales/**/*'),
-          to: path.resolve(OUTPUT_PATH, 'assets/[1]/locales', '[name].[ext]'),
+          to: path.resolve(OUTPUT_PATH, 'assets', '[1]', 'locales', '[name].[ext]'),
           toType: 'template',
           test: /node_modules\/@things\-factory\/(\w+)/,
+          force: true
+        },
+        {
+          /* 각 모듈의 views를 application base로 복사함 */
+          from: path.resolve(AppRootPath, 'node_modules/@things-factory/**/views/**/*'),
+          to: path.resolve(OUTPUT_PATH, 'views', '[name].[ext]'),
+          toType: 'template',
+          force: true
+        },
+        {
+          /* application의 views를 application base로 복사함 */
+          from: path.resolve(AppRootPath, 'views/**/*'),
+          to: path.resolve(OUTPUT_PATH, 'views', '[name].[ext]'),
+          toType: 'template',
           force: true
         },
         {
