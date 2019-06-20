@@ -51,6 +51,9 @@ Things-Factory는 모바일 중심의 App을 개발할 수 있는 환경이다.
   - Base 모듈과 관련된 화면 구성을 담당하는 서브 모듈
   - xxx 모듈의 UI 모듈의 네이밍 컨벤션은 'xxx-ui' 이다.
   - UI 구성 방식으로 구분될 필요가 있다면, yyy방식을 사용하는 xxx 모듈의 UI 모듈의 네이밍 컨벤션은 'xxx-ui-yyy' 로 할 수 있다.
+  - UI 모듈에는 여러가지 화면 요소들이 제공될 수 있는데, page와 component로 구분될 수 있다.
+    - page는 redux store와 연결되어 어플리케이션의 state를 제공받으면서, browser routing의 타겟이 되는 UI 요소이다
+    - component는 어플리케이션 구조와 연관된 종속성을 배제된 독립적인 기능을 제공하는 UI 요소이다. 따라서 컴포넌트성 UI는 redux store나 i18n 그리고 어플리케이션 구조와 관련한 css-variable 등의 종속성을 가지지 않는 것이 중요하다.
 - Shell, Module 그리고 Application
   - Shell은 개발 및 실행 단계에서 모듈 구조를 가능하게 하는 모든 구조를 제공한다.
     - redux, assets, routing
