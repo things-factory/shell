@@ -205,6 +205,19 @@ module.exports = {
           force: true
         },
         {
+          /* application의 locales를 application base로 복사함 */
+          from: path.resolve(AppRootPath, 'assets/locales/**/*'),
+          to: path.resolve(
+            OUTPUT_PATH,
+            'assets',
+            AppPackage.name.substr('@things-factory/'.length),
+            'locales',
+            '[name].[ext]'
+          ),
+          toType: 'template',
+          force: true
+        },
+        {
           /* 각 모듈의 views를 application base로 복사함 */
           from: path.resolve(AppRootPath, 'node_modules/@things-factory/**/views/**/*'),
           to: path.resolve(OUTPUT_PATH, 'views', '[name].[ext]'),
