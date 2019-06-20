@@ -49,7 +49,8 @@ console.log('Index.html TemplatePath', TemplatePath)
 module.exports = {
   mode: 'production',
   entry: {
-    main: path.resolve(__dirname, 'client/index.js')
+    main: path.resolve(__dirname, 'client/index.js'),
+    'headless-scene-components': [path.resolve(ShellModulePath, './client/scene/scene-components.js')]
   },
   resolve: {
     aliasFields: ['browser'],
@@ -60,6 +61,9 @@ module.exports = {
   },
   resolveLoader: {
     modules: [path.resolve(ShellModulePath, 'web-loaders'), NodeModulePath]
+  },
+  externals: {
+    '@hatiolab/things-scene': 'scene'
   },
   output: {
     path: OUTPUT_PATH,
