@@ -42,8 +42,9 @@ class ThingsApp extends connect(store)(LitElement) {
     this._modules.forEach((m, idx) => {
       try {
         m.bootstrap && m.bootstrap()
+        console.info(`[${idx} BOOTSTRAPED - ${m.name}]`)
       } catch (e) {
-        console.error(`[${idx} BOOTSTRAP-${m.name}]`, e)
+        console.error(`[${idx} BOOTSTRAP ERROR -${m.name}]`, e)
       }
     })
     this.dispatchEvent(new Event('lifecycle-bootstrap-finish'))
