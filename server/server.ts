@@ -117,7 +117,11 @@ const bootstrap = async () => {
   })
 
   app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
-  app.use(koaStatic(path.join(process.cwd(), 'dist-client')))
+  app.use(
+    koaStatic(path.join(process.cwd(), 'dist-client'), {
+      index: 'index.html'
+    })
+  )
 
   process.emit('bootstrap-module-route' as any, app, routes)
 

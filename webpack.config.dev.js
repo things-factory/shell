@@ -139,7 +139,7 @@ module.exports = {
         ]
       },
       {
-        test: /\module-importer.import$/,
+        test: /module-importer.import$/,
         use: {
           loader: 'things-factory-module-loader',
           options: {
@@ -190,12 +190,6 @@ module.exports = {
     new CopyWebpackPlugin(
       [
         {
-          /* shell의 manifest를 application base로 복사함 */
-          from: path.resolve(ShellModulePath, 'manifest.*'),
-          to: path.resolve(OUTPUT_PATH, '[name].[ext]'),
-          toType: 'template'
-        },
-        {
           /* shell의 asset을 application base로 복사함 */
           from: path.resolve(ShellModulePath, 'assets'),
           to: path.resolve(OUTPUT_PATH, 'assets'),
@@ -233,13 +227,6 @@ module.exports = {
           /* application의 views를 application base로 복사함 */
           from: path.resolve(AppRootPath, 'views/**/*'),
           to: path.resolve(OUTPUT_PATH, 'views', '[name].[ext]'),
-          toType: 'template',
-          force: true
-        },
-        {
-          /* application에서 manifest를 overide 하기위해서 */
-          from: path.resolve(AppRootPath, 'manifest.*'),
-          to: path.resolve(OUTPUT_PATH, '[name].[ext]'),
           toType: 'template',
           force: true
         },
