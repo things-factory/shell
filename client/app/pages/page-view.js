@@ -6,6 +6,11 @@ import { UPDATE_CONTEXT } from '../../actions/route'
 export class PageView extends LitElement {
   // Only render this page if it's actually visible.
   shouldUpdate() {
+    if (this.active !== this._oldactive$) {
+      // Page activation 상태가 바뀌면 호출된다.
+      this.onPageActive(this.active)
+    }
+
     if (!this.active) {
       this._oldactive$ = false
       return false
@@ -25,6 +30,8 @@ export class PageView extends LitElement {
       active: Boolean
     }
   }
+
+  onPageActive(state) {}
 
   updateContext() {
     store.dispatch({
