@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.5.9",
+  "version": "0.5.10",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -22,9 +22,9 @@
     "build:server": "npm run clean:server && tsc",
     "build:client": "npm run clean:client && webpack --mode production",
     "clean": "npm run clean:server && npm run clean:client",
+    "prepublish": "npm run build:server",
     "clean:server": "rm -rf dist-server",
     "clean:client": "rm -rf dist-client",
-    "prepublish": "npm run build:server",
     "start": "node dist-server/server.js",
     "migration": "npm run build:server && node bin/things-factory-migration",
     "migration:generate": "node ./node_modules/typeorm/cli.js migration:generate",
