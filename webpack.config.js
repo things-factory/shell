@@ -179,11 +179,13 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({
       template: TemplatePath,
+      hash: true,
       /*
       Allows to control how chunks should be sorted before they are included to the HTML.
       Allowed values are 'none' | 'auto' | 'dependency' | 'manual' | {Function}
       */
-      chunksSortMode: 'none'
+      chunksSortMode: 'none',
+      chunks: ['main']
     }),
     new CopyWebpackPlugin(
       [
