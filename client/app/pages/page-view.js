@@ -8,7 +8,7 @@ export class PageView extends LitElement {
   shouldUpdate() {
     if (this.active !== this._oldactive$) {
       // Page activation 상태가 바뀌면 호출된다.
-      this.onPageActive(this.active)
+      this.activated(this.active)
     }
 
     if (!this.active) {
@@ -31,7 +31,7 @@ export class PageView extends LitElement {
     }
   }
 
-  onPageActive(state) {}
+  activated(state) {}
 
   updateContext() {
     store.dispatch({
