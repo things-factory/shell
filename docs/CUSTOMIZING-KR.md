@@ -21,3 +21,11 @@
 - Things Factory 모듈들은 CSS Variable을 이용해서 테마를 적용하도록 개발되는 것을 권장한다.
 - Things Factory 테마 파일은 어플리케이션의 /assets/styles/app-theme.css가 기본으로 적용되도록 index.html에 제공하고 있다.
 - /assets/styles/ 디렉토리에 새로운 테마를 만들고 \_index.html을 수정해서 테마 파일을 적용하면 새로운 테마가 적용된다.
+
+## jwt authentication을 위한 secret key
+
+- TODO
+
+## database configuration
+
+- TODO
