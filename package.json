@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.5.11",
+  "version": "0.5.12",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -86,11 +86,11 @@
     "package-json": "^6.3.0",
     "pg": "^7.9.0",
     "promises-all": "^1.0.0",
+    "pulltorefreshjs": "^0.1.17",
     "pwa-helpers": "^0.9.1",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "resize-observer-polyfill": "^1.5.1",
     "scrollbooster": "^1.1.0",
     "sqlite3": "^4.0.4",
     "terser": "4.0.0",
