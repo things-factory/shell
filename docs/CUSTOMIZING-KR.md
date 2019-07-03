@@ -28,4 +28,4 @@
 
 ## database configuration
 
-- TODO
+- 데이타베이스와 관련한 컨피규레이션을 위해서는 shell의 ormconfig.js를 어플리케이션의 루트 폴더에 복사한 후에 내용을 수정한다.
