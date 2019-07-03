@@ -201,7 +201,7 @@ module.exports = {
           from: path.resolve(AppRootPath, 'node_modules/@things-factory/**/assets/locales/**/*'),
           to: path.resolve(OUTPUT_PATH, 'assets', '[1]', 'locales', '[name].[ext]'),
           toType: 'template',
-          test: /node_modules\/@things\-factory\/(\w+)/,
+          test: /node_modules\/@things\-factory\/([\w-]+)/,
           force: true
         },
         {
