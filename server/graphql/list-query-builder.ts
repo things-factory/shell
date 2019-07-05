@@ -7,7 +7,7 @@ export const buildQuery = function(queryBuilder: any, params: any) {
 
   if (filters && filters.length > 0) {
     filters.forEach((filter, index: number) => {
-      const condition = buildCondition(filter.name, filter.operator, filter.value)
+      const condition = buildCondition(`${queryBuilder.alias}.${filter.name}`, filter.operator, filter.value)
       if (index === 0) {
         queryBuilder.where(condition.clause)
         if (condition.parameters) queryBuilder.setParameters(condition.parameters)
