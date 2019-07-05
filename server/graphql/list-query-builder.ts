@@ -26,9 +26,9 @@ export const buildQuery = function(queryBuilder: any, params: any) {
   if (sortings && sortings.length > 0) {
     sortings.forEach((sorting, index) => {
       if (index === 0) {
-        queryBuilder.orderBy(sorting.name, sorting.desc ? 'DESC' : 'ASC')
+        queryBuilder.orderBy(`${queryBuilder.alias}.${sorting.name}`, sorting.desc ? 'DESC' : 'ASC')
       } else {
-        queryBuilder.addOrderBy(sorting.name, sorting.desc ? 'DESC' : 'ASC')
+        queryBuilder.addOrderBy(`${queryBuilder.alias}.${sorting.name}`, sorting.desc ? 'DESC' : 'ASC')
       }
     })
   }
