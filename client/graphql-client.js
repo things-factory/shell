@@ -92,5 +92,5 @@ export const client = new ApolloClient({
     `
   })
 
-  client._types = response.data.__schema.types.filter(type => type.kind === 'INPUT_OBJECT')
+  client._types = response.data.__schema.types.filter(type => type.kind === 'OBJECT')
 })()
