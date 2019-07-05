@@ -1,3 +1,7 @@
+/*
+ * 모든 모듈의 assets/locales에 정의된 locale 리소스들을 모두 모아서 하나의 translations로 병합한다.
+ */
+
 const orderedModuleNames = require('@things-factory/env').orderedModuleNames
 const path = require('path')
 var glob = require('glob')
