@@ -73,24 +73,3 @@ export const client = new ApolloClient({
     })
   ])
 })
-;(async () => {
-  const response = await client.query({
-    query: gql`
-      query {
-        __schema {
-          types {
-            name
-            kind
-            inputFields {
-              name
-              description
-              defaultValue
-            }
-          }
-        }
-      }
-    `
-  })
-
-  client._types = response.data.__schema.types.filter(type => type.kind === 'OBJECT')
-})()
