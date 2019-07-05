@@ -3,6 +3,7 @@ const fs = require('fs')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
+const I18nBundlerPlugin = require('./webpack-plugins/i18n-bundler-plugin')
 
 const AppRootPath = require('app-root-path').path
 const AppPackage = require(path.resolve(AppRootPath, 'package.json'))
@@ -196,27 +197,6 @@ module.exports = {
           toType: 'dir'
         },
         {
-          /* 각 모듈의 locales를 application base로 복사함 */
-          from: path.resolve(AppRootPath, 'node_modules/@things-factory/**/assets/locales/**/*'),
-          to: path.resolve(OUTPUT_PATH, 'assets', '[1]', 'locales', '[name].[ext]'),
-          toType: 'template',
-          test: /node_modules\/@things\-factory\/([\w-]+)/,
-          force: true
-        },
-        {
-          /* application의 locales를 application base로 복사함 */
-          from: path.resolve(AppRootPath, 'assets/locales/**/*'),
-          to: path.resolve(
-            OUTPUT_PATH,
-            'assets',
-            AppPackage.name.substr('@things-factory/'.length),
-            'locales',
-            '[name].[ext]'
-          ),
-          toType: 'template',
-          force: true
-        },
-        {
           /* 각 모듈의 views를 application base로 복사함 */
           from: path.resolve(AppRootPath, 'node_modules/@things-factory/**/views/**/*'),
           to: path.resolve(OUTPUT_PATH, 'views', '[name].[ext]'),
@@ -263,6 +243,9 @@ module.exports = {
         context: AppRootPath
       }
     ),
+    new I18nBundlerPlugin({
+      output: 'translations'
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE-ENV': JSON.stringify('production'),
