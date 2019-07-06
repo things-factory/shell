@@ -1,9 +1,5 @@
 {
   "text.you.are.now.in": "{state.text} 되었습니다.",
-  "text.signed in": "로그인",
-  "text.signed out": "로그아웃",
-  "text.current language": "한국어",
   "text.offline": "오프라인",
-  "text.online": "온라인",
-  "menu.page": "페이지"
+  "text.online": "온라인"
 }
