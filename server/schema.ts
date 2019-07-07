@@ -30,13 +30,15 @@ const schemas = orderedModuleNames
 
       return {
         typeDefs: {
-          types: [...typeDefs.types, ...(schema.typeDefs && schema.typeDefs.types || [])],
-          queries: [...typeDefs.queries, ...(schema.typeDefs && schema.typeDefs.queries || [])],
-          mutations: [...typeDefs.mutations, ...(schema.typeDefs && schema.typeDefs.mutations || [])]
+          types: [...typeDefs.types, ...((schema.typeDefs && schema.typeDefs.types) || [])],
+          queries: [...typeDefs.queries, ...((schema.typeDefs && schema.typeDefs.queries) || [])],
+          mutations: [...typeDefs.mutations, ...((schema.typeDefs && schema.typeDefs.mutations) || [])],
+          directives: [...typeDefs.directives, ...((schema.typeDefs && schema.typeDefs.directives) || [])]
         },
         resolvers: {
-          queries: [...resolvers.queries, ...(schema.resolvers && schema.resolvers.queries || [])],
-          mutations: [...resolvers.mutations, ...(schema.resolvers && schema.resolvers.mutations || [])]
+          queries: [...resolvers.queries, ...((schema.resolvers && schema.resolvers.queries) || [])],
+          mutations: [...resolvers.mutations, ...((schema.resolvers && schema.resolvers.mutations) || [])],
+          directives: [...resolvers.directives, ...((schema.resolvers && schema.resolvers.directives) || [])]
         }
       }
     },
@@ -44,11 +46,13 @@ const schemas = orderedModuleNames
       typeDefs: {
         types: [],
         queries: [],
-        mutations: []
+        mutations: [],
+        directives: []
       },
       resolvers: {
         queries: [],
-        mutations: []
+        mutations: [],
+        directives: []
       }
     }
   )
@@ -58,6 +62,7 @@ console.log(schemas)
 
 const queryTypes = ['type Query {', ...schemas.typeDefs.queries, '}'].join('\n')
 const mutationTypes = ['type Mutation {', ...schemas.typeDefs.mutations, '}'].join('\n')
+const directiveTypes = [...schemas.typeDefs.directives].join('\n')
 
 const typeDefs = [
   `
@@ -68,6 +73,7 @@ const typeDefs = [
   `,
   queryTypes,
   mutationTypes,
+  directiveTypes,
 
   `scalar Upload`,
 
@@ -88,11 +94,19 @@ var mutationResolvers = schemas.resolvers.mutations.reduce((sum, mutation) => {
   }
 }, {})
 
+var directiveResolvers = schemas.resolvers.directives.reduce((sum, directive) => {
+  return {
+    ...sum,
+    ...directive
+  }
+}, {})
+
 export const schema = makeExecutableSchema({
   typeDefs,
   resolvers: {
     Query: queryResolvers,
     Mutation: mutationResolvers,
     Upload: GraphQLUpload
-  }
+  },
+  directiveResolvers
 })
