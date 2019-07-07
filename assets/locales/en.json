@@ -5,9 +5,9 @@
   "label.id": "id",
   "label.name": "name",
   "label.description": "description",
-  "label.createdAt": "created at",
-  "label.updatedAt": "updated at",
-  "label.deletedAt": "deleted at",
+  "label.created_at": "created at",
+  "label.updated_at": "updated at",
+  "label.deleted_at": "deleted at",
   "label.creator": "creator",
   "label.updater": "updater",
   "label.deleter": "deleter"
