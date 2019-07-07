@@ -1,5 +1,14 @@
 {
   "text.you.are.now.in": "{state.text} 되었습니다.",
   "text.offline": "오프라인",
-  "text.online": "온라인"
+  "text.online": "온라인",
+  "label.id": "아이디",
+  "label.name": "이름",
+  "label.description": "설명",
+  "label.createdAt": "생성일시",
+  "label.updatedAt": "수정일시",
+  "label.deletedAt": "삭제일시",
+  "label.creator": "생성자",
+  "label.updater": "수정자",
+  "label.deleter": "삭제자"
 }
