@@ -27,7 +27,7 @@ const ERROR_HANDLER = ({ graphQLErrors, networkError }) => {
       document.dispatchEvent(
         new CustomEvent('notify', {
           detail: {
-            type: 'error',
+            level: 'error',
             message: `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
             ex: graphQLErrors
           }
@@ -50,7 +50,7 @@ const ERROR_HANDLER = ({ graphQLErrors, networkError }) => {
         document.dispatchEvent(
           new CustomEvent('notify', {
             detail: {
-              type: 'error',
+              level: 'error',
               message: `[Network error - ${networkError.statusCode}]: ${networkError}`,
               ex: networkError
             }
