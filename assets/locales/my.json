@@ -1,0 +1,14 @@
+{
+  "text.you.are.now.in": "anda berada di {state.text}",
+  "text.offline": "luar talian",
+  "text.online": "dalam talian",
+  "field.id": "id",
+  "field.name": "nama",
+  "field.description": "deskripsi",
+  "field.created_at": "dicipta pada",
+  "field.updated_at": "dikemaskini pada",
+  "field.deleted_at": "dibuang pada",
+  "field.creator": "pencipta",
+  "field.updater": "pengemaskini",
+  "field.deleter": "pembuang"
+}

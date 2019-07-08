@@ -2,13 +2,13 @@
   "text.you.are.now.in": "you are now in {state.text}",
   "text.offline": "offline",
   "text.online": "online",
-  "label.id": "id",
-  "label.name": "name",
-  "label.description": "description",
-  "label.created_at": "created at",
-  "label.updated_at": "updated at",
-  "label.deleted_at": "deleted at",
-  "label.creator": "creator",
-  "label.updater": "updater",
-  "label.deleter": "deleter"
+  "field.id": "id",
+  "field.name": "name",
+  "field.description": "description",
+  "field.created_at": "created at",
+  "field.updated_at": "updated at",
+  "field.deleted_at": "deleted at",
+  "field.creator": "creator",
+  "field.updater": "updater",
+  "field.deleter": "deleter"
 }

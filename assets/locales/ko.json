@@ -2,13 +2,13 @@
   "text.you.are.now.in": "{state.text} 되었습니다.",
   "text.offline": "오프라인",
   "text.online": "온라인",
-  "label.id": "아이디",
-  "label.name": "이름",
-  "label.description": "설명",
-  "label.created_at": "생성일시",
-  "label.updated_at": "수정일시",
-  "label.deleted_at": "삭제일시",
-  "label.creator": "생성자",
-  "label.updater": "수정자",
-  "label.deleter": "삭제자"
+  "field.id": "아이디",
+  "field.name": "이름",
+  "field.description": "설명",
+  "field.created_at": "생성일시",
+  "field.updated_at": "수정일시",
+  "field.deleted_at": "삭제일시",
+  "field.creator": "생성자",
+  "field.updater": "수정자",
+  "field.deleter": "삭제자"
 }
