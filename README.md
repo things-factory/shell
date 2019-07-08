@@ -70,12 +70,30 @@ Things-Factory is an environment to develop mobile-oriented apps.
   - Each source file implements one of the most important purposes. (Be responsible for simple purposes rather than multiple purposes.)
   - If there is no specific reason for each source file, it is recommended not to exceed 200 lines.
 - Naming
+
   - class
     - Class name : starts with uppercase, camel-case
     - private property, method : starts with \_(underscore), camel-case
     - public property, method : starts with lowercase, camel-case
     - class property, method : starts with lowercase, camel-case
     - Event handler : starts with on + EventName, camel-case
+
+- Localization
+  - Don’t capitalize explicitly in locale file
+
+```
+"field.system brief": "System Brief" (x)
+"field.system brief": "system brief" (o)
+```
+
+You can set it to style where you need it.
+
+```
+text-transform: capitalize;
+text-transform: uppercase;
+```
+
+- If possible, use ‘ms.json’ rather than ‘ms-My.json’. In particular, use ‘ms-My’ only if it is a Malay language that is used differently only in Malaysia.
 
 # Authentication
 
