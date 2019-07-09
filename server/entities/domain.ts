@@ -1,12 +1,10 @@
-import { Entity, Index, Column } from 'typeorm'
-
-import { BaseEntity } from './base-entity'
+import { CreateDateColumn, UpdateDateColumn, Entity, Index, Column } from 'typeorm'
 
 @Entity('domains')
 @Index('ix_domain_0', (domain: Domain) => [domain.name], { unique: true })
 @Index('ix_domain_1', (domain: Domain) => [domain.subdomain])
 @Index('ix_domain_2', (domain: Domain) => [domain.systemFlag])
-export class Domain extends BaseEntity {
+export class Domain {
   @Column('text', {
     unique: true
   })
@@ -49,4 +47,20 @@ export class Domain extends BaseEntity {
     nullable: true
   })
   theme: string
+
+  @CreateDateColumn()
+  createdAt: Date
+
+  @UpdateDateColumn()
+  updatedAt: Date
+
+  @Column('text', {
+    nullable: true
+  })
+  creatorId: string
+
+  @Column('text', {
+    nullable: true
+  })
+  updaterId: string
 }
