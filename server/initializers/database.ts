@@ -1,5 +1,6 @@
 const path = require('path')
 const appRootPath = require('app-root-path').path
+import { createConnection } from 'typeorm'
 
 var ormconfig
 try {
@@ -8,12 +9,8 @@ try {
   ormconfig = require('@things-factory/shell/ormconfig')
 }
 
-import { createConnection } from 'typeorm'
-
 export const databaseInitializer = async () => {
-
-  return await createConnection(ormconfig)
-  .then(async (connection, ...others) => {
+  return await createConnection(ormconfig).then(async (connection, ...others) => {
     console.log('Database connection established')
   })
 }
