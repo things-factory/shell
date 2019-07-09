@@ -7,6 +7,7 @@ const selfModule = require(path.resolve(appRootPath, selfModulePackage.main))
 
 const orderedModuleNames = require('@things-factory/env').orderedModuleNames
 
+const { NamingStrategy } = require('@things-factory/shell')
 /*
   dependencies list를 받아서, entities, migrations, subscribers 폴더 어레이를 빌드한다.
 */
@@ -71,6 +72,7 @@ module.exports = {
   database: 'db.sqlite',
   synchronize: true,
   logging: true,
+  namingStrategy: new NamingStrategy(),
   entities,
   migrations,
   subscribers
