@@ -4,7 +4,14 @@ export const DomainPatch = gql`
   input DomainPatch {
     name: String
     description: String
-    subdomain: String
+    timezone: String
     systemFlag: Boolean
+    subdomain: String
+    brandName: String
+    brandImage: String
+    contentImage: String
+    theme: String
+    createdAt: Date
+    updatedAt: Date
   }
 `

@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Entity, Index, Column } from 'typeorm'
+import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity('domains')
 @Index('ix_domain_0', (domain: Domain) => [domain.name], { unique: true })
@@ -56,14 +56,4 @@ export class Domain {
 
   @UpdateDateColumn()
   updatedAt: Date
-
-  @Column('text', {
-    nullable: true
-  })
-  creatorId: string
-
-  @Column('text', {
-    nullable: true
-  })
-  updaterId: string
 }
