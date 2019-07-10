@@ -1,5 +1,5 @@
 {
-  "text.you.are.now.in": "您已经处于 {state.text}",
+  "text.you.are.now.in": "您处于在 {state.text}",
   "text.offline": "离线",
   "text.online": "线上",
   "field.id": "id",
