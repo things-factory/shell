@@ -19,15 +19,18 @@ try {
 createConnection({
   ...ormconfig,
   logging: true
-}).then((connection, ...others) => {
+}).then(async (connection, ...others) => {
   args.option('undo', 'Reverts last executed migration')
   const flags = args.parse(process.argv)
 
   console.log('Database connection established')
+
   if (flags.undo) {
-    connection.undoLastMigration()
+    await connection.undoLastMigration()
   } else {
-    connection.runMigrations()
+    await connection.runMigrations()
   }
+
+  await connection.close()
   console.log('Database Migration Done.')
 })

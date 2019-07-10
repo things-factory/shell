@@ -8,45 +8,45 @@ export class Domain {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column('text', {
+  @Column({
     unique: true
   })
   name: string
 
-  @Column('text', {
+  @Column({
     nullable: true
   })
   description: string
 
-  @Column('text', {
+  @Column({
     nullable: true
   })
   timezone: string
 
-  @Column('boolean', {
+  @Column({
     default: false
   })
   systemFlag: boolean
 
-  @Column('text')
+  @Column()
   subdomain: string
 
-  @Column('text', {
+  @Column({
     nullable: true
   })
   brandName: string
 
-  @Column('text', {
+  @Column({
     nullable: true
   })
   brandImage: string
 
-  @Column('text', {
+  @Column({
     nullable: true
   })
   contentImage: string
 
-  @Column('text', {
+  @Column({
     nullable: true
   })
   theme: string

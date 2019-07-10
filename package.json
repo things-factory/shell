@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.5.35",
+  "version": "0.5.36",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -83,6 +83,7 @@
     "koa2-cors": "^2.0.6",
     "lit-element": "^2.1.0",
     "mkdirp": "^0.5.1",
+    "mssql": "^5.1.0",
     "nodemon": "^1.19.1",
     "package-json": "^6.3.0",
     "pg": "^7.9.0",
