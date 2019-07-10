@@ -11,7 +11,5 @@ export const DomainPatch = gql`
     brandImage: String
     contentImage: String
     theme: String
-    createdAt: Date
-    updatedAt: Date
   }
 `

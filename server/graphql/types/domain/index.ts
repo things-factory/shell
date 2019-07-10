@@ -2,7 +2,9 @@ import { Domain } from './domain'
 import { NewDomain } from './new-domain'
 import { DomainPatch } from './domain-patch'
 import { DomainList } from './domain-list'
-import { Filter, Pagination, Sorting } from '../'
+import { Filter } from '../filter'
+import { Pagination } from '../pagination'
+import { Sorting } from '../sorting'
 
 export const Mutation = `
   createDomain (

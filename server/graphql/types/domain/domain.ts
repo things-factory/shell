@@ -12,7 +12,7 @@ export const Domain = gql`
     brandImage: String
     contentImage: String
     theme: String
-    createdAt: Date
-    updatedAt: Date
+    createdAt: String
+    updatedAt: String
   }
 `
