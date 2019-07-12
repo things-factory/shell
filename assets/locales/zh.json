@@ -1,14 +1,14 @@
 {
-  "text.you.are.now.in": "you are now in {state.text}",
-  "text.offline": "offline",
-  "text.online": "online",
+  "text.you.are.now.in": "您处于在 {state.text}",
+  "text.offline": "离线",
+  "text.online": "线上",
   "field.id": "id",
-  "field.name": "name",
-  "field.description": "description",
-  "field.created_at": "created at",
-  "field.updated_at": "updated at",
-  "field.deleted_at": "deleted at",
-  "field.creator": "creator",
-  "field.updater": "updater",
-  "field.deleter": "deleter"
+  "field.name": "名字",
+  "field.description": "描写",
+  "field.created_at": "创建于",
+  "field.updated_at": "更新于",
+  "field.deleted_at": "删除于",
+  "field.creator": "创造者",
+  "field.updater": "更新者",
+  "field.deleter": "删除者"
 }

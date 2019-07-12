@@ -63,7 +63,7 @@ body {
   --aside-list-detail-background-color: #fff;
   --aside-list-detail-text: 14px var(--primary-background-color);
 
-  --app-grid-template-area: 'header header header' 'nav main aside' 'footer footer footer';
+  --app-grid-template-area: 'header header header' 'nav main aside' 'nav footer aside';
 
   /* form style */
   --label-text: bold 14px var(--secondary-text-color);

@@ -5,8 +5,13 @@ export const Domain = gql`
     id: String
     name: String
     description: String
-    subdomain: String
+    timezone: String
     systemFlag: Boolean
+    subdomain: String
+    brandName: String
+    brandImage: String
+    contentImage: String
+    theme: String
     createdAt: String
     updatedAt: String
   }

@@ -1,52 +1,59 @@
-import { Entity, Index, Column } from 'typeorm'
-
-import { BaseEntity } from './base-entity'
+import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity('domains')
 @Index('ix_domain_0', (domain: Domain) => [domain.name], { unique: true })
 @Index('ix_domain_1', (domain: Domain) => [domain.subdomain])
 @Index('ix_domain_2', (domain: Domain) => [domain.systemFlag])
-export class Domain extends BaseEntity {
-  @Column('text', {
+export class Domain {
+  @PrimaryGeneratedColumn('uuid')
+  id: string
+
+  @Column({
     unique: true
   })
   name: string
 
-  @Column('text', {
+  @Column({
     nullable: true
   })
   description: string
 
-  @Column('text', {
+  @Column({
     nullable: true
   })
   timezone: string
 
-  @Column('boolean', {
+  @Column({
     default: false
   })
   systemFlag: boolean
 
-  @Column('text')
+  @Column()
   subdomain: string
 
-  @Column('text', {
+  @Column({
     nullable: true
   })
   brandName: string
 
-  @Column('text', {
+  @Column({
     nullable: true
   })
   brandImage: string
 
-  @Column('text', {
+  @Column({
     nullable: true
   })
   contentImage: string
 
-  @Column('text', {
+  @Column({
     nullable: true
   })
   theme: string
+
+  @CreateDateColumn()
+  createdAt: Date
+
+  @UpdateDateColumn()
+  updatedAt: Date
 }

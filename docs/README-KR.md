@@ -73,12 +73,31 @@ Things-Factory는 모바일 중심의 App을 개발할 수 있는 환경이다.
   - 각 소스파일은 가장 중요한 한가지 목적을 구현한다. (복합목적 보다는 단순목적을 담당하도록 한다.)
   - 각 소스파일 당 특별한 이유가 없는 경우 200라인을 넘지 않는 것을 권장한다.
 - 네이밍
+
   - class
     - 클래스 이름 : 대문자로 시작, camel-case
     - private 속성, 메쏘드 : \_(underscore)로 시작, camel-case
     - public 속성, 메쏘드 : 소문자로 시작, camel-case
     - class 속성, 메쏘드 : 소문자로 시작, camel-case
     - 이벤트 핸들러 : on + EventName 으로 시작, camel-case
+
+- 다국어
+  - 로케일 파일에서 다국어 작업을 할 때 강제로 Capitalize 하지 않는다.
+
+```
+"field.system brief": "System Brief" (x)
+"field.system brief": "system brief" (o)
+```
+
+Capitalize가 필요한 곳에서 capitalize 하고,
+uppercase가 필요한 곳에서 uppercase 한다.
+
+```
+text-transform: capitalize;
+text-transform: uppercase;
+```
+
+- 다국어 정의는 가급적 '{언어-지역}.json'보다는 '{언어}.json' 파일에서 정의한다. 특별히 특정 지역에서만 다르게 표현되는 경우에만 '{언어-지역}.json'에 별도 정의한다.
 
 # Authentication
 
