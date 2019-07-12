@@ -25,4 +25,6 @@ body {
   --grid-header-color: #47596d;
   --grid-header-fontsize: 13px;
   --grid-record-wide-fontsize: 13px;
+
+  --app-grid-template-area: 'header header header' 'nav main aside' 'nav footer aside';
 }
