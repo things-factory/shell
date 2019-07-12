@@ -1,22 +1,83 @@
 body {
-  --primary-color: #826960;
-  --secondary-color: #92715c;
-  --third-color: #d6cec2;
-  --fourth-color: #f4f4f4;
-  --primary-accent-color: #ffae35;
-  --secondary-accent-color: #f57f68;
-  --primary-dark-color: #3b4043;
-  --secondary-dark-color: #242d30;
-  --third-dark-color: #919eab;
-  --primary-dark-opacity15-color: rgba(0, 0, 0, 0.15);
+  /* common style */
+  --primary-color: #22a6a7;
+  --secondary-color: #394e64;
+  --focus-color: #fff;
+  --primary-background-color: var(--secondary-color);
+  --secondary-background-color: #283644;
+  --focus-background-color: var(--primary-color);
+  --primary-text-color: #111;
+  --secondary-text-color: #017e7f;
 
-  /* material design component themes */
-  --mdc-theme-on-primary: white;
-  --mdc-theme-primary: tomato;
-  --mdc-theme-on-secondary: white;
-  --mdc-theme-secondary: tomato;
+  --border-radius: 4px;
+  --border-dark-color: 1px solid rgba(0, 0, 0, 0.15);
+  --border-light-color: 1px solid rgba(255, 255, 255, 0.3);
 
-  /* simple grid themes */
+  --box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.1);
+
+  --theme-font: 'Noto', Helvetica;
+
+  --opacity-dark-color: rgba(0, 0, 0, 0.4);
+  --opacity-light-color: rgba(255, 255, 255, 0.8);
+
+  --margin-default: 9px;
+  --margin-narrow: 4px;
+  --margin-wide: 15px;
+
+  --status-success-color: #35a24a;
+  --status-warning-color: #ee8d03;
+  --status-danger-color: #d14946;
+  --stauts-info-color: #398ace;
+
+  /* layout style */
+  --header-background-color: var(--secondary-background-color);
+  --header-icon-size: var(--icon-default-size);
+  --header-title: bold 16px var(--theme-font);
+
+  --group-bar-background-color: var(--primary-color);
+  --group-bar-textbutton: 16px/32px var(--theme-font);
+  --group-bar-textbutton-active: bold var(--group-bar-textbutton);
+  --group-bar-active-line-color: var(--focus-color);
+  --group-bar-line: solid 3px rgba(0, 0, 0, 0.2);
+
+  --menu-tools-background-color: var(--secondary-color);
+  --menu-tools-iconbutton-size: var(--icon-tiny-size);
+  --menu-tools-color: #87cfd0;
+  --menu-tools-active-color: #fff;
+
+  --context-toolbar-background-color: #fff;
+  --context-toolbar-shadow: 0px -3px 4px 1px rgba(0, 0, 0, 0.1);
+  --context-toolbar-textbutton: 14px var(--primary-text-color);
+  --context-toolbar-iconbutton-color: var(--primary-text-color);
+  --context-toolbar-iconbutton-size: var(--icon-big-size);
+  --context-toolbar-function-iconbutton-background-color: var(--focus-color);
+  --context-toolbar-function-iconbutton-color: var(--primary-background-color);
+  --context-toolbar-list-background-color: var(--primary-background-color);
+  --context-toolbar-list-text: bold 18px var(--theme-font);
+  --context-toolbar-list-icon-size: var(--icon-default-size);
+
+  --aside-background-color: var(--secondary-background-color);
+  --aside-list-textbtton: 18px var(--theme-font);
+  --aside-list-icon: var(--icon-default-size);
+  --aside-list-bottom-line: var(--border-dark-color);
+  --aside-list-detail-background-color: #fff;
+  --aside-list-detail-text: 14px var(--primary-background-color);
+
+  --app-grid-template-area: 'header header header' 'nav main aside' 'footer footer footer';
+
+  /* form style */
+  --label-text: bold 14px var(--secondary-text-color);
+  --field-border: var(--opacity-dark-color);
+  --field-background-color: var(--opacity-light-color);
+  --field-radius: var(--border-radius);
+  --field-layout-wide-height: 25px;
+  --field-layout-narrow-height: 45px;
+
+  --search-panel-background-color: rgba(0, 0, 0, 0.1);
+  --search-panel-search-iconbutton-size: var(--icon-default-size);
+  --search-panel-search-iconbutton-color: var(--secondary-color);
+
+  /* datagrid style */
   --grid-header-background-color: #eceff4;
   --grid-header-border-color: #b9c4d7;
   --grid-record-background-color: #fff;
@@ -25,4 +86,49 @@ body {
   --grid-header-color: #47596d;
   --grid-header-fontsize: 13px;
   --grid-record-wide-fontsize: 13px;
+
+  /* button style */
+
+  /* chart style */
+
+  /* icon style */
+  --icon-tiny-size: 24px;
+  --icon-default-size: 36px;
+  --icon-big-size: 48px;
+  --icon-default-color: #fff;
+
+  /* material design component themes */
+  --mdc-theme-on-primary: white;
+  --mdc-theme-primary: tomato;
+  --mdc-theme-on-secondary: white;
+  --mdc-theme-secondary: tomato;
+
+  /* list page style*/
+  --board-list-background-color: #eceff4;
+  --board-list-border-radius: var(--border-radius);
+  --board-list-box-border: var(--margin-default) solid #fff;
+  --board-list-box-shadow: var(--box-shadow);
+  --board-list-margin: var(--margin-default);
+  --board-list-tile-background-color: #fff;
+  --board-list-tile-name-font: bold 14px/18px var(--theme-font);
+  --board-list-tile-name-color: var(--secondary-color);
+  --board-list-tile-description-font: 12px/14px var(--theme-font);
+  --board-list-tile-description-color: var(--secondary-text-color);
+  --board-list-tile-icon-color: var(--opacity-dark-color);
+  --board-list-star-color: var(--opacity-dark-color);
+  --board-list-star-active-color: var(--primary-color);
+
+  /* login page style*/
+  --auth-background: var(--board-list-background-color);
+  --auth-brand-name: bold 48px/54px var(--theme-font);
+  --auth-brand-welcome-msg: normal 16px/24px var(--theme-font);
+  --auth-title-color: var(--secondary-color);
+  --auth-title-font: bold 28px/36px var(--theme-font);
+  --auth-input-font: normal 18px/24px var(--theme-font);
+  --auth-input-border: 1px solid var(--opacity-dark-color);
+  --auth-input-border-light: 1px solid var(--opacity-light-color);
+  --auth-input-color: var(--secondary-color);
+  --auth-button-background-color: var(--secondary-color);
+  --auth-button-font: normal 18px/20px var(--theme-font);
+  --auth-button-padding: 9px 12px 7px 12px;
 }
