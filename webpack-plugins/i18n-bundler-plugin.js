@@ -1,15 +1,17 @@
 /*
- * 모든 모듈의 assets/locales에 정의된 locale 리소스들을 모두 모아서 하나의 translations로 병합한다.
+ * 모든 모듈의 translations에 정의된 locale 리소스들을 모두 모아서 하나의 translations로 병합한다.
  */
 
-const orderedModuleNames = require('@things-factory/env').orderedModuleNames
+const fs = require('fs-extra')
 const path = require('path')
 var glob = require('glob')
+
+const orderedModuleNames = require('@things-factory/env').orderedModuleNames
 
 const AppRootPath = require('app-root-path').path
 const AppPackage = require(path.resolve(AppRootPath, 'package.json'))
 
-const merge = (target, source) => {
+function merge(target, source) {
   for (let key of Object.keys(source)) {
     if (source[key] instanceof Object) Object.assign(source[key], merge(target[key], source[key]))
   }
@@ -18,52 +20,90 @@ const merge = (target, source) => {
   return target
 }
 
-function I18nBundlerPlugin(options) {
-  this.options = options
-}
+class I18nBundlerPlugin {
+  constructor(options = {}) {
+    this.options = options
+  }
 
-I18nBundlerPlugin.prototype.apply = function(compiler) {
-  compiler.plugin('emit', (compilation, callback) => {
-    var appname = AppPackage.name
+  apply(compiler) {
+    var contexts = []
+    var files = []
 
-    var translations = orderedModuleNames.reduce((summary, m) => {
-      if (appname == m) {
-        var modulePath = AppRootPath
-      } else {
-        var modulePath = path.dirname(require.resolve(`${m}/package.json`))
-      }
-      var localesPath = path.resolve(modulePath, 'assets', 'locales')
+    compiler.plugin('emit', (compilation, callback) => {
+      /* dependencies 초기화 */
+      contexts = []
+      files = []
 
-      var files = glob.sync(`${localesPath}/*.json`)
+      var appname = AppPackage.name
+      var modules = [...orderedModuleNames, appname]
+      var translationsDir = this.options.output || 'translations'
 
-      return files.reduce((summary, file) => {
-        let ts = require(file)
-        var filename = file.replace(/^.*[\\\/]/, '')
-        var locale = filename.substring(0, filename.length - 5)
+      var translations = modules.reduce((summary, m) => {
+        if (appname == m) {
+          var modulePath = AppRootPath
+        } else {
+          var modulePath = path.dirname(require.resolve(`${m}/package.json`))
+        }
+        var translationsPath = path.resolve(modulePath, translationsDir)
+        contexts.push(translationsPath)
 
-        summary[locale] = merge(summary[locale] || {}, ts)
-        return summary
-      }, summary)
-    }, {})
+        files = glob.sync(`${translationsPath}/*.json`)
 
-    /* 각 locale 별로 file을 저장한다. */
-    var localeDir = this.options.output || 'translations'
-    for (let locale in translations) {
-      let localePath = path.join(localeDir, `${locale}.json`)
-      let content = JSON.stringify(translations[locale], null, 2)
+        return files.reduce((summary, file) => {
+          try {
+            var contents = fs.readFileSync(file)
+            var json = JSON.parse(contents)
 
-      compilation.assets[localePath] = {
-        source: function() {
-          return content
-        },
-        size: function() {
-          return content.length
+            var filename = file.replace(/^.*[\\\/]/, '')
+            var locale = filename.substring(0, filename.length - 5)
+
+            summary[locale] = merge(summary[locale] || {}, json)
+          } catch (e) {
+            console.error(e)
+          } finally {
+            return summary
+          }
+        }, summary)
+      }, {})
+
+      /* 각 locale 별로 file을 저장한다. */
+      for (let locale in translations) {
+        let localePath = path.join(translationsDir, `${locale}.json`)
+        let content = JSON.stringify(translations[locale], null, 2)
+
+        console.log(`Restoring locale '${locale}' resource into '${localePath}'`)
+
+        compilation.assets[localePath] = {
+          source: function() {
+            return content
+          },
+          size: function() {
+            return content.length
+          }
         }
       }
-    }
 
-    callback()
-  })
+      callback()
+    })
+
+    compiler.plugin('after-emit', (compilation, callback) => {
+      // Add context dependencies if they're not already tracked
+      contexts.forEach(context => {
+        if (!compilation.contextDependencies.has(context)) {
+          compilation.contextDependencies.add(context)
+        }
+      })
+
+      // Add file dependencies if they're not already tracked
+      // files.forEach(file => {
+      //   if (!compilation.fileDependencies.has(file)) {
+      //     compilation.fileDependencies.add(file)
+      //   }
+      // })
+
+      callback()
+    })
+  }
 }
 
 module.exports = I18nBundlerPlugin
