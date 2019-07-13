@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const I18nBundlerPlugin = require('./webpack-plugins/i18n-bundler-plugin')
+const FolderOveridePlugin = require('./webpack-plugins/folder-overide-plugin')
 
 const AppRootPath = require('app-root-path').path
 const AppPackage = require(path.resolve(AppRootPath, 'package.json'))
@@ -191,41 +192,6 @@ module.exports = {
     new CopyWebpackPlugin(
       [
         {
-          /* shell의 asset을 application base로 복사함 */
-          from: path.resolve(ShellModulePath, 'assets'),
-          to: path.resolve(OUTPUT_PATH, 'assets'),
-          toType: 'dir'
-        },
-        {
-          /* 각 모듈의 views를 application base로 복사함 */
-          from: path.resolve(AppRootPath, 'node_modules/@things-factory/**/views/**/*'),
-          to: path.resolve(OUTPUT_PATH, 'views', '[name].[ext]'),
-          toType: 'template',
-          force: true
-        },
-        {
-          /* application의 views를 application base로 복사함 */
-          from: path.resolve(AppRootPath, 'views/**/*'),
-          to: path.resolve(OUTPUT_PATH, 'views', '[name].[ext]'),
-          toType: 'template',
-          force: true
-        },
-        {
-          /* application에서 assets를 overide 하기위해서 */
-          from: path.resolve(AppRootPath, 'assets'),
-          to: path.resolve(OUTPUT_PATH, 'assets'),
-          toType: 'dir',
-          force: true
-        }
-      ],
-      {
-        /* application base */
-        context: AppRootPath
-      }
-    ),
-    new CopyWebpackPlugin(
-      [
-        {
           from: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js*',
           to: OUTPUT_PATH
         },
@@ -243,6 +209,12 @@ module.exports = {
         context: AppRootPath
       }
     ),
+    new FolderOveridePlugin({
+      target: 'views'
+    }),
+    new FolderOveridePlugin({
+      target: 'assets'
+    }),
     new I18nBundlerPlugin({
       output: 'translations'
     }),
