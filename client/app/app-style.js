@@ -46,6 +46,9 @@ export const AppStyle = css`
     display: none;
   }
 
+  [hidden] {
+    display: none;
+  }
   /* Wide layout */
   @media (min-width: 460px) {
   }

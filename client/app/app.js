@@ -12,7 +12,8 @@ class ThingsApp extends connect(store)(LitElement) {
       appTitle: String,
       _page: String,
       _activePage: Object,
-      _modules: Array
+      _modules: Array,
+      _context: Object
     }
   }
 
@@ -21,16 +22,18 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   render() {
-    return html`
-      <header-bar></header-bar>
+    var fullbleed = this._context && this._context.fullbleed
 
-      <nav-bar></nav-bar>
+    return html`
+      <header-bar ?hidden=${fullbleed}></header-bar>
+
+      <nav-bar ?hidden=${fullbleed}></nav-bar>
 
       <main></main>
 
-      <aside-bar></aside-bar>
+      <aside-bar ?hidden=${fullbleed}></aside-bar>
 
-      <footer-bar></footer-bar>
+      <footer-bar ?hidden=${fullbleed}></footer-bar>
     `
   }
 
@@ -80,6 +83,7 @@ class ThingsApp extends connect(store)(LitElement) {
 
   stateChanged(state) {
     this._page = state.route.page
+    this._context = state.route.context
     this._modules = state.app.modules
     this._overlayTemplate = state.app.overlayTemplate
   }
