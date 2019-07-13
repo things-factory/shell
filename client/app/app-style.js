@@ -6,7 +6,7 @@ export const AppStyle = css`
 
     grid-template-rows: var(--app-grid-template-rows, auto 1fr auto);
     grid-template-columns: var(--app-grid-template-columns, auto 1fr auto);
-    grid-template-areas: var(--app-grid-template-area, 'header header header' 'nav main aside' 'footer footer footer');
+    grid-template-areas: var(--app-grid-template-area, 'header header header' 'nav main aside' 'nav footer aside');
     grid-gap: var(--app-grid-gap, 0em);
 
     width: 100vw;
