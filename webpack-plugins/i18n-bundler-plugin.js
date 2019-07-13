@@ -1,5 +1,5 @@
 /*
- * 모든 모듈의 assets/locales에 정의된 locale 리소스들을 모두 모아서 하나의 translations로 병합한다.
+ * 모든 모듈의 translations에 정의된 locale 리소스들을 모두 모아서 하나의 translations로 병합한다.
  */
 
 const fs = require('fs-extra')
@@ -36,6 +36,7 @@ class I18nBundlerPlugin {
 
       var appname = AppPackage.name
       var modules = [...orderedModuleNames, appname]
+      var translationsDir = this.options.output || 'translations'
 
       var translations = modules.reduce((summary, m) => {
         if (appname == m) {
@@ -43,10 +44,10 @@ class I18nBundlerPlugin {
         } else {
           var modulePath = path.dirname(require.resolve(`${m}/package.json`))
         }
-        var localesPath = path.resolve(modulePath, 'assets', 'locales')
-        contexts.push(localesPath)
+        var translationsPath = path.resolve(modulePath, translationsDir)
+        contexts.push(translationsPath)
 
-        files = glob.sync(`${localesPath}/*.json`)
+        files = glob.sync(`${translationsPath}/*.json`)
 
         return files.reduce((summary, file) => {
           try {
@@ -66,9 +67,8 @@ class I18nBundlerPlugin {
       }, {})
 
       /* 각 locale 별로 file을 저장한다. */
-      var localeDir = this.options.output || 'translations'
       for (let locale in translations) {
-        let localePath = path.join(localeDir, `${locale}.json`)
+        let localePath = path.join(translationsDir, `${locale}.json`)
         let content = JSON.stringify(translations[locale], null, 2)
 
         console.log(`Restoring locale '${locale}' resource into '${localePath}'`)
