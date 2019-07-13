@@ -30,9 +30,13 @@ body {
   --stauts-info-color: #398ace;
 
   /* layout style */
-  --header-background-color: var(--secondary-background-color);
-  --header-icon-size: var(--icon-default-size);
-  --header-title: bold 16px var(--theme-font);
+  --header-bar-background-color: var(--secondary-background-color);
+  --header-bar-icon-size: var(--icon-default-size);
+  --header-bar-title: bold 16px var(--theme-font);
+  --header-bar-color: #fff;
+  --header-bar-height: 45px;
+  --nav-bar-background-color: var(--primary-color);
+  --context-toolbar-background-color: #fff;
 
   --group-bar-background-color: var(--primary-color);
   --group-bar-textbutton: 16px/32px var(--theme-font);
@@ -63,7 +67,7 @@ body {
   --aside-list-detail-background-color: #fff;
   --aside-list-detail-text: 14px var(--primary-background-color);
 
-  --app-grid-template-area: 'header header header' 'nav main aside' 'nav footer aside';
+  --app-grid-template-area: 'header header header' 'nav main aside' 'footer footer footer';
 
   /* form style */
   --label-text: bold 14px var(--secondary-text-color);
