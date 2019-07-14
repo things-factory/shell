@@ -2,7 +2,7 @@ import { html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { updateMetadata } from 'pwa-helpers/metadata.js'
 import { installRouter } from 'pwa-helpers/router.js'
-import { navigate, UPDATE_ACTIVE_PAGE } from '../actions/route'
+import { navigateWithSilence, UPDATE_ACTIVE_PAGE } from '../actions/route'
 import { store } from '../store'
 import { AppStyle } from './app-style'
 
@@ -38,7 +38,7 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   firstUpdated() {
-    installRouter(location => store.dispatch(navigate(location)))
+    installRouter(location => store.dispatch(navigateWithSilence(location)))
 
     /* lifecycle - bootstrapping */
     this.dispatchEvent(new Event('lifecycle-bootstrap-begin'))
