@@ -10,9 +10,9 @@ export const ScrollbarStyles = css`
     background-color: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: var(--scrollbar-thumb-color, rgba(0, 0, 0, 0.2));
   }
   ::-webkit-scrollbar-thumb:hover {
-    background-color: #aa866a;
+    background-color: var(--scrollbar-thumb-hover-color, #aa866a);
   }
 `
