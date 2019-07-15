@@ -6,7 +6,19 @@ export const UPDATE_ACTIVE_PAGE = 'UPDATE_ACTIVE_PAGE'
 export const UPDATE_DEFAULT_ROUTE_PAGE = 'UPDATE_DEFAULT_ROUTE_PAGE'
 export const HOMEPAGE = 'index'
 
-export const navigate = ({ pathname: path, search }) => dispatch => {
+/**
+ * 페이지를 이동하는 방법으로는 다음 두가지가 있다.
+ * 1. page link를 사용하는 방법 <a href='page'>goto page</a>
+ * 2. navigate('page')를 사용하는 방법
+ *
+ * @param string page
+ */
+export const navigate = location => {
+  history.pushState({}, '', location)
+  store.dispatch(navigateWithSilence(window.location))
+}
+
+export const navigateWithSilence = ({ pathname: path, search }) => dispatch => {
   const reg = /\/([^\/]+)\/*([^\/]*)/
   const decodePath = decodeURIComponent(path)
   const matchReturn = decodePath.match(reg) || []

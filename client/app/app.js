@@ -2,7 +2,7 @@ import { html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { updateMetadata } from 'pwa-helpers/metadata.js'
 import { installRouter } from 'pwa-helpers/router.js'
-import { navigate, UPDATE_ACTIVE_PAGE } from '../actions/route'
+import { navigateWithSilence, UPDATE_ACTIVE_PAGE } from '../actions/route'
 import { store } from '../store'
 import { AppStyle } from './app-style'
 
@@ -12,7 +12,8 @@ class ThingsApp extends connect(store)(LitElement) {
       appTitle: String,
       _page: String,
       _activePage: Object,
-      _modules: Array
+      _modules: Array,
+      _context: Object
     }
   }
 
@@ -21,21 +22,23 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   render() {
-    return html`
-      <header-bar></header-bar>
+    var fullbleed = this._context && this._context.fullbleed
 
-      <nav-bar></nav-bar>
+    return html`
+      <header-bar ?hidden=${fullbleed}></header-bar>
+
+      <nav-bar ?hidden=${fullbleed}></nav-bar>
 
       <main></main>
 
-      <aside-bar></aside-bar>
+      <aside-bar ?hidden=${fullbleed}></aside-bar>
 
-      <footer-bar></footer-bar>
+      <footer-bar ?hidden=${fullbleed}></footer-bar>
     `
   }
 
   firstUpdated() {
-    installRouter(location => store.dispatch(navigate(location)))
+    installRouter(location => store.dispatch(navigateWithSilence(location)))
 
     /* lifecycle - bootstrapping */
     this.dispatchEvent(new Event('lifecycle-bootstrap-begin'))
@@ -80,6 +83,7 @@ class ThingsApp extends connect(store)(LitElement) {
 
   stateChanged(state) {
     this._page = state.route.page
+    this._context = state.route.context
     this._modules = state.app.modules
     this._overlayTemplate = state.app.overlayTemplate
   }
