@@ -74,6 +74,19 @@ body {
   --context-toolbar-list-text: bold 18px var(--theme-font);
   --context-toolbar-list-icon-size: var(--icon-default-size);
 
+  --context-ui-background-color: rgba(40, 54, 68, 0.9);
+  --context-ui-box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2);
+  --context-ui-border-radius: 10px;
+  --context-ui-padding: 10px;
+  --context-ui-list-color: #d0fdee;
+  --context-ui-list-border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  --context-ui-list-border-hover-bottom: 1px solid var(--primary-color);
+  --context-ui-list-padding: 5px;
+  --context-ui-button-color: var(--secondary-text-color);
+  --context-ui-button-hover-color: #fff;
+  --context-ui-button-background-color: #fff;
+  --context-ui-button-background-hover-color: var(--primary-color);
+
   --aside-background-color: var(--secondary-background-color);
   --aside-list-textbtton: 18px var(--theme-font);
   --aside-list-icon: var(--icon-default-size);
@@ -91,6 +104,11 @@ body {
   --morelet-background-color: #fff;
   --morelet-color: var(--secondary-color);
   --morelet-font: normal 0.9em/1.4em var(--theme-font);
+
+  --footer-bar-border-top: 1px solid rgba(0, 0, 0, 0.2);
+  --overlay-background-color: rgba(0, 0, 0, 0.5);
+  --overlay-margin-bottom: 0px;
+  --context-toolbar-background-color: #fff;
 
   --app-grid-template-area: 'header header header' 'nav main aside' 'nav footer aside';
 
