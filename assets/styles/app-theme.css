@@ -29,7 +29,7 @@ body {
   --status-danger-color: #d14946;
   --stauts-info-color: #398ace;
 
-  --scrollbar-thumb-color: rgba(57, 78, 100, 0.7);
+  --scrollbar-thumb-color: rgba(57, 78, 100, 0.5);
   --scrollbar-thumb-hover-color: var(--primary-color);
 
   /* layout style */
@@ -80,6 +80,17 @@ body {
   --aside-list-bottom-line: var(--border-dark-color);
   --aside-list-detail-background-color: #fff;
   --aside-list-detail-text: 14px var(--primary-background-color);
+
+  --more-panel-background-color: rgba(57, 78, 100, 0.9);
+  --more-panel-min-width: 200px;
+  --morelet-min-width: 200px;
+  --morelet-title-color: #fff;
+  --morelet-title-font: normal 1em/1em var(--theme-font);
+  --morelet-border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  --morelet-focus-border-top: 3px solid var(--primary-color);
+  --morelet-background-color: #fff;
+  --morelet-color: var(--secondary-color);
+  --morelet-font: normal 0.9em/1.4em var(--theme-font);
 
   --app-grid-template-area: 'header header header' 'nav main aside' 'nav footer aside';
 
