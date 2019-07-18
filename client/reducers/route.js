@@ -3,6 +3,8 @@ import {
   UPDATE_CONTEXT,
   UPDATE_ACTIVE_PAGE,
   UPDATE_DEFAULT_ROUTE_PAGE,
+  REGISTER_NAVIGATION_CALLBACK,
+  UNREGISTER_NAVIGATION_CALLBACK,
   HOMEPAGE
 } from '../actions/route.js'
 
@@ -12,6 +14,7 @@ const INITIAL_STATE = {
   params: {},
   activePage: null,
   context: {},
+  callbacks: [],
   defaultRoutePage: HOMEPAGE
 }
 
@@ -39,6 +42,18 @@ const route = (state = INITIAL_STATE, action) => {
         ...state,
         activePage: action.activePage
       }
+
+    case REGISTER_NAVIGATION_CALLBACK:
+      return {
+        ...state,
+        callbacks: [...state.callbacks, action.callback]
+      }
+    case UNREGISTER_NAVIGATION_CALLBACK:
+      return {
+        ...state,
+        callbacks: state.callbacks.filter(callback => callback !== action.callback)
+      }
+
     default:
       return state
   }

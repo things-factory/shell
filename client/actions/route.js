@@ -4,6 +4,10 @@ export const UPDATE_PAGE = 'UPDATE_PAGE'
 export const UPDATE_CONTEXT = 'UPDATE_CONTEXT'
 export const UPDATE_ACTIVE_PAGE = 'UPDATE_ACTIVE_PAGE'
 export const UPDATE_DEFAULT_ROUTE_PAGE = 'UPDATE_DEFAULT_ROUTE_PAGE'
+
+export const REGISTER_NAVIGATION_CALLBACK = 'REGISTER_NAVIGATION_CALLBACK'
+export const UNREGISTER_NAVIGATION_CALLBACK = 'UNREGISTER_NAVIGATION_CALLBACK'
+
 export const HOMEPAGE = 'index'
 
 /**
@@ -15,7 +19,9 @@ export const HOMEPAGE = 'index'
  */
 export const navigate = location => {
   history.pushState({}, '', location)
-  store.dispatch(navigateWithSilence(window.location))
+  window.dispatchEvent(new Event('popstate'))
+
+  // store.dispatch(navigateWithSilence(window.location))
 }
 
 export const navigateWithSilence = ({ pathname: path, search }) => dispatch => {

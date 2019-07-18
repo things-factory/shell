@@ -38,7 +38,16 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   firstUpdated() {
-    installRouter(location => store.dispatch(navigateWithSilence(location)))
+    installRouter((location, e) => {
+      store.dispatch(navigateWithSilence(location))
+      ;(store.getState().route.callbacks || []).forEach(callback => {
+        try {
+          callback.call(this, location, e)
+        } catch (ex) {
+          console.error(ex)
+        }
+      })
+    })
 
     /* lifecycle - bootstrapping */
     this.dispatchEvent(new Event('lifecycle-bootstrap-begin'))
