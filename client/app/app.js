@@ -94,7 +94,6 @@ class ThingsApp extends connect(store)(LitElement) {
     this._page = state.route.page
     this._context = state.route.context
     this._modules = state.app.modules
-    this._overlayTemplate = state.app.overlayTemplate
   }
 
   _appendFactoryModulePages() {
