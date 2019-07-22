@@ -18,9 +18,9 @@ export const buildQuery = function(queryBuilder: any, params: any) {
     })
   }
 
-  if (pagination && pagination.skip >= 0 && pagination.take >= 0) {
-    queryBuilder.skip(pagination.skip)
-    queryBuilder.take(pagination.take)
+  if (pagination && pagination.page > 0 && pagination.limit > 0) {
+    queryBuilder.skip(pagination.limit * (pagination.page - 1))
+    queryBuilder.take(pagination.limit)
   }
 
   if (sortings && sortings.length > 0) {
