@@ -7,7 +7,12 @@ export const buildQuery = function(queryBuilder: any, params: any) {
 
   if (filters && filters.length > 0) {
     filters.forEach((filter, index: number) => {
-      const condition = buildCondition(`${queryBuilder.alias}.${filter.name}`, filter.operator, filter.value)
+      const condition = buildCondition(
+        `${queryBuilder.alias}.${filter.name}`,
+        filter.operator,
+        filter.value,
+        filter.dataType
+      )
       if (index === 0) {
         queryBuilder.where(condition.clause)
         if (condition.parameters) queryBuilder.setParameters(condition.parameters)
@@ -18,9 +23,9 @@ export const buildQuery = function(queryBuilder: any, params: any) {
     })
   }
 
-  if (pagination && pagination.skip >= 0 && pagination.take >= 0) {
-    queryBuilder.skip(pagination.skip)
-    queryBuilder.take(pagination.take)
+  if (pagination && pagination.page > 0 && pagination.limit > 0) {
+    queryBuilder.skip(pagination.limit * (pagination.page - 1))
+    queryBuilder.take(pagination.limit)
   }
 
   if (sortings && sortings.length > 0) {

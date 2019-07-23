@@ -10,5 +10,14 @@
   "field.deleted_at": "dibuang pada",
   "field.creator": "pencipta",
   "field.updater": "pengemaskini",
-  "field.deleter": "pembuang"
+  "field.deleter": "pembuang",
+  "field.domain": "domain",
+  "field.timezone": "zon waktu",
+  "field.default": "asalan",
+  "field.system_flag": "bendera sistem",
+  "field.subdomain": "domain-sub",
+  "field.brand_name": "jenama",
+  "field.brand_image": "imej",
+  "field.content_image": "isian imej",
+  "field.theme": "tema"
 }

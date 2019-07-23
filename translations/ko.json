@@ -5,10 +5,19 @@
   "field.id": "아이디",
   "field.name": "이름",
   "field.description": "설명",
+  "field.domain": "도메인",
   "field.created_at": "생성일시",
   "field.updated_at": "수정일시",
   "field.deleted_at": "삭제일시",
   "field.creator": "생성자",
   "field.updater": "수정자",
-  "field.deleter": "삭제자"
+  "field.deleter": "삭제자",
+  "field.timezone": "타임존",
+  "field.default": "기본값",
+  "field.system_flag": "system_flag",
+  "field.subdomain": "서브도메인",
+  "field.brand_name": "브랜드 이름",
+  "field.brand_image": "브랜드 사진",
+  "field.content_image": "컨텐츠 이미지",
+  "field.theme": "테마"
 }
