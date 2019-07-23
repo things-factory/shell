@@ -5,10 +5,19 @@
   "field.id": "id",
   "field.name": "name",
   "field.description": "description",
+  "field.domain": "domain",
   "field.created_at": "created at",
   "field.updated_at": "updated at",
   "field.deleted_at": "deleted at",
   "field.creator": "creator",
   "field.updater": "updater",
-  "field.deleter": "deleter"
+  "field.deleter": "deleter",
+  "field.timezone": "timezone",
+  "field.default": "default",
+  "field.system_flag": "system_flag",
+  "field.subdomain": "subdomain",
+  "field.brand_name": "brand_name",
+  "field.brand_image": "brand_image",
+  "field.content_image": "content_image",
+  "field.theme": "theme"
 }
