@@ -138,6 +138,9 @@ var app = {
       txtRecord,
       result => {
         console.log('Service registered', result.service)
+        setTimeout(() => {
+          this.zeroconf.stop()
+        }, 30000)
       }
     )
   }
