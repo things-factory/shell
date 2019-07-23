@@ -1,4 +1,14 @@
-export const buildCondition = function(fieldName: string, operator: string, value: any) {
+export const buildCondition = function(fieldName: string, operator: string, value: string, dataType: string = '') {
+  dataType = dataType.toLowerCase()
+  value =
+    dataType.indexOf('boolean') >= 0
+      ? JSON.parse(value)
+      : dataType.indexOf('int') >= 0
+      ? parseInt(value)
+      : dataType.indexOf('float') >= 0
+      ? parseFloat(value)
+      : value
+
   switch (operator) {
     case 'eq':
       return {

@@ -5,5 +5,6 @@ export const Filter = gql`
     name: String
     operator: String
     value: String
+    dataType: String
   }
 `
