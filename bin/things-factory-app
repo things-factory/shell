@@ -1,4 +1,4 @@
-#!/usr/bin/env node --inspect
+#!/usr/bin/env node
 
 'use strict'
 
@@ -14,22 +14,22 @@ platform = matched ? matched[1] : 'android'
 
 var argString = args.join(' ')
 
-var exec = require('child_process').exec,
-  child
+var spawn = require('child_process').spawn
 
 var path = require('path')
 var shellModulePath = path.resolve(AppRootPath, 'node_modules', '@things-factory/shell')
 
-child = exec(
-  `cordova run ${platform} ${argString}`,
-  {
-    cwd: shellModulePath
-  },
-  function(error, stdout, stderr) {
-    console.log('stdout: ' + stdout)
-    console.log('stderr: ' + stderr)
-    if (error !== null) {
-      console.log('exec error: ' + error)
-    }
-  }
-)
+var cordova = spawn('cordova', ['run', platform, argString], {
+  cwd: shellModulePath
+})
+cordova.stdout.on('data', function(data) {
+  console.log(data.toString())
+})
+
+cordova.stderr.on('data', function(data) {
+  console.log('stderr: ' + data.toString())
+})
+
+cordova.on('exit', function(code) {
+  console.log('child process exited with code ' + code.toString())
+})
