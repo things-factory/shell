@@ -110,7 +110,7 @@ var app = {
     })
   },
 
-  advertisementForConnect: function(service, params) {
+  advertisementForConnect: function(service = {}, params) {
     var myIp = this.ipInformation.ip
     var { txtRecord: rec } = service
     var { token, url } = params
@@ -130,6 +130,13 @@ var app = {
       url
     }
 
+    if (this.lastTimeout) {
+      clearTimeout(this.lastTimeout)
+      this.lastTimeout = null
+
+      this.stopAdvertisement()
+    }
+
     this.zeroconf.register(
       `_${ipAddress.replace(/\./g, '')}._udp.`,
       'local.',
@@ -138,11 +145,20 @@ var app = {
       txtRecord,
       result => {
         console.log('Service registered', result.service)
-        setTimeout(() => {
-          this.zeroconf.stop()
-        }, 30000)
+        this.lastTimeout = setTimeout(() => {
+          this.stopAdvertisement()
+        }, 10000)
+      },
+      result => {
+        this.stopAdvertisement()
       }
     )
+  },
+
+  stopAdvertisement: function() {
+    this.zeroconf.stop(result => {
+      console.log('Service publish stopped', result)
+    })
   }
 }
 
