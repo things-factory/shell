@@ -5,6 +5,7 @@ body {
   --focus-color: #fff;
   --primary-background-color: var(--secondary-color);
   --secondary-background-color: #283644;
+  --main-section-background-color: #f4f7fb;
   --focus-background-color: var(--primary-color);
   --primary-text-color: #111;
   --secondary-text-color: #017e7f;
@@ -33,7 +34,7 @@ body {
   --scrollbar-thumb-hover-color: var(--primary-color);
 
   /* layout style */
-  --header-bar-background-color: var(--secondary-background-color);
+  --header-bar-background-color: var(--secondary-color);
   --header-bar-icon-size: var(--icon-default-size);
   --header-bar-title: bold 16px var(--theme-font);
   --header-bar-color: #fff;
@@ -113,19 +114,28 @@ body {
   --app-grid-template-area: 'header header header' 'nav main aside' 'nav footer aside';
 
   /* form style */
-  --label-text: bold 14px var(--secondary-text-color);
-  --field-border: var(--opacity-dark-color);
-  --field-background-color: var(--opacity-light-color);
-  --field-radius: var(--border-radius);
-  --field-layout-wide-height: 25px;
-  --field-layout-narrow-height: 45px;
+  --fieldset-border: none;
+  --fieldset-margin: 15px auto;
+  --fieldset-max-width: 700px;
+  --fieldset-div-padding: 7px;
+  --legend-padding: 3px 5px;
+  --legend-font: bold 14px/18px var(--theme-font);
+  --legend-text-color: var(--primary-color);
+  --legend-border-bottom: 1px solid var(--primary-color);
+  --label-padding: 3px 0;
+  --label-font: normal 14px var(--theme-font);
+  --label-color: var(--secondary-color);
+  --input-field-border: 1px solid rgba(0, 0, 0, 0.2);
+  --input-field-border-radius: var(--border-radius);
+  --input-field-padding: 2px 9px;
+  --input-field-font: normal 14px var(--theme-font);
 
   --search-panel-background-color: rgba(0, 0, 0, 0.1);
   --search-panel-search-iconbutton-size: var(--icon-default-size);
   --search-panel-search-iconbutton-color: var(--secondary-color);
 
   /* datagrid style */
-  --grid-header-background-color: #eceff4;
+  --grid-header-background-color: var(--main-section-background-color);
   --grid-header-border-color: #b9c4d7;
   --grid-record-background-color: #fff;
   --grid-record-odd-background-color: #f3f4f6;
@@ -151,7 +161,7 @@ body {
   --mdc-theme-secondary: tomato;
 
   /* list page style*/
-  --board-list-background-color: #eceff4;
+  --board-list-background-color: var(--main-section-background-color);
   --board-list-border-radius: var(--border-radius);
   --board-list-box-border: var(--margin-default) solid #fff;
   --board-list-box-shadow: var(--box-shadow);
@@ -169,7 +179,7 @@ body {
   --edit-toolbar-background-color: var(--primary-color);
   --edit-toolbar-bigger-icon-size: 45px;
   --edit-toolbar-bigger-icon-line: 1px solid rgba(0, 0, 0, 0.1);
-  --component-toolbar-background-color: #eceff4;
+  --component-toolbar-background-color: var(--main-section-background-color);
   --component-toolbar-icon-size: 45px;
   --component-toolbar-border: 1px solid rgba(0, 0, 0, 0.1);
   --component-menu-background-color: #fff;
@@ -187,7 +197,7 @@ body {
   --property-sidebar-fieldset-legend: bold 11px/16px var(--theme-font);
 
   /* login page style*/
-  --auth-background: #eceff4;
+  --auth-background: var(--main-section-background-color);
   --auth-brand-name: bold 48px/54px var(--theme-font);
   --auth-brand-welcome-msg: normal 16px/24px var(--theme-font);
   --auth-title-color: var(--secondary-color);
