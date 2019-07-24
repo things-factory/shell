@@ -1,0 +1,35 @@
+#!/usr/bin/env node --inspect
+
+'use strict'
+
+const AppRootPath = require('app-root-path').path
+
+var args = process.argv.filter(arg => arg.startsWith('--'))
+var platformArgIdx = args.findIndex(a => /--platform/.test(a))
+
+var platform = args.splice(platformArgIdx, 1).join()
+var matched = platform.match(/--platform=(\w+)/)
+
+platform = matched ? matched[1] : 'android'
+
+var argString = args.join(' ')
+
+var exec = require('child_process').exec,
+  child
+
+var path = require('path')
+var shellModulePath = path.resolve(AppRootPath, 'node_modules', '@things-factory/shell')
+
+child = exec(
+  `cordova run ${platform} ${argString}`,
+  {
+    cwd: shellModulePath
+  },
+  function(error, stdout, stderr) {
+    console.log('stdout: ' + stdout)
+    console.log('stderr: ' + stderr)
+    if (error !== null) {
+      console.log('exec error: ' + error)
+    }
+  }
+)
