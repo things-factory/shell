@@ -5,7 +5,8 @@
   "bin": {
     "things-factory": "bin/things-factory",
     "things-factory-dev": "bin/things-factory-dev",
-    "things-factory-migration": "bin/things-factory-migration"
+    "things-factory-migration": "bin/things-factory-migration",
+    "things-factory-app": "bin/things-factory-app"
   },
   "main": "dist-server/index.js",
   "browser": "client/index.js",
