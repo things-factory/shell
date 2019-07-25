@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.5.73",
+  "version": "0.5.74",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -71,6 +71,7 @@
     "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-networkinterface": "^2.0.0",
     "cordova-plugin-zeroconf": "^1.4.0",
+    "core-js": "^3.1.4",
     "css-loader": "^3.0.0",
     "csvtojson": "^2.0.10",
     "dependency-solver": "^1.0.6",
