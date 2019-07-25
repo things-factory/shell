@@ -4,7 +4,7 @@ const webpack = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const I18nBundlerPlugin = require('./webpack-plugins/i18n-bundler-plugin')
-const FolderOveridePlugin = require('./webpack-plugins/folder-overide-plugin')
+const FolderOverridePlugin = require('./webpack-plugins/folder-override-plugin')
 
 const AppRootPath = require('app-root-path').path
 const AppPackage = require(path.resolve(AppRootPath, 'package.json'))
@@ -210,10 +210,10 @@ module.exports = {
         context: AppRootPath
       }
     ),
-    new FolderOveridePlugin({
+    new FolderOverridePlugin({
       target: 'views'
     }),
-    new FolderOveridePlugin({
+    new FolderOverridePlugin({
       target: 'assets'
     }),
     new I18nBundlerPlugin({

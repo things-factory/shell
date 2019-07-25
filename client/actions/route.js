@@ -51,7 +51,7 @@ const _preLoadPage = page => {
    */
   var state = store.getState()
 
-  /* overide 기능을 위해서 dependency 관계의 역순으로 route를 실행한다. */
+  /* override 기능을 위해서 dependency 관계의 역순으로 route를 실행한다. */
   var modules = state.app.modules
   if (modules) {
     for (let i = modules.length - 1; i >= 0; i--) {
