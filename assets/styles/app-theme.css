@@ -111,6 +111,11 @@ body {
   --overlay-margin-bottom: 0px;
   --context-toolbar-background-color: #fff;
 
+  --subtitle-padding: 12px 5px 3px 5px;
+  --subtitle-font: bold 14px/18px var(--theme-font);
+  --subtitle-text-color: var(--primary-color);
+  --subtitle-border-bottom: 1px solid var(--primary-color);
+
   --app-grid-template-area: 'header header header' 'nav main aside' 'nav footer aside';
 
   /* form style */
@@ -119,10 +124,10 @@ body {
   --form-max-width: 700px;
   --form-sublabel-font: normal 13px var(--theme-font);
   --form-sublabel-color: var(--secondary-color);
-  --legend-padding: 12px 5px 3px 5px;
-  --legend-font: bold 14px/18px var(--theme-font);
-  --legend-text-color: var(--primary-color);
-  --legend-border-bottom: 1px solid var(--primary-color);
+  --legend-padding: var(--subtitle-padding);
+  --legend-font: var(--subtitle-font);
+  --legend-text-color: var(--subtitle-text-color);
+  --legend-border-bottom: var(--subtitle-border-bottom);
   --label-padding: 3px 0;
   --label-font: normal 14px var(--theme-font);
   --label-color: var(--secondary-color);
@@ -130,6 +135,7 @@ body {
   --input-field-border-radius: var(--border-radius);
   --input-field-padding: 2px 9px;
   --input-field-font: normal 14px var(--theme-font);
+  --form-grid-gap: 12px 5px;
 
   --search-panel-background-color: rgba(0, 0, 0, 0.1);
   --search-panel-search-iconbutton-size: var(--icon-default-size);
