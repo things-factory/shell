@@ -142,6 +142,8 @@ body {
   --search-panel-search-iconbutton-color: var(--secondary-color);
 
   /* datagrid style */
+  --data-list-wrapper-background-color: var(--main-section-background-color);
+  --data-list-wrapper-padding: 15px;
   --grid-header-background-color: var(--main-section-background-color);
   --grid-header-border-color: #b9c4d7;
   --grid-record-background-color: #fff;
