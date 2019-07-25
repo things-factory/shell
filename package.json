@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.5.81",
+  "version": "0.5.82",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -22,7 +22,7 @@
     "build": "npm run build:server && npm run build:client",
     "build:server": "npm run clean:server && tsc",
     "build:client": "npm run clean:client && webpack --mode production",
-    "build:app:android": "cordova build android",
+    "build:app:android": "./bin/things-factory-app --platform=android --mode=build",
     "clean": "npm run clean:server && npm run clean:client",
     "prepublish": "npm run build:server",
     "clean:server": "rm -rf dist-server",
