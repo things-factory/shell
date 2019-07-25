@@ -17,8 +17,10 @@ export const HOMEPAGE = 'index'
  *
  * @param string page
  */
-export const navigate = location => {
-  history.pushState({}, '', location)
+export const navigate = (location, replace) => {
+  if (replace) history.replaceState(history.state, '', location)
+  else history.pushState({}, '', location)
+
   window.dispatchEvent(new Event('popstate'))
 
   // store.dispatch(navigateWithSilence(window.location))
