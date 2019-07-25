@@ -6,7 +6,7 @@ const fs = require('fs-extra')
 const path = require('path')
 var glob = require('glob')
 
-const orderedModuleNames = require('@things-factory/env').orderedModuleNames
+const { orderedModuleNames, sceneModuleNames } = require('@things-factory/env')
 
 const AppRootPath = require('app-root-path').path
 const AppPackage = require(path.resolve(AppRootPath, 'package.json'))
@@ -35,7 +35,9 @@ class I18nBundlerPlugin {
       files = []
 
       var appname = AppPackage.name
-      var modules = [...orderedModuleNames, appname]
+      var modules = [...orderedModuleNames, ...sceneModuleNames].filter(modulename => modulename !== appname)
+      modules.push(appname)
+
       var translationsDir = this.options.output || 'translations'
 
       var translations = modules.reduce((summary, m) => {

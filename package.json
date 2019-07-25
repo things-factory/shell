@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.5.75",
+  "version": "0.5.81",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",

@@ -11,7 +11,8 @@ export const buildQuery = function(queryBuilder: any, params: any) {
         `${queryBuilder.alias}.${filter.name}`,
         filter.operator,
         filter.value,
-        filter.dataType
+        filter.dataType,
+        Object.keys(queryBuilder.getParameters()).length
       )
       if (index === 0) {
         queryBuilder.where(condition.clause)

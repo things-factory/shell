@@ -12,7 +12,7 @@ const orderedModuleNames = require('@things-factory/env').orderedModuleNames
 const AppRootPath = require('app-root-path').path
 const AppPackage = require(path.resolve(AppRootPath, 'package.json'))
 
-class FolderOveridePlugin {
+class FolderOverridePlugin {
   constructor(options = {}) {
     this.options = options
     this.writtenFrom = {}
@@ -112,4 +112,4 @@ class FolderOveridePlugin {
   }
 }
 
-module.exports = FolderOveridePlugin
+module.exports = FolderOverridePlugin
