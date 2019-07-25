@@ -35,8 +35,7 @@ class I18nBundlerPlugin {
       files = []
 
       var appname = AppPackage.name
-      var modules = [...orderedModuleNames, ...sceneModuleNames]
-      modules.filter(modulename => modulename !== appname)
+      var modules = [...orderedModuleNames, ...sceneModuleNames].filter(modulename => modulename !== appname)
       modules.push(appname)
 
       var translationsDir = this.options.output || 'translations'
