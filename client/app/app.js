@@ -22,7 +22,10 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   render() {
-    var fullbleed = this._context && this._context.fullbleed
+    var { route: routeState } = store.getState()
+    var { params = {} } = routeState
+
+    var fullbleed = (this._context && this._context.fullbleed) || (params.fullbleed && params.fullbleed == 'Y')
 
     return html`
       <header-bar ?hidden=${fullbleed}></header-bar>

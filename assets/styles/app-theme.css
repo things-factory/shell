@@ -114,11 +114,12 @@ body {
   --app-grid-template-area: 'header header header' 'nav main aside' 'nav footer aside';
 
   /* form style */
-  --fieldset-border: none;
-  --fieldset-margin: 15px auto;
-  --fieldset-max-width: 700px;
-  --fieldset-div-padding: 7px;
-  --legend-padding: 3px 5px;
+  --form-border: none;
+  --form-margin: 15px auto;
+  --form-max-width: 700px;
+  --form-sublabel-font: normal 13px var(--theme-font);
+  --form-sublabel-color: var(--secondary-color);
+  --legend-padding: 12px 5px 3px 5px;
   --legend-font: bold 14px/18px var(--theme-font);
   --legend-text-color: var(--primary-color);
   --legend-border-bottom: 1px solid var(--primary-color);
@@ -209,4 +210,9 @@ body {
   --auth-button-background-color: var(--secondary-color);
   --auth-button-font: normal 18px/20px var(--theme-font);
   --auth-button-padding: 9px 12px 7px 12px;
+
+  /* profile brand style*/
+  --profile-brand-width: 150px;
+  --profile-brand-height: 45px;
+  --profile-brand-padding: 30px auto 20px auto;
 }
