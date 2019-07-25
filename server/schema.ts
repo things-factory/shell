@@ -5,7 +5,7 @@ import { GraphQLUpload } from 'graphql-upload'
 const appRootPath = require('app-root-path').path
 const selfModulePackage = require(path.resolve(appRootPath, 'package.json'))
 const selfModuleName = selfModulePackage.name
-const selfModule = require(path.resolve(appRootPath, selfModulePackage.main))
+const selfModule = selfModulePackage['things-factory'] && require(path.resolve(appRootPath, selfModulePackage.main))
 
 const orderedModuleNames = require('@things-factory/env').orderedModuleNames
 import { makeExecutableSchema } from 'graphql-tools'
@@ -15,7 +15,7 @@ const schemas = orderedModuleNames
     try {
       if (selfModuleName == dep) {
         /* self module entities */
-        return selfModule.schema
+        return selfModule && selfModule.schema
       } else {
         return require(dep).schema
       }

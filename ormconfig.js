@@ -3,7 +3,7 @@ const path = require('path')
 const appRootPath = require('app-root-path').path
 const selfModulePackage = require(path.resolve(appRootPath, 'package.json'))
 const selfModuleName = selfModulePackage.name
-const selfModule = require(path.resolve(appRootPath, selfModulePackage.main))
+const selfModule = selfModulePackage['things-factory'] && require(path.resolve(appRootPath, selfModulePackage.main))
 
 const orderedModuleNames = require('@things-factory/env').orderedModuleNames
 
@@ -16,7 +16,7 @@ const entities = orderedModuleNames
     try {
       if (selfModuleName == dep) {
         /* self module entities */
-        return selfModule.entities
+        return selfModule && selfModule.entities
       } else {
         return require(dep).entities
       }
@@ -32,7 +32,7 @@ const migrations = orderedModuleNames
     try {
       if (selfModuleName == dep) {
         /* self module migrations */
-        return selfModule.migrations
+        return selfModule && selfModule.migrations
       } else {
         return require(dep).migrations
       }
@@ -48,7 +48,7 @@ const subscribers = orderedModuleNames
     try {
       if (selfModuleName == dep) {
         /* self module subscribers */
-        return selfModule.subscribers
+        return selfModule && selfModule.subscribers
       } else {
         return require(dep).subscribers
       }
