@@ -144,14 +144,24 @@ body {
   /* datagrid style */
   --data-list-wrapper-background-color: var(--main-section-background-color);
   --data-list-wrapper-padding: 15px;
-  --grid-header-background-color: var(--main-section-background-color);
-  --grid-header-border-color: #b9c4d7;
+  --grid-header-background-color: rgba(18, 105, 105, 0.05);
+  --grid-header-border-color: rgba(18, 105, 105, 0.3);
   --grid-record-background-color: #fff;
-  --grid-record-odd-background-color: #f3f4f6;
-  --grid-footer-background-color: #93a4c3;
-  --grid-header-color: #47596d;
+  --grid-record-odd-background-color: #f6f6f6;
+  --grid-footer-background-color: rgba(18, 105, 105, 0.7);
+  --grid-header-color: var(--secondary-text-color);
+  --grid-header-font: normal 1em/1.5 var(--theme-font);
   --grid-header-fontsize: 13px;
   --grid-record-wide-fontsize: 13px;
+  --grid-record-selected-background-color: rgba(115, 188, 28, 0.2);
+  --grid-record-focused-background-color: var(--primary-color);
+  --grid-record-focused-color: #fff;
+  --grid-record-focused-border: 1px dashed rgba(0, 0, 0, 0.5);
+  --grid-footer-padding: 3px 5px 2px 5px;
+  --grid-footer-font-size: 0.9em;
+  --grid-footer-color: #fff;
+  --grid-footer-limit-color: rgba(255, 255, 255, 0.6);
+  --grid-footer-inactive-color: rgba(255, 255, 255, 0.3);
 
   /* button style */
 
