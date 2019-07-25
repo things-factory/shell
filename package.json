@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.5.71",
+  "version": "0.5.75",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -50,7 +50,6 @@
     "@material/mwc-button": "^0.6.0",
     "@material/mwc-icon": "^0.6.0",
     "@things-factory/env": "*",
-    "@things-factory/screencast-ui": "^1.0.0-beta",
     "@types/graphql": "^14.2.0",
     "@types/lodash": "^4.14.136",
     "@types/node": "^12.0.10",
@@ -72,6 +71,7 @@
     "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-networkinterface": "^2.0.0",
     "cordova-plugin-zeroconf": "^1.4.0",
+    "core-js": "^3.1.4",
     "css-loader": "^3.0.0",
     "csvtojson": "^2.0.10",
     "dependency-solver": "^1.0.6",
