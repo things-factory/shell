@@ -139,7 +139,12 @@ body {
 
   --search-panel-background-color: rgba(0, 0, 0, 0.1);
   --search-panel-search-iconbutton-size: var(--icon-default-size);
-  --search-panel-search-iconbutton-color: var(--secondary-color);
+  --search-form-icon-color: var(--primary-color);
+  --search-form-box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.15);
+  --search-form-box-padding: 15px 30px 15px 10px;
+  --search-form-background-color: #fff;
+  --search-form-narrow-background-color: rgba(34, 166, 167, 0.9);
+  --search-form-narrow-text-color: #fff;
 
   /* datagrid style */
   --grist-background-color: var(--main-section-background-color);
