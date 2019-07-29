@@ -64,7 +64,7 @@ body {
   --menu-tree-grouplevel-active-border-left: 3px solid var(--primary-color);
   --menu-tree-focus-color: #fff;
 
-  --context-toolbar-padding: 3px 15px 0 15px;
+  --context-toolbar-padding: 7px 15px 0 15px;
   --context-toolbar-function-border-radius: var(--border-radius);
   --context-toolbar-background-color: var(--main-section-background-color);
   --context-toolbar-button-background-color: #fff;
@@ -160,6 +160,13 @@ body {
   /* datagrid style */
   --grist-background-color: var(--main-section-background-color);
   --grist-padding: 15px;
+  --grist-title-margin: 0 15px;
+  --grist-title-border: none;
+  --grist-title-color: var(--secondary-color);
+  --grist-title-icon-color: var(--primary-color);
+  --grist-title-icon-margin: 0 3px 2px 0;
+  --grist-title-icon-size: 14px;
+  --grist-title-with-grid-padding: 0;
   --grid-header-background-color: rgba(18, 105, 105, 0.05);
   --grid-header-border-color: rgba(18, 105, 105, 0.3);
   --grid-record-background-color: #fff;
