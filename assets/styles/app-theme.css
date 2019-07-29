@@ -40,7 +40,7 @@ body {
   --header-bar-color: #fff;
   --header-bar-height: 45px;
   --nav-bar-background-color: var(--primary-color);
-  --context-toolbar-height: 50px;
+  --context-toolbar-height: 47px;
 
   --group-bar-background-color: var(--primary-color);
   --group-bar-textbutton: 16px/32px var(--theme-font);
@@ -64,6 +64,8 @@ body {
   --menu-tree-grouplevel-active-border-left: 3px solid var(--primary-color);
   --menu-tree-focus-color: #fff;
 
+  --context-toolbar-padding: 3px 15px 0 15px;
+  --context-toolbar-function-border-radius: var(--border-radius);
   --context-toolbar-background-color: var(--main-section-background-color);
   --context-toolbar-button-background-color: #fff;
   --context-toolbar-border: 1px solid rgba(57, 78, 100, 0.5);
@@ -74,8 +76,13 @@ body {
   --context-toolbar-button-color: var(--secondary-color);
   --context-toolbar-iconbutton-color: var(--primary-text-color);
   --context-toolbar-iconbutton-size: 16px;
+  --context-toolbar-function-button-height: 36px;
+  --context-toolbar-function-iconbutton-size: 28px;
   --context-toolbar-function-iconbutton-background-color: var(--focus-color);
   --context-toolbar-function-iconbutton-color: var(--primary-background-color);
+  --context-toolbar-function-button-lineheight: 35px;
+  --context-toolbar-function-button-color: #fff;
+  --context-toolbar-function-button-padding: 5px 10px;
   --context-toolbar-list-background-color: var(--primary-background-color);
   --context-toolbar-list-text: bold 18px var(--theme-font);
   --context-toolbar-list-icon-size: var(--icon-default-size);
@@ -250,6 +257,7 @@ body {
   body {
     --grist-padding: 0;
 
+    --context-toolbar-padding: 0 10px 0 0;
     --context-toolbar-button: normal 9px var(--theme-font);
     --context-toolbar-iconbutton-size: 32px;
     --context-toolbar-border: none;
@@ -257,5 +265,8 @@ body {
     --context-toolbar-iconbutton-display: block;
     --context-toolbar-iconbutton-margin: -2px;
     --context-toolbar-button-background-color: transparent;
+    --context-toolbar-function-border-radius: 0;
+    --context-toolbar-function-button-height: 50px;
+    --context-toolbar-function-button-lineheight: 45px;
   }
 }
