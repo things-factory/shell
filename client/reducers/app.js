@@ -1,15 +1,17 @@
-import { UPDATE_BASE_URL, UPDATE_CONTEXT_PATH } from '../actions/app.js'
-
-import { modules } from '../module-importer.import'
+import { UPDATE_MODULES, UPDATE_BASE_URL, UPDATE_CONTEXT_PATH } from '../actions/app.js'
 
 const INITIAL_STATE = {
   baseUrl: location.origin,
-  contextPath: '',
-  modules: modules
+  contextPath: ''
 }
 
 const app = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case UPDATE_MODULES:
+      return {
+        ...state,
+        modules: action.modules
+      }
     case UPDATE_BASE_URL:
       return {
         ...state,
