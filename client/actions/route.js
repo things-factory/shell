@@ -22,8 +22,6 @@ export const navigate = (location, replace) => {
   else history.pushState({}, '', location)
 
   window.dispatchEvent(new Event('popstate'))
-
-  // store.dispatch(navigateWithSilence(window.location))
 }
 
 export const navigateWithSilence = ({ pathname: path, search }) => dispatch => {
@@ -38,6 +36,8 @@ export const navigateWithSilence = ({ pathname: path, search }) => dispatch => {
   searchParams.forEach((value, key) => {
     params[key] = value
   })
+
+  console.log(page, id, params)
 
   // Any other info you might want to extract from the path (like page type),
   // you can do here
@@ -58,24 +58,26 @@ const _preLoadPage = page => {
       let factoryModule = modules[i]
       let _page = factoryModule.route && factoryModule.route(page)
       if (_page) {
-        if (_page !== page) {
-          // redirect 된 경우는 _preLoadPage를 다시 실행한다.
-          // FIXME 무한루프로 stack overflow를 제거해야함.
-          return _preLoadPage(_page)
-        } else {
-          return page
-        }
+        return _page
       }
     }
   }
 }
 
 export const loadPage = (page, id, params) => dispatch => {
-  page = _preLoadPage(page)
+  var newPage = _preLoadPage(page)
 
-  if (!page) {
-    page = 'page404'
+  if (!newPage) {
     import('../app/pages/page-404.js')
+    newPage = 'page404'
+  } else if (page != newPage) {
+    dispatch(
+      navigateWithSilence({
+        pathname: '/' + newPage,
+        params
+      })
+    )
+    return
   }
 
   dispatch({
