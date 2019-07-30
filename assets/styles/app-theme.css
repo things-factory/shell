@@ -189,6 +189,16 @@ body {
   --grist-object-editor-font: normal 1em var(--theme-font);
   --grist-object-editor-color: var(--secondary-color);
 
+  --data-list-background-color: var(--main-section-background-color);
+  --data-list-item-padding: 5px 15px;
+  --data-list-item-border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  --data-list-item-name-font: bold 1em/1em var(--theme-font);
+  --data-list-item-name-color: var(--secondary-color);
+  --data-list-item-disc-font: normal 0.8em/0.8em var(--theme-font);
+  --data-list-item-disc-color: var(--secondary-text-color);
+  --data-list-item-etc-font: normal 0.7em/0.7em var(--theme-font);
+  --data-list-item-etc-color: #585858;
+
   /* button style */
   --button-background-color: var(--secondary-color);
   --button-active-background-color: var(--primary-color);
@@ -268,6 +278,7 @@ body {
   --profile-brand-width: 150px;
   --profile-brand-height: 45px;
   --profile-brand-padding: 30px auto 20px auto;
+  --profile-wrap-max-width: 550px;
 }
 
 @media only screen and (max-width: 460px) {
@@ -285,5 +296,7 @@ body {
     --context-toolbar-function-border-radius: 0;
     --context-toolbar-function-button-height: 50px;
     --context-toolbar-function-button-lineheight: 45px;
+
+    --profile-wrap-max-width: 400px;
   }
 }
