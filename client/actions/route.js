@@ -73,7 +73,7 @@ export const loadPage = (page, id, params) => dispatch => {
   } else if (page != newPage) {
     dispatch(
       navigateWithSilence({
-        pathname: '/' + newPage,
+        pathname: newPage,
         params
       })
     )
