@@ -37,8 +37,6 @@ export const navigateWithSilence = ({ pathname: path, search }) => dispatch => {
     params[key] = value
   })
 
-  console.log(page, id, params)
-
   // Any other info you might want to extract from the path (like page type),
   // you can do here
   dispatch(loadPage(page, id, params))
