@@ -297,6 +297,6 @@ body {
     --context-toolbar-function-button-height: 50px;
     --context-toolbar-function-button-lineheight: 45px;
 
-    --profile-wrap-max-width: 400px;
+    --profile-wrap-max-width: 85vw;
   }
 }
