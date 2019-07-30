@@ -189,7 +189,15 @@ body {
   --grist-object-editor-color: var(--secondary-color);
 
   /* button style */
-
+  --button-background-color: var(--secondary-color);
+  --button-active-background-color: var(--primary-color);
+  --button-margin: 10px 2px;
+  --button-height: 28px;
+  --button-color: #fff;
+  --button-font: normal 13px var(--theme-font);
+  --button-radius: 5px;
+  --button-border: 1px solid transparent;
+  --button-active-border: 1px solid rgba(0, 0, 0, 0.2);
   /* chart style */
 
   /* icon style */
