@@ -63,6 +63,7 @@ body {
   --menu-tree-grouplevel-border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   --menu-tree-grouplevel-active-border-left: 3px solid var(--primary-color);
   --menu-tree-focus-color: #fff;
+  --menu-tree-favorite-color: var(--menu-tree-toplevel-color);
 
   --context-toolbar-padding: 7px 15px 0 15px;
   --context-toolbar-function-border-radius: var(--border-radius);
@@ -198,6 +199,7 @@ body {
   --button-radius: 5px;
   --button-border: 1px solid transparent;
   --button-active-border: 1px solid rgba(0, 0, 0, 0.2);
+
   /* chart style */
 
   /* icon style */
