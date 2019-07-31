@@ -2,10 +2,8 @@ import {
   UPDATE_PAGE,
   UPDATE_CONTEXT,
   UPDATE_ACTIVE_PAGE,
-  UPDATE_DEFAULT_ROUTE_PAGE,
   REGISTER_NAVIGATION_CALLBACK,
-  UNREGISTER_NAVIGATION_CALLBACK,
-  HOMEPAGE
+  UNREGISTER_NAVIGATION_CALLBACK
 } from '../actions/route.js'
 
 const INITIAL_STATE = {
@@ -14,17 +12,11 @@ const INITIAL_STATE = {
   params: {},
   activePage: null,
   context: {},
-  callbacks: [],
-  defaultRoutePage: HOMEPAGE
+  callbacks: []
 }
 
 const route = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case UPDATE_DEFAULT_ROUTE_PAGE:
-      return {
-        ...state,
-        defaultRoutePage: action.defaultRoutePage
-      }
     case UPDATE_PAGE:
       return {
         ...state,
