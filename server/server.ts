@@ -34,7 +34,7 @@ const bodyParserOption = {
 const { context } = require('./server-context')
 
 /* NEVER-DELETE-ME load dependency modules. */
-const orderedModuleNames = require('@things-factory/env')
+const { orderedModuleNames } = require('@things-factory/env')
 
 /* bootstrap */
 const bootstrap = async () => {
@@ -73,7 +73,7 @@ const bootstrap = async () => {
 
   /* history fallback */
   var fallbackOption = {
-    whiteList: ['/graphql', '/graphiql', '/file', '/uploads']
+    whiteList: ['/graphql', '/graphiql', '/file', '/uploads', '/dependencies']
   }
   process.emit('bootstrap-module-history-fallback' as any, app, fallbackOption)
   app.use(historyApiFallback(fallbackOption))

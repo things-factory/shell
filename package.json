@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.5.104",
+  "version": "0.5.105",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -13,6 +13,7 @@
   "repository": "http://github.com/things-factory/shell",
   "author": "Hearty Oh <heartyoh@hatiolab.com>",
   "license": "MIT",
+  "things-factory": true,
   "scripts": {
     "serve": "env node --inspect -r ts-node/register -r tsconfig-paths/register ./server/server.ts",
     "serve:dev": "npm run build:server && env node --inspect -r ts-node/register -r tsconfig-paths/register ./server/server-dev.ts",

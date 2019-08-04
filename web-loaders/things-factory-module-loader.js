@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const loaderUtils = require('loader-utils')
 
-const orderedModuleNames = require('@things-factory/env').orderedModuleNames
+const { orderedModuleNames } = require('@things-factory/env')
 
 module.exports = function(content) {
   console.time('Module Configuration')
