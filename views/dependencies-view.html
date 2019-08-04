@@ -10,16 +10,12 @@
     stroke-width: 1.5px;
   }
 
-  #licensing {
+  #depends {
     fill: green;
   }
 
-  .link.licensing {
-    stroke: green;
-  }
-
-  .link.resolved {
-    stroke-dasharray: 0, 2 1;
+  .link.depends {
+    stroke: #ccc;
   }
 
   circle {
@@ -41,21 +37,23 @@
 
   var { edges: links, nodes } = model
 
+  // links = links.filter(edge => edge.target !== '@things-factory/shell')
+
   // Compute the distinct nodes from the links.
   links.forEach(function(link) {
     link.source = nodes[link.source] || (nodes[link.source] = { name: link.source })
     link.target = nodes[link.target] || (nodes[link.target] = { name: link.target })
   })
 
-  var width = 1600,
-    height = 1200
+  var width = 1200,
+    height = 800
 
   var force = d3.layout
     .force()
     .nodes(d3.values(nodes))
     .links(links)
     .size([width, height])
-    .linkDistance(60)
+    .linkDistance(280)
     .charge(-300)
     .on('tick', tick)
     .start()
@@ -70,7 +68,7 @@
   svg
     .append('defs')
     .selectAll('marker')
-    .data(['suit', 'licensing', 'resolved'])
+    .data(['depends'])
     .enter()
     .append('marker')
     .attr('id', function(d) {
@@ -92,10 +90,10 @@
     .enter()
     .append('path')
     .attr('class', function(d) {
-      return 'link ' + d.type
+      return 'link depends'
     })
     .attr('marker-end', function(d) {
-      return 'url(#' + d.type + ')'
+      return 'url(#depends)'
     })
 
   var circle = svg
