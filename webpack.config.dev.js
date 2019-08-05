@@ -58,16 +58,20 @@ module.exports = {
   resolve: {
     aliasFields: ['browser'],
     alias: {
-      [AppPackage.name]: AppRootPath
+      [AppPackage.name]:
+        AppPackage.name == '@hatiolab/things-scene' ? path.resolve(AppRootPath, 'src', 'index.js') : AppRootPath
     },
     modules: [NodeModulePath]
   },
   resolveLoader: {
     modules: [path.resolve(ShellModulePath, 'web-loaders'), NodeModulePath]
   },
-  externals: {
-    '@hatiolab/things-scene': 'scene'
-  },
+  externals:
+    AppPackage.name == '@hatiolab/things-scene'
+      ? {}
+      : {
+          '@hatiolab/things-scene': 'scene'
+        },
   output: {
     path: OUTPUT_PATH,
     // filename: '[name].[hash].js',
