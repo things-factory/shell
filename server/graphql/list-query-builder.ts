@@ -4,7 +4,7 @@ export const buildQuery = function(queryBuilder: any, params: any, context: any)
   const filters = params.filters
   const pagination = params.pagination
   const sortings = params.sortings
-  const domainId = context.domain && context.domain.id
+  const domainId = context && context.domain && context.domain.id
 
   if (filters && filters.length > 0) {
     filters.forEach((filter, index: number) => {
