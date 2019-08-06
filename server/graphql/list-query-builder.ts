@@ -1,9 +1,10 @@
 import { buildCondition } from './condition-builder'
 
-export const buildQuery = function(queryBuilder: any, params: any) {
+export const buildQuery = function(queryBuilder: any, params: any, context: any) {
   const filters = params.filters
   const pagination = params.pagination
   const sortings = params.sortings
+  const domainId = context.domain && context.domain.id
 
   if (filters && filters.length > 0) {
     filters.forEach((filter, index: number) => {
@@ -20,6 +21,7 @@ export const buildQuery = function(queryBuilder: any, params: any) {
       } else {
         queryBuilder.andWhere(condition.clause)
         if (condition.parameters) queryBuilder.setParameters(condition.parameters)
+        if (domainId) queryBuilder.andWhere('domain = :domain', { domain: `${domainId}` })
       }
     })
   }
