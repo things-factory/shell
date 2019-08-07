@@ -1,5 +1,5 @@
 import { buildCondition } from './condition-builder'
-import { Domain } from 'server/entities'
+import { Domain } from '../entities/domain'
 
 export const buildQuery = function(queryBuilder: any, params: any, context: any) {
   const filters = params.filters
