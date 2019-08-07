@@ -1,4 +1,5 @@
 import { buildCondition } from './condition-builder'
+import { Domain } from 'server/entities'
 
 export const buildQuery = function(queryBuilder: any, params: any, context: any) {
   const filters = params.filters
@@ -21,7 +22,8 @@ export const buildQuery = function(queryBuilder: any, params: any, context: any)
       } else {
         queryBuilder.andWhere(condition.clause)
         if (condition.parameters) queryBuilder.setParameters(condition.parameters)
-        if (domainId) queryBuilder.andWhere('domain = :domain', { domain: `${domainId}` })
+        if (domainId && queryBuilder.hasRelation(Domain))
+          queryBuilder.andWhere('domain = :domain', { domain: `${domainId}` })
       }
     })
   }
