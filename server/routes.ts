@@ -11,5 +11,5 @@ routes.get('/file/:file', async (context, next) => {
 routes.get('/dependencies', async (context, next) => {
   const dependencyGraph = require('@things-factory/env/lib/dependency-graph')
 
-  await context.render('dependencies-view', { model: dependencyGraph })
+  await context.render('dependencies-view-graphviz', { model: dependencyGraph })
 })

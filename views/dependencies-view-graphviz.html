@@ -1,0 +1,80 @@
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script src="https://unpkg.com/viz.js@1.8.0/viz.js" type="javascript/worker"></script>
+<script src="https://unpkg.com/d3-graphviz@1.3.1/build/d3-graphviz.min.js"></script>
+
+<div id="graph" style="text-align: center; width: 100%; height: 100%;"></div>
+
+<script>
+    var model = <%- JSON.stringify(model) %>;
+
+    var { edges, nodes } = model
+
+    console.log(edges, nodes)
+
+    // links = links.filter(edge => edge.target !== '@things-factory/shell')
+    nodes['@things-factory/shell'] = {
+      id: '@things-factory/shell',
+      name: 'shell'
+    }
+
+    nodes['@things-factory/component-ui'] = {
+      id: '@things-factory/component-ui',
+      name: 'component-ui'
+    }
+
+    /* switch node id (modulename => index) */
+    Object.keys(nodes).forEach((nodename, idx) => {
+      nodes[nodename].id = idx
+    })
+
+    // Compute the distinct nodes from the links.
+    edges.forEach(function(edge) {
+      edge.source = nodes[edge.source] && nodes[edge.source].id
+      edge.target = nodes[edge.target] && nodes[edge.target].id
+    })
+
+    function templateNode(node) {
+      return `${node.id} [label="${node.name}"]\n`
+    }
+
+    function tempalteEdge(edge) {
+      return `${edge.source} -> ${edge.target}\n`
+    }
+
+    function templateDigraph(nodes, edges) {
+      return `digraph Curved {
+        ratio="fill"
+        node [shape=box]
+
+        ${Object.keys(nodes).map(nodename => templateNode(nodes[nodename])).join('')}
+        ${edges.map(edge => tempalteEdge(edge)).join('')}
+      }`
+    }
+
+    function attributer(datum, index, nodes) {
+      margin = 20; // to avoid scrollbars
+      var selection = d3.select(this);
+      if (datum.tag == "svg") {
+          var width = window.innerWidth;
+          var height = window.innerHeight;
+          datum.attributes.width = width - margin;
+          datum.attributes.height = height - margin;
+      }
+  }
+
+    // console.log(templateDigraph(nodes, edges))
+
+    var graphviz = d3
+      .select('#graph')
+      .graphviz()
+      .attributer(attributer)
+      .transition(function () {
+          return d3.transition("main")
+              .ease(d3.easeLinear)
+              .delay(500)
+              .duration(1500);
+      })
+      .renderDot(templateDigraph(nodes, edges))
+
+    graphviz.fit = true
+</script>
