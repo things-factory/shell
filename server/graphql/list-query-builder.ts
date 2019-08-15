@@ -10,7 +10,7 @@ export const buildQuery = function(queryBuilder: any, params: any, context: any)
   if (filters && filters.length > 0) {
     filters.forEach((filter, index: number) => {
       const condition = buildCondition(
-        `${queryBuilder.alias}.${filter.name}`,
+        `"${queryBuilder.alias}"."${filter.name}"`,
         filter.operator,
         filter.value,
         filter.dataType,
