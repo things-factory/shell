@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.5.116",
+  "version": "0.5.117",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -81,6 +81,7 @@
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^4.0.4",
     "graphql-upload": "^8.0.2",
+    "graphql-voyager": "^1.0.0-rc.27",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^3.0.0",
     "imports-loader": "^0.8.0",
