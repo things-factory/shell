@@ -2,6 +2,7 @@ import * as resolvers from './resolvers'
 import * as typeDefs from './types'
 export { buildCondition } from './condition-builder'
 export { buildQuery } from './list-query-builder'
+export { convertListParams } from './list-params-converter'
 export { Filter, Pagination, Sorting } from './types'
 
 export const schema = {
