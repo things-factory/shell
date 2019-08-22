@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.5.126",
+  "version": "0.5.127",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -105,7 +105,6 @@
     "pg": "^7.9.0",
     "pluralize": "^8.0.0",
     "promises-all": "^1.0.0",
-    "pulltorefreshjs": "^0.1.17",
     "pwa-helpers": "^0.9.1",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
