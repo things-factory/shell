@@ -28,7 +28,9 @@ export class Domain {
   })
   systemFlag: boolean
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   subdomain: string
 
   @Column({
