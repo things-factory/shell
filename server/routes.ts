@@ -18,6 +18,6 @@ routes.get('/dependencies', async (context, next) => {
 routes.get(
   '/graphql-voyager',
   voyagerMiddleware({
-    endpointUrl: '/graphql'
+    endpointUrl: '/graphiql'
   })
 )
