@@ -2,6 +2,8 @@
  * inspired by https://github.com/jiangfengming/pull-to-refresh
  */
 
+import './pull-to-refresh-control'
+
 function ontouchpan({ element, onpanstart, onpanmove, onpanend }) {
   let touchId, startX, startY, panstartCalled
 
