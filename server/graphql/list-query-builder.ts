@@ -1,7 +1,7 @@
 import { buildCondition } from './condition-builder'
 import { Domain } from '../entities/domain'
 
-export const buildQuery = function(queryBuilder: any, params: any, context: any) {
+export const buildQuery = function(queryBuilder: any, params: any, context: any, domainRef: Boolean = true) {
   const filters = params.filters
   const pagination = params.pagination
   const sortings = params.sortings
@@ -22,7 +22,7 @@ export const buildQuery = function(queryBuilder: any, params: any, context: any)
     })
   }
 
-  if (queryBuilder.hasRelation(queryBuilder.alias, 'domain')) {
+  if (domainRef && queryBuilder.hasRelation(queryBuilder.alias, 'domain')) {
     queryBuilder.andWhere(`"${queryBuilder.alias}"."domain_id" = :domainId`, { domainId })
   }
 
