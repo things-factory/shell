@@ -47,6 +47,11 @@ body {
   --group-bar-active-line-color: var(--focus-color);
   --group-bar-line: solid 3px rgba(0, 0, 0, 0.2);
 
+  --menu-bar-background-color: var(--primary-color);
+  --menu-bar-textbutton: 16px/32px var(--theme-font);
+  --menu-bar-textbutton-active: bold var(--menu-bar-textbutton);
+  --menu-bar-active-line-color: var(--focus-color);
+  --menu-bar-line: solid 3px rgba(0, 0, 0, 0.2);
   --menu-tools-background-color: var(--secondary-color);
   --menu-tools-iconbutton-size: var(--icon-tiny-size);
   --menu-tools-color: #87cfd0;
