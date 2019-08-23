@@ -8,7 +8,7 @@ export const buildQuery = function(queryBuilder: any, params: any, context: any)
   const domainId = context && context.domain && context.domain.id
 
   if (filters && filters.length > 0) {
-    filters.forEach((filter, index: number) => {
+    filters.forEach(filter => {
       const condition = buildCondition(
         `"${queryBuilder.alias}"."${filter.name}"`,
         filter.operator,
@@ -16,16 +16,14 @@ export const buildQuery = function(queryBuilder: any, params: any, context: any)
         filter.dataType,
         Object.keys(queryBuilder.getParameters()).length
       )
-      if (index === 0) {
-        queryBuilder.where(condition.clause)
-        if (condition.parameters) queryBuilder.setParameters(condition.parameters)
-      } else {
-        queryBuilder.andWhere(condition.clause)
-        if (condition.parameters) queryBuilder.setParameters(condition.parameters)
-        if (domainId && queryBuilder.hasRelation(Domain))
-          queryBuilder.andWhere('domain = :domain', { domain: `${domainId}` })
-      }
+
+      queryBuilder.andWhere(condition.clause)
+      if (condition.parameters) queryBuilder.setParameters(condition.parameters)
     })
+  }
+
+  if (queryBuilder.hasRelation(queryBuilder.alias, 'domain')) {
+    queryBuilder.andWhere(`"${queryBuilder.alias}"."domain_id" = :domainId`, { domainId })
   }
 
   if (pagination && pagination.page > 0 && pagination.limit > 0) {
