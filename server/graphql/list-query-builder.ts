@@ -22,7 +22,7 @@ export const buildQuery = function(queryBuilder: any, params: any, context: any,
     })
   }
 
-  if (domainRef && queryBuilder.hasRelation(queryBuilder.alias, 'domain')) {
+  if (domainRef && queryBuilder.hasRelation(queryBuilder.alias, 'domain') && domainId) {
     queryBuilder.andWhere(`"${queryBuilder.alias}"."domain_id" = :domainId`, { domainId })
   }
 
