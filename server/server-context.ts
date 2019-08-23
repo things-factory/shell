@@ -1,9 +1,9 @@
 export async function context({ ctx }) {
-  const { Domain } = require('@things-factory/shell')
-  const { getRepository } = require('typeorm')
+  const domain = ctx && ctx.state && ctx.state.user && ctx.state.user.domain
 
-  return {
-    ...ctx,
-    domain: await getRepository(Domain).findOne({ name: 'SYSTEM' })
+  if (domain) {
+    ctx.domain = domain
   }
+
+  return ctx
 }
