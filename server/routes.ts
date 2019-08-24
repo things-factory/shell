@@ -1,5 +1,7 @@
 import Router from 'koa-router'
 const send = require('koa-send')
+var crawler = require('npm-license-crawler')
+
 import { koa as voyagerMiddleware } from 'graphql-voyager/middleware'
 
 export const routes = new Router()
@@ -21,3 +23,27 @@ routes.get(
     endpointUrl: '/graphiql'
   })
 )
+
+routes.get('/licenses', (context, next) => {
+  return new Promise(function(resolve, reject) {
+    var options = {
+      start: ['.'],
+      exclude: ['./node_modules/@things-factory'],
+      // json: 'licenses.json',
+      noColor: true,
+      production: true,
+      unknown: false
+    }
+
+    crawler.dumpLicenses(options, function(error, res) {
+      if (error) {
+        console.error('Error:', error)
+        reject(error)
+      } else {
+        context.type = 'application/json'
+        context.body = res
+        resolve()
+      }
+    })
+  })
+})
