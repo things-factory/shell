@@ -6,7 +6,7 @@ import { Filter } from '../filter'
 import { Pagination } from '../pagination'
 import { Sorting } from '../sorting'
 
-export const Mutation = `
+export const Mutation = /* GraphQL */ `
   createDomain (
     domain: NewDomain!
   ): Domain
@@ -21,7 +21,7 @@ export const Mutation = `
   ): Domain
 `
 
-export const Query = `
+export const Query = /* GraphQL */ `
   domains(filters: [Filter], pagination: Pagination, sortings: [Sorting]): DomainList
   domain(name: String!): Domain
 `
