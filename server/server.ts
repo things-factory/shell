@@ -97,10 +97,19 @@ const bootstrap = async () => {
 
   const server = new ApolloServer({
     schema,
-    context: async function({ ctx }) {
+    context: async ({ ctx }) => {
+      let additionalCtx = {}
       contextList.forEach(async context => {
-        await context({ ctx })
+        additionalCtx = {
+          ...additionalCtx,
+          ...(await context({ ctx }))
+        }
       })
+
+      ctx = {
+        ...ctx,
+        ...additionalCtx
+      }
 
       return ctx
     }

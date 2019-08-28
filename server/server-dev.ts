@@ -110,10 +110,19 @@ const bootstrap = async () => {
       console.log(response)
       return response
     },
-    context: async function({ ctx }) {
+    context: async ({ ctx }) => {
+      let additionalCtx = {}
       contextList.forEach(async context => {
-        await context({ ctx })
+        additionalCtx = {
+          ...additionalCtx,
+          ...(await context({ ctx }))
+        }
       })
+
+      ctx = {
+        ...ctx,
+        ...additionalCtx
+      }
 
       return ctx
     }
