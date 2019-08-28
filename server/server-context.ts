@@ -1,4 +1,9 @@
-export async function domainContext({ ctx }) {
+export async function context({ ctx }) {
   const domain = ctx && ctx.state && ctx.state.user && ctx.state.user.domain
-  return { domain }
+
+  if (domain) {
+    ctx.domain = domain
+  }
+
+  return ctx
 }

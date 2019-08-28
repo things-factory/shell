@@ -31,7 +31,7 @@ const bodyParserOption = {
   textLimit: '10mb'
 }
 
-const { domainContext } = require('./server-context')
+const { context } = require('./server-context')
 
 /* NEVER-DELETE-ME load dependency modules. */
 const { orderedModuleNames } = require('@things-factory/env')
@@ -92,27 +92,9 @@ const bootstrap = async () => {
     })
   })
 
-  var contextList = [domainContext]
-  process.emit('bootstrap-module-register-context' as any, app, contextList)
-
   const server = new ApolloServer({
     schema,
-    context: async ({ ctx }) => {
-      let additionalCtx = {}
-      contextList.forEach(async context => {
-        additionalCtx = {
-          ...additionalCtx,
-          ...(await context({ ctx }))
-        }
-      })
-
-      ctx = {
-        ...ctx,
-        ...additionalCtx
-      }
-
-      return ctx
-    }
+    context
   })
 
   process.emit('bootstrap-module-middleware' as any, app as any)
