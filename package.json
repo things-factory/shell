@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.5.141",
+  "version": "0.5.142",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -118,7 +118,7 @@
     "ts-node": "^8.2.0",
     "tsconfig-paths": "^3.7.0",
     "typeorm": "0.2.18",
-    "typescript": "^3.5.1",
+    "typescript": "3.5.1",
     "url-loader": "^2.0.0",
     "web-animations-js": "^2.3.1",
     "webfontloader": "^1.6.28",
