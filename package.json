@@ -71,8 +71,6 @@
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-networkinterface": "^2.0.0",
-    "cordova-plugin-qr-barcode-scanner": "^8.0.3",
-    "cordova-plugin-zeroconf": "^1.4.0",
     "core-js": "^3.1.4",
     "css-loader": "^3.0.0",
     "csvtojson": "^2.0.10",
@@ -138,12 +136,8 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-inappbrowser": {},
-      "cordova-plugin-zeroconf": {},
       "cordova-plugin-networkinterface": {},
-      "cordova-plugin-device": {},
-      "cordova-plugin-qr-barcode-scanner": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      }
+      "cordova-plugin-device": {}
     }
   }
 }
