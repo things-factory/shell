@@ -1,21 +1,147 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(1);
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./www/js/app-importer.import
+
+var modules = [];
+
+  
+  
+// CONCATENATED MODULE: ./www/js/_index.js
+// const { orderedModuleNames } = require('@things-factory/env')
+// const moduleConfigMap = {}
+// const path = require('path')
+// const fs = require('fs')
+
+// var modulePath = path.resolve(process.cwd(), 'node_modules')
+
+// try {
+//   const thingsdir = path.resolve(modulePath, '@things-factory')
+//   const folders = fs.readdirSync(thingsdir)
+
+//   console.log(thingsdir, folders)
+
+//   /**
+//    * package.json의 things-factory 속성이 truthy 인 경우를 필터링한다.
+//    */
+//   folders.forEach(folder => {
+//     try {
+//       const pkg = require(path.resolve(thingsdir, folder, 'package.json'))
+
+//       if (pkg['things-factory']) {
+//         moduleConfigMap[pkg.name] = {
+//           pkg,
+//           config: path.resolve(thingsdir, folder, 'things-factory.config.js')
+//         }
+//       }
+//     } catch (e) {
+//       console.warn(e)
+//     }
+//   })
+
+//   console.log(moduleConfigMap)
+// } catch (e) {
+//   console.warn('[things-factory-module-loader]', '@things-factory module folder not found.')
+// }
+
+
 var app = {
   // Application Constructor
   initialize: function() {
@@ -39,127 +165,60 @@ var app = {
         })
         this.iab.addEventListener('message', e => {
           if (!e || !e.data) return
-          var { type, service, params } = e.data
+          var { type, detail } = e.data
 
           switch (type) {
-            case 'screencast-service-loaded':
-              this.browseThingsFactoryDevices()
-              break
-            case 'screencast-service-selected':
-              this.advertisementForConnect(service, params)
+            case 'scan-barcode':
+              this.scanBarcode()
               break
           }
+
+          /* Cannot get final name for export "default" in "./www/js/app-importer.import" (known exports: modules, known reexports: ) */ undefined.forEach(app => {
+            app.onMessage && app.onMessage(type, detail)
+          })
         })
       },
       () => {
         console.log('no WIFI')
       }
     )
-
-    this.zeroconf = cordova.plugins.zeroconf
-
-    // this.zeroconf.registerAddressFamily = 'ipv4' // or 'ipv6' ('any' by default)
-    // this.zeroconf.watchAddressFamily = 'ipv4' // or 'ipv6' ('any' by default)
   },
 
-  browseThingsFactoryDevices: function() {
-    if (this._serviceWatching) return
-    this.zeroconf.watch(`_thingsfactory._tcp.`, 'local.', result => {
-      if (!this._serviceWatching) this._serviceWatching = true
-
-      var action = result.action
-      var service = result.service
-      var message = {
-        service
-      }
-      if (action == 'added') {
-        console.log('service added', service)
-        message.type = 'added'
-      } else if (action == 'resolved') {
-        console.log('service resolved', service)
-        message.type = 'changed'
-        // if (service.port == 1008 && service.txtRecord) {
-        //   var data = service.txtRecord
-        //   if (data.url && data.token) {
-        //     cordova.InAppBrowser.open(
-        //       `https://deadpool.hatiolab.com${data.url}?token=${data.token}`,
-        //       '_self',
-        //       'location=no,zoom=no'
-        //     )
-        //   }
-        // }
-        /* service : {
-        'domain' : 'local.',
-        'type' : '_http._tcp.',
-        'name': 'Becvert\'s iPad',
-        'port' : 80,
-        'hostname' : 'ipad-of-becvert.local',
-        'ipv4Addresses' : [ '192.168.1.125' ],
-        'ipv6Addresses' : [ '2001:0:5ef5:79fb:10cb:1dbf:3f57:feb0' ],
-        'txtRecord' : {
-            'foo' : 'bar'
-        } */
-      } else {
-        console.log('service removed', service)
-        message.type = 'removed'
-      }
-
-      this.iab.executeScript({
-        code: `window.postMessage(${JSON.stringify(message)})`
-      })
-    })
-  },
-
-  advertisementForConnect: function(service = {}, params) {
-    var myIp = this.ipInformation.ip
-    var { txtRecord: rec } = service
-    var { token, url } = params
-
-    if (!rec) return
-
-    var splitToken = token.split('.')
-
-    var ipAddress = rec['ip-address']
-
-    var txtRecord = {
-      // 'ip-address': myIp,
-      // uuid: device.uuid
-      ta: splitToken[0],
-      tb: splitToken[1],
-      tc: splitToken[2],
-      url
-    }
-
-    if (this.lastTimeout) {
-      clearTimeout(this.lastTimeout)
-      this.lastTimeout = null
-
-      this.stopAdvertisement()
-    }
-
-    this.zeroconf.register(
-      `_${ipAddress.replace(/\./g, '')}._udp.`,
-      'local.',
-      `things-factory-${myIp}`,
-      1008,
-      txtRecord,
-      result => {
-        console.log('Service registered', result.service)
-        this.lastTimeout = setTimeout(() => {
-          this.stopAdvertisement()
-        }, 10000)
+  scanBarcode: function() {
+    var iab = this.iab
+    cordova.plugins.barcodeScanner.scan(
+      function(result) {
+        iab.executeScript({
+          code: `
+          window.dispatchEvent(
+            new CustomEvent('barcode-respond', {
+              detail: "${result.text}"
+            })
+          );
+          `
+        })
       },
-      result => {
-        this.stopAdvertisement()
+      function(error) {
+        alert('Scanning failed: ' + error)
+      },
+      {
+        showFlipCameraButton: true, // iOS and Android
+        showTorchButton: true, // iOS and Android
+        torchOn: true, // Android, launch with the torch switched on (if available)
+        saveHistory: true, // Android, save scan history (default false)
+        prompt: 'Place a barcode inside the scan area', // Android
+        resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+        formats: 'QR_CODE,PDF_417', // default: all but PDF_417 and RSS_EXPANDED
+        disableAnimations: false, // iOS
+        disableSuccessBeep: false // iOS and Android
       }
     )
-  },
-
-  stopAdvertisement: function() {
-    this.zeroconf.stop(result => {
-      console.log('Service publish stopped', result)
-    })
   }
 }
 
 app.initialize()
+
+
+/***/ })
+/******/ ]);
+//# sourceMappingURL=index.js.map

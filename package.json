@@ -23,13 +23,14 @@
     "build": "npm run build:server && npm run build:client",
     "build:server": "npm run clean:server && tsc",
     "build:client": "npm run clean:client && webpack --mode production",
+    "build:app": "webpack-cli --config ./webpack.config.app.js && ./bin/things-factory-app --platform=android --mode=build",
     "build:app:android": "./bin/things-factory-app --platform=android --mode=build",
     "clean": "npm run clean:server && npm run clean:client",
     "prepublish": "npm run build:server",
     "clean:server": "rm -rf dist-server",
     "clean:client": "rm -rf dist-client",
     "start": "node dist-server/server.js",
-    "start:app": "./bin/things-factory-app",
+    "start:app": "webpack-cli --config ./webpack.config.app.js && ./bin/things-factory-app",
     "start:app:android": "./bin/things-factory-app --platform=android",
     "emulate:app": "./bin/things-factory-app --emulate",
     "emulate:app:android": "./bin/things-factory-app --emulate --platform=android",
@@ -70,6 +71,7 @@
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-networkinterface": "^2.0.0",
+    "cordova-plugin-qr-barcode-scanner": "^8.0.3",
     "cordova-plugin-zeroconf": "^1.4.0",
     "core-js": "^3.1.4",
     "css-loader": "^3.0.0",
@@ -125,7 +127,6 @@
     "webpack": "^4.36.1",
     "webpack-cleanup-plugin": "^0.5.1",
     "webpack-cli": "^3.3.0",
-    "webpack-command": "^0.5.0",
     "webpack-dev-server": "^3.6.0",
     "webpack-hot-client": "^4.1.1"
   },
@@ -139,7 +140,10 @@
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-zeroconf": {},
       "cordova-plugin-networkinterface": {},
-      "cordova-plugin-device": {}
+      "cordova-plugin-device": {},
+      "cordova-plugin-qr-barcode-scanner": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      }
     }
   }
 }
