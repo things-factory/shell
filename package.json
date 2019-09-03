@@ -69,8 +69,10 @@
     "cordova-android": "^8.0.0",
     "cordova-plugin-add-swift-support": "^2.0.1",
     "cordova-plugin-device": "^2.0.3",
+    "cordova-plugin-fetch": "git+https://github.com/aporat/cordova-plugin-fetch.git",
     "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-networkinterface": "^2.0.0",
+    "cordova-wheel-selector-plugin": "^1.1.3",
     "core-js": "^3.1.4",
     "css-loader": "^3.0.0",
     "csvtojson": "^2.0.10",
@@ -130,14 +132,20 @@
   },
   "devDependencies": {
     "@things-factory/tester": "*",
-    "cordova-plugin-whitelist": "1"
+    "cordova-plugin-whitelist": "1",
+    "cordova-plugin-zeroconf": "~1.4.0",
+    "cordova-plugin-qr-barcode-scanner": "~8.0.3"
   },
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-networkinterface": {},
-      "cordova-plugin-device": {}
+      "cordova-plugin-device": {},
+      "cordova-plugin-fetch": {},
+      "cordova-plugin-zeroconf": {},
+      "cordova-plugin-qr-barcode-scanner": {},
+      "cordova-wheel-selector-plugin": {}
     }
   }
 }
