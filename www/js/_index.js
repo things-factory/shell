@@ -1,9 +1,12 @@
 import { natives } from './native-importer.import'
+import debounce from 'lodash/debounce'
 
 var app = {
+  onpremiseServerInfos: {},
+  needSelectorOpen: false,
+
   // Application Constructor
   initialize: function() {
-    this.onpremiseServerInfos = {}
     document.addEventListener('deviceready', this.onDeviceReady.bind(this), false)
   },
 
@@ -16,15 +19,30 @@ var app = {
     this.zeroconf = cordova.plugins.zeroconf
     this.zeroconf.watchAddressFamily = 'ipv4'
 
+    this.serverSelectButton = document.getElementById('server-select-button')
+    this.serverSelectButton.addEventListener('click', e => {
+      e.stopPropagation()
+      this.showServerSelector()
+    })
+
+    document.getElementById('main').addEventListener('click', () => {
+      this.currentServerName = localStorage.getItem('current_server')
+      if (!this.currentServerName) this.showServerSelector()
+      else this.openThingsFactory(this.currentServerName)
+    })
+
     networkinterface.getWiFiIPAddress(
       ipInformation => {
         this.ipInformation = ipInformation
+        this.browseOnpremiseServers()
 
-        var currentServer = localStorage.getItem('current_server')
-        if (!currentServer) {
-          this.browseOnpremiseServers()
-          this.showServerSelector()
-        } else this.openThingsFactory(currentServer)
+        this.currentServerName = localStorage.getItem('current_server')
+        if (!this.currentServerName) this.needSelectorOpen = true
+        else {
+          this._serverInfoFindTimer = setTimeout(() => {
+            this.showServerSelector()
+          }, 3 * 1000)
+        }
       },
       () => {
         console.log('no WIFI')
@@ -33,6 +51,7 @@ var app = {
   },
 
   browseOnpremiseServers: function() {
+    var debounced = debounce(this.showServerSelector, 100).bind(this)
     this.zeroconf.watch(`_tfserver._tcp.`, 'local.', result => {
       var action = result.action
       var service = result.service
@@ -50,7 +69,11 @@ var app = {
           break
       }
 
-      if (!this.connected && Object.keys(this.onpremiseServerInfos).length > 0) this.showServerSelector()
+      if (this.needSelectorOpen) debounced()
+      else if (this.currentServerName && service.name == this.currentServerName) {
+        if (this._serverInfoFindTimer) clearTimeout(this._serverInfoFindTimer)
+        this.openThingsFactory(this.currentServerName)
+      }
     })
   },
 
@@ -66,15 +89,15 @@ var app = {
       })
     }
 
-    if (serverList.length == 0) return
+    if (serverList.length == 0) {
+      this.needSelectorOpen = true
+      return
+    }
 
     //config here... (see config for each screenshot below to get desired results)
     var config = {
       title: 'Choose server',
       items: [[[...serverList]]],
-      // defaultItems: {
-      //   //which items to display, example [{"0" :"2"},{"1" :"Apple"}] (index:value}
-      // },
       displayKey: 'description',
       positiveButtonText: 'OK',
       negativeButtonText: 'Cancel',
@@ -86,27 +109,31 @@ var app = {
     SelectorCordovaPlugin.showSelector(
       config,
       result => {
-        this.openThingsFactory(serverList[result[0].index].value)
+        this.openThingsFactory(serverList[result[0].index].description)
       },
       () => {
         console.log('Canceled')
       }
     )
+
+    this.needSelectorOpen = false
   },
 
-  openThingsFactory: function(currentServer) {
-    if (!currentServer) return
-
-    localStorage.setItem('current_server', currentServer)
+  openThingsFactory: function(currentServerName) {
+    if (!currentServerName) return
+    var currentServer = this.onpremiseServerInfos[currentServerName]
+    if (!currentServer) {
+      this.showServerSelector()
+      return
+    }
 
     this.iab = cordova.InAppBrowser.open(`http://${currentServer}`, '_self', 'location=no,zoom=no')
     this.iab.addEventListener('loadstop', e => {
-      this.connected = true
+      localStorage.setItem('current_server', currentServerName)
+      this.serverSelectButton.innerText = currentServerName
       console.log('loadstop', e)
     })
     this.iab.addEventListener('exit', e => {
-      this.connected = false
-      this.showServerSelector()
       console.log('exit', e)
     })
     this.iab.addEventListener('message', e => {

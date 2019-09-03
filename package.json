@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.5.147",
+  "version": "0.5.148",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -132,9 +132,9 @@
   },
   "devDependencies": {
     "@things-factory/tester": "*",
+    "cordova-plugin-qr-barcode-scanner": "~8.0.3",
     "cordova-plugin-whitelist": "1",
-    "cordova-plugin-zeroconf": "~1.4.0",
-    "cordova-plugin-qr-barcode-scanner": "~8.0.3"
+    "cordova-plugin-zeroconf": "~1.4.0"
   },
   "cordova": {
     "plugins": {

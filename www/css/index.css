@@ -43,6 +43,23 @@ body {
   width: 100%;
 }
 
+@keyframes blinker {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.blink {
+  text-decoration: blink;
+  animation-name: blinker;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate;
+}
+
 #main {
   width: 100%;
   height: 100%;
@@ -54,6 +71,22 @@ body {
 
 #title {
   font-size: xx-large;
+}
+
+#server-select-button {
+  position: fixed;
+  right: 0;
+  top: 0;
+  margin: 30px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  min-width: 100px;
+  height: 50px;
+}
+
+#connect-text {
+  position: fixed;
+  bottom: 30px;
 }
 
 /* Portrait layout (default) */
