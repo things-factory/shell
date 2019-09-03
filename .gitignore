@@ -10,4 +10,4 @@ package-lock.json
 platforms
 plugins
 
-www/js/index.js
+www/js/index.js*
