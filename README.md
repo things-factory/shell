@@ -145,10 +145,14 @@ text-transform: uppercase;
 
 - yarn
 
+- Cordova
+
+  > npm install -g cordova
+
 - Chrome Browser Extension
 
   > https://github.com/zalmoxisus/redux-devtools-extension
-  
+
 - Yeoman
 
   > npm install -g yo
