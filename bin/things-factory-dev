@@ -1,5 +1,3 @@
-#!/usr/bin/env node --inspect
-
-'use strict'
-
-require('@things-factory/shell/dist-server/server-dev')
+#!/usr/bin/env sh
+node --inspect -e "'use strict'
+require('@things-factory/shell/dist-server/server-dev')" $0 $@
