@@ -22,7 +22,7 @@
     "serve:dev:full": "nodemon --config nodemon-full.json",
     "build": "npm run build:server && npm run build:client",
     "build:server": "npm run clean:server && tsc",
-    "build:client": "npm run clean:client && webpack --mode production",
+    "build:client": "npm run clean:client && webpack-cli --mode production",
     "build:app": "webpack-cli --config ./webpack.config.app.js && ./bin/things-factory-app --platform=android --mode=build",
     "build:app:android": "./bin/things-factory-app --platform=android --mode=build",
     "clean": "npm run clean:server && npm run clean:client",
@@ -129,7 +129,8 @@
     "webpack-cleanup-plugin": "^0.5.1",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.6.0",
-    "webpack-hot-client": "^4.1.1"
+    "webpack-hot-client": "^4.1.1",
+    "workbox-webpack-plugin": "^4.3.1"
   },
   "devDependencies": {
     "@things-factory/tester": "*",

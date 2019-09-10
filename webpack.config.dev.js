@@ -5,6 +5,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const I18nBundlerPlugin = require('./webpack-plugins/i18n-bundler-plugin')
 const FolderOverridePlugin = require('./webpack-plugins/folder-override-plugin')
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 
 const AppRootPath = require('app-root-path').path
 const AppPackage = require(path.resolve(AppRootPath, 'package.json'))
@@ -218,6 +219,53 @@ module.exports = {
         context: AppRootPath
       }
     ),
+    new WorkboxWebpackPlugin.GenerateSW({
+      exclude: [/\/@webcomponents\/webcomponentsjs\//, /\/web-animations-js\//],
+      navigateFallback: 'index.html',
+      importWorkboxFrom: 'local',
+      swDest: 'cache-service-worker.js',
+      clientsClaim: true,
+      skipWaiting: true,
+      navigationPreload: true,
+      runtimeCaching: [
+        {
+          urlPattern: /\/@webcomponents\/webcomponentsjs\//,
+          handler: 'NetworkFirst'
+        },
+        {
+          urlPattern: /\/web-animations-js\//,
+          handler: 'NetworkFirst'
+        },
+        {
+          urlPattern: /\/main\.js/,
+          handler: 'NetworkFirst'
+        },
+        {
+          urlPattern: /\/@hatiolab\/things-scene\//,
+          handler: 'NetworkFirst'
+        },
+        {
+          urlPattern: /\/graphql\//,
+          handler: 'NetworkFirst'
+        },
+        {
+          urlPattern: /\assets\//,
+          handler: 'NetworkFirst'
+        },
+        {
+          urlPattern: /\data:image\/\//,
+          handler: 'NetworkFirst'
+        },
+        {
+          urlPattern: /\translations\//,
+          handler: 'NetworkFirst'
+        },
+        {
+          urlPattern: /^https:\/\/fonts.gstatic.com\//,
+          handler: 'staleWhileRevalidate'
+        }
+      ]
+    }),
     new FolderOverridePlugin({
       target: 'views'
     }),
