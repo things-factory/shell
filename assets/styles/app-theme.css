@@ -47,6 +47,11 @@ body {
   --group-bar-active-line-color: var(--focus-color);
   --group-bar-line: solid 3px rgba(0, 0, 0, 0.2);
 
+  --menu-bar-background-color: var(--primary-color);
+  --menu-bar-textbutton: 16px/32px var(--theme-font);
+  --menu-bar-textbutton-active: bold var(--menu-bar-textbutton);
+  --menu-bar-active-line-color: var(--focus-color);
+  --menu-bar-line: solid 3px rgba(0, 0, 0, 0.2);
   --menu-tools-background-color: var(--secondary-color);
   --menu-tools-iconbutton-size: var(--icon-tiny-size);
   --menu-tools-color: #87cfd0;
@@ -193,6 +198,7 @@ body {
   --grist-object-editor-color: var(--secondary-color);
 
   --data-list-background-color: var(--main-section-background-color);
+  --data-list-item-margin: 5px 0 5px 10px;
   --data-list-item-padding: 5px 15px;
   --data-list-item-border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   --data-list-item-name-font: bold 1em/1em var(--theme-font);
@@ -201,6 +207,9 @@ body {
   --data-list-item-disc-color: var(--secondary-text-color);
   --data-list-item-etc-font: normal 0.7em/0.7em var(--theme-font);
   --data-list-item-etc-color: #585858;
+  --data-list-item-icon-font: normal 1em/1em;
+  --data-list-item-icon-color: var(--secondary-text-color);
+  --data-list-selected-background-color: var(--grid-record-selected-background-color);
 
   /* button style */
   --button-background-color: var(--secondary-color);
