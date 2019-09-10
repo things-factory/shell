@@ -5,7 +5,7 @@ const selfModulePackage = require(path.resolve(appRootPath, 'package.json'))
 const selfModuleName = selfModulePackage.name
 const selfModule = selfModulePackage['things-factory'] && require(path.resolve(appRootPath, selfModulePackage.main))
 
-const orderedModuleNames = require('@things-factory/env').orderedModuleNames
+const { orderedModuleNames } = require('@things-factory/env')
 
 const { NamingStrategy } = require('@things-factory/shell')
 /*

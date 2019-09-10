@@ -3,6 +3,7 @@ export { Filter } from './filter'
 export { ListParam } from './list-param'
 export { Pagination } from './pagination'
 export { Sorting } from './sorting'
+export { ObjectRef } from './object-ref'
 
 export const queries = [Domain.Query]
 

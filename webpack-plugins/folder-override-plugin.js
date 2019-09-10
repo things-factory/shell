@@ -7,7 +7,7 @@ const fs = require('fs-extra')
 const glob = require('glob')
 const loaderUtils = require('loader-utils')
 
-const orderedModuleNames = require('@things-factory/env').orderedModuleNames
+const { orderedModuleNames } = require('@things-factory/env')
 
 const AppRootPath = require('app-root-path').path
 const AppPackage = require(path.resolve(AppRootPath, 'package.json'))

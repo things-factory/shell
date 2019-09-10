@@ -19,15 +19,12 @@ module.exports = function(content) {
     /**
      * package.json의 things-factory 속성이 truthy 인 경우를 필터링한다.
      */
-    folders.forEach(folder => {
+    folders.forEach(async folder => {
       try {
         const pkg = require(path.resolve(thingsdir, folder, 'package.json'))
 
-        if (pkg['things-factory']) {
-          moduleConfigMap[pkg.name] = {
-            pkg,
-            config: path.resolve(thingsdir, folder, 'things-factory.config.js')
-          }
+        if (pkg['things-factory'] && pkg['native-module']) {
+          moduleConfigMap[pkg.name] = path.resolve(thingsdir, folder, 'things-factory-native.config.js')
         }
       } catch (e) {
         console.warn(e)
@@ -42,31 +39,25 @@ module.exports = function(content) {
     const appRootPath = require('app-root-path').path
     const pkg = require(path.resolve(appRootPath, 'package.json'))
 
-    if (pkg['things-factory']) {
-      moduleConfigMap[pkg.name] = {
-        pkg,
-        config: path.resolve(appRootPath, 'things-factory.config.js')
-      }
+    if (pkg['things-factory'] && pkg['native-module']) {
+      moduleConfigMap[pkg.name] = path.resolve(appRootPath, 'things-factory-native.config.js')
     }
   } catch (e) {
     console.error(e)
   }
 
   var result = `
-export var modules = [];
+  export var natives = [];
 
   ${orderedModuleNames
     .filter(name => moduleConfigMap[name])
     .map((module, idx) => {
       return `
-import v${idx} from "${moduleConfigMap[module].config}";
-modules.push({
-  ...v${idx},
-  name: "${moduleConfigMap[module].pkg.name}",
-  version: "${moduleConfigMap[module].pkg.version}",
-  license: "${moduleConfigMap[module].pkg.license}"
-})
-`
+    import v${idx} from "${moduleConfigMap[module]}";
+    natives.push({
+      onMessage: v${idx}.onMessage
+    })
+    `
     })
     .join('')}
   `

@@ -104,9 +104,9 @@ var directiveResolvers = schemas.resolvers.directives.reduce((sum, directive) =>
 export const schema = makeExecutableSchema({
   typeDefs,
   resolvers: {
-    Query: queryResolvers,
-    Mutation: mutationResolvers,
-    Upload: GraphQLUpload
+    Query: queryResolvers as any,
+    Mutation: mutationResolvers as any,
+    Upload: GraphQLUpload as any
   },
   directiveResolvers
 })

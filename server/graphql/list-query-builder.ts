@@ -1,27 +1,29 @@
 import { buildCondition } from './condition-builder'
+import { Domain } from '../entities/domain'
 
-export const buildQuery = function(queryBuilder: any, params: any) {
+export const buildQuery = function(queryBuilder: any, params: any, context: any, domainRef: Boolean = true) {
   const filters = params.filters
   const pagination = params.pagination
   const sortings = params.sortings
+  const domainId = context && context.state.domain && context.state.domain.id
 
   if (filters && filters.length > 0) {
-    filters.forEach((filter, index: number) => {
+    filters.forEach(filter => {
       const condition = buildCondition(
-        `${queryBuilder.alias}.${filter.name}`,
+        `"${queryBuilder.alias}"."${filter.name}"`,
         filter.operator,
         filter.value,
         filter.dataType,
         Object.keys(queryBuilder.getParameters()).length
       )
-      if (index === 0) {
-        queryBuilder.where(condition.clause)
-        if (condition.parameters) queryBuilder.setParameters(condition.parameters)
-      } else {
-        queryBuilder.andWhere(condition.clause)
-        if (condition.parameters) queryBuilder.setParameters(condition.parameters)
-      }
+
+      queryBuilder.andWhere(condition.clause)
+      if (condition.parameters) queryBuilder.setParameters(condition.parameters)
     })
+  }
+
+  if (domainRef && queryBuilder.hasRelation(queryBuilder.alias, 'domain') && domainId) {
+    queryBuilder.andWhere(`"${queryBuilder.alias}"."domain_id" = :domainId`, { domainId })
   }
 
   if (pagination && pagination.page > 0 && pagination.limit > 0) {
