@@ -78,7 +78,17 @@ const bootstrap = async () => {
 
   /* history fallback */
   var fallbackOption = {
-    whiteList: ['/graphql', '/graphiql', '/file', '/uploads', '/dependencies', '/licenses']
+    whiteList: [
+      '/graphql',
+      '/graphiql',
+      '/file',
+      '/uploads',
+      '/dependencies',
+      '/licenses',
+      '/vapidPublicKey',
+      '/register',
+      '/unregister'
+    ]
   }
   process.emit('bootstrap-module-history-fallback' as any, app, fallbackOption)
   app.use(historyApiFallback(fallbackOption))
@@ -139,7 +149,7 @@ const bootstrap = async () => {
       app
     })
 
-    /* 개발 환경에서는 두개의 graphql path를 둔다. 
+    /* 개발 환경에서는 두개의 graphql path를 둔다.
       /graphql : application 에서 사용.
       /graphiql : graphql test UI 에서 사용.
 

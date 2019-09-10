@@ -1,3 +1,4 @@
+import { getVapidPublicKey, register, unregister } from './controllers/notifications'
 import Router from 'koa-router'
 const send = require('koa-send')
 var crawler = require('npm-license-crawler')
@@ -46,4 +47,18 @@ routes.get('/licenses', (context, next) => {
       }
     })
   })
+})
+
+routes.get('/vapidPublicKey', async (context, next) => {
+  context.body = getVapidPublicKey()
+})
+
+routes.post('/register', async (context, next) => {
+  register(context.request)
+  context.status = 201
+})
+
+routes.post('/unregister', async (context, next) => {
+  unregister(context.request)
+  context.status = 201
 })

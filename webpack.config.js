@@ -206,6 +206,10 @@ module.exports = {
         {
           from: 'node_modules/@hatiolab/things-scene/*.js*',
           to: OUTPUT_PATH
+        },
+        {
+          from: 'service-worker.js',
+          to: OUTPUT_PATH
         }
       ],
       {
