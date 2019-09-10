@@ -211,6 +211,15 @@ body {
   --data-list-item-icon-color: var(--secondary-text-color);
   --data-list-selected-background-color: var(--grid-record-selected-background-color);
 
+  --record-view-background-color: var(--main-section-background-color);
+  --record-view-label-font: bold 15px var(--theme-font);
+  --record-view-label-color: var(--secondary-color);
+  --record-view-font: normal 15px var(--theme-font);
+  --record-view-color: var(--secondary-color);
+  --record-view-focus-color: var(--primary-color);
+  --record-view-border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  --record-view-item-padding: 5px;
+
   /* button style */
   --button-background-color: var(--secondary-color);
   --button-active-background-color: var(--primary-color);
