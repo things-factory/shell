@@ -210,6 +210,10 @@ body {
   --data-list-item-icon-font: normal 1em/1em;
   --data-list-item-icon-color: var(--secondary-text-color);
   --data-list-selected-background-color: var(--grid-record-selected-background-color);
+  --data-list-fab-position-horizontal: 15px;
+  --data-list-fab-position-vertical: 15px;
+  --data-list-fab-color: var(--primary-color);
+  --data-list-fab-shadow: var(--box-shadow);
 
   --record-view-background-color: var(--main-section-background-color);
   --record-view-label-font: bold 15px var(--theme-font);
@@ -241,9 +245,9 @@ body {
 
   /* material design component themes */
   --mdc-theme-on-primary: white;
-  --mdc-theme-primary: tomato;
+  --mdc-theme-primary: var(--primary-color);
   --mdc-theme-on-secondary: white;
-  --mdc-theme-secondary: tomato;
+  --mdc-theme-secondary: var(--primary-color);
 
   /* list page style*/
   --board-list-background-color: var(--main-section-background-color);
