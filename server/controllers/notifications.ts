@@ -19,12 +19,17 @@ const subscriptions = {}
 
 const pushInterval = 10
 
-export function sendNotification(subscription) {
-  var randomNumber = Math.round(Math.random() * 1000)
+export function sendNotification(message) {
+  Object.values(subscriptions).forEach(subscription => {
+    sendNotificationTo(subscription, message)
+  })
+}
+
+function sendNotificationTo(subscription, message) {
   webPush
-    .sendNotification(subscription)
+    .sendNotification(subscription, message)
     .then(function() {
-      console.log(randomNumber, 'Push Application Server - Notification sent to ' + subscription.endpoint)
+      console.log(message, 'Push Application Server - Notification sent to ' + subscription.endpoint)
     })
     .catch(function() {
       console.log('ERROR in sending Notification, endpoint removed ' + subscription.endpoint)

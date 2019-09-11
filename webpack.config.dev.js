@@ -210,7 +210,7 @@ module.exports = {
           to: OUTPUT_PATH
         },
         {
-          from: path.resolve(__dirname, 'service-worker.js'),
+          from: path.resolve(__dirname, 'notification-service-worker.js'),
           to: OUTPUT_PATH
         }
       ],
@@ -223,10 +223,11 @@ module.exports = {
       exclude: [/\/@webcomponents\/webcomponentsjs\//, /\/web-animations-js\//],
       navigateFallback: 'index.html',
       importWorkboxFrom: 'local',
-      swDest: 'cache-service-worker.js',
+      swDest: 'service-worker.js',
       clientsClaim: true,
       skipWaiting: true,
       navigationPreload: true,
+      importScripts: ['notification-service-worker.js'],
       runtimeCaching: [
         {
           urlPattern: /\/@webcomponents\/webcomponentsjs\//,
