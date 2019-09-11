@@ -27,7 +27,7 @@ if (AppPackage.name !== '@things-factory/shell') {
     throw new Exception('@things-factory/shell module not found.', e)
   }
 } else {
-  var ShellModulePath = path.resolve(__dirname)
+  var ShellModulePath = path.resolve(야dirname)
   var NodeModulePath = path.resolve(__dirname, 'node_modules')
 }
 
@@ -209,7 +209,7 @@ module.exports = {
           to: OUTPUT_PATH
         },
         {
-          from: 'service-worker.js',
+          from: path.resolve(__dirname, 'service-worker.js'),
           to: OUTPUT_PATH
         }
       ],

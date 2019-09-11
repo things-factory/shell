@@ -210,7 +210,7 @@ module.exports = {
           to: OUTPUT_PATH
         },
         {
-          from: 'service-worker.js',
+          from: path.resolve(__dirname, 'service-worker.js'),
           to: OUTPUT_PATH
         }
       ],
