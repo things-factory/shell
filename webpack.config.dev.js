@@ -245,10 +245,6 @@ module.exports = {
           handler: 'NetworkFirst'
         },
         {
-          urlPattern: /\/graphql\//,
-          handler: 'NetworkFirst'
-        },
-        {
           urlPattern: /\assets\//,
           handler: 'NetworkFirst'
         },
