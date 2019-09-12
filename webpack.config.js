@@ -220,7 +220,7 @@ module.exports = {
     ),
     new WorkboxWebpackPlugin.GenerateSW({
       exclude: [/\/@webcomponents\/webcomponentsjs\//, /\/web-animations-js\//],
-      navigateFallback: 'index.html',
+      // navigateFallback: 'index.html',
       importWorkboxFrom: 'local',
       swDest: 'service-worker.js',
       clientsClaim: true,
@@ -258,7 +258,7 @@ module.exports = {
         },
         {
           urlPattern: /^https:\/\/fonts.gstatic.com\//,
-          handler: 'staleWhileRevalidate'
+          handler: 'StaleWhileRevalidate'
         }
       ]
     }),
