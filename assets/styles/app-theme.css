@@ -222,6 +222,7 @@ body {
   --record-view-color: var(--secondary-color);
   --record-view-focus-color: var(--primary-color);
   --record-view-border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  --record-view-edit-border-bottom: 2px solid var(--primary-color);
   --record-view-item-padding: 5px;
 
   /* button style */
