@@ -1,6 +1,7 @@
-self.addEventListener('push', function(event) {
+self.addEventListener('push', async function(event) {
+  var text = await event.data.text()
   event.waitUntil(
-    self.registration.showNotification('ServiceWorker Cookbook', {
+    self.registration.showNotification(text, {
       body: 'Push Notification Subscription Management'
     })
   )

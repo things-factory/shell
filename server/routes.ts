@@ -1,9 +1,8 @@
-import { getVapidPublicKey, register, unregister } from './controllers/notifications'
+import { koa as voyagerMiddleware } from 'graphql-voyager/middleware'
 import Router from 'koa-router'
+import { getVapidPublicKey, register, sendNotification, unregister } from './controllers/notifications'
 const send = require('koa-send')
 var crawler = require('npm-license-crawler')
-
-import { koa as voyagerMiddleware } from 'graphql-voyager/middleware'
 
 export const routes = new Router()
 
@@ -61,4 +60,11 @@ routes.post('/register', async (context, next) => {
 routes.post('/unregister', async (context, next) => {
   unregister(context.request)
   context.status = 201
+})
+
+routes.get('/request-notification/:message', async (context, next) => {
+  sendNotification(context.params.message)
+  context.body = {
+    success: true
+  }
 })
