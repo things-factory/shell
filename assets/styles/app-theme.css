@@ -221,6 +221,18 @@ body {
   --grist-input-progress-bar-background: #4ac5fd;
   --grist-input-progress-bar-color: #fff;
 
+  --record-view-header-height: var(--header-bar-height);
+  --record-view-header-background: var(--header-bar-background-color);
+  --record-view-header-color: #fff;
+  --record-view-header-font: var(--header-bar-title);
+  --record-view-footer-height: var(--context-toolbar-button-height);
+  --record-view-footer-background: #fff;
+  --record-view-footer-button-width: 48px;
+  --record-view-footer-button-height: var(--context-toolbar-button-height);
+  --record-view-footer-button-padding: 0 9px;
+  --record-view-footer-button-color: var(--secondary-color);
+  --record-view-footer-iconbutton-size: 16px;
+
   --record-view-background-color: var(--main-section-background-color);
   --record-view-label-font: bold 15px var(--theme-font);
   --record-view-label-color: var(--secondary-color);
@@ -317,6 +329,9 @@ body {
   body {
     --grist-padding: 0;
     --grist-input-zoom: 1.4;
+    --record-view-footer-iconbutton-size: 30px;
+    --record-view-footer-iconbutton-margin: -2px;
+    --record-view-footer-iconbutton-display: block;
 
     --context-toolbar-button: normal 9px var(--theme-font);
     --context-toolbar-button-height: 50px;
