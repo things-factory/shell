@@ -27,7 +27,7 @@ const route = (state = INITIAL_STATE, action) => {
     case UPDATE_CONTEXT:
       return {
         ...state,
-        context: action.context
+        context: action.context || (state.activePage && state.activePage.context) || {}
       }
     case UPDATE_ACTIVE_PAGE:
       return {
