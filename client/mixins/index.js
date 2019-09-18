@@ -1,1 +1,1 @@
-export * from './infinite-scrollable'
+export { default as InfiniteScrollable } from './infinite-scrollable'
