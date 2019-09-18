@@ -226,12 +226,11 @@ body {
   --record-view-header-color: #fff;
   --record-view-header-font: var(--header-bar-title);
   --record-view-footer-height: var(--context-toolbar-button-height);
-  --record-view-footer-background: #fff;
-  --record-view-footer-button-width: 48px;
+  --record-view-footer-background: #586272;
   --record-view-footer-button-height: var(--context-toolbar-button-height);
-  --record-view-footer-button-padding: 0 9px;
-  --record-view-footer-button-color: var(--secondary-color);
+  --record-view-footer-button-color: #fff;
   --record-view-footer-iconbutton-size: 16px;
+  --record-view-footer-focus-background: var(--primary-color);
 
   --record-view-background-color: var(--main-section-background-color);
   --record-view-label-font: bold 15px var(--theme-font);
@@ -329,7 +328,7 @@ body {
   body {
     --grist-padding: 0;
     --grist-input-zoom: 1.4;
-    --record-view-footer-iconbutton-size: 30px;
+    --record-view-footer-iconbutton-size: 35px;
     --record-view-footer-iconbutton-margin: -2px;
     --record-view-footer-iconbutton-display: block;
 
