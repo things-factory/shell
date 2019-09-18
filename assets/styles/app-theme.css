@@ -215,6 +215,12 @@ body {
   --data-list-fab-color: var(--primary-color);
   --data-list-fab-shadow: var(--box-shadow);
 
+  --grist-input-zoom: 1;
+  --grist-input-progress-border: 1px solid rgba(255, 255, 255, 0.5);
+  --grist-input-progress-background: rgba(0, 0, 0, 0.1);
+  --grist-input-progress-bar-background: #4ac5fd;
+  --grist-input-progress-bar-color: #fff;
+
   --record-view-background-color: var(--main-section-background-color);
   --record-view-label-font: bold 15px var(--theme-font);
   --record-view-label-color: var(--secondary-color);
@@ -310,6 +316,7 @@ body {
 @media only screen and (max-width: 460px) {
   body {
     --grist-padding: 0;
+    --grist-input-zoom: 1.4;
 
     --context-toolbar-button: normal 9px var(--theme-font);
     --context-toolbar-button-height: 50px;
