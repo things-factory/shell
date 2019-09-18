@@ -27,3 +27,6 @@ export * from './utils'
 
 // graphql-client
 export * from './graphql-client'
+
+// mixins
+export * from './mixins'
