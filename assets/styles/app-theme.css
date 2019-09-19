@@ -196,11 +196,11 @@ body {
   --grid-record-focused-background-color: var(--primary-color);
   --grid-record-focused-color: #fff;
   --grid-record-focused-border: 1px dashed rgba(0, 0, 0, 0.5);
-  --grid-footer-padding: 3px 5px 2px 5px;
   --grid-footer-font-size: 0.9em;
   --grid-footer-color: #fff;
   --grid-footer-limit-color: rgba(255, 255, 255, 0.6);
   --grid-footer-inactive-color: rgba(255, 255, 255, 0.3);
+  --grid-footer-padding: 3px 5px 2px 5px;
   --grist-object-editor-font: normal 1em var(--theme-font);
   --grist-object-editor-color: var(--secondary-color);
 
@@ -366,6 +366,14 @@ body {
 }
 @media (min-width: 461px) and (max-width: 1024px) {
   body {
+    --context-toolbar-button-height: 50px;
+
+    --grist-padding: 0;
+    --grist-input-zoom: 1.4;
+    --record-view-footer-iconbutton-size: 35px;
+    --record-view-footer-iconbutton-margin: -2px;
+    --record-view-footer-iconbutton-display: block;
+
     --overlay-center-small-width: 40%;
     --overlay-center-small-height: 40%;
     --overlay-center-normal-width: 60%;
