@@ -116,6 +116,13 @@ body {
   --aside-list-detail-background-color: #fff;
   --aside-list-detail-text: 14px var(--primary-background-color);
 
+  --overlay-center-small-width: 30%;
+  --overlay-center-small-height: 30%;
+  --overlay-center-normal-width: 50%;
+  --overlay-center-normal-height: 50%;
+  --overlay-center-large-width: 75%;
+  --overlay-center-large-height: 75%;
+
   --more-panel-background-color: rgba(57, 78, 100, 0.9);
   --more-panel-min-width: 200px;
   --morelet-min-width: 200px;
@@ -326,12 +333,6 @@ body {
 
 @media only screen and (max-width: 460px) {
   body {
-    --grist-padding: 0;
-    --grist-input-zoom: 1.4;
-    --record-view-footer-iconbutton-size: 35px;
-    --record-view-footer-iconbutton-margin: -2px;
-    --record-view-footer-iconbutton-display: block;
-
     --context-toolbar-button: normal 9px var(--theme-font);
     --context-toolbar-button-height: 50px;
     --context-toolbar-iconbutton-size: 30px;
@@ -347,6 +348,29 @@ body {
     --context-toolbar-side-padding: 0;
     --context-toolbar-shadow-line: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
 
+    --overlay-center-small-width: 100%;
+    --overlay-center-small-height: 100%;
+    --overlay-center-normal-width: 100%;
+    --overlay-center-normal-height: 100%;
+    --overlay-center-large-width: 100%;
+    --overlay-center-large-height: 100%;
+
+    --grist-padding: 0;
+    --grist-input-zoom: 1.4;
+    --record-view-footer-iconbutton-size: 35px;
+    --record-view-footer-iconbutton-margin: -2px;
+    --record-view-footer-iconbutton-display: block;
+
     --profile-wrap-max-width: 85vw;
+  }
+}
+@media (min-width: 461px) and (max-width: 1024px) {
+  body {
+    --overlay-center-small-width: 40%;
+    --overlay-center-small-height: 40%;
+    --overlay-center-normal-width: 60%;
+    --overlay-center-normal-height: 60%;
+    --overlay-center-large-width: 80%;
+    --overlay-center-large-height: 80%;
   }
 }
