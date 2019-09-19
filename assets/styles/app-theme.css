@@ -232,9 +232,9 @@ body {
   --record-view-header-background: var(--header-bar-background-color);
   --record-view-header-color: #fff;
   --record-view-header-font: var(--header-bar-title);
-  --record-view-footer-height: var(--context-toolbar-button-height);
+  --record-view-footer-height: 36px;
   --record-view-footer-background: #586272;
-  --record-view-footer-button-height: var(--context-toolbar-button-height);
+  --record-view-footer-button-height: 36px;
   --record-view-footer-button-color: #fff;
   --record-view-footer-iconbutton-size: 16px;
   --record-view-footer-focus-background: var(--primary-color);
@@ -357,6 +357,7 @@ body {
 
     --grist-padding: 0;
     --grist-input-zoom: 1.4;
+    --record-view-footer-height: 50px;
     --record-view-footer-iconbutton-size: 35px;
     --record-view-footer-iconbutton-margin: -2px;
     --record-view-footer-iconbutton-display: block;
@@ -366,10 +367,9 @@ body {
 }
 @media (min-width: 461px) and (max-width: 1024px) {
   body {
-    --context-toolbar-button-height: 50px;
-
     --grist-padding: 0;
     --grist-input-zoom: 1.4;
+    --record-view-footer-height: 50px;
     --record-view-footer-iconbutton-size: 35px;
     --record-view-footer-iconbutton-margin: -2px;
     --record-view-footer-iconbutton-display: block;
