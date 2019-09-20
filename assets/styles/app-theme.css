@@ -329,6 +329,16 @@ body {
   --profile-brand-height: 45px;
   --profile-brand-padding: 30px auto 20px auto;
   --profile-wrap-max-width: 550px;
+
+  /* setting style */
+  --setting-content-padding: 15px;
+  --setting-title-font: var(--subtitle-font);
+  --setting-title-color: var(--subtitle-text-color);
+  --setting-info-content-padding: 10px 15px;
+  --setting-info-background-color: #f0f0f0;
+  --setting-info-font: normal 14px/14px var(--theme-font);
+  --setting-info-color: #666;
+  --setting-info-appname-color: var(--primary-color);
 }
 
 @media only screen and (max-width: 460px) {
