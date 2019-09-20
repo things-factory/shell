@@ -289,6 +289,9 @@ body {
   --board-list-star-color: var(--opacity-dark-color);
   --board-list-star-active-color: var(--primary-color);
 
+  --card-list-template: repeat(3, minmax(auto, 100%));
+  --card-list-rows-height: 200px;
+
   /* board modeler page style */
   --edit-toolbar-background-color: var(--primary-color);
   --edit-toolbar-bigger-icon-size: 45px;
@@ -331,9 +334,11 @@ body {
   --profile-wrap-max-width: 550px;
 
   /* setting style */
-  --setting-content-padding: 15px;
+
   --setting-title-font: var(--subtitle-font);
   --setting-title-color: var(--subtitle-text-color);
+  --setting-content-padding: 15px;
+  --setting-content-font: normal 1em/1em var(--theme-font);
   --setting-info-content-padding: 10px 15px;
   --setting-info-background-color: #f0f0f0;
   --setting-info-font: normal 14px/14px var(--theme-font);
@@ -373,6 +378,9 @@ body {
     --record-view-footer-iconbutton-display: block;
 
     --profile-wrap-max-width: 85vw;
+
+    --card-list-template: repeat(1, minmax(auto, 100%));
+    --card-list-rows-height: 240px;
   }
 }
 @media (min-width: 461px) and (max-width: 1024px) {
@@ -390,5 +398,8 @@ body {
     --overlay-center-normal-height: 60%;
     --overlay-center-large-width: 80%;
     --overlay-center-large-height: 80%;
+
+    --card-list-template: repeat(2, minmax(auto, 100%));
+    --card-list-rows-height: 160px;
   }
 }
