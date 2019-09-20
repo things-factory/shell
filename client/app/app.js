@@ -6,6 +6,7 @@ import { navigateWithSilence, UPDATE_ACTIVE_PAGE } from '../actions/route'
 import { UPDATE_MODULES } from '../actions/app'
 import { store } from '../store'
 import { AppStyle } from './app-style'
+import { ScrollbarStyles } from './styles/scrollbar-styles'
 
 class ThingsApp extends connect(store)(LitElement) {
   static get properties() {
@@ -21,7 +22,7 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   static get styles() {
-    return [AppStyle]
+    return [ScrollbarStyles, AppStyle]
   }
 
   render() {
