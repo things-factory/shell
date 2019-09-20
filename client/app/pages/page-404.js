@@ -24,4 +24,4 @@ class Page404 extends PageView {
   }
 }
 
-window.customElements.define('page-404', Page404)
+customElements.define('page-404', Page404)
