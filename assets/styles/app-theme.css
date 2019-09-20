@@ -334,7 +334,6 @@ body {
   --profile-wrap-max-width: 550px;
 
   /* setting style */
-
   --setting-title-font: var(--subtitle-font);
   --setting-title-color: var(--subtitle-text-color);
   --setting-content-padding: 15px;
@@ -373,6 +372,7 @@ body {
     --grist-padding: 0;
     --grist-input-zoom: 1.4;
     --record-view-footer-height: 50px;
+    --record-view-footer-button-height: var(--record-view-footer-height);
     --record-view-footer-iconbutton-size: 35px;
     --record-view-footer-iconbutton-margin: -2px;
     --record-view-footer-iconbutton-display: block;
@@ -388,6 +388,7 @@ body {
     --grist-padding: 0;
     --grist-input-zoom: 1.4;
     --record-view-footer-height: 50px;
+    --record-view-footer-button-height: var(--record-view-footer-height);
     --record-view-footer-iconbutton-size: 35px;
     --record-view-footer-iconbutton-margin: -2px;
     --record-view-footer-iconbutton-display: block;
