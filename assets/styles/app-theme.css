@@ -135,6 +135,11 @@ body {
   --morelet-font: normal 0.9em/1.4em var(--theme-font);
 
   --footer-bar-border-top: 1px solid rgba(0, 0, 0, 0.2);
+
+  --overlay-header-height: var(--header-bar-height);
+  --overlay-header-background-color: var(--header-bar-background-color);
+  --overlay-header-color: #fff;
+  --overlay-header-font: var(--header-bar-title);
   --overlay-background-color: rgba(0, 0, 0, 0.5);
   --overlay-margin-bottom: 0px;
 
@@ -228,10 +233,6 @@ body {
   --grist-input-progress-bar-background: #4ac5fd;
   --grist-input-progress-bar-color: #fff;
 
-  --record-view-header-height: var(--header-bar-height);
-  --record-view-header-background: var(--header-bar-background-color);
-  --record-view-header-color: #fff;
-  --record-view-header-font: var(--header-bar-title);
   --record-view-footer-height: 36px;
   --record-view-footer-background: #586272;
   --record-view-footer-button-height: 36px;
