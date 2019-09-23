@@ -3,7 +3,6 @@ import { LitElement, html } from 'lit-element'
 import { store } from '../../store'
 import { UPDATE_CONTEXT } from '../../actions/route'
 
-import queryString from 'query-string'
 import isEqual from 'lodash/isEqual'
 
 function diff(after, before) {
@@ -27,20 +26,15 @@ export class PageView extends LitElement {
   // Only render this page if it's actually visible.
   shouldUpdate() {
     var active = String(this.active) == 'true'
-    var oldActive = this._oldActivationInfo$ && this._oldActivationInfo$.active
+    var { active: oldActive = false } = this._oldActivationInfo$ || {}
 
     /*
-     * page activation
+     * page lifecycle
      * case 1. page가 새로 activate 되었다.
      * case 2. page가 active 상태에서 location 정보가 바뀌었다.
      **/
     if (active) {
-      this.pageActivationChange({
-        active,
-        path: location.pathname.split('/').slice(1),
-        search: queryString.parse(location.search),
-        hash: location.hash
-      })
+      this.pageActivationChange()
     } else if (oldActive) {
       this.pageActivationChange({
         active
@@ -52,7 +46,8 @@ export class PageView extends LitElement {
 
   static get properties() {
     return {
-      active: Boolean
+      active: Boolean,
+      lifecycle: Object
     }
   }
 
@@ -62,6 +57,7 @@ export class PageView extends LitElement {
 
     var after = {
       ...before,
+      ...this.lifecycle,
       ...changes
     }
 
@@ -70,7 +66,7 @@ export class PageView extends LitElement {
     }
 
     if (force) {
-      after.timestamp = Date.now()
+      after.updated = Date.now()
     }
 
     var changed = diff(after, before)
@@ -103,7 +99,7 @@ export class PageView extends LitElement {
   }
 
   pageReset() {
-    var { initialized } = this._oldActivationInfo$
+    var { initialized } = this._oldActivationInfo$ || {}
 
     if (initialized) {
       this.pageDispose()
