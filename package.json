@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.5.166",
+  "version": "0.5.169",
   "description": "things app starter kit",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -48,6 +48,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.0",
+    "@hatiolab/license-checker": "^2.2.4",
     "@hatiolab/things-scene": "*",
     "@material/mwc-button": "^0.6.0",
     "@material/mwc-icon": "^0.6.0",

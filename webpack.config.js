@@ -27,7 +27,7 @@ if (AppPackage.name !== '@things-factory/shell') {
     throw new Exception('@things-factory/shell module not found.', e)
   }
 } else {
-  var ShellModulePath = path.resolve(야dirname)
+  var ShellModulePath = path.resolve(__dirname)
   var NodeModulePath = path.resolve(__dirname, 'node_modules')
 }
 
@@ -209,7 +209,15 @@ module.exports = {
           to: OUTPUT_PATH
         },
         {
+          from: 'node_modules/@hatiolab/license-checker/**/*.js*',
+          to: OUTPUT_PATH
+        },
+        {
           from: path.resolve(__dirname, 'notification-service-worker.js'),
+          to: OUTPUT_PATH
+        },
+        {
+          from: 'licenses/**/*',
           to: OUTPUT_PATH
         }
       ],

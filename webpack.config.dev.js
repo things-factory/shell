@@ -210,7 +210,15 @@ module.exports = {
           to: OUTPUT_PATH
         },
         {
+          from: 'node_modules/@hatiolab/license-checker/**/*.js*',
+          to: OUTPUT_PATH
+        },
+        {
           from: path.resolve(__dirname, 'notification-service-worker.js'),
+          to: OUTPUT_PATH
+        },
+        {
+          from: 'licenses/**/*',
           to: OUTPUT_PATH
         }
       ],

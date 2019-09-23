@@ -15,6 +15,7 @@ export * from './store'
 // actions
 export * from './actions/app'
 export * from './actions/route'
+export * from './actions/license'
 
 // base class for page
 export * from './app/pages/page-view'
