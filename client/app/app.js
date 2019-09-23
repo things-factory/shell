@@ -1,9 +1,11 @@
+import { LicenseChecker } from '@hatiolab/license-checker'
 import { html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { updateMetadata } from 'pwa-helpers/metadata.js'
 import { installRouter } from 'pwa-helpers/router.js'
-import { navigateWithSilence, UPDATE_ACTIVE_PAGE } from '../actions/route'
 import { UPDATE_MODULES } from '../actions/app'
+import { UPDATE_LICENSE_INFO, UPDATE_LICENSE_KEY, UPDATE_LICENSE_VALIDITY } from '../actions/license'
+import { navigateWithSilence, UPDATE_ACTIVE_PAGE } from '../actions/route'
 import { store } from '../store'
 import { AppStyle } from './app-style'
 import { ScrollbarStyles } from './styles/scrollbar-styles'
@@ -40,6 +42,19 @@ class ThingsApp extends connect(store)(LitElement) {
 
       <footer-bar ?hidden=${fullbleed}></footer-bar>
     `
+  }
+
+  constructor() {
+    super()
+
+    LicenseChecker.setKey(ThingsLicense).then(key => {
+      store.dispatch({
+        type: UPDATE_LICENSE_KEY,
+        key: key
+      })
+    })
+
+    window.LC = LicenseChecker
   }
 
   connectedCallback() {
@@ -127,6 +142,19 @@ class ThingsApp extends connect(store)(LitElement) {
     this._callbacks = state.route.callbacks
     this._context = state.route.context
     this._modules = state.app.modules
+
+    LicenseChecker.checkValidity().then(info => {
+      if (!info) return
+      var { validity, licenseInfo } = info
+      store.dispatch({
+        type: UPDATE_LICENSE_VALIDITY,
+        validity: validity
+      })
+      store.dispatch({
+        type: UPDATE_LICENSE_INFO,
+        licenseInfo
+      })
+    })
   }
 
   _appendFactoryModulePages() {
