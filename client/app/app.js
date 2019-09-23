@@ -99,7 +99,9 @@ class ThingsApp extends connect(store)(LitElement) {
     })
 
     this._activePage = this.shadowRoot.querySelector(`main > .page[data-page=${this._page}]`)
-    this._activePage && this._activePage.setAttribute('active', true)
+    if (this._activePage) {
+      this._activePage.setAttribute('active', true)
+    }
 
     store.dispatch({
       type: UPDATE_ACTIVE_PAGE,

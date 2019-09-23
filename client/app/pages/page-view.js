@@ -1,20 +1,50 @@
 import { LitElement, html } from 'lit-element'
 
 import { store } from '../../store'
-import { isMobileDevice } from '../../utils/os'
 import { UPDATE_CONTEXT } from '../../actions/route'
+
+import queryString from 'query-string'
+import isEqual from 'lodash/isEqual'
+
+function diff(after, before) {
+  var changed = false
+  var changes = {}
+
+  Object.getOwnPropertyNames(after).forEach(function(key) {
+    let before_val = before[key]
+    let after_val = after[key]
+
+    if (!isEqual(before_val, after_val)) {
+      changes[key] = after_val
+      changed = true
+    }
+  })
+
+  return changed && changes
+}
 
 export class PageView extends LitElement {
   // Only render this page if it's actually visible.
   shouldUpdate() {
     var active = String(this.active) == 'true'
+    var oldActive = this._oldActivationInfo$ && this._oldActivationInfo$.active
 
-    if (active !== this._oldactive$) {
-      // Page activation 상태가 바뀌면 호출된다.
-      this._oldactive$ = active
-
-      this._pageActivationChanged(active)
-      active && this.updateContext()
+    /*
+     * page activation
+     * case 1. page가 새로 activate 되었다.
+     * case 2. page가 active 상태에서 location 정보가 바뀌었다.
+     **/
+    if (active) {
+      this.pageActivationChange({
+        active,
+        path: location.pathname.split('/').slice(1),
+        search: queryString.parse(location.search),
+        hash: location.hash
+      })
+    } else if (oldActive) {
+      this.pageActivationChange({
+        active
+      })
     }
 
     return active
@@ -22,45 +52,78 @@ export class PageView extends LitElement {
 
   static get properties() {
     return {
-      active: Boolean,
-      _pageInitialized: Boolean
+      active: Boolean
     }
   }
 
   /* lifecycle */
-  pageInit() {
-    this._pageInitialized && this.pageInitialized()
+  pageActivationChange(changes = {}, force = false) {
+    var before = this._oldActivationInfo$ || {}
+
+    var after = {
+      ...before,
+      ...changes
+    }
+
+    if (!('initialized' in changes) && after.active && !before.initialized) {
+      after.initialized = true
+    }
+
+    if (force) {
+      after.timestamp = Date.now()
+    }
+
+    var changed = diff(after, before)
+    if (!changed) {
+      return
+    }
+
+    this._oldActivationInfo$ = after
+
+    /* page가 main 영역에서 active되거나 deactive되는 시점에 호출된다. */
+    /* mobile mode 이거나, closed 상태인 경우에 pageInit를 수행한다. */
+    if (changed.initialized) {
+      /* pageActivated된 경우에만 opened 상태가 될 수 있다. */
+      this.pageInitialized(after)
+    }
+
+    if ('active' in changed) {
+      /* for compatibility only */
+      this.activated(changed.active)
+      this.pageActivated(changed.active)
+    }
+
+    this.pageUpdated(changed, after, before)
+    /* active page인 경우에는, page Context 갱신도 필요할 것이다. */
+    after.active && this.updateContext()
+
+    if ('initialized' in changed && !changed.initialized) {
+      this.pageDisposed(after)
+    }
+  }
+
+  pageReset() {
+    var { initialized } = this._oldActivationInfo$
+
+    if (initialized) {
+      this.pageDispose()
+      this.pageActivationChange({}, true)
+    }
   }
 
   pageDispose() {
-    if (this._pageInitialized) {
-      this._pageInitialized = false
-      this.pageDisposed()
-    }
+    this.pageActivationChange({
+      initialized: false
+    })
   }
 
-  _pageActivationChanged(active) {
-    /* page가 main 영역에서 active되거나 deactive되는 시점에 호출된다. */
-    /* mobile mode 이거나, closed 상태인 경우에 pageInit를 수행한다. */
-    if (active && !this._pageInitialized) {
-      /* pageActivated된 경우에만 opened 상태가 될 수 있다. */
-      this._pageInitialized = true
-      this.pageInitialized()
-    }
-
-    if (!active && isMobileDevice()) {
-      /* mobile 상태인 경우 deactivate는 disposed를 의미한다. */
-      this.pageDispose()
-    }
-
-    this.pageActivated(active)
-    this.activated(active)
-  }
-
-  activated(active) {} // TODO. remove activated() callback. This only for compatibility now.
+  // TODO. remove activated(), pageActivated() callback. This only for compatibility now.
+  activated(active) {}
   pageActivated(active) {}
-  pageInitialized() {}
-  pageDisposed() {}
+
+  pageInitialized(pageInfo) {}
+  pageUpdated(changes, after, before) {}
+  pageDisposed(pageInfo) {}
 
   /* context */
   updateContext() {
