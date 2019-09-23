@@ -47,7 +47,7 @@ class ThingsApp extends connect(store)(LitElement) {
   constructor() {
     super()
 
-    if (ThingsLicense)
+    if (window.ThingsLicense)
       LicenseChecker.setKey(ThingsLicense).then(key => {
         store.dispatch({
           type: UPDATE_LICENSE_KEY,
