@@ -26,12 +26,12 @@ export class PageView extends LitElement {
   // Only render this page if it's actually visible.
   shouldUpdate() {
     var active = String(this.active) == 'true'
-    var { active: oldActive = false } = this._oldActivationInfo$ || {}
+    var { active: oldActive = false } = this._oldLifecycleInfo$ || {}
 
     /*
      * page lifecycle
      * case 1. page가 새로 activate 되었다.
-     * case 2. page가 active 상태에서 location 정보가 바뀌었다.
+     * case 2. page가 active 상태에서 lifecycle 정보가 바뀌었다.
      **/
     if (active) {
       this.pageUpdate()
@@ -53,7 +53,7 @@ export class PageView extends LitElement {
 
   /* lifecycle */
   pageUpdate(changes = {}, force = false) {
-    var before = this._oldActivationInfo$ || {}
+    var before = this._oldLifecycleInfo$ || {}
 
     var after = {
       ...before,
@@ -74,19 +74,15 @@ export class PageView extends LitElement {
       return
     }
 
-    this._oldActivationInfo$ = after
+    this._oldLifecycleInfo$ = after
 
-    /* page가 main 영역에서 active되거나 deactive되는 시점에 호출된다. */
-    /* mobile mode 이거나, closed 상태인 경우에 pageInit를 수행한다. */
     if (changed.initialized) {
-      /* pageActivated된 경우에만 opened 상태가 될 수 있다. */
       this.pageInitialized(after)
     }
 
     if ('active' in changed) {
       /* for compatibility only */
       this.activated(changed.active)
-      this.pageActivated(changed.active)
     }
 
     this.pageUpdated(changed, after, before)
@@ -99,7 +95,7 @@ export class PageView extends LitElement {
   }
 
   pageReset() {
-    var { initialized } = this._oldActivationInfo$ || {}
+    var { initialized } = this._oldLifecycleInfo$ || {}
 
     if (initialized) {
       this.pageDispose()
@@ -113,9 +109,8 @@ export class PageView extends LitElement {
     })
   }
 
-  // TODO. remove activated(), pageActivated() callback. This only for compatibility now.
+  // TODO. remove activated() callback. This only for compatibility now.
   activated(active) {}
-  pageActivated(active) {}
 
   pageInitialized(pageInfo) {}
   pageUpdated(changes, after, before) {}
