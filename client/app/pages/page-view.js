@@ -34,9 +34,9 @@ export class PageView extends LitElement {
      * case 2. page가 active 상태에서 location 정보가 바뀌었다.
      **/
     if (active) {
-      this.pageActivationChange()
+      this.pageUpdate()
     } else if (oldActive) {
-      this.pageActivationChange({
+      this.pageUpdate({
         active
       })
     }
@@ -52,7 +52,7 @@ export class PageView extends LitElement {
   }
 
   /* lifecycle */
-  pageActivationChange(changes = {}, force = false) {
+  pageUpdate(changes = {}, force = false) {
     var before = this._oldActivationInfo$ || {}
 
     var after = {
@@ -103,12 +103,12 @@ export class PageView extends LitElement {
 
     if (initialized) {
       this.pageDispose()
-      this.pageActivationChange({}, true)
+      this.pageUpdate({}, true)
     }
   }
 
   pageDispose() {
-    this.pageActivationChange({
+    this.pageUpdate({
       initialized: false
     })
   }
