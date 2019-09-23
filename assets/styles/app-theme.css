@@ -292,6 +292,10 @@ body {
 
   --card-list-template: repeat(3, minmax(auto, 100%));
   --card-list-rows-height: 200px;
+  --card-list-background-color: rgba(0, 0, 0, 0.07);
+  --card-list-border-radius: var(--border-radius);
+  --popup-content-background-color: var(--main-section-background-color);
+  --popup-content-padding: 10px 20px;
 
   /* board modeler page style */
   --edit-toolbar-background-color: var(--primary-color);
