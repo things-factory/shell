@@ -47,14 +47,14 @@ class ThingsApp extends connect(store)(LitElement) {
   constructor() {
     super()
 
-    LicenseChecker.setKey(ThingsLicense).then(key => {
-      store.dispatch({
-        type: UPDATE_LICENSE_KEY,
-        key: key
+    if (ThingsLicense)
+      LicenseChecker.setKey(ThingsLicense).then(key => {
+        store.dispatch({
+          type: UPDATE_LICENSE_KEY,
+          key: key
+        })
       })
-    })
-
-    window.LC = LicenseChecker
+    else console.warn('License file not found.')
   }
 
   connectedCallback() {
