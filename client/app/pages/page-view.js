@@ -13,7 +13,7 @@ export class PageView extends LitElement {
       // Page activation 상태가 바뀌면 호출된다.
       this._oldactive$ = active
 
-      this.pageActivated(active)
+      this._pageActivationChanged(active)
       active && this.updateContext()
     }
 
@@ -39,7 +39,7 @@ export class PageView extends LitElement {
     }
   }
 
-  pageActivated(active) {
+  _pageActivationChanged(active) {
     /* page가 main 영역에서 active되거나 deactive되는 시점에 호출된다. */
     /* mobile mode 이거나, closed 상태인 경우에 pageInit를 수행한다. */
     if (active && !this._pageInitialized) {
@@ -53,10 +53,12 @@ export class PageView extends LitElement {
       this.pageDispose()
     }
 
+    this.pageActivated(active)
     this.activated(active)
   }
 
   activated(active) {} // TODO. remove activated() callback. This only for compatibility now.
+  pageActivated(active) {}
   pageInitialized() {}
   pageDisposed() {}
 
