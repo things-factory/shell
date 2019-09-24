@@ -169,6 +169,9 @@ body {
   --input-field-font: normal 14px var(--theme-font);
   --form-grid-gap: 12px 5px;
 
+  --custom-input-barcode-field-font: normal 18px var(--theme-font);
+  --custom-input-barcode-field-padding: 2px 2px 2px 9px;
+
   --search-panel-background-color: rgba(0, 0, 0, 0.1);
   --search-panel-search-iconbutton-size: var(--icon-default-size);
   --search-form-icon-color: var(--primary-color);
