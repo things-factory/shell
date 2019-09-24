@@ -285,7 +285,8 @@ module.exports = {
         'SHELL-VERSION': JSON.stringify(ShellPackage.version),
         'SHELL-LICENSE': JSON.stringify(ShellPackage.license),
         'APP-VERSION': JSON.stringify(AppPackage.version),
-        'APP-LICENSE': JSON.stringify(AppPackage.license)
+        'APP-LICENSE': JSON.stringify(AppPackage.license),
+        'APP-NAME': JSON.stringify(AppPackage.name)
       }
     })
   ]
