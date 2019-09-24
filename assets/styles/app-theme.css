@@ -340,6 +340,11 @@ body {
   --profile-brand-height: 45px;
   --profile-brand-padding: 30px auto 20px auto;
   --profile-wrap-max-width: 550px;
+  --change-password-field-font: normal 16px var(--theme-font);
+  --change-password-field-border: 1px solid rgba(0, 0, 0, 0.2);
+  --change-password-field-border-radius: var(--border-radius);
+  --change-password-field-padding: 2px 9px;
+  --change-password-field-width: 100%;
 
   /* setting style */
   --setting-title-font: var(--subtitle-font);
@@ -389,6 +394,9 @@ body {
 
     --card-list-template: repeat(1, minmax(auto, 100%));
     --card-list-rows-height: 240px;
+
+    --change-password-field-width: 80%;
+    --change-password-field-font: normal 20px var(--theme-font);
   }
 }
 @media (min-width: 461px) and (max-width: 1024px) {
@@ -410,6 +418,9 @@ body {
 
     --card-list-template: repeat(2, minmax(auto, 100%));
     --card-list-rows-height: 160px;
+
+    --change-password-field-width: 70%;
+    --change-password-field-font: normal 20px var(--theme-font);
   }
 }
 @media only screen and (max-width: 925px) {
