@@ -409,3 +409,8 @@ body {
     --card-list-rows-height: 160px;
   }
 }
+@media only screen and (max-width: 925px) {
+  body {
+    --form-container-padding: 0 15px;
+  }
+}
