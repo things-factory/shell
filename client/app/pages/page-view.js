@@ -3,7 +3,6 @@ import { LitElement, html } from 'lit-element'
 import { store } from '../../store'
 import { UPDATE_CONTEXT } from '../../actions/route'
 
-import queryString from 'query-string'
 import isEqual from 'lodash/isEqual'
 
 function diff(after, before) {
@@ -27,22 +26,17 @@ export class PageView extends LitElement {
   // Only render this page if it's actually visible.
   shouldUpdate() {
     var active = String(this.active) == 'true'
-    var oldActive = this._oldActivationInfo$ && this._oldActivationInfo$.active
+    var { active: oldActive = false } = this._oldLifecycleInfo$ || {}
 
     /*
-     * page activation
+     * page lifecycle
      * case 1. page가 새로 activate 되었다.
-     * case 2. page가 active 상태에서 location 정보가 바뀌었다.
+     * case 2. page가 active 상태에서 lifecycle 정보가 바뀌었다.
      **/
     if (active) {
-      this.pageActivationChange({
-        active,
-        path: location.pathname.split('/').slice(1),
-        search: queryString.parse(location.search),
-        hash: location.hash
-      })
+      this.pageUpdate()
     } else if (oldActive) {
-      this.pageActivationChange({
+      this.pageUpdate({
         active
       })
     }
@@ -52,16 +46,18 @@ export class PageView extends LitElement {
 
   static get properties() {
     return {
-      active: Boolean
+      active: Boolean,
+      lifecycle: Object
     }
   }
 
   /* lifecycle */
-  pageActivationChange(changes = {}, force = false) {
-    var before = this._oldActivationInfo$ || {}
+  pageUpdate(changes = {}, force = false) {
+    var before = this._oldLifecycleInfo$ || {}
 
     var after = {
       ...before,
+      ...this.lifecycle,
       ...changes
     }
 
@@ -70,7 +66,7 @@ export class PageView extends LitElement {
     }
 
     if (force) {
-      after.timestamp = Date.now()
+      after.updated = Date.now()
     }
 
     var changed = diff(after, before)
@@ -78,19 +74,15 @@ export class PageView extends LitElement {
       return
     }
 
-    this._oldActivationInfo$ = after
+    this._oldLifecycleInfo$ = after
 
-    /* page가 main 영역에서 active되거나 deactive되는 시점에 호출된다. */
-    /* mobile mode 이거나, closed 상태인 경우에 pageInit를 수행한다. */
     if (changed.initialized) {
-      /* pageActivated된 경우에만 opened 상태가 될 수 있다. */
       this.pageInitialized(after)
     }
 
     if ('active' in changed) {
       /* for compatibility only */
       this.activated(changed.active)
-      this.pageActivated(changed.active)
     }
 
     this.pageUpdated(changed, after, before)
@@ -103,23 +95,22 @@ export class PageView extends LitElement {
   }
 
   pageReset() {
-    var { initialized } = this._oldActivationInfo$
+    var { initialized } = this._oldLifecycleInfo$ || {}
 
     if (initialized) {
       this.pageDispose()
-      this.pageActivationChange({}, true)
+      this.pageUpdate({}, true)
     }
   }
 
   pageDispose() {
-    this.pageActivationChange({
+    this.pageUpdate({
       initialized: false
     })
   }
 
-  // TODO. remove activated(), pageActivated() callback. This only for compatibility now.
+  // TODO. remove activated() callback. This only for compatibility now.
   activated(active) {}
-  pageActivated(active) {}
 
   pageInitialized(pageInfo) {}
   pageUpdated(changes, after, before) {}

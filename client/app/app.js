@@ -15,6 +15,7 @@ class ThingsApp extends connect(store)(LitElement) {
     return {
       appTitle: String,
       _page: String,
+      _resourceId: String,
       _params: Object,
       _callbacks: Array,
       _activePage: Object,
@@ -116,6 +117,13 @@ class ThingsApp extends connect(store)(LitElement) {
     this._activePage = this.shadowRoot.querySelector(`main > .page[data-page=${this._page}]`)
     if (this._activePage) {
       this._activePage.setAttribute('active', true)
+      this._activePage.lifecycle = {
+        ...(this._activePage.lifecycle || {}),
+        active: true,
+        params: this._params,
+        resourceId: this._resourceId,
+        page: this._page
+      }
     }
 
     store.dispatch({
@@ -129,7 +137,7 @@ class ThingsApp extends connect(store)(LitElement) {
       this._appendFactoryModulePages()
     }
 
-    if (changedProps.has('_page')) {
+    if (changedProps.has('_page') || changedProps.has('_resourceId') || changedProps.has('_params')) {
       this.routeToPage()
     }
   }
@@ -141,6 +149,7 @@ class ThingsApp extends connect(store)(LitElement) {
   stateChanged(state) {
     this._page = state.route.page
     this._params = state.route.params
+    this._resourceId = state.route.resourceId
     this._callbacks = state.route.callbacks
     this._context = state.route.context
     this._modules = state.app.modules
