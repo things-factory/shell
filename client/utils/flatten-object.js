@@ -11,7 +11,7 @@ export function flattenObject(obj, delimiter = '|') {
     if (!obj.hasOwnProperty(items)) continue
 
     if (!!obj[items] && typeof obj[items] == 'object') {
-      var flatObject = this.flattenObject(obj[items], delimiter)
+      var flatObject = flattenObject(obj[items], delimiter)
       for (var x in flatObject) {
         if (!flatObject.hasOwnProperty(x)) continue
 
