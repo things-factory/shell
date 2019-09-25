@@ -340,6 +340,7 @@ body {
   --profile-brand-height: 45px;
   --profile-brand-padding: 30px auto 20px auto;
   --profile-wrap-max-width: 550px;
+  --profile-icon-margin: 7% 0 0 0;
   --change-password-field-font: normal 16px var(--theme-font);
   --change-password-field-border: 1px solid rgba(0, 0, 0, 0.2);
   --change-password-field-border-radius: var(--border-radius);
@@ -347,6 +348,7 @@ body {
   --change-password-field-width: 100%;
 
   /* setting style */
+  --setting-background: var(--main-section-background-color);
   --setting-title-font: var(--subtitle-font);
   --setting-title-color: var(--subtitle-text-color);
   --setting-content-padding: 15px;
@@ -356,6 +358,8 @@ body {
   --setting-info-font: normal 14px/14px var(--theme-font);
   --setting-info-color: #666;
   --setting-info-appname-color: var(--primary-color);
+  --setting-icon-height: 170px;
+  --setting-icon-margin: 7% 0 5px 0;
 
   /* system info style */
   --system-info-background-color: var(--main-section-background-color);
