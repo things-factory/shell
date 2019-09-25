@@ -356,6 +356,19 @@ body {
   --setting-info-font: normal 14px/14px var(--theme-font);
   --setting-info-color: #666;
   --setting-info-appname-color: var(--primary-color);
+
+  /* system info style */
+  --system-info-background-color: var(--main-section-background-color);
+  --system-info-content-padding: 10vh 0 0 0;
+  --system-info-font: normal 14px/24px var(--theme-font);
+  --system-info-color: #666;
+  --system-info-appname-color: var(--secondary-color);
+  --system-info-appname-font: bold 20px/20px var(--theme-font);
+  --system-info-description-color: var(--primary-color);
+  --system-info-description-font: normal 15px/18px var(--theme-font);
+  --system-info-version-background-color: var(--secondary-color);
+  --system-info-version-color: #fff;
+  --system-info-version-font: normal 15px/15px var(--theme-font);
 }
 
 @media only screen and (max-width: 460px) {
