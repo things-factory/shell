@@ -85,12 +85,24 @@ export class PageView extends LitElement {
       this.activated(changed.active)
     }
 
-    this.pageUpdated(changed, after, before)
-    /* active page인 경우에는, page Context 갱신도 필요할 것이다. */
-    after.active && this.updateContext()
-
-    if ('initialized' in changed && !changed.initialized) {
-      this.pageDisposed(after)
+    if ('initialized' in changed) {
+      if (changed.initialized) {
+        /*
+         * 방금 초기화된 경우라면, 엘리먼트들이 만들어지지 않았을 가능성이 있으므로,
+         * 다음 animationFrame에서 pageUpdated 콜백을 호출한다.
+         */
+        requestAnimationFrame(() => {
+          this.pageUpdated(changed, after, before)
+          /* active page인 경우에는, page Context 갱신도 필요할 것이다. */
+          after.active && this.updateContext()
+        })
+      } else {
+        this.pageDisposed(after)
+      }
+    } else {
+      this.pageUpdated(changed, after, before)
+      /* active page인 경우에는, page Context 갱신도 필요할 것이다. */
+      after.active && this.updateContext()
     }
   }
 
