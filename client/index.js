@@ -31,3 +31,6 @@ export * from './graphql-client'
 
 // mixins
 export * from './mixins'
+
+// serviceworkers
+export * from './serviceworker'

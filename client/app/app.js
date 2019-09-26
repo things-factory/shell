@@ -6,6 +6,7 @@ import { installRouter } from 'pwa-helpers/router.js'
 import { UPDATE_MODULES } from '../actions/app'
 import { UPDATE_LICENSE_INFO, UPDATE_LICENSE_KEY, UPDATE_LICENSE_VALIDITY } from '../actions/license'
 import { navigateWithSilence, UPDATE_ACTIVE_PAGE } from '../actions/route'
+import { unsubscribe } from '../serviceworker'
 import { store } from '../store'
 import { AppStyle } from './app-style'
 import { ScrollbarStyles } from './styles/scrollbar-styles'
@@ -60,6 +61,7 @@ class ThingsApp extends connect(store)(LitElement) {
 
   connectedCallback() {
     super.connectedCallback()
+    unsubscribe()
 
     /* 모듈 임포트를 동적으로 처리한다. */
     import('../module-importer.import').then(module => {

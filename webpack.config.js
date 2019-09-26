@@ -74,7 +74,7 @@ module.exports = {
         },
   output: {
     path: OUTPUT_PATH,
-    // filename: '[name].[hash].js',
+    filename: '[name].[hash].js',
     publicPath: '/'
   },
   module: {
@@ -186,7 +186,6 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({
       template: TemplatePath,
-      hash: true,
       /*
       Allows to control how chunks should be sorted before they are included to the HTML.
       Allowed values are 'none' | 'auto' | 'dependency' | 'manual' | {Function}
@@ -209,14 +208,6 @@ module.exports = {
           to: OUTPUT_PATH
         },
         {
-          from: 'node_modules/@hatiolab/license-checker/**/*.js*',
-          to: OUTPUT_PATH
-        },
-        {
-          from: path.resolve(__dirname, 'notification-service-worker.js'),
-          to: OUTPUT_PATH
-        },
-        {
           from: 'licenses/**/*',
           to: OUTPUT_PATH
         }
@@ -226,50 +217,6 @@ module.exports = {
         context: AppRootPath
       }
     ),
-    new WorkboxWebpackPlugin.GenerateSW({
-      exclude: [/\/@webcomponents\/webcomponentsjs\//, /\/web-animations-js\//],
-      // navigateFallback: 'index.html',
-      importWorkboxFrom: 'local',
-      swDest: 'service-worker.js',
-      clientsClaim: true,
-      skipWaiting: true,
-      navigationPreload: true,
-      importScripts: ['notification-service-worker.js'],
-      runtimeCaching: [
-        {
-          urlPattern: /\/@webcomponents\/webcomponentsjs\//,
-          handler: 'NetworkFirst'
-        },
-        {
-          urlPattern: /\/web-animations-js\//,
-          handler: 'NetworkFirst'
-        },
-        {
-          urlPattern: /\/main\.js/,
-          handler: 'NetworkFirst'
-        },
-        {
-          urlPattern: /\/@hatiolab\/things-scene\//,
-          handler: 'NetworkFirst'
-        },
-        {
-          urlPattern: /\assets\//,
-          handler: 'NetworkFirst'
-        },
-        {
-          urlPattern: /\data:image\/\//,
-          handler: 'NetworkFirst'
-        },
-        {
-          urlPattern: /\translations\//,
-          handler: 'NetworkFirst'
-        },
-        {
-          urlPattern: /^https:\/\/fonts.gstatic.com\//,
-          handler: 'StaleWhileRevalidate'
-        }
-      ]
-    }),
     new FolderOverridePlugin({
       target: 'views'
     }),
@@ -278,6 +225,11 @@ module.exports = {
     }),
     new I18nBundlerPlugin({
       output: 'translations'
+    }),
+    new WorkboxWebpackPlugin.InjectManifest({
+      importWorkboxFrom: 'local',
+      swSrc: path.resolve(__dirname, 'client/serviceworker/sw-src.js'),
+      swDest: 'service-worker.js'
     }),
     new webpack.DefinePlugin({
       'process.env': {

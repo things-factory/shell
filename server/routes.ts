@@ -62,8 +62,13 @@ routes.post('/unregister', async (context, next) => {
   context.status = 201
 })
 
-routes.get('/request-notification/:message', async (context, next) => {
-  sendNotification(context.params.message)
+routes.get('/request-notification/:message/:url', async (context, next) => {
+  var msg = {
+    title: 'Things factory alarm!',
+    body: context.params.message,
+    url: context.params.url || context.request.href
+  }
+  sendNotification(JSON.stringify(msg))
   context.body = {
     success: true
   }
