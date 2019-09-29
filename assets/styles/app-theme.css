@@ -154,6 +154,7 @@ body {
   --form-border: none;
   --form-margin: 15px auto;
   --form-max-width: 700px;
+  --form-multi-column-max-width: 96%;
   --form-sublabel-font: normal 13px var(--theme-font);
   --form-sublabel-color: var(--secondary-color);
   --legend-padding: var(--subtitle-padding);
@@ -450,8 +451,12 @@ body {
     --overlay-center-large-width: 80%;
     --overlay-center-large-height: 80%;
 
-    --label-font: normal 15px var(--theme-font);
+    --form-margin: 15px 0;
+    --form-multi-column-max-width: 100%;
+    --form-container-padding: 0 9px;
+    --label-font: normal 14px var(--theme-font);
     --input-field-font: normal 15px var(--theme-font);
+    --input-field-padding: 3px 5px;
 
     --card-list-template: repeat(2, minmax(auto, 100%));
     --card-list-rows-height: 150px;
@@ -463,6 +468,9 @@ body {
 }
 @media only screen and (max-width: 925px) {
   body {
-    --form-container-padding: 0 15px;
+    --form-margin: 14px 0;
+    --form-multi-column-max-width: 100%;
+    --form-container-padding: 0 9px;
+    --input-field-padding: 3px 5px;
   }
 }
