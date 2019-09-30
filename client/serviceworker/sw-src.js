@@ -16,7 +16,7 @@ workbox.routing.registerRoute(
 )
 
 self.addEventListener('push', event => {
-  const title = 'Get Started With Workbox'
+  const title = 'Reimagining Logistics with OPAONE'
   var message
 
   try {

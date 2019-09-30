@@ -82,7 +82,8 @@ const bootstrap = async () => {
       '/licenses',
       '/vapidPublicKey',
       '/register',
-      '/unregister'
+      '/unregister',
+      '/request-notification'
     ]
   }
   process.emit('bootstrap-module-history-fallback' as any, app, fallbackOption)
