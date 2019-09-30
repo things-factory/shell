@@ -103,6 +103,7 @@
     "lodash": "^4.17.15",
     "mkdirp": "^0.5.1",
     "mssql": "^5.1.0",
+    "node-fetch": "^2.6.0",
     "nodemon": "^1.19.1",
     "npm-license-crawler": "^0.2.1",
     "pg": "^7.9.0",

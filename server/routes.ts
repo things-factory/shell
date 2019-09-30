@@ -1,8 +1,16 @@
 import { koa as voyagerMiddleware } from 'graphql-voyager/middleware'
+import koaBodyParser from 'koa-bodyparser'
+
 import Router from 'koa-router'
 import { getVapidPublicKey, register, sendNotification, unregister } from './controllers/notifications'
 const send = require('koa-send')
 var crawler = require('npm-license-crawler')
+
+const bodyParserOption = {
+  formLimit: '10mb',
+  jsonLimit: '10mb',
+  textLimit: '10mb'
+}
 
 export const routes = new Router()
 
@@ -52,8 +60,11 @@ routes.get('/vapidPublicKey', async (context, next) => {
   context.body = getVapidPublicKey()
 })
 
-routes.post('/register', async (context, next) => {
-  register(context.request)
+routes.post('/register', koaBodyParser(bodyParserOption), async (context, next) => {
+  console.log(context)
+  await register({
+    request: context.request
+  })
   context.status = 201
 })
 
@@ -62,13 +73,16 @@ routes.post('/unregister', async (context, next) => {
   context.status = 201
 })
 
-routes.get('/request-notification/:message/:url', async (context, next) => {
+routes.get('/request-notification/:receiver/:message/:url', async (context, next) => {
   var msg = {
     title: 'Things factory alarm!',
     body: context.params.message,
     url: context.params.url || context.request.href
   }
-  sendNotification(JSON.stringify(msg))
+  sendNotification({
+    receiver: context.params.receiver,
+    message: JSON.stringify(msg)
+  })
   context.body = {
     success: true
   }
