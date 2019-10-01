@@ -10,6 +10,7 @@ import { unsubscribe } from '../serviceworker'
 import { store } from '../store'
 import { AppStyle } from './app-style'
 import { ScrollbarStyles } from './styles/scrollbar-styles'
+import './spinner'
 
 class ThingsApp extends connect(store)(LitElement) {
   static get properties() {
@@ -43,6 +44,8 @@ class ThingsApp extends connect(store)(LitElement) {
       <aside-bar ?hidden=${fullbleed}></aside-bar>
 
       <footer-bar ?hidden=${fullbleed}></footer-bar>
+
+      <hatio-spinner></hatio-spinner>
     `
   }
 
