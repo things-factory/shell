@@ -12,6 +12,8 @@ export async function subscribe() {
       applicationServerKey: convertedVapidKey
     })
 
+    if (!subscription) return false
+
     console.log('Subscribed', subscription.endpoint)
     await fetch('register', {
       method: 'post',
@@ -19,7 +21,7 @@ export async function subscribe() {
         'Content-type': 'application/json'
       },
       body: JSON.stringify({
-        subscription: subscription
+        subscription
       })
     })
 

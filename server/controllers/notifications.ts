@@ -37,7 +37,7 @@ function sendNotificationTo(subscription, message) {
     })
     .catch(function() {
       console.log('ERROR in sending Notification, endpoint removed ' + subscription.endpoint)
-      unregister({
+      unregisterSubscription({
         subscription
       })
     })

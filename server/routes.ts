@@ -61,7 +61,6 @@ routes.get('/vapidPublicKey', async (context, next) => {
 })
 
 routes.post('/register', koaBodyParser(bodyParserOption), async (context, next) => {
-  console.log(context)
   await register({
     request: context.request
   })
