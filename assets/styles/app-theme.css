@@ -257,6 +257,16 @@ body {
   --record-view-edit-border-bottom: 2px solid var(--primary-color);
   --record-view-item-padding: 5px;
 
+  --board-renderer-border: 1px solid rgba(0, 0, 0, 0.1);
+  --board-renderer-max-width: 120px;
+  --board-renderer-name-background-color: rgba(1, 126, 127, 0.8);
+  --board-renderer-name-font: normal 13px var(--theme-font);
+  --board-renderer-icon-size: 24px;
+  --board-renderer-icon-border-radius: 10px;
+  --board-renderer-font: bold 16px/25px var(--mdc-icon-font, 'Material Icons');
+  --board-renderer-icon-edit-background-color: #95d40f;
+  --board-renderer-icon-view-background-color: #27a1de;
+
   /* button style */
   --button-background-color: var(--secondary-color);
   --button-active-background-color: var(--primary-color);
