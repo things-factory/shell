@@ -97,8 +97,7 @@ function unregisterSubscription({ subscription }) {
       return s.endpoint == subscription.endpoint
     })
 
-    userSubscriptions.splice(subscriptionIdx, 1)
-
+    if (subscriptionIdx > -1) userSubscriptions.splice(subscriptionIdx, 1)
     if (userSubscriptions.length == 0) empties.push(userId)
   }
 
