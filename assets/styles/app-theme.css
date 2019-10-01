@@ -205,6 +205,9 @@ body {
   --grid-record-focused-background-color: var(--primary-color);
   --grid-record-focused-color: #fff;
   --grid-record-focused-border: 1px dashed rgba(0, 0, 0, 0.5);
+  --grid-record-dirty-border-top: 24px solid #95d40f;
+  --grid-record-dirty-border-left: 24px solid transparent;
+  --grid-record-dirty-icon-font: bold 10px/12px var(--mdc-icon-font, 'Material Icons');
   --grid-footer-font-size: 0.9em;
   --grid-footer-color: #fff;
   --grid-footer-limit-color: rgba(255, 255, 255, 0.6);
