@@ -7,6 +7,24 @@ export class OopsNote extends LitElement {
     return css`
       :host {
         display: block;
+        text-align: center;
+      }
+      mwc-icon {
+        font: var(--oops-note-icon-font);
+        color: var(--oops-note-icon-color);
+        border: var(--oops-note-icon-border);
+        border-radius: var(--oops-note-icon-border-radius);
+        padding: var(--oops-note-icon-padding);
+      }
+      [title] {
+        margin: var(--oops-note-title-margin);
+        font: var(--oops-note-title-font);
+        color: var(--oops-note-title-color);
+        text-transform: capitalize;
+      }
+      [description] {
+        font: var(--oops-note-description-font);
+        color: var(--oops-note-description-color);
       }
     `
   }

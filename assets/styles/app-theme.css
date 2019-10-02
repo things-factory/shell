@@ -401,6 +401,18 @@ body {
   --system-info-version-background-color: var(--secondary-color);
   --system-info-version-color: #fff;
   --system-info-version-font: normal 15px/15px var(--theme-font);
+
+  /* oops note style */
+  --oops-note-icon-font: normal 32px var(--mdc-icon-font, 'Material Icons');
+  --oops-note-icon-color: rgba(91, 154, 186, 0.8);
+  --oops-note-icon-border: 4px solid rgba(91, 154, 186, 0.4);
+  --oops-note-icon-border-radius: 50px;
+  --oops-note-icon-padding: 10px;
+  --oops-note-title-margin: 12px 0 2px 0;
+  --oops-note-title-font: bold 16px var(--theme-font);
+  --oops-note-title-color: var(--secondary-color);
+  --oops-note-description-font: normal 13px var(--theme-font);
+  --oops-note-description-color: var(--primary-color);
 }
 
 @media only screen and (max-width: 460px) {
