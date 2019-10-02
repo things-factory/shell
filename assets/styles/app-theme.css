@@ -351,7 +351,7 @@ body {
 
   /* login page style*/
   --auth-background: var(--main-section-background-color);
-  --auth-brand-name: bold 48px/54px var(--theme-font);
+  --auth-brand-name: bold 36px/42px var(--theme-font);
   --auth-brand-welcome-msg: normal 16px/24px var(--theme-font);
   --auth-title-color: var(--secondary-color);
   --auth-title-font: bold 28px/36px var(--theme-font);
