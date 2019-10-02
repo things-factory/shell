@@ -154,7 +154,7 @@ body {
   --form-border: none;
   --form-margin: 15px auto;
   --form-max-width: 700px;
-  --form-multi-column-max-width: 96%;
+  --form-multi-column-max-width: 100%;
   --form-sublabel-font: normal 13px var(--theme-font);
   --form-sublabel-color: var(--secondary-color);
   --legend-padding: var(--subtitle-padding);
