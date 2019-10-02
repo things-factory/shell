@@ -34,3 +34,6 @@ export * from './mixins'
 
 // serviceworkers
 export * from './serviceworker'
+
+// elements
+export * from './elements/oops-note'
