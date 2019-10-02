@@ -19,7 +19,7 @@ export class OopsNote extends LitElement {
     }
   }
 
-  renderComponent() {
+  render() {
     return html`
       <mwc-icon>${this.icon}</mwc-icon>
       <div title>${this.title}</div>
