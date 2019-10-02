@@ -185,7 +185,7 @@ body {
   /* datagrid style */
   --grist-background-color: var(--main-section-background-color);
   --grist-padding: 15px;
-  --grist-title-margin: 0 15px;
+  --grist-title-margin: 0;
   --grist-title-border: none;
   --grist-title-color: var(--secondary-color);
   --grist-title-icon-color: var(--primary-color);
