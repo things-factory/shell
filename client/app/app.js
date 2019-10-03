@@ -172,14 +172,23 @@ class ThingsApp extends connect(store)(LitElement) {
 
   _appendFactoryModulePages() {
     var main = this.shadowRoot.querySelector('main')
-    ;(this._modules || []).forEach(m => {
+    var reversedModules = [...this._modules].reverse()
+    var pages = {}
+
+    /* 모듈 참조 순서 역순으로 page를 추가한다. (for overidable) */
+    reversedModules.forEach(m => {
       m.routes &&
         m.routes.forEach(route => {
+          if (pages[route.page]) {
+            /* 이미 추가된 page는 추가하지 않는다. */
+            return
+          }
           var el = document.createElement(route.tagname)
           el.setAttribute('class', 'page')
           el.setAttribute('data-page', route.page)
 
           main.appendChild(el)
+          pages[route.page] = true
         })
     })
   }
