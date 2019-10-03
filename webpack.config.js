@@ -120,9 +120,9 @@ module.exports = {
       },
       {
         test: /\.(gif|jpe?g|png)$/,
-        loader: 'url-loader?limit=25000',
+        loader: 'url-loader',
         query: {
-          limit: 10000,
+          limit: 2000,
           name: file => {
             var dirname = path.dirname(file)
             dirname = dirname.replace(process.cwd(), '')
