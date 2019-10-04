@@ -36,7 +36,7 @@ class ThemeOverridePlugin {
 
         var sourcePath = path.resolve(modulePath, themeFolder)
 
-        var files = glob.sync(`${sourcePath}/*`)
+        var files = glob.sync(path.resolve(sourcePath, '*.?(sass|scss|css)'))
 
         files.forEach(filepath => {
           let filename = path.basename(filepath)
@@ -48,6 +48,7 @@ class ThemeOverridePlugin {
       })
 
       entry[chunk] = Object.values(themeFiles)
+      console.log('................', entry[chunk])
     })
   }
 }
