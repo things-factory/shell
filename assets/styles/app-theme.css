@@ -478,7 +478,7 @@ body {
 
     --form-margin: 15px 0;
     --form-multi-column-max-width: 100%;
-    --form-container-padding: 0 9px;
+    --form-container-padding: 0 9px 12px 9px;
     --label-font: normal 14px var(--theme-font);
     --input-field-font: normal 15px var(--theme-font);
     --input-field-padding: 3px 5px;
@@ -495,7 +495,7 @@ body {
   body {
     --form-margin: 14px 0;
     --form-multi-column-max-width: 100%;
-    --form-container-padding: 0 9px;
+    --form-container-padding: 0 9px 12px 9px;
     --input-field-padding: 3px 5px;
   }
 }
