@@ -21,7 +21,7 @@ class ThemeOverridePlugin {
     compiler.plugin('entryOption', (compilation, entry) => {
       var appname = AppPackage.name
 
-      var { chunk = 'theme', themeFolder = path.resolve('client', 'themes') } = this.options.chunk
+      var { chunk = 'theme', themeFolder = path.join('client', 'themes') } = this.options
 
       var reversedModuleNames = [...orderedModuleNames, appname].reverse()
       var themeFiles = {}
@@ -34,9 +34,9 @@ class ThemeOverridePlugin {
           var modulePath = path.dirname(require.resolve(`${m}/package.json`))
         }
 
-        var sourcePath = path.resolve(modulePath, themeFolder)
+        var sourcePath = path.join(modulePath, themeFolder)
 
-        var files = glob.sync(path.resolve(sourcePath, '*.?(sass|scss|css)'))
+        var files = glob.sync(path.join(sourcePath, '*.?(sass|scss|css)'))
 
         files.forEach(filepath => {
           let filename = path.basename(filepath)
@@ -48,7 +48,6 @@ class ThemeOverridePlugin {
       })
 
       entry[chunk] = Object.values(themeFiles)
-      console.log('................', entry[chunk])
     })
   }
 }

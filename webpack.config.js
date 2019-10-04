@@ -200,7 +200,7 @@ module.exports = {
   plugins: [
     new ThemeOverridePlugin({
       chunk: 'theme',
-      themeFolder: path.resolve('client', 'themes')
+      themeFolder: path.join('client', 'themes')
     }),
     new HTMLWebpackPlugin({
       template: TemplatePath,
