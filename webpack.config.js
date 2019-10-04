@@ -6,6 +6,8 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 const I18nBundlerPlugin = require('./webpack-plugins/i18n-bundler-plugin')
 const FolderOverridePlugin = require('./webpack-plugins/folder-override-plugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ThemeOverridePlugin = require('./webpack-plugins/theme-override-plugin')
 
 const AppRootPath = require('app-root-path').path
 const AppPackage = require(path.resolve(AppRootPath, 'package.json'))
@@ -52,8 +54,8 @@ console.log('Index.html TemplatePath', TemplatePath)
 module.exports = {
   mode: 'production',
   entry: {
-    main: path.resolve(__dirname, 'client/index.js'),
-    'headless-scene-components': [path.resolve(ShellModulePath, './client/scene/scene-components.js')]
+    main: path.resolve(__dirname, 'client', 'index.js'),
+    'headless-scene-components': [path.resolve(ShellModulePath, 'client', 'scene', 'scene-components.js')]
   },
   resolve: {
     aliasFields: ['browser'],
@@ -134,8 +136,18 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
-        use: ['css-loader']
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: true,
+              reloadAll: true
+            }
+          },
+          'css-loader',
+          'sass-loader'
+        ]
       },
       {
         test: /\.(obj|mtl|tga|3ds|max|dae)$/,
@@ -186,6 +198,10 @@ module.exports = {
     ]
   },
   plugins: [
+    new ThemeOverridePlugin({
+      chunk: 'theme',
+      themeFolder: path.resolve('client', 'themes')
+    }),
     new HTMLWebpackPlugin({
       template: TemplatePath,
       /*
@@ -193,7 +209,14 @@ module.exports = {
       Allowed values are 'none' | 'auto' | 'dependency' | 'manual' | {Function}
       */
       chunksSortMode: 'none',
-      chunks: ['main']
+      chunks: ['main', 'theme']
+    }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // all options are optional
+      filename: '[name].css',
+      chunkFilename: '[name].[hash].css',
+      ignoreOrder: false // Enable to remove warnings about conflicting order
     }),
     new CopyWebpackPlugin(
       [
