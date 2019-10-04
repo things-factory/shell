@@ -6,6 +6,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const I18nBundlerPlugin = require('./webpack-plugins/i18n-bundler-plugin')
 const FolderOverridePlugin = require('./webpack-plugins/folder-override-plugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ThemeOverridePlugin = require('./webpack-plugins/theme-override-plugin')
 
 const AppRootPath = require('app-root-path').path
 const AppPackage = require(path.resolve(AppRootPath, 'package.json'))
@@ -121,9 +123,9 @@ module.exports = {
       },
       {
         test: /\.(gif|jpe?g|png)$/,
-        loader: 'url-loader?limit=25000',
+        loader: 'url-loader',
         query: {
-          limit: 10000,
+          limit: 2000,
           name: file => {
             var dirname = path.dirname(file)
             dirname = dirname.replace(process.cwd(), '')
@@ -135,8 +137,19 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
-        use: ['css-loader']
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: true,
+              reloadAll: true
+            }
+          },
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
+        ]
       },
       {
         test: /\.(obj|mtl|tga|3ds|max|dae)$/,
@@ -187,15 +200,23 @@ module.exports = {
     ]
   },
   plugins: [
+    new ThemeOverridePlugin({
+      chunk: 'theme',
+      themeFolder: path.resolve('client', 'themes')
+    }),
     new HTMLWebpackPlugin({
       template: TemplatePath,
-      // hash: true,
       /*
       Allows to control how chunks should be sorted before they are included to the HTML.
       Allowed values are 'none' | 'auto' | 'dependency' | 'manual' | {Function}
       */
       chunksSortMode: 'none',
-      chunks: ['main']
+      chunks: ['main', 'theme']
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[name].[hash].css',
+      ignoreOrder: false
     }),
     new CopyWebpackPlugin(
       [
@@ -247,4 +268,7 @@ module.exports = {
     })
   ],
   devtool: 'cheap-module-source-map'
+  // optimization: {
+  //   minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
+  // }
 }
