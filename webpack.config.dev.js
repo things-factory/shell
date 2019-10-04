@@ -267,7 +267,4 @@ module.exports = {
     })
   ],
   devtool: 'cheap-module-source-map'
-  // optimization: {
-  //   minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
-  // }
 }
