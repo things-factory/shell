@@ -1,0 +1,59 @@
+body {
+  /* theme color */
+  --primary-color: #22a6a7;
+  --secondary-color: #394e64;
+  --focus-color: #fff;
+  --primary-background-color: var(--secondary-color);
+  --secondary-background-color: #283644;
+  --main-section-background-color: #f4f7fb;
+
+  --focus-background-color: var(--primary-color);
+  --primary-text-color: #111;
+  --secondary-text-color: #017e7f;
+
+  --opacity-dark-color: rgba(0, 0, 0, 0.4);
+  --opacity-light-color: rgba(255, 255, 255, 0.8);
+
+  /* status color */
+  --status-success-color: #35a24a;
+  --status-warning-color: #ee8d03;
+  --status-danger-color: #d14946;
+  --stauts-info-color: #398ace;
+
+  /* common style */
+  --border-radius: 4px;
+  --border-dark-color: 1px solid rgba(0, 0, 0, 0.15);
+  --border-light-color: 1px solid rgba(255, 255, 255, 0.3);
+
+  --box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.1);
+
+  --theme-font: 'Noto', Helvetica;
+
+  --margin-default: 9px;
+  --margin-narrow: 4px;
+  --margin-wide: 15px;
+
+  --scrollbar-thumb-color: rgba(57, 78, 100, 0.5);
+  --scrollbar-thumb-hover-color: var(--primary-color);
+
+  /* app layout style */
+  --app-grid-template-area: 'header header header' 'nav main aside' 'nav footer aside';
+
+  /* subtitle style */
+  --subtitle-padding: 12px 5px 3px 5px;
+  --subtitle-font: bold 14px/18px var(--theme-font);
+  --subtitle-text-color: var(--primary-color);
+  --subtitle-border-bottom: 1px solid var(--primary-color);
+
+  /* icon style */
+  --icon-tiny-size: 24px;
+  --icon-default-size: 36px;
+  --icon-big-size: 48px;
+  --icon-default-color: #fff;
+
+  /* material design component themes */
+  --mdc-theme-on-primary: white;
+  --mdc-theme-primary: var(--primary-color);
+  --mdc-theme-on-secondary: white;
+  --mdc-theme-secondary: var(--primary-color);
+}
