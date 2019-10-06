@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "things factory shell",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -58,6 +58,7 @@
     "@webcomponents/webcomponentsjs": "^2.2.7",
     "apollo-cache-inmemory": "^1.6.1",
     "apollo-client": "^2.6.1",
+    "apollo-link-batch-http": "^1.2.13",
     "apollo-link-error": "^1.1.10",
     "apollo-link-http": "^1.5.14",
     "apollo-server-koa": "^2.9.4",

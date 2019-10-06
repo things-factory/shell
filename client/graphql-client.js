@@ -4,6 +4,7 @@ import { ApolloLink } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import { onError } from 'apollo-link-error'
 import { createUploadLink } from 'apollo-upload-client'
+import { BatchHttpLink } from 'apollo-link-batch-http'
 
 const GRAPHQL_URI = '/graphql'
 
