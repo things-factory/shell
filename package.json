@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "things factory shell",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -61,6 +61,7 @@
     "apollo-link-error": "^1.1.10",
     "apollo-link-http": "^1.5.14",
     "apollo-server-koa": "^2.9.4",
+    "apollo-upload-client": "^11.0.0",
     "app-root-path": "^2.2.1",
     "args": "^5.0.0",
     "babel-eslint": "^10.0.3",
