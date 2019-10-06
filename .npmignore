@@ -3,6 +3,7 @@
 docs/
 licenses/
 node_modules/
+attachments/
 test/
 db.sqlite
 npm-debug.log
