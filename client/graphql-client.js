@@ -3,6 +3,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloLink } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import { onError } from 'apollo-link-error'
+import { createUploadLink } from 'apollo-upload-client'
 
 const GRAPHQL_URI = '/graphql'
 
@@ -59,16 +60,21 @@ const ERROR_HANDLER = ({ graphQLErrors, networkError }) => {
   }
 }
 
-var cache = new InMemoryCache()
+const cache = new InMemoryCache()
+
+const httpOptions = {
+  GRAPHQL_URI,
+  credentials: 'include'
+}
+
+const httpLink = ApolloLink.split(
+  operation => operation.getContext().hasUpload,
+  createUploadLink(httpOptions),
+  new BatchHttpLink(httpOptions)
+)
 
 export const client = new ApolloClient({
   defaultOptions,
   cache,
-  link: ApolloLink.from([
-    onError(ERROR_HANDLER),
-    new HttpLink({
-      GRAPHQL_URI,
-      credentials: 'include'
-    })
-  ])
+  link: ApolloLink.from([onError(ERROR_HANDLER), httpLink])
 })
