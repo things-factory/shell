@@ -1,0 +1,10 @@
+body {
+  /* tooltip style */
+  --tooltip-padding: 3px 4px 2px 4px;
+  --tooltip-background-color: rgba(0, 0, 0, 0.7);
+  --tooltip-font: bold 11px var(--theme-font);
+  --tooltip-left-positon-left: auto;
+  --tooltip-left-position-top: 7px;
+  --tooltip-left-position-right: 110%;
+  --tooltip-left-position-animation: tooltip-left 0.3s ease-out 0s 1 normal;
+}
