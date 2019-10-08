@@ -1,5 +1,8 @@
-import { URL } from 'url'
+import { debounce } from 'lodash'
 import fetch from 'node-fetch'
+import { getRepository } from 'typeorm'
+import { URL } from 'url'
+import { UserNotification } from '../entities'
 
 const webPush = require('web-push')
 
@@ -19,6 +22,19 @@ const USER_SUBSCIPTIONS_MAP = {}
 //     p256dh: '.....'
 //   }
 // }
+
+async function initialize() {
+  var repo = getRepository('UserNotification')
+  var userNotifications = await repo.find()
+
+  if (!userNotifications.length) return
+
+  userNotifications.forEach((un: UserNotification) => {
+    var subscriptions = USER_SUBSCIPTIONS_MAP[un.userId]
+    if (!subscriptions) subscriptions = USER_SUBSCIPTIONS_MAP[un.userId] = []
+    subscriptions.push(JSON.parse(un.subscription))
+  })
+}
 
 export function sendNotification({ receiver, message }) {
   var subscriptions = USER_SUBSCIPTIONS_MAP[receiver]
@@ -85,6 +101,8 @@ function registerSubscription({ userId, subscription }) {
 
   userSubscriptions.push(subscription)
 
+  debouncedSaveSubscriptions()
+
   return true
 }
 
@@ -105,5 +123,35 @@ function unregisterSubscription({ subscription }) {
     delete USER_SUBSCIPTIONS_MAP[userId]
   })
 
+  debouncedSaveSubscriptions()
+
   return true
 }
+
+async function saveSubscriptions() {
+  var repo = getRepository('UserNotification')
+
+  var userNotifications = []
+
+  for (var userId in USER_SUBSCIPTIONS_MAP) {
+    var subscriptions = USER_SUBSCIPTIONS_MAP[userId]
+    subscriptions.forEach(subscription => {
+      userNotifications.push({
+        userId,
+        subscription: JSON.stringify(subscription)
+      })
+    })
+  }
+
+  if (userNotifications.length) {
+    await repo.clear()
+    repo.save(userNotifications)
+  }
+}
+
+var debouncedSaveSubscriptions = debounce(saveSubscriptions, 100)
+
+// TODO: initialize 시점...
+process.on('bootstrap-module-middleware' as any, () => {
+  initialize()
+})
