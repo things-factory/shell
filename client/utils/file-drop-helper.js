@@ -37,7 +37,7 @@ export class FileDropHelper {
           let files = dt.files
 
           dropArea.dispatchEvent(
-            new CustomEvent('attachment-dropped', {
+            new CustomEvent('file-drop', {
               detail: [...files]
             })
           )
