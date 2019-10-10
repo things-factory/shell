@@ -129,10 +129,10 @@ export class PageView extends LitElement {
   pageDisposed(pageInfo) {}
 
   /* context */
-  updateContext() {
+  updateContext(override) {
     store.dispatch({
       type: UPDATE_CONTEXT,
-      context: this.context
+      context: override ? { ...this.context, ...override } : this.context
     })
   }
 
