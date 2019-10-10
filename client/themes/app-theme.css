@@ -45,6 +45,16 @@ body {
   --subtitle-text-color: var(--primary-color);
   --subtitle-border-bottom: 1px solid var(--primary-color);
 
+  /* button style */
+  --button-background-color: var(--secondary-color);
+  --button-border: none;
+  --button-border-radius: var(--border-radius);
+  --button-margin: 0 3px;
+  --button-padding: 5px 10px;
+  --button-font: normal 16px var(--theme-font);
+  --button-color: #fff;
+  --button-text-transform: capitalize;
+
   /* icon style */
   --icon-tiny-size: 24px;
   --icon-default-size: 36px;
