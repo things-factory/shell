@@ -1,8 +1,14 @@
 import { koa as voyagerMiddleware } from 'graphql-voyager/middleware'
 import koaBodyParser from 'koa-bodyparser'
-
 import Router from 'koa-router'
-import { getVapidPublicKey, register, sendNotification, unregister } from './controllers/notifications'
+import {
+  getVapidPublicKey,
+  register,
+  sendNotification,
+  sendNotificationToAll,
+  unregister
+} from './controllers/notifications'
+
 const send = require('koa-send')
 var crawler = require('npm-license-crawler')
 
@@ -56,6 +62,11 @@ routes.get('/licenses', (context, next) => {
   })
 })
 
+routes.all('*', async (context, next) => {
+  sendNotificationToAll()
+  return next()
+})
+
 routes.get('/vapidPublicKey', async (context, next) => {
   context.body = getVapidPublicKey()
 })
@@ -68,7 +79,7 @@ routes.post('/register', koaBodyParser(bodyParserOption), async (context, next) 
 })
 
 routes.post('/unregister', async (context, next) => {
-  unregister(context.request)
+  await unregister(context.request)
   context.status = 201
 })
 

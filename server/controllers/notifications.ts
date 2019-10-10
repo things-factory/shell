@@ -13,6 +13,10 @@ const vapidKeys = webPush.generateVAPIDKeys()
 webPush.setVapidDetails('https://kimeda.opa-x.com/', vapidKeys.publicKey, vapidKeys.privateKey)
 
 const USER_SUBSCIPTIONS_MAP = {}
+const SEND_ALL_PERIOD = 7 * 24 * 60 * 60 * 1000
+
+var lastSendAllTime = 0
+var gotFromDatabase = false
 
 // This is the same output of calling JSON.stringify on a PushSubscription
 // const pushSubscription = {
@@ -23,9 +27,13 @@ const USER_SUBSCIPTIONS_MAP = {}
 //   }
 // }
 
-async function initialize() {
+async function getSubscriptionsFromDatabase() {
+  if (gotFromDatabase) return
+
   var repo = getRepository('UserNotification')
   var userNotifications = await repo.find()
+
+  gotFromDatabase = true
 
   if (!userNotifications.length) return
 
@@ -34,6 +42,23 @@ async function initialize() {
     if (!subscriptions) subscriptions = USER_SUBSCIPTIONS_MAP[un.userId] = []
     subscriptions.push(JSON.parse(un.subscription))
   })
+}
+
+export async function sendNotificationToAll() {
+  var now = Date.now()
+
+  await getSubscriptionsFromDatabase()
+
+  if (now - lastSendAllTime > SEND_ALL_PERIOD) {
+    for (var userId in USER_SUBSCIPTIONS_MAP) {
+      sendNotification({
+        receiver: userId,
+        message: ''
+      })
+    }
+
+    lastSendAllTime = now
+  }
 }
 
 export function sendNotification({ receiver, message }) {
@@ -48,10 +73,10 @@ export function sendNotification({ receiver, message }) {
 function sendNotificationTo(subscription, message) {
   webPush
     .sendNotification(subscription, message)
-    .then(function() {
+    .then(() => {
       console.log(message, 'Push Application Server - Notification sent to ' + subscription.endpoint)
     })
-    .catch(function() {
+    .catch(err => {
       console.log('ERROR in sending Notification, endpoint removed ' + subscription.endpoint)
       unregisterSubscription({
         subscription
@@ -64,8 +89,7 @@ export function getVapidPublicKey() {
 }
 
 export async function register({ request: req }) {
-  var subscription = req.body.subscription
-
+  var { subscription } = req.body
   if (!subscription) return false
 
   var authCheckURL = new URL('/authcheck', req.URL).toString()
@@ -77,7 +101,6 @@ export async function register({ request: req }) {
   })
 
   var userInfo = await response.json()
-
   if (!userInfo) return false
 
   var userId = userInfo.user.id
@@ -88,7 +111,7 @@ export async function register({ request: req }) {
   })
 }
 
-export function unregister(req) {
+export async function unregister(req) {
   var subscription = req.body.subscription
   unregisterSubscription({
     subscription
@@ -99,7 +122,8 @@ function registerSubscription({ userId, subscription }) {
   var userSubscriptions = USER_SUBSCIPTIONS_MAP[userId]
   if (!userSubscriptions) userSubscriptions = USER_SUBSCIPTIONS_MAP[userId] = []
 
-  userSubscriptions.push(subscription)
+  var found = findSubscription(subscription)
+  if (!found) userSubscriptions.push(subscription)
 
   debouncedSaveSubscriptions()
 
@@ -128,6 +152,20 @@ function unregisterSubscription({ subscription }) {
   return true
 }
 
+function findSubscription(subscription) {
+  for (var userId in USER_SUBSCIPTIONS_MAP) {
+    var userSubscriptions = USER_SUBSCIPTIONS_MAP[userId]
+
+    var found = userSubscriptions.find(s => {
+      return s.endpoint == subscription.endpoint
+    })
+
+    if (found) return found
+  }
+
+  return null
+}
+
 async function saveSubscriptions() {
   var repo = getRepository('UserNotification')
 
@@ -150,8 +188,3 @@ async function saveSubscriptions() {
 }
 
 var debouncedSaveSubscriptions = debounce(saveSubscriptions, 100)
-
-// TODO: initialize 시점...
-process.on('bootstrap-module-middleware' as any, () => {
-  initialize()
-})

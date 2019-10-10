@@ -61,7 +61,7 @@ class ThingsApp extends connect(store)(LitElement) {
 
   connectedCallback() {
     super.connectedCallback()
-    unsubscribe()
+    // unsubscribe()
 
     /* 모듈 임포트를 동적으로 처리한다. */
     import('../module-importer.import').then(module => {
