@@ -83,16 +83,22 @@ routes.post('/unregister', async (context, next) => {
   context.status = 201
 })
 
-routes.get('/request-notification/:receiver/:message/:url', async (context, next) => {
+routes.post('/request-notification', koaBodyParser(bodyParserOption), async (context, next) => {
+  var { receivers = [], message, url, title } = context.request.body
+
   var msg = {
-    title: 'Things factory alarm!',
-    body: context.params.message,
-    url: context.params.url || context.request.href
+    title,
+    body: message,
+    url: url || context.request.href
   }
-  sendNotification({
-    receiver: context.params.receiver,
-    message: JSON.stringify(msg)
+
+  receivers.forEach(receiver => {
+    sendNotification({
+      receiver,
+      message: JSON.stringify(msg)
+    })
   })
+
   context.body = {
     success: true
   }
