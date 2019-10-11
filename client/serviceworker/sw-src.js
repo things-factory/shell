@@ -16,10 +16,9 @@ workbox.routing.registerRoute(
 )
 
 self.addEventListener('push', event => {
-  const title = 'Reimagining Logistics with OPAONE'
-  var message
-
   if (!event.data) return // for check endpoint alive
+
+  var message
 
   try {
     message = event.data.json()
@@ -29,11 +28,14 @@ self.addEventListener('push', event => {
     }
   }
 
+  const title = message.title || 'Reimagining Logistics with OPAONE'
+
   const options = {
     body: message.body,
     icon: 'assets/manifest/icon-128x128.png',
-    badge: message.badge,
+    badge: 'assets/manifest/icon-128x128.png',
     data: message
+    // actions: [{ action: 'like', title: 'Like' }, { action: 'reply', title: 'Reply' }]
   }
   event.waitUntil(self.registration.showNotification(title, options))
 })
@@ -41,12 +43,24 @@ self.addEventListener('push', event => {
 self.addEventListener('notificationclick', event => {
   event.notification.close()
 
+  var action = event.action
+
   var data = event.notification.data
   var { url } = data
 
+  var promiseChain
+  switch (action) {
+    default:
+      promiseChain = openOrNavigateToUrlAndFocus(url)
+  }
+
+  event.waitUntil(promiseChain)
+})
+
+function openOrNavigateToUrlAndFocus(url) {
   var urlToOpen = new URL(url)
 
-  const promiseChain = clients
+  return clients
     .matchAll({
       type: 'window',
       includeUncontrolled: true
@@ -63,15 +77,18 @@ self.addEventListener('notificationclick', event => {
         }
       }
 
-      if (matchingClient) {
-        matchingClient.focus()
-        return matchingClient.navigate(urlToOpen.href)
-      } else {
+      try {
+        if (matchingClient) {
+          return matchingClient.navigate(urlToOpen.href).then(matchingClient => {
+            matchingClient.focus()
+          })
+        } else {
+          return clients.openWindow(url)
+        }
+      } catch (e) {
         return clients.openWindow(url)
       }
     })
-
-  event.waitUntil(promiseChain)
-})
+}
 
 workbox.precaching.precacheAndRoute(self.__precacheManifest)
