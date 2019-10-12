@@ -61,7 +61,9 @@ const ERROR_HANDLER = ({ graphQLErrors, networkError }) => {
   }
 }
 
-const cache = new InMemoryCache()
+const cache = new InMemoryCache({
+  addTypename: false
+})
 
 const httpOptions = {
   GRAPHQL_URI,
