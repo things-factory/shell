@@ -40,6 +40,7 @@ body {
   --app-grid-template-area: 'header header header' 'nav main aside' 'nav footer aside';
 
   /* subtitle style */
+  --subtitle-margin: initial;
   --subtitle-padding: 12px 5px 3px 5px;
   --subtitle-font: bold 14px/18px var(--theme-font);
   --subtitle-text-color: var(--primary-color);
@@ -67,4 +68,11 @@ body {
   --mdc-theme-primary: var(--primary-color);
   --mdc-theme-on-secondary: white;
   --mdc-theme-secondary: var(--primary-color);
+}
+
+@media only screen and (max-width: 460px) {
+  body {
+    /* subtitle style */
+    --subtitle-margin: 0;
+  }
 }
