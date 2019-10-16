@@ -59,7 +59,7 @@ export var modules = [];
     .filter(name => moduleConfigMap[name])
     .map((module, idx) => {
       return `
-import v${idx} from "${moduleConfigMap[module].config}";
+import v${idx} from "${moduleConfigMap[module].config}"
 modules.push({
   ...v${idx},
   name: "${moduleConfigMap[module].pkg.name}",

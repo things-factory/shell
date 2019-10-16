@@ -53,7 +53,7 @@ module.exports = function(content) {
     .filter(name => moduleConfigMap[name])
     .map((module, idx) => {
       return `
-    import v${idx} from "${moduleConfigMap[module]}";
+    import v${idx} from "${moduleConfigMap[module]}"
     natives.push({
       onMessage: v${idx}.onMessage
     })

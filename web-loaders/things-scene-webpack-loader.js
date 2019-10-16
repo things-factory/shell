@@ -34,11 +34,11 @@ module.exports = function(content) {
     console.error(e)
   }
 
-  const script = sceneComponents.map(component => `import '${component}';\n`).join('')
+  const script = sceneComponents.map(component => `import '${component}'\n`).join('')
 
-  console.log('***************************** [ Things Scene Components - BEGIN ]')
+  console.log('\n\n############ [ Things Scene Components - BEGIN ] ##############\n\n')
   console.log(script)
-  console.log('***************************** [ Things Scene Components - END   ] ')
+  console.log('\n############ [ Things Scene Components - END   ] ################\n\n')
 
   return script
 }

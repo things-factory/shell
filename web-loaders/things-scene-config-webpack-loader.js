@@ -56,14 +56,14 @@ module.exports = function(content) {
     'var metas = [];\n' +
     Object.keys(sceneModules)
       .map((sceneModule, idx) => {
-        return `import v${idx} from "${sceneModules[sceneModule]}";\nmetas[${idx}] = v${idx};`
+        return `import v${idx} from "${sceneModules[sceneModule]}"\nmetas[${idx}] = v${idx}`
       })
-      .join(';\n') +
+      .join('\n') +
     ';\nexport default metas;'
 
-  console.log('***************************** [ Things Scene Components for Modeller - BEGIN ]')
+  console.log('\n\n############ [ Things Scene Components for Modeller - BEGIN ] ##############\n\n')
   console.log(script)
-  console.log('***************************** [ Things Scene Components for Modeller - END   ] ')
+  console.log('\n############ [ Things Scene Components for Modeller - END   ] ################\n\n')
 
   return script
 }

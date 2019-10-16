@@ -9,13 +9,17 @@ import { graphqlUploadKoa } from 'graphql-upload'
 import { databaseInitializer } from './initializers/database'
 import { routes } from './routes'
 import { schema } from './schema'
+import { config } from '@things-factory/env'
 
 const koaStatic = require('koa-static')
 import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
 const args = require('args')
 
-args.option('port', 'The port on which the app will be running', 3000)
+process.env.NODE_ENV = 'production'
+config.build()
+
+args.option('port', 'The port on which the app will be running', config.get('port', 3000))
 
 const flags = args.parse(process.argv)
 
@@ -23,7 +27,7 @@ const path = require('path')
 
 const PORT = (process.env.PORT = flags.port)
 
-const UPLOAD_DIR = (process.env.UPLOAD_DIR = path.join(process.cwd(), 'uploads'))
+const UPLOAD_DIR = (process.env.UPLOAD_DIR = config.getPath('uploads', 'uploads'))
 
 const bodyParserOption = {
   formLimit: '10mb',
@@ -32,9 +36,6 @@ const bodyParserOption = {
 }
 
 const { context } = require('./server-context')
-
-/* NEVER-DELETE-ME load dependency modules. */
-const { orderedModuleNames } = require('@things-factory/env')
 
 /* bootstrap */
 const bootstrap = async () => {

@@ -30,7 +30,7 @@ console.log('Extern Module Path', NodeModulePath)
 module.exports = {
   mode: 'production',
   entry: {
-    index: [path.resolve(__dirname, 'www/js/_index.js')]
+    index: [path.resolve(__dirname, 'www', 'js', '_index.js')]
   },
   resolve: {
     modules: [NodeModulePath]
