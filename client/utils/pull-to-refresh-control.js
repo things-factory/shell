@@ -17,6 +17,8 @@ export class PullToRefreshControl extends LitElement {
         border-radius: 50%;
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.117647), 0 1px 4px rgba(0, 0, 0, 0.117647);
         display: none;
+
+        z-index: 10000;
       }
 
       :host(.pull-to-refresh--pulling),
