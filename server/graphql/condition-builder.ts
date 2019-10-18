@@ -26,13 +26,25 @@ export const buildCondition = function(
     case 'like':
       return {
         clause: `${fieldName} LIKE :args${seq}`,
-        parameters: { [`args${seq}`]: `%${value}%` }
+        parameters: { [`args${seq}`]: `${value}` }
+      }
+
+    case 'i_like':
+      return {
+        clause: `LOWER(${fieldName}) LIKE :args${seq}`,
+        parameters: { [`args${seq}`]: `${String(value).toLowerCase()}` }
       }
 
     case 'nlike':
       return {
         clause: `${fieldName} NOT LIKE :args${seq}`,
-        value: { [`args${seq}`]: `(${value})` }
+        value: { [`args${seq}`]: `${value}` }
+      }
+
+    case 'i_nlike':
+      return {
+        clause: `LOWER(${fieldName}) NOT LIKE :args${seq}`,
+        value: { [`args${seq}`]: `${String(value).toLowerCase()}` }
       }
 
     case 'lt':

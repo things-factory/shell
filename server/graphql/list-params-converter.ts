@@ -4,14 +4,10 @@ import { ListParam } from './types/list-param'
 const OPERATION_FUNCTION_MAP = {
   eq: value => Equal(value),
   noteq: value => Not(Equal(value)),
-  like: value => {
-    if (/^%|%$/.test(value)) return Like(value)
-    else return Like(`%${value}%`)
-  },
-  nlike: value => {
-    if (/^%|%$/.test(value)) return Not(Like(value))
-    else return Not(Like(`%${value}%`))
-  },
+  like: value => Like(value),
+  i_like: value => Raw(alias => `LOWER(${alias}) LIKE '${String(value).toLowerCase()}'`),
+  nlike: value => Not(Like(value)),
+  i_nlike: value => Raw(alias => `LOWER(${alias}) NOT LIKE '${String(value).toLowerCase()}'`),
   lt: value => Raw(alias => `${alias} < ${value}`),
   gt: value => Raw(alias => `${alias} > ${value}`),
   lte: value => Raw(alias => `${alias} <= ${value}`),
