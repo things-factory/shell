@@ -52,4 +52,11 @@ export const AppStyle = css`
   /* Wide layout */
   @media (min-width: 460px) {
   }
+
+  @media print {
+    :host {
+      width: 100%;
+      height: 100%;
+    }
+  }
 `
