@@ -1,6 +1,10 @@
 workbox.core.skipWaiting()
 workbox.core.clientsClaim()
 
+workbox.navigationPreload.enable()
+workbox.precaching.precacheAndRoute(self.__precacheManifest || [])
+workbox.precaching.cleanupOutdatedCaches()
+
 workbox.routing.registerRoute(
   new RegExp('.(?:png|jpe?g|svg|gif)'),
   new workbox.strategies.StaleWhileRevalidate({
@@ -14,6 +18,23 @@ workbox.routing.registerRoute(
     cacheName: 'google-fonts-cache'
   })
 )
+
+// self.addEventListener('activate', function(event) {
+//   event.waitUntil(
+//     caches.keys().then(cacheNames => {
+//       return Promise.all(
+//         cacheNames
+//           .filter(cacheName => {
+//             return true
+//           })
+//           .map(cacheName => {
+//             console.log(`deleting cache ${cacheName}`)
+//             return caches.delete(cacheName)
+//           })
+//       )
+//     })
+//   )
+// })
 
 self.addEventListener('push', event => {
   if (!event.data) return // for check endpoint alive
