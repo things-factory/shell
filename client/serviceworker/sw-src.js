@@ -19,22 +19,13 @@ workbox.routing.registerRoute(
   })
 )
 
-// self.addEventListener('activate', function(event) {
-//   event.waitUntil(
-//     caches.keys().then(cacheNames => {
-//       return Promise.all(
-//         cacheNames
-//           .filter(cacheName => {
-//             return true
-//           })
-//           .map(cacheName => {
-//             console.log(`deleting cache ${cacheName}`)
-//             return caches.delete(cacheName)
-//           })
-//       )
-//     })
-//   )
-// })
+self.addEventListener('activate', e => {
+  self.clients.matchAll().then(clientArr => {
+    clientArr.forEach(client => {
+      client.postMessage('show-reload-snackbar')
+    })
+  })
+})
 
 self.addEventListener('push', event => {
   if (!event.data) return // for check endpoint alive
@@ -111,5 +102,3 @@ function openOrNavigateToUrlAndFocus(url) {
       }
     })
 }
-
-workbox.precaching.precacheAndRoute(self.__precacheManifest)

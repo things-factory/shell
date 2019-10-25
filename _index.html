@@ -72,6 +72,32 @@
               }
             })
         })
+
+        navigator.serviceWorker.addEventListener('message', function(e) {
+          if (!e.data) return
+
+          switch (e.data) {
+            case 'show-reload-snackbar':
+              document.dispatchEvent(
+                new CustomEvent('notify', {
+                  composed: true,
+                  bubbles: true,
+                  detail: {
+                    level: 'info',
+                    message: 'The application has been updated.', // 응용 프로그램이 업데이트되었습니다.
+                    option: {
+                      action: {
+                        label: 'reload',
+                        callback: () => window.location.reload()
+                      },
+                      timer: -1
+                    }
+                  }
+                })
+              )
+              break
+          }
+        })
       }
 
       // Redux assumes `process.env.NODE_ENV` exists in the ES module build.
