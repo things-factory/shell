@@ -79,13 +79,12 @@ export const buildCondition = function(
 
     case 'in':
       return {
-        clause: `${fieldName} IN :args${seq}`,
+        clause: `${fieldName} IN (:args${seq})`,
         parameters: { [`args${seq}`]: `(${value})` }
       }
-
     case 'notin':
       return {
-        clause: `${fieldName} NOT IN :args${seq}`,
+        clause: `${fieldName} NOT IN (:args${seq})`,
         parameters: { [`args${seq}`]: `(${value})` }
       }
 
