@@ -8,6 +8,7 @@ const FolderOverridePlugin = require('./webpack-plugins/folder-override-plugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ThemeOverridePlugin = require('./webpack-plugins/theme-override-plugin')
+const SWFragmentInjectPlugin = require('./webpack-plugins/serviceworker-fragment-inject-plugin')
 
 const AppRootPath = require('app-root-path').path
 const AppPackage = require(path.resolve(AppRootPath, 'package.json'))
@@ -255,6 +256,10 @@ module.exports = {
       importWorkboxFrom: 'local',
       swSrc: path.resolve(__dirname, 'client/serviceworker/sw-src.js'),
       swDest: 'service-worker.js'
+    }),
+    new SWFragmentInjectPlugin({
+      chunk: 'sw',
+      swFolder: path.join('client', 'serviceworker')
     }),
     new webpack.DefinePlugin({
       'process.env': {
