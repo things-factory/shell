@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.9.1",
+  "version": "1.0.0-alpha.1",
   "description": "things factory shell",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -52,7 +52,7 @@
     "@hatiolab/things-scene": "*",
     "@material/mwc-button": "^0.8.0",
     "@material/mwc-icon": "^0.8.0",
-    "@things-factory/env": "^0.9.0",
+    "@things-factory/env": "^1.0.0-alpha.1",
     "@types/lodash": "^4.14.139",
     "@types/node": "^12.11.2",
     "@webcomponents/webcomponentsjs": "^2.2.7",
