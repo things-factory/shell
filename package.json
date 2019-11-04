@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "things factory shell",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -143,10 +143,10 @@
     "workbox-webpack-plugin": "^4.3.1"
   },
   "devDependencies": {
-    "@things-factory/board-test": "*",
-    "@things-factory/board-ui": "*",
-    "@things-factory/opa-app": "*",
-    "@things-factory/opa-test": "*",
+    "@things-factory/board-test": "^1.0.0-alpha.1",
+    "@things-factory/board-ui": "^1.0.0-alpha.1",
+    "@things-factory/opa-app": "^1.0.0-alpha.1",
+    "@things-factory/opa-test": "^1.0.0-alpha.1",
     "cordova-plugin-qr-barcode-scanner": "~8.0.3",
     "cordova-plugin-whitelist": "1",
     "cordova-plugin-zeroconf": "~1.4.0"
