@@ -1,3 +1,5 @@
+process.setMaxListeners(0)
+
 import Koa from 'koa'
 import cors from 'koa2-cors'
 
@@ -17,7 +19,6 @@ import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
 const args = require('args')
 
-process.setMaxListeners(20)
 process.env.NODE_ENV = 'development'
 config.build()
 
