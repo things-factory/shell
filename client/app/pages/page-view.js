@@ -34,7 +34,9 @@ export class PageView extends LitElement {
      * case 2. page가 active 상태에서 lifecycle 정보가 바뀌었다.
      **/
     if (active) {
-      this.pageUpdate()
+      this.pageUpdate({
+        active
+      })
     } else if (oldActive) {
       this.pageUpdate({
         active
@@ -52,7 +54,7 @@ export class PageView extends LitElement {
   }
 
   /* lifecycle */
-  pageUpdate(changes = {}, force = false) {
+  async pageUpdate(changes = {}, force = false) {
     var before = this._oldLifecycleInfo$ || {}
 
     var after = {
@@ -77,12 +79,7 @@ export class PageView extends LitElement {
     this._oldLifecycleInfo$ = after
 
     if (changed.initialized) {
-      this.pageInitialized(after)
-    }
-
-    if ('active' in changed) {
-      /* for compatibility only */
-      this.activated(changed.active)
+      await this.pageInitialized(after)
     }
 
     if ('initialized' in changed) {
@@ -97,32 +94,29 @@ export class PageView extends LitElement {
           after.active && this.updateContext()
         })
       } else {
-        this.pageDisposed(after)
+        await this.pageDisposed(after)
       }
     } else {
-      this.pageUpdated(changed, after, before)
+      await this.pageUpdated(changed, after, before)
       /* active page인 경우에는, page Context 갱신도 필요할 것이다. */
       after.active && this.updateContext()
     }
   }
 
-  pageReset() {
+  async pageReset() {
     var { initialized } = this._oldLifecycleInfo$ || {}
 
     if (initialized) {
-      this.pageDispose()
-      this.pageUpdate({}, true)
+      await this.pageDispose()
+      await this.pageUpdate({}, true)
     }
   }
 
-  pageDispose() {
-    this.pageUpdate({
+  async pageDispose() {
+    await this.pageUpdate({
       initialized: false
     })
   }
-
-  // TODO. remove activated() callback. This only for compatibility now.
-  activated(active) {}
 
   pageInitialized(pageInfo) {}
   pageUpdated(changes, after, before) {}
