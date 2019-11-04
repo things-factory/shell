@@ -17,6 +17,7 @@ import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
 const args = require('args')
 
+process.setMaxListeners(20)
 process.env.NODE_ENV = 'development'
 config.build()
 
