@@ -10,10 +10,11 @@ import { store } from '../store'
 import { AppStyle } from './app-style'
 import { ScrollbarStyles } from './styles/scrollbar-styles'
 
+var titleMeta = document.querySelector('meta[name="application-name"]').content
+
 class ThingsApp extends connect(store)(LitElement) {
   static get properties() {
     return {
-      appTitle: String,
       _page: String,
       _resourceId: String,
       _params: Object,
@@ -102,14 +103,6 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   routeToPage() {
-    const pageTitle = this.appTitle + ' - ' + this._page
-
-    updateMetadata({
-      title: pageTitle,
-      description: pageTitle
-      // This object also takes an image property, that points to an img src.
-    })
-
     let activePages = this.shadowRoot.querySelectorAll('main > .page[active]')
     activePages.forEach(page => {
       page.removeAttribute('active')
@@ -140,6 +133,16 @@ class ThingsApp extends connect(store)(LitElement) {
 
     if (changedProps.has('_page') || changedProps.has('_resourceId') || changedProps.has('_params')) {
       this.routeToPage()
+    }
+
+    if (changedProps.has('_context')) {
+      const pageTitle = this._context.title ? `${titleMeta} - ${this._context.title.toUpperCase()}` : titleMeta
+
+      updateMetadata({
+        title: pageTitle,
+        description: pageTitle
+        // This object also takes an image property, that points to an img src.
+      })
     }
   }
 
