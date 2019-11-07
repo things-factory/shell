@@ -9,7 +9,7 @@ import { navigateWithSilence, UPDATE_ACTIVE_PAGE } from '../actions/route'
 import { store } from '../store'
 import { AppStyle } from './app-style'
 import { ScrollbarStyles } from './styles/scrollbar-styles'
-import { getDomainFromLocation } from '../utils/context-path'
+import { getPathInfo } from '../utils/context-path'
 
 var titleMeta = document.querySelector('meta[name="application-name"]').content
 
@@ -91,15 +91,16 @@ class ThingsApp extends connect(store)(LitElement) {
       })
 
       installRouter((location, e) => {
-        var locationContextPath = getDomainFromLocation()
-        if (!locationContextPath) {
+        var { contextPath, domain, path } = getPathInfo(location.pathname)
+
+        if (!contextPath) {
           // TODO locationContextPath가 존재하지 않으면, 마지막 접속했던 도메인으로 이동
         }
 
-        if (this._contextPath != locationContextPath)
+        if (this._contextPath != contextPath)
           store.dispatch({
             type: UPDATE_CONTEXT_PATH,
-            contextPath: locationContextPath
+            contextPath: contextPath
           })
 
         store.dispatch(navigateWithSilence(location))

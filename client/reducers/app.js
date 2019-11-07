@@ -1,8 +1,9 @@
 import { UPDATE_MODULES, UPDATE_BASE_URL, UPDATE_CONTEXT_PATH } from '../actions/app.js'
+import { getPathInfo } from '../utils/context-path'
 
 const INITIAL_STATE = {
   baseUrl: location.origin,
-  contextPath: ''
+  contextPath: getPathInfo(location.pathname).contextPath
 }
 
 const app = (state = INITIAL_STATE, action) => {
