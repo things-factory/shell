@@ -3,18 +3,20 @@ import { html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { updateMetadata } from 'pwa-helpers/metadata.js'
 import { installRouter } from 'pwa-helpers/router.js'
-import { UPDATE_MODULES } from '../actions/app'
+import { UPDATE_MODULES, UPDATE_CONTEXT_PATH } from '../actions/app'
 import { UPDATE_LICENSE_INFO, UPDATE_LICENSE_KEY, UPDATE_LICENSE_VALIDITY } from '../actions/license'
 import { navigateWithSilence, UPDATE_ACTIVE_PAGE } from '../actions/route'
 import { store } from '../store'
 import { AppStyle } from './app-style'
 import { ScrollbarStyles } from './styles/scrollbar-styles'
+import { getContextPathFromLocation } from '../utils/context-path'
 
 var titleMeta = document.querySelector('meta[name="application-name"]').content
 
 class ThingsApp extends connect(store)(LitElement) {
   static get properties() {
     return {
+      _contextPath: String,
       _page: String,
       _pages: Object,
       _resourceId: String,
@@ -89,6 +91,18 @@ class ThingsApp extends connect(store)(LitElement) {
       })
 
       installRouter((location, e) => {
+        var locationContextPath = getContextPathFromLocation()
+        if (!locationContextPath) {
+          // TODO locationContextPath가 존재하지 않으면, 마지막 접속했던 도메인으로 이동
+          return
+        }
+
+        if (this._contextPath != locationContextPath)
+          store.dispatch({
+            type: UPDATE_CONTEXT_PATH,
+            contextPath: locationContextPath
+          })
+
         store.dispatch(navigateWithSilence(location))
         this._callbacks &&
           this._callbacks.forEach(callback => {
@@ -174,6 +188,7 @@ class ThingsApp extends connect(store)(LitElement) {
     this._callbacks = state.route.callbacks
     this._context = state.route.context
     this._modules = state.app.modules
+    this._contextPath = state.app.contextPath
 
     LicenseChecker.checkValidity().then(info => {
       if (!info) return
