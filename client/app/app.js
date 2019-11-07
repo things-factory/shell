@@ -16,6 +16,7 @@ class ThingsApp extends connect(store)(LitElement) {
   static get properties() {
     return {
       _page: String,
+      _pages: Object,
       _resourceId: String,
       _params: Object,
       _callbacks: Array,
@@ -61,7 +62,6 @@ class ThingsApp extends connect(store)(LitElement) {
 
   connectedCallback() {
     super.connectedCallback()
-    // unsubscribe()
 
     /* 모듈 임포트를 동적으로 처리한다. */
     import('../module-importer.import').then(module => {
@@ -109,6 +109,23 @@ class ThingsApp extends connect(store)(LitElement) {
     })
 
     this._activePage = this.shadowRoot.querySelector(`main > .page[data-page=${this._page}]`)
+
+    if (!this._activePage) {
+      /* 해당 route에 연결된 page가 없는 경우에 main 섹션에 해당 element를 추가해준다. */
+      var tagname = this._pages[this._page]
+      if (tagname) {
+        var main = this.shadowRoot.querySelector('main')
+
+        var el = document.createElement(tagname)
+        el.setAttribute('class', 'page')
+        el.setAttribute('data-page', this._page)
+
+        main.appendChild(el)
+
+        this._activePage = el
+      }
+    }
+
     if (this._activePage) {
       this._activePage.setAttribute('active', true)
       this._activePage.lifecycle = {
@@ -128,7 +145,7 @@ class ThingsApp extends connect(store)(LitElement) {
 
   async updated(changedProps) {
     if (changedProps.has('_modules')) {
-      this._appendFactoryModulePages()
+      this._readyPageList()
     }
 
     if (changedProps.has('_page') || changedProps.has('_resourceId') || changedProps.has('_params')) {
@@ -172,25 +189,17 @@ class ThingsApp extends connect(store)(LitElement) {
     })
   }
 
-  _appendFactoryModulePages() {
-    var main = this.shadowRoot.querySelector('main')
+  _readyPageList() {
     var reversedModules = [...this._modules].reverse()
-    var pages = {}
+    this._pages = {}
 
     /* 모듈 참조 순서 역순으로 page를 추가한다. (for overidable) */
     reversedModules.forEach(m => {
       m.routes &&
         m.routes.forEach(route => {
-          if (pages[route.page]) {
-            /* 이미 추가된 page는 추가하지 않는다. */
-            return
+          if (!this._pages[route.page]) {
+            this._pages[route.page] = route.tagname
           }
-          var el = document.createElement(route.tagname)
-          el.setAttribute('class', 'page')
-          el.setAttribute('data-page', route.page)
-
-          main.appendChild(el)
-          pages[route.page] = true
         })
     })
   }
