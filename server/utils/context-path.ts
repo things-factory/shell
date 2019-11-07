@@ -1,10 +1,6 @@
 import { CONTEXT_PATH_PREFIX } from '../context-path-prefix'
 
-export function getDomainFromLocation() {
-  return getDoaminFromPathname(location.pathname)
-}
-
-export function getDoaminFromPathname(pathname) {
+export function getDomainFromPathname(pathname) {
   return getPathInfo(pathname).domain
 }
 
