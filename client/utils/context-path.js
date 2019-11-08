@@ -15,5 +15,5 @@ export function getPathInfo(pathname) {
 }
 
 export function makeContextPath(context) {
-  return `${CONTEXT_PATH_PREFIX}/${context}`
+  return `/${CONTEXT_PATH_PREFIX}/${context}/`
 }
