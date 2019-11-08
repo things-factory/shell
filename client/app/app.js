@@ -94,7 +94,7 @@ class ThingsApp extends connect(store)(LitElement) {
         var { contextPath, domain, path } = getPathInfo(location.pathname)
 
         if (!contextPath) {
-          // TODO locationContextPath가 존재하지 않으면, 마지막 접속했던 도메인으로 이동
+          // TODO contextPath가 존재하지 않으면, 마지막 접속했던 도메인으로 이동
         }
 
         if (this._contextPath != contextPath)
@@ -114,6 +114,8 @@ class ThingsApp extends connect(store)(LitElement) {
           })
       })
     })
+
+    this.setBase()
   }
 
   routeToPage() {
@@ -175,6 +177,10 @@ class ThingsApp extends connect(store)(LitElement) {
         // This object also takes an image property, that points to an img src.
       })
     }
+
+    if (changedProps.has('_contextPath')) {
+      this.setBase()
+    }
   }
 
   shouldUpdate() {
@@ -217,6 +223,11 @@ class ThingsApp extends connect(store)(LitElement) {
           }
         })
     })
+  }
+
+  setBase() {
+    var base = document.querySelector('base')
+    base.setAttribute('href', this._contextPath)
   }
 }
 
