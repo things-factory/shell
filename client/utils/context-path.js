@@ -3,7 +3,7 @@ import { CONTEXT_PATH_PREFIX } from '../context-path-prefix'
 export function getPathInfo(pathname) {
   var regexp = new RegExp(`(/${CONTEXT_PATH_PREFIX}/(\\w+))?(/?.*)`)
   var matched = pathname.match(regexp)
-  var contextPath = `${matched[1]}/` || ''
+  var contextPath = matched[1] || ''
   var domain = matched[2] || ''
   var path = matched[3]
 

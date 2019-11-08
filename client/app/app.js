@@ -227,7 +227,7 @@ class ThingsApp extends connect(store)(LitElement) {
 
   setBase() {
     var base = document.querySelector('base')
-    base.setAttribute('href', this._contextPath)
+    base.setAttribute('href', this._contextPath ? `${this._contextPath}/` : '/')
   }
 }
 
