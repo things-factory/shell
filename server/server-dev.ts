@@ -177,7 +177,11 @@ const bootstrap = async () => {
     app.use(routes.routes())
     app.use(routes.allowedMethods())
 
-    app.listen({ port: PORT }, () => console.log(`\n🚀  Server ready at http://0.0.0.0:${PORT}\n`))
+    app.listen({ port: PORT }, () => {
+      console.log(`\n🚀  Server ready at http://0.0.0.0:${PORT}\n`)
+
+      process.emit('bootstrap-module-start' as any, app, config)
+    })
   })
 }
 
