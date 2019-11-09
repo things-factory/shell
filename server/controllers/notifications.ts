@@ -3,6 +3,7 @@ import fetch from 'node-fetch'
 import { getRepository } from 'typeorm'
 import { URL } from 'url'
 import { UserNotification } from '../entities'
+import { logger } from '@things-factory/env'
 
 const webPush = require('web-push')
 
@@ -74,10 +75,10 @@ function sendNotificationTo(subscription, message) {
   webPush
     .sendNotification(subscription, message)
     .then(() => {
-      console.log(message, 'Push Application Server - Notification sent to ' + subscription.endpoint)
+      logger.info(message, 'Push Application Server - Notification sent to ' + subscription.endpoint)
     })
     .catch(err => {
-      console.log('ERROR in sending Notification, endpoint removed ' + subscription.endpoint)
+      logger.warn('ERROR in sending Notification, endpoint removed ' + subscription.endpoint)
       unregisterSubscription({
         subscription
       })

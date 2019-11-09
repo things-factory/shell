@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'development'
 process.setMaxListeners(0)
 
 import Koa from 'koa'
@@ -11,16 +12,14 @@ import { graphqlUploadKoa } from 'graphql-upload'
 import { databaseInitializer } from './initializers/database'
 import { routes } from './routes'
 import { schema } from './schema'
-import { config } from '@things-factory/env'
+
+import { config, logger } from '@things-factory/env'
 
 const koaWebpack = require('koa-webpack')
 const koaStatic = require('koa-static')
 import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
 const args = require('args')
-
-process.env.NODE_ENV = 'development'
-config.build()
 
 args.option('port', 'The port on which the app will be running', config.get('port', 3000))
 
@@ -69,7 +68,7 @@ const bootstrap = async () => {
   )
 
   app.on('error', (err, ctx) => {
-    console.log('error ===>', err)
+    logger.error(err)
 
     /* centralized error handling:
      *   console.log error
@@ -114,11 +113,11 @@ const bootstrap = async () => {
   const server = new ApolloServer({
     schema,
     formatError: error => {
-      console.log(error)
+      logger.error(error)
       return error
     },
     formatResponse: response => {
-      console.log(response)
+      logger.info(response)
       return response
     },
     context
@@ -178,7 +177,7 @@ const bootstrap = async () => {
     app.use(routes.allowedMethods())
 
     app.listen({ port: PORT }, () => {
-      console.log(`\n🚀  Server ready at http://0.0.0.0:${PORT}\n`)
+      logger.info(`\n🚀  Server ready at http://0.0.0.0:${PORT}\n`)
 
       process.emit('bootstrap-module-start' as any, app, config)
     })

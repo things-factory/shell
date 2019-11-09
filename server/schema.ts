@@ -7,7 +7,7 @@ const selfModulePackage = require(path.resolve(appRootPath, 'package.json'))
 const selfModuleName = selfModulePackage.name
 const selfModule = selfModulePackage['things-factory'] && require(path.resolve(appRootPath, selfModulePackage.main))
 
-const orderedModuleNames = require('@things-factory/env').orderedModuleNames
+import { orderedModuleNames, logger } from '@things-factory/env'
 import { makeExecutableSchema } from 'graphql-tools'
 
 const schemas = orderedModuleNames
@@ -20,7 +20,7 @@ const schemas = orderedModuleNames
         return require(dep).schema
       }
     } catch (e) {
-      console.error(e)
+      logger.error(e)
     }
   })
   .filter(schema => schema)
@@ -57,8 +57,8 @@ const schemas = orderedModuleNames
     }
   )
 
-console.log('schemas')
-console.log(schemas)
+logger.info('schemas')
+logger.info(JSON.stringify(schemas, null, 2))
 
 const queryTypes = ['type Query {', ...schemas.typeDefs.queries, '}'].join('\n')
 const mutationTypes = ['type Mutation {', ...schemas.typeDefs.mutations, '}'].join('\n')
