@@ -1,5 +1,6 @@
 .vscode
 .prettierrc
+logs/
 docs/
 licenses/
 node_modules/

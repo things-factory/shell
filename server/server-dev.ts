@@ -1,19 +1,22 @@
 import Koa from 'koa'
 import cors from 'koa2-cors'
 
-import { ApolloServer } from 'apollo-server-koa'
+import koaWebpack from 'koa-webpack'
+import koaStatic from 'koa-static'
 import koaBodyParser from 'koa-bodyparser'
+import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
-// @ts-ignore
+import { execute, subscribe } from 'graphql'
+import { ApolloServer } from 'apollo-server-koa'
 import { graphqlUploadKoa } from 'graphql-upload'
+import { SubscriptionServer } from 'subscriptions-transport-ws'
+
+import { config, logger } from '@things-factory/env'
+
 import { databaseInitializer } from './initializers/database'
 import { routes } from './routes'
 import { schema } from './schema'
-import { config } from '@things-factory/env'
-
-const koaWebpack = require('koa-webpack')
-const koaStatic = require('koa-static')
-import { historyApiFallback } from 'koa2-connect-history-api-fallback'
+import { pubsub } from './pubsub'
 
 const args = require('args')
 
@@ -111,12 +114,15 @@ const bootstrap = async () => {
 
   const server = new ApolloServer({
     schema,
+    subscriptions: {
+      path: '/subscriptions'
+    },
     formatError: error => {
       console.log(error)
       return error
     },
     formatResponse: response => {
-      console.log(response)
+      // logger.info('response %s', JSON.stringify(response, null, 2))
       return response
     },
     context
@@ -175,7 +181,64 @@ const bootstrap = async () => {
     app.use(routes.routes())
     app.use(routes.allowedMethods())
 
-    app.listen({ port: PORT }, () => console.log(`\n🚀  Server ready at http://0.0.0.0:${PORT}\n`))
+    var httpServer = app.listen({ port: PORT }, () => {
+      logger.info(`🚀 Server ready at http://0.0.0.0:${PORT}${server.graphqlPath}`)
+      logger.info(`🚀 Subscriptions ready at ws://0.0.0.0:${PORT}${server.subscriptionsPath}`)
+
+      process.emit('bootstrap-module-start' as any, app, config)
+
+      setInterval(() => {
+        pubsub.publish('systemRebooted', {
+          systemRebooted: {
+            name: 'Things Factory',
+            description: 'Reimagining Software',
+            version: '1.0.0-alpha.45'
+          }
+        })
+        console.log('published', 'systemRebooted')
+      }, 5000)
+    })
+
+    SubscriptionServer.create(
+      {
+        schema,
+        execute,
+        subscribe
+        // onConnect: (connectionParams, webSocket, context) => {
+        //   console.log('connectionParams', connectionParams)
+
+        //   try {
+        //     const { user } = jwt.verify(connectionParams.authToken, env('AUTH_SECRET'))
+        //     const jwtData = jwtDecode(connectionParams.authToken)
+        //     const timeout = jwtData.exp * 1000 - Date.now()
+        //     debugPubSub('authenticated', jwtData)
+        //     debugPubSub('set connection timeout', timeout)
+        //     setTimeout(() => {
+        //       // let the client reconnect
+        //       socket.close()
+        //     }, timeout)
+        //     return { subscriptionUser: user }
+        //   } catch (error) {
+        //     debugPubSub('authentication failed', error.message)
+        //     return { subscriptionUser: null }
+        //   }
+        // },
+        // onOperation(message: string, params: Object) {
+        //   setTimeout(() => {
+        //     R.forEach((todo: Todo) => {
+        //       pubsub.publish(TODO_UPDATED_TOPIC, { todoUpdated: todo })
+        //       debugPubSub('publish', TODO_UPDATED_TOPIC, todo)
+        //     }, todos)
+        //   }, 0)
+        // return Promise.resolve(params)
+        // },
+        // onDisconnect: (webSocket, context) => {}
+      },
+      {
+        server: httpServer,
+        path: '/subscriptions'
+      }
+    )
   })
 }
 
