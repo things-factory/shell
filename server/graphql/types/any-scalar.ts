@@ -1,5 +1,4 @@
 import { GraphQLScalarType, Kind } from 'graphql'
-import gql from 'graphql-tag'
 
 export const AnyScalarType = new GraphQLScalarType({
   name: 'AnyScalar',
