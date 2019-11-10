@@ -3,21 +3,22 @@ process.setMaxListeners(0)
 
 import Koa from 'koa'
 import cors from 'koa2-cors'
+import websockify from 'koa-websocket'
+import koaWebpack from 'koa-webpack'
+import koaStatic from 'koa-static'
+import koaBodyParser from 'koa-bodyparser'
+import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
 import { ApolloServer } from 'apollo-server-koa'
-import koaBodyParser from 'koa-bodyparser'
-
-// @ts-ignore
 import { graphqlUploadKoa } from 'graphql-upload'
-import { databaseInitializer } from './initializers/database'
-import { routes } from './routes'
-import { schema } from './schema'
+import { execute, subscribe } from 'graphql'
+import { SubscriptionServer } from 'subscriptions-transport-ws'
 
 import { config, logger } from '@things-factory/env'
 
-const koaWebpack = require('koa-webpack')
-const koaStatic = require('koa-static')
-import { historyApiFallback } from 'koa2-connect-history-api-fallback'
+import { databaseInitializer } from './initializers/database'
+import { routes } from './routes'
+import { schema } from './schema'
 
 const args = require('args')
 
@@ -47,7 +48,7 @@ const { context } = require('./server-context')
 const bootstrap = async () => {
   await databaseInitializer()
 
-  const app = new Koa()
+  const app = websockify(new Koa())
 
   app.use(
     cors({
@@ -117,7 +118,7 @@ const bootstrap = async () => {
       return error
     },
     formatResponse: response => {
-      logger.info(response)
+      logger.info('response %s', JSON.stringify(response, null, 2))
       return response
     },
     context
@@ -178,6 +179,18 @@ const bootstrap = async () => {
 
     app.listen({ port: PORT }, () => {
       logger.info(`\n🚀  Server ready at http://0.0.0.0:${PORT}\n`)
+
+      new SubscriptionServer(
+        {
+          execute,
+          subscribe,
+          schema
+        },
+        {
+          server: app,
+          path: '/subscriptions'
+        }
+      )
 
       process.emit('bootstrap-module-start' as any, app, config)
     })

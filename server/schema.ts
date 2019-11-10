@@ -57,7 +57,7 @@ const schemas = orderedModuleNames
     }
   )
 
-logger.info('schemas', JSON.stringify(schemas, null, 2))
+logger.info('schemas %s', JSON.stringify(schemas, null, 2))
 
 const queryTypes = ['type Query {', ...schemas.typeDefs.queries, '}'].join('\n')
 const mutationTypes = ['type Mutation {', ...schemas.typeDefs.mutations, '}'].join('\n')
