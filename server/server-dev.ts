@@ -1,3 +1,6 @@
+process.env.NODE_ENV = 'development'
+process.setMaxListeners(0)
+
 import Koa from 'koa'
 import cors from 'koa2-cors'
 
@@ -6,9 +9,9 @@ import koaStatic from 'koa-static'
 import koaBodyParser from 'koa-bodyparser'
 import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
-import { execute, subscribe } from 'graphql'
 import { ApolloServer } from 'apollo-server-koa'
 import { graphqlUploadKoa } from 'graphql-upload'
+import { execute, subscribe } from 'graphql'
 import { SubscriptionServer } from 'subscriptions-transport-ws'
 
 import { config, logger } from '@things-factory/env'
@@ -19,9 +22,6 @@ import { schema } from './schema'
 import { pubsub } from './pubsub'
 
 const args = require('args')
-
-process.env.NODE_ENV = 'development'
-config.build()
 
 args.option('port', 'The port on which the app will be running', config.get('port', 3000))
 
@@ -70,7 +70,7 @@ const bootstrap = async () => {
   )
 
   app.on('error', (err, ctx) => {
-    console.log('error ===>', err)
+    logger.error(err)
 
     /* centralized error handling:
      *   console.log error
@@ -83,17 +83,17 @@ const bootstrap = async () => {
   /* history fallback */
   var fallbackOption = {
     whiteList: [
-      '/graphql',
-      '/graphiql',
-      '/file',
-      '/uploads',
-      '/dependencies',
-      '/licenses',
-      '/vapidPublicKey',
-      '/register',
-      '/unregister',
-      '/request-notification'
-    ]
+      'graphql',
+      'graphiql',
+      'file',
+      'uploads',
+      'dependencies',
+      'licenses',
+      'vapidPublicKey',
+      'register',
+      'unregister',
+      'request-notification'
+    ].map(path => `^\/${path}($|[/?#])`)
   }
   process.emit('bootstrap-module-history-fallback' as any, app, fallbackOption)
   app.use(historyApiFallback(fallbackOption))
@@ -118,7 +118,7 @@ const bootstrap = async () => {
       path: '/subscriptions'
     },
     formatError: error => {
-      console.log(error)
+      logger.error(error)
       return error
     },
     formatResponse: response => {

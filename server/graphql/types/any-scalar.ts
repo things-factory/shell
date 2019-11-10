@@ -1,5 +1,4 @@
 import { GraphQLScalarType, Kind } from 'graphql'
-import { gql } from 'apollo-server-koa'
 
 export const AnyScalarType = new GraphQLScalarType({
   name: 'AnyScalar',

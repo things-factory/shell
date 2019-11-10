@@ -44,8 +44,8 @@ self.addEventListener('push', event => {
 
   const options = {
     body: message.body,
-    icon: 'assets/manifest/icon-128x128.png',
-    badge: 'assets/manifest/icon-128x128.png',
+    icon: '/assets/manifest/icon-128x128.png',
+    badge: '/assets/manifest/icon-128x128.png',
     data: message
     // actions: [{ action: 'like', title: 'Like' }, { action: 'reply', title: 'Reply' }]
   }

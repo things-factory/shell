@@ -1,4 +1,5 @@
 import { store } from '../store'
+import { getPathInfo } from '../utils/context-path'
 
 export const UPDATE_PAGE = 'UPDATE_PAGE'
 export const UPDATE_CONTEXT = 'UPDATE_CONTEXT'
@@ -24,8 +25,10 @@ export const navigate = (location, replace) => {
 }
 
 export const navigateWithSilence = ({ pathname: path, search }) => dispatch => {
+  const { contextPath, path: pathname } = getPathInfo(path)
+
   const reg = /\/([^\/]+)\/*([^\/]*)/
-  const decodePath = decodeURIComponent(path)
+  const decodePath = decodeURIComponent(pathname)
   const matchReturn = decodePath.match(reg) || []
   const page = matchReturn[1] || HOMEPAGE
   const id = matchReturn[2]

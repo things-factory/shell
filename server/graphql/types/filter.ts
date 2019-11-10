@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-koa'
+import gql from 'graphql-tag'
 import { AnyScalarType } from './any-scalar'
 
 export const Filter = gql`

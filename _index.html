@@ -5,14 +5,14 @@
     <title>Things Factory App</title>
     <meta name="generator" content="Things Factory Starter Kit" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Things Factory description" />
+    <meta name="description" content="Reimagining Software" />
 
     <base href="/" />
 
-    <link rel="icon" href="assets/favicon.ico" />
+    <link rel="icon" href="/assets/favicon.ico" />
 
     <!-- See https://goo.gl/OOhYW5 -->
-    <link rel="manifest" href="assets/manifest.json" />
+    <link rel="manifest" href="/assets/manifest.json" />
 
     <!-- See https://goo.gl/qRE0vM -->
     <meta name="theme-color" content="#22a6a7" />
@@ -22,7 +22,7 @@
     <meta name="application-name" content="Things Factory" />
     <meta name="application-description" content="Reimagining Software" />
     <meta name="application-copyright" content="Copyright © hatiolab.com. All Rights Reserved." />
-    <link rel="application-icon" href="assets/manifest/icon-96x96.png" />
+    <link rel="application-icon" href="/assets/manifest/icon-96x96.png" />
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -30,14 +30,14 @@
     <meta name="apple-mobile-web-app-title" content="Things Factory" />
 
     <!-- Homescreen icons -->
-    <link rel="apple-touch-icon" href="assets/manifest/icon-48x48.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="assets/manifest/icon-72x72.png" />
-    <link rel="apple-touch-icon" sizes="96x96" href="assets/manifest/icon-96x96.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="assets/manifest/icon-144x144.png" />
-    <link rel="apple-touch-icon" sizes="192x192" href="assets/manifest/icon-192x192.png" />
+    <link rel="apple-touch-icon" href="/assets/manifest/icon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/manifest/icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="96x96" href="/assets/manifest/icon-96x96.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/manifest/icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/assets/manifest/icon-192x192.png" />
 
     <!-- Tile icon for Windows 8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="assets/manifest/icon-144x144.png" />
+    <meta name="msapplication-TileImage" content="/assets/manifest/icon-144x144.png" />
     <meta name="msapplication-TileColor" content="#3f51b5" />
     <meta name="msapplication-tap-highlight" content="no" />
 
@@ -45,8 +45,8 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@username" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="things-app" />
-    <meta property="og:image" content="assets/manifest/icon-144x144.png" />
+    <meta property="og:site_name" content="things-factory, Reimagining Software." />
+    <meta property="og:image" content="/assets/manifest/image-metaog.png" />
 
     <!-- Performance tip: hint to the browser to start the handshake for the fonts site -->
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
@@ -59,7 +59,7 @@
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
           navigator.serviceWorker
-            .register('service-worker.js', {
+            .register('/service-worker.js', {
               scope: '/'
             })
             .then(registration => {
@@ -120,7 +120,7 @@
     </style>
   </head>
   <body>
-    <things-app appTitle="Things Factory"></things-app>
+    <things-app></things-app>
     <noscript>
       Please enable JavaScript to view this website.
     </noscript>

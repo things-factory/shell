@@ -1,23 +1,25 @@
+process.env.NODE_ENV = 'production'
+process.setMaxListeners(0)
+
 import Koa from 'koa'
 import cors from 'koa2-cors'
+import websockify from 'koa-websocket'
+import koaStatic from 'koa-static'
+import koaBodyParser from 'koa-bodyparser'
+import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
 import { ApolloServer } from 'apollo-server-koa'
-import koaBodyParser from 'koa-bodyparser'
-
-// @ts-ignore
 import { graphqlUploadKoa } from 'graphql-upload'
+import { execute, subscribe } from 'graphql'
+import { SubscriptionServer } from 'subscriptions-transport-ws'
+
+import { config, logger } from '@things-factory/env'
+
 import { databaseInitializer } from './initializers/database'
 import { routes } from './routes'
 import { schema } from './schema'
-import { config } from '@things-factory/env'
-
-const koaStatic = require('koa-static')
-import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
 const args = require('args')
-
-process.env.NODE_ENV = 'production'
-config.build()
 
 args.option('port', 'The port on which the app will be running', config.get('port', 3000))
 
@@ -41,7 +43,7 @@ const { context } = require('./server-context')
 const bootstrap = async () => {
   await databaseInitializer()
 
-  const app = new Koa()
+  const app = websockify(new Koa())
 
   app.use(
     cors({
@@ -62,7 +64,7 @@ const bootstrap = async () => {
   )
 
   app.on('error', (err, ctx) => {
-    console.log('error ===>', err)
+    logger.error(err)
 
     /* centralized error handling:
      *   console.log error
@@ -75,17 +77,17 @@ const bootstrap = async () => {
   /* history fallback */
   var fallbackOption = {
     whiteList: [
-      '/graphql',
-      '/graphiql',
-      '/file',
-      '/uploads',
-      '/dependencies',
-      '/licenses',
-      '/vapidPublicKey',
-      '/register',
-      '/unregister',
-      '/request-notification'
-    ]
+      'graphql',
+      'graphiql',
+      'file',
+      'uploads',
+      'dependencies',
+      'licenses',
+      'vapidPublicKey',
+      'register',
+      'unregister',
+      'request-notification'
+    ].map(path => `^\/${path}($|[/?#])`)
   }
   process.emit('bootstrap-module-history-fallback' as any, app, fallbackOption)
   app.use(historyApiFallback(fallbackOption))
@@ -106,6 +108,14 @@ const bootstrap = async () => {
 
   const server = new ApolloServer({
     schema,
+    formatError: error => {
+      logger.error(error)
+      return error
+    },
+    formatResponse: response => {
+      logger.info('response %s', JSON.stringify(response, null, 2))
+      return response
+    },
     context
   })
 
@@ -140,7 +150,23 @@ const bootstrap = async () => {
   app.use(routes.routes())
   app.use(routes.allowedMethods())
 
-  app.listen({ port: PORT }, () => console.log(`\n🚀  Server ready at http://0.0.0.0:${PORT}\n`))
+  app.listen({ port: PORT }, () => {
+    logger.info(`\n🚀  Server ready at http://0.0.0.0:${PORT}\n`)
+
+    new SubscriptionServer(
+      {
+        execute,
+        subscribe,
+        schema
+      },
+      {
+        server: app,
+        path: '/subscriptions'
+      }
+    )
+
+    process.emit('bootstrap-module-start' as any, app, config)
+  })
 }
 
 bootstrap()

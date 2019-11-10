@@ -10,7 +10,7 @@ export async function subscribe() {
       unsubscribe()
     }
 
-    const response = await fetch('./vapidPublicKey')
+    const response = await fetch('/vapidPublicKey')
     const vapidPublicKey = await response.text()
     const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey)
 
@@ -23,7 +23,7 @@ export async function subscribe() {
 
     console.log('Subscribed', subscription.endpoint)
 
-    await fetch('register', {
+    await fetch('/register', {
       method: 'post',
       headers: {
         'Content-type': 'application/json'
