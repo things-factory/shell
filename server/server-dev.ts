@@ -3,11 +3,11 @@ process.setMaxListeners(0)
 
 import Koa from 'koa'
 import cors from 'koa2-cors'
-
-import koaWebpack from 'koa-webpack'
 import koaStatic from 'koa-static'
 import koaBodyParser from 'koa-bodyparser'
 import { historyApiFallback } from 'koa2-connect-history-api-fallback'
+
+import koaWebpack from 'koa-webpack'
 
 import { ApolloServer } from 'apollo-server-koa'
 import { graphqlUploadKoa } from 'graphql-upload'
@@ -196,7 +196,7 @@ const bootstrap = async () => {
           }
         })
         console.log('published', 'systemRebooted')
-      }, 5000)
+      }, 10000)
     })
 
     SubscriptionServer.create(

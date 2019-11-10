@@ -3,7 +3,6 @@ process.setMaxListeners(0)
 
 import Koa from 'koa'
 import cors from 'koa2-cors'
-import websockify from 'koa-websocket'
 import koaStatic from 'koa-static'
 import koaBodyParser from 'koa-bodyparser'
 import { historyApiFallback } from 'koa2-connect-history-api-fallback'
@@ -18,6 +17,7 @@ import { config, logger } from '@things-factory/env'
 import { databaseInitializer } from './initializers/database'
 import { routes } from './routes'
 import { schema } from './schema'
+import { pubsub } from './pubsub'
 
 const args = require('args')
 
@@ -43,7 +43,7 @@ const { context } = require('./server-context')
 const bootstrap = async () => {
   await databaseInitializer()
 
-  const app = websockify(new Koa())
+  const app = new Koa()
 
   app.use(
     cors({
@@ -108,6 +108,9 @@ const bootstrap = async () => {
 
   const server = new ApolloServer({
     schema,
+    subscriptions: {
+      path: '/subscriptions'
+    },
     formatError: error => {
       logger.error(error)
       return error
@@ -150,23 +153,24 @@ const bootstrap = async () => {
   app.use(routes.routes())
   app.use(routes.allowedMethods())
 
-  app.listen({ port: PORT }, () => {
-    logger.info(`\n🚀  Server ready at http://0.0.0.0:${PORT}\n`)
-
-    new SubscriptionServer(
-      {
-        execute,
-        subscribe,
-        schema
-      },
-      {
-        server: app,
-        path: '/subscriptions'
-      }
-    )
+  var httpServer = app.listen({ port: PORT }, () => {
+    logger.info(`🚀 Server ready at http://0.0.0.0:${PORT}${server.graphqlPath}`)
+    logger.info(`🚀 Subscriptions ready at ws://0.0.0.0:${PORT}${server.subscriptionsPath}`)
 
     process.emit('bootstrap-module-start' as any, app, config)
   })
+
+  SubscriptionServer.create(
+    {
+      schema,
+      execute,
+      subscribe
+    },
+    {
+      server: httpServer,
+      path: '/subscriptions'
+    }
+  )
 }
 
 bootstrap()
