@@ -90,24 +90,25 @@ export function getVapidPublicKey() {
 }
 
 export async function register({ request: req }) {
-  var { subscription } = req.body
-  if (!subscription) return false
+  var { subscription, user } = req.body
+  if (!subscription || !user) return false
 
-  var authCheckURL = new URL('/authcheck', req.URL).toString()
+  // var authCheckURL = new URL('/authcheck', req.URL).toString()
 
-  var response = await fetch(authCheckURL, {
-    headers: {
-      cookie: req.headers.cookie
-    }
-  })
+  // var response = await fetch(authCheckURL, {
+  //   headers: {
+  //     cookie: req.headers.cookie
+  //   }
+  // })
 
-  var userInfo = await response.json()
-  if (!userInfo) return false
+  // var userInfo = await response.json()
 
-  var userId = userInfo.user.id
+  // if (!userInfo) return false
+
+  // var userId = userInfo.user.id
 
   registerSubscription({
-    userId,
+    userId: user,
     subscription
   })
 }

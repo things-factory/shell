@@ -1,7 +1,7 @@
 import { urlBase64ToUint8Array } from './url-base64-to-uint8-array'
 import { unsubscribe } from './unsubscribe'
 
-export async function subscribe() {
+export async function subscribe(userInfo) {
   try {
     var registration = await navigator.serviceWorker.ready
     var subscription = await registration.pushManager.getSubscription()
@@ -20,6 +20,8 @@ export async function subscribe() {
     })
 
     if (!subscription) return false
+    if (!userInfo) return
+    if (!userInfo.id) return
 
     console.log('Subscribed', subscription.endpoint)
 
@@ -29,7 +31,8 @@ export async function subscribe() {
         'Content-type': 'application/json'
       },
       body: JSON.stringify({
-        subscription
+        subscription,
+        user: userInfo.id
       })
     })
 
