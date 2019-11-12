@@ -6,8 +6,8 @@ export async function context({ ctx }) {
   //       ctx의 도메인을 초기화 하도록 수정해야 함
 
   var { request } = ctx
-  var { origin, header } = request
-  var { referer } = header
+  var { header } = request
+  var { origin, referer } = header
   var pathname = referer.replace(origin, '')
   var { domain } = getPathInfo(pathname)
 
