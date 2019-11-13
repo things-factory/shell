@@ -28,10 +28,6 @@ export class PageView extends LitElement {
     var active = String(this.active) == 'true'
     var { active: oldActive = false } = this._oldLifecycleInfo$ || {}
 
-    if (changes.has('contextPath')) {
-      this.pageReset()
-    }
-
     /*
      * page lifecycle
      * case 1. page가 새로 activate 되었다.
@@ -65,6 +61,7 @@ export class PageView extends LitElement {
     var after = {
       ...before,
       ...this.lifecycle,
+      contextPath: this.contextPath,
       ...changes
     }
 
@@ -82,6 +79,12 @@ export class PageView extends LitElement {
     }
 
     this._oldLifecycleInfo$ = after
+
+    /* page의  contextPath가 바뀐다면, 무조건 page가 리셋되어야 한다. */
+    if (changed.contextPath) {
+      await this.pageReset()
+      return
+    }
 
     if (changed.initialized) {
       await this.pageInitialized(after)
