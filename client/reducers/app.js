@@ -1,9 +1,10 @@
-import { UPDATE_MODULES, UPDATE_BASE_URL, UPDATE_CONTEXT_PATH } from '../actions/app.js'
+import { UPDATE_MODULES, UPDATE_BASE_URL, UPDATE_CONTEXT_PATH, SET_DOMAINS } from '../actions/app.js'
 import { getPathInfo } from '../utils/context-path'
 
 const INITIAL_STATE = {
   baseUrl: location.origin,
-  contextPath: getPathInfo(location.pathname).contextPath
+  contextPath: getPathInfo(location.pathname).contextPath,
+  domains: []
 }
 
 const app = (state = INITIAL_STATE, action) => {
@@ -22,6 +23,12 @@ const app = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         contextPath: action.contextPath
+      }
+
+    case SET_DOMAINS:
+      return {
+        ...state,
+        domains: action.domains
       }
 
     default:
