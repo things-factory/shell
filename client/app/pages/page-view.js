@@ -24,9 +24,13 @@ function diff(after, before) {
 
 export class PageView extends LitElement {
   // Only render this page if it's actually visible.
-  shouldUpdate() {
+  shouldUpdate(changes) {
     var active = String(this.active) == 'true'
     var { active: oldActive = false } = this._oldLifecycleInfo$ || {}
+
+    if (changes.has('contextPath')) {
+      this.pageReset()
+    }
 
     /*
      * page lifecycle
@@ -49,7 +53,8 @@ export class PageView extends LitElement {
   static get properties() {
     return {
       active: Boolean,
-      lifecycle: Object
+      lifecycle: Object,
+      contextPath: { attribute: 'context-path' }
     }
   }
 

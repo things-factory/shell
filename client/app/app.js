@@ -144,6 +144,7 @@ class ThingsApp extends connect(store)(LitElement) {
 
     if (this._activePage) {
       this._activePage.setAttribute('active', true)
+      this._activePage.setAttribute('context-path', this._contextPath)
       this._activePage.lifecycle = {
         ...(this._activePage.lifecycle || {}),
         active: true,
