@@ -186,17 +186,6 @@ const bootstrap = async () => {
       logger.info(`🚀 Subscriptions ready at ws://0.0.0.0:${PORT}${server.subscriptionsPath}`)
 
       process.emit('bootstrap-module-start' as any, app, config)
-
-      setInterval(() => {
-        pubsub.publish('systemRebooted', {
-          systemRebooted: {
-            name: 'Things Factory',
-            description: 'Reimagining Software',
-            version: '1.0.0-alpha.45'
-          }
-        })
-        console.log('published', 'systemRebooted')
-      }, 10000)
     })
 
     SubscriptionServer.create(
