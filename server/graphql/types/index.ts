@@ -10,4 +10,6 @@ export const queries = [Domain.Query]
 
 export const mutations = [Domain.Mutation]
 
+export const subscriptions = []
+
 export const types = [...Domain.Types]
