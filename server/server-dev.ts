@@ -187,16 +187,13 @@ const bootstrap = async () => {
 
       process.emit('bootstrap-module-start' as any, app, config)
 
-      setInterval(() => {
-        pubsub.publish('systemRebooted', {
-          systemRebooted: {
-            name: 'Things Factory',
-            description: 'Reimagining Software',
-            version: '1.0.0-alpha.45'
-          }
-        })
-        console.log('published', 'systemRebooted')
-      }, 10000)
+      pubsub.publish('systemRebooted', {
+        systemRebooted: {
+          name: 'Things Factory',
+          description: 'Reimagining Software',
+          version: '1.0.0-alpha.45'
+        }
+      })
     })
 
     SubscriptionServer.create(
