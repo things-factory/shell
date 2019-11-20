@@ -80,6 +80,7 @@ module.exports = {
     filename: chunkData => {
       return chunkData.chunk.name == 'headless-scene-components' ? '[name].js' : '[name].[hash].js'
     },
+    chunkFilename: '[name].js',
     publicPath: '/'
   },
   module: {
