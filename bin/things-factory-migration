@@ -8,36 +8,94 @@ const path = require('path')
 const createConnection = require('typeorm').createConnection
 const appRootPath = require('app-root-path').path
 
-let ormconfig
+const inquirer = require('inquirer')
+const chalk = require('chalk')
 
-try {
-  ormconfig = require(path.resolve(appRootPath, 'ormconfig'))
-} catch (e) {
-  ormconfig = require('@things-factory/shell/ormconfig')
+const MODE_QUESTION = [
+  {
+    type: 'list',
+    name: 'mode',
+    message: 'Mode:',
+    choices: [
+      {
+        name: 'Development',
+        value: 'development'
+      },
+      {
+        name: 'Production',
+        value: 'production'
+      }
+    ],
+    default: 'development'
+  }
+]
+
+start()
+
+function start() {
+  doModePrompt()
 }
 
-createConnection({
-  ...ormconfig,
-  logging: true
-}).then(async (connection, ...others) => {
-  args.option('undo', 'Reverts last executed migration')
-  const flags = args.parse(process.argv)
+async function doModePrompt() {
+  var answers = await inquirer.prompt(MODE_QUESTION)
 
-  console.log('Database connection established')
+  process.env.NODE_ENV = answers.mode == 'development' ? 'development' : 'production'
 
-  if (flags.undo) {
-    await connection.undoLastMigration()
-  } else {
-    await connection.runMigrations()
+  let ormconfig
+
+  try {
+    ormconfig = require(path.resolve(appRootPath, 'ormconfig'))
+  } catch (e) {
+    ormconfig = require('@things-factory/shell/ormconfig')
   }
 
-  await connection.close()
-  console.log('Database Migration Done.')
+  if (ormconfig.host) {
+    await confirmHost(ormconfig.host)
+  }
 
-  /*
-   * 원인은 알 수 없으나 migration 후 프로세스가 종료되지 않는 경우가 있기 때문에,
-   * 강제로 종료시키는 코드를 추가함
-   * 특히, board-ui migration 시에 항상 발생함.
-   */
-  process.exit(0)
-})
+  migrate(ormconfig)
+}
+
+async function confirmHost(host) {
+  return await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'hostConfirm',
+      message: `Please type [${chalk.bold.cyan(host)}] to confirm`,
+      validate: v => {
+        return v == host ? true : 'Wrong typed!'
+      },
+      transformer: (v, answers, flags) => {
+        return v == host ? chalk.greenBright(v) : chalk.red(v)
+      }
+    }
+  ])
+}
+
+function migrate(ormconfig) {
+  createConnection({
+    ...ormconfig,
+    logging: true
+  }).then(async (connection, ...others) => {
+    args.option('undo', 'Reverts last executed migration')
+    const flags = args.parse(process.argv)
+
+    console.log('Database connection established')
+
+    if (flags.undo) {
+      await connection.undoLastMigration()
+    } else {
+      await connection.runMigrations()
+    }
+
+    await connection.close()
+    console.log('Database Migration Done.')
+
+    /*
+     * 원인은 알 수 없으나 migration 후 프로세스가 종료되지 않는 경우가 있기 때문에,
+     * 강제로 종료시키는 코드를 추가함
+     * 특히, board-ui migration 시에 항상 발생함.
+     */
+    process.exit(0)
+  })
+}
