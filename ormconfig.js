@@ -5,7 +5,7 @@ const selfModulePackage = require(path.resolve(appRootPath, 'package.json'))
 const selfModuleName = selfModulePackage.name
 const selfModule = selfModulePackage['things-factory'] && require(path.resolve(appRootPath, selfModulePackage.main))
 
-const { orderedModuleNames } = require('@things-factory/env')
+const { orderedModuleNames, config } = require('@things-factory/env')
 
 const { NamingStrategy } = require('@things-factory/shell')
 /*
@@ -67,13 +67,9 @@ console.log('subscribers')
 console.log(subscribers)
 
 module.exports = {
-  name: 'default',
-  type: 'sqlite',
-  database: 'db.sqlite',
-  synchronize: true,
-  logging: true,
   namingStrategy: new NamingStrategy(),
   entities,
   migrations,
-  subscribers
+  subscribers,
+  ...config.get('ormconfig')
 }

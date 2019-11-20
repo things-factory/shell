@@ -13,5 +13,12 @@ module.exports = {
       level: 'silly'
     }
   },
+  ormconfig: {
+    name: 'default',
+    type: 'sqlite',
+    database: 'db.sqlite',
+    synchronize: true,
+    logging: true
+  },
   uploads: 'uploads'
 }
