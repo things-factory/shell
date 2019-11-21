@@ -46,6 +46,8 @@ class ThingsApp extends connect(store)(LitElement) {
       <aside-bar ?hidden=${fullbleed}></aside-bar>
 
       <footer-bar ?hidden=${fullbleed}></footer-bar>
+
+      <snack-bar></snack-bar>
     `
   }
 
