@@ -18,6 +18,7 @@ import { databaseInitializer } from './initializers/database'
 import { routes } from './routes'
 import { schema } from './schema'
 import { pubsub } from './pubsub'
+import './middlewares'
 
 const args = require('args')
 
@@ -37,7 +38,7 @@ const bodyParserOption = {
   textLimit: '10mb'
 }
 
-const { context } = require('./server-context')
+// const { context } = require('./server-context')
 
 /* bootstrap */
 const bootstrap = async () => {
@@ -77,17 +78,19 @@ const bootstrap = async () => {
   /* history fallback */
   var fallbackOption = {
     whiteList: [
-      'graphql',
-      'graphiql',
-      'file',
-      'uploads',
-      'dependencies',
-      'licenses',
-      'vapidPublicKey',
-      'register',
-      'unregister',
-      'request-notification'
-    ].map(path => `^\/${path}($|[/?#])`)
+      `^\/(${[
+        'graphql',
+        'graphiql',
+        'file',
+        'uploads',
+        'dependencies',
+        'licenses',
+        'vapidPublicKey',
+        'register',
+        'unregister',
+        'request-notification'
+      ].join('|')})($|[/?#])`
+    ]
   }
   process.emit('bootstrap-module-history-fallback' as any, app, fallbackOption)
   app.use(historyApiFallback(fallbackOption))
@@ -119,7 +122,8 @@ const bootstrap = async () => {
       logger.info('response %s', JSON.stringify(response, null, 2))
       return response
     },
-    context
+    context: ({ ctx }) => ctx
+    // context
   })
 
   process.emit('bootstrap-module-middleware' as any, app as any)
