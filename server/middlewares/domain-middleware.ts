@@ -1,4 +1,4 @@
-import { getPathInfo } from 'server/utils/context-path'
+import { getPathInfo } from '../utils/context-path'
 import { getRepository } from 'typeorm'
 import { URL } from 'url'
 import { Domain } from '../entities'
