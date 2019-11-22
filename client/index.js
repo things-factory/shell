@@ -38,3 +38,4 @@ export * from './serviceworker'
 // elements
 export * from './elements/oops-note'
 export * from './elements/oops-spinner'
+export * from './elements/custom-alert'

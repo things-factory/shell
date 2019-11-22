@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "1.0.0-alpha.37",
+  "version": "1.0.0-alpha.38",
   "description": "things factory shell",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -128,6 +128,7 @@
     "scrollbooster": "^1.1.0",
     "sqlite3": "^4.0.4",
     "subscriptions-transport-ws": "^0.9.16",
+    "sweetalert2": "^9.3.17",
     "swipe-listener": "^1.1.0",
     "terser": "4.3.10",
     "text-loader": "^0.0.1",
