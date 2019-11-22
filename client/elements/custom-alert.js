@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
  * Custom Alert utilized sweetalert2 to produce a simple pop-up message box.
  * *Side note: Did not fully utilize sweet alert capability, just added some common usage.
  * @param {string} type - ['success', 'error', 'warning', 'info', 'question']
+ * @param {string} icon - ['success', 'error', 'warning', 'info', 'question']
  * @param {string} title - Title for the message box.
  * @param {string} text - Description for the message box. Input can be in html format.
  * @param {string} footer - Footer message. Input can be in html format
@@ -26,6 +27,7 @@ import Swal from 'sweetalert2'
 
 export async function CustomAlert({
   type = 'info',
+  icon,
   title,
   text,
   footer,
@@ -71,6 +73,7 @@ export async function CustomAlert({
 
     const result = await Swal.fire({
       type: type,
+      icon: icon || type,
       title: title,
       text: text,
       footer: footer,
