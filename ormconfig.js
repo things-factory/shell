@@ -8,10 +8,15 @@ const selfModule = selfModulePackage['things-factory'] && require(path.resolve(a
 const { orderedModuleNames, config } = require('@things-factory/env')
 
 const { NamingStrategy } = require('@things-factory/shell')
+
+function flattenDeep(arr) {
+  return arr.reduce((acc, val) => (Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val)), [])
+}
+
 /*
   dependencies list를 받아서, entities, migrations, subscribers 폴더 어레이를 빌드한다.
 */
-const entities = orderedModuleNames
+var entities = orderedModuleNames
   .map(dep => {
     try {
       if (selfModuleName == dep) {
@@ -25,9 +30,9 @@ const entities = orderedModuleNames
     }
   })
   .filter(entity => entity && entity.length > 0)
-  .flat()
+entities = flattenDeep(entities)
 
-const migrations = orderedModuleNames
+var migrations = orderedModuleNames
   .map(dep => {
     try {
       if (selfModuleName == dep) {
@@ -41,9 +46,9 @@ const migrations = orderedModuleNames
     }
   })
   .filter(entity => entity && entity.length > 0)
-  .flat()
+migrations = flattenDeep(migrations)
 
-const subscribers = orderedModuleNames
+var subscribers = orderedModuleNames
   .map(dep => {
     try {
       if (selfModuleName == dep) {
@@ -57,7 +62,7 @@ const subscribers = orderedModuleNames
     }
   })
   .filter(entity => entity && entity.length > 0)
-  .flat()
+subscribers = flattenDeep(subscribers)
 
 console.log('entities')
 console.log(entities)
