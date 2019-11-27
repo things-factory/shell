@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "1.0.0-alpha.42",
+  "version": "1.0.0-alpha.43",
   "description": "things factory shell",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -51,8 +51,11 @@
     "@hatiolab/license-checker": "^2.2.4",
     "@hatiolab/things-scene": "*",
     "@material/mwc-button": "^0.11.1",
+    "@material/mwc-fab": "^0.11.1",
     "@material/mwc-icon": "^0.11.1",
     "@material/mwc-icon-button": "^0.11.1",
+    "@material/mwc-slider": "^0.11.1",
+    "@material/mwc-textfield": "^0.11.1",
     "@things-factory/env": "^1.0.0-alpha.1",
     "@types/lodash": "^4.14.139",
     "@types/node": "^12.11.2",
