@@ -89,6 +89,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         options: {
+          cacheDirectory: true,
           presets: [
             [
               '@babel/env',
@@ -173,7 +174,10 @@ module.exports = {
         test: /things-scene-components.import$/,
         use: [
           {
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            }
           },
           {
             loader: 'things-scene-webpack-loader',
@@ -187,7 +191,10 @@ module.exports = {
         test: /things-scene-components-with-tools.import$/,
         use: [
           {
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            }
           },
           {
             loader: 'things-scene-config-webpack-loader',
