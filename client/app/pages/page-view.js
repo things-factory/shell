@@ -28,19 +28,39 @@ export class PageView extends LitElement {
     var active = String(this.active) == 'true'
     var { active: oldActive = false } = this._oldLifecycleInfo$ || {}
 
+    /* keep old values for changes */
+    if (!this._oldProps$) {
+      this._oldProps$ = {}
+    }
+
+    for (let key of changes.keys()) {
+      if (!(key in this._oldProps$)) {
+        this._oldProps$[key] = changes.get(key)
+      }
+    }
+
     /*
      * page lifecycle
      * case 1. page가 새로 activate 되었다.
      * case 2. page가 active 상태에서 lifecycle 정보가 바뀌었다.
      **/
-    if (active) {
+    if (active || oldActive) {
+      let changed = {}
+      for (let key in this._oldProps$) {
+        changed[key] = this[key]
+      }
+
+      this._oldLifecycleInfo$ = {
+        ...this._oldLifecycleInfo$,
+        ...this._oldProps$
+      }
+
       this.pageUpdate({
-        active
+        active,
+        ...changed
       })
-    } else if (oldActive) {
-      this.pageUpdate({
-        active
-      })
+
+      this._oldProps$ = {}
     }
 
     return active
