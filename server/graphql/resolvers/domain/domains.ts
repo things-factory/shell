@@ -6,7 +6,7 @@ import { ListParam } from '../../types/list-param'
 export const domainsResolver = {
   async domains(_: any, params: typeof ListParam, context: any) {
     const queryBuilder = getRepository(Domain).createQueryBuilder()
-    buildQuery(queryBuilder, params, context)
+    buildQuery(queryBuilder, params, context, false)
     const [items, total] = await queryBuilder.getManyAndCount()
 
     return { items, total }
