@@ -1,3 +1,11 @@
 #!/usr/bin/env sh
-node --inspect -e "'use strict'
+INSPECT=":9229"
+while getopts i: option
+do
+case "${option}"
+in
+i) INSPECT=${OPTARG};;
+esac
+done
+node --inspect=$INSPECT -e "'use strict'
 require('@things-factory/shell/dist-server/server-dev')" $0 $@

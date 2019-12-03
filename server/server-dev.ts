@@ -25,6 +25,7 @@ import './middlewares'
 const args = require('args')
 
 args.option('port', 'The port on which the app will be running', config.get('port', 3000))
+args.option('inspect', 'The address on which the inspection will be running. Used in development mode only.', config.get('inspect', ':9229'))
 
 const flags = args.parse(process.argv)
 
