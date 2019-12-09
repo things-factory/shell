@@ -1,7 +1,6 @@
 import { LicenseChecker } from '@hatiolab/license-checker'
 import { html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
-import { updateMetadata } from 'pwa-helpers/metadata.js'
 import { installRouter } from 'pwa-helpers/router.js'
 import { UPDATE_MODULES } from '../actions/app'
 import { UPDATE_LICENSE_INFO, UPDATE_LICENSE_KEY, UPDATE_LICENSE_VALIDITY } from '../actions/license'
@@ -13,7 +12,6 @@ import { ScrollbarStyles } from './styles/scrollbar-styles'
 class ThingsApp extends connect(store)(LitElement) {
   static get properties() {
     return {
-      appTitle: String,
       _page: String,
       _resourceId: String,
       _params: Object,
@@ -102,14 +100,6 @@ class ThingsApp extends connect(store)(LitElement) {
   }
 
   routeToPage() {
-    const pageTitle = this.appTitle + ' - ' + this._page
-
-    updateMetadata({
-      title: pageTitle,
-      description: pageTitle
-      // This object also takes an image property, that points to an img src.
-    })
-
     let activePages = this.shadowRoot.querySelectorAll('main > .page[active]')
     activePages.forEach(page => {
       page.removeAttribute('active')
