@@ -55,6 +55,7 @@
     <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet" />
 
     <script>
+      if (window.location.pathname == '/') window.location.replace('/default-domain')
       // Load and register pre-caching Service Worker
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {

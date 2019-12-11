@@ -19,6 +19,13 @@ workbox.routing.registerRoute(
   })
 )
 
+workbox.routing.registerRoute(
+  new RegExp('/(domain-select|domain/[^/])'),
+  new workbox.strategies.NetworkFirst({
+    cacheName: 'domain'
+  })
+)
+
 self.addEventListener('activate', e => {
   self.clients.matchAll().then(clientArr => {
     clientArr.forEach(client => {

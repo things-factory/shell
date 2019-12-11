@@ -25,7 +25,11 @@ import './middlewares'
 const args = require('args')
 
 args.option('port', 'The port on which the app will be running', config.get('port', 3000))
-args.option('inspect', 'The address on which the inspection will be running. Used in development mode only.', config.get('inspect', ':9229'))
+args.option(
+  'inspect',
+  'The address on which the inspection will be running. Used in development mode only.',
+  config.get('inspect', ':9229')
+)
 
 const flags = args.parse(process.argv)
 
@@ -139,7 +143,7 @@ const bootstrap = async () => {
   render(app, {
     root: '/views',
     host: `http://127.0.0.1:${PORT}`,
-    layout: 'template',
+    layout: false,
     viewExt: 'html',
     cache: false,
     debug: true
@@ -177,7 +181,7 @@ const bootstrap = async () => {
 
     app.use(
       koaStatic(path.join(webpackConfig.output.path), {
-        index: 'index.html'
+        index: false
       })
     )
 
