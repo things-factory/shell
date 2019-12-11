@@ -2,7 +2,13 @@ workbox.core.skipWaiting()
 workbox.core.clientsClaim()
 
 workbox.navigationPreload.enable()
-workbox.precaching.precacheAndRoute(self.__precacheManifest || [])
+var precacheManifest = self.__precacheManifest || []
+workbox.precaching.precacheAndRoute(
+  precacheManifest.filter(precache => {
+    let url = precache.url
+    return !/^\/index\.html/.test(url)
+  })
+)
 workbox.precaching.cleanupOutdatedCaches()
 
 workbox.routing.registerRoute(
@@ -20,9 +26,9 @@ workbox.routing.registerRoute(
 )
 
 workbox.routing.registerRoute(
-  new RegExp('/(domain-select|domain/[^/])'),
+  new RegExp('^[^.]+$'),
   new workbox.strategies.NetworkFirst({
-    cacheName: 'domain'
+    cacheName: 'api'
   })
 )
 
