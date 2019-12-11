@@ -47,18 +47,6 @@ const ERROR_HANDLER = ({ graphQLErrors, networkError }) => {
           })
         )
         break
-      case 406:
-        /* 406 에러가 리턴되면, domain-select. */
-        document.dispatchEvent(
-          new CustomEvent('domain-not-available', {
-            bubbles: true,
-            composed: true,
-            detail: {
-              redirectTo: networkError.result.redirectTo
-            }
-          })
-        )
-        break
       default:
         document.dispatchEvent(
           new CustomEvent('notify', {
