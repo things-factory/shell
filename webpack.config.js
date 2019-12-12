@@ -91,9 +91,7 @@ module.exports = {
         },
   output: {
     path: OUTPUT_PATH,
-    filename: chunkData => {
-      return chunkData.chunk.name == 'headless-scene-components' ? '[name].js' : '[name].[hash].js'
-    },
+    filename: '[name].js',
     chunkFilename: '[name].js',
     publicPath: '/'
   },
