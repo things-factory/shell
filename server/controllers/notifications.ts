@@ -36,7 +36,7 @@ async function getSubscriptionsFromDatabase() {
 
   gotFromDatabase = true
 
-  if (!userNotifications.length) return
+  if (!userNotifications?.length) return
 
   userNotifications.forEach((un: UserNotification) => {
     var subscriptions = USER_SUBSCIPTIONS_MAP[un.userId]
@@ -64,9 +64,8 @@ export async function sendNotificationToAll() {
 
 export function sendNotification({ receiver, message }) {
   var subscriptions = USER_SUBSCIPTIONS_MAP[receiver]
-  if (!subscriptions) return
 
-  subscriptions.forEach(subscription => {
+  subscriptions?.forEach(subscription => {
     sendNotificationTo(subscription, message)
   })
 }
