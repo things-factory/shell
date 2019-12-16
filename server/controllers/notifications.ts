@@ -1,9 +1,7 @@
-import { debounce } from 'lodash'
-import fetch from 'node-fetch'
-import { getRepository } from 'typeorm'
-import { URL } from 'url'
-import { UserNotification } from '../entities'
 import { logger } from '@things-factory/env'
+import { debounce } from 'lodash'
+import { getRepository } from 'typeorm'
+import { UserNotification } from '../entities'
 
 const webPush = require('web-push')
 
