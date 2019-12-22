@@ -125,10 +125,10 @@ function makeFilterParams(filters) {
 }
 
 export function convertListParams(params: typeof ListParam, domain?: String) {
-  var { pagination, filters, sortings } = params as any
+  var { pagination, filters = [], sortings } = params as any
   var jsonParams = {}
 
-  if(domain) {
+  if (domain) {
     filters.push({
       name: 'domain',
       operator: 'eq',
