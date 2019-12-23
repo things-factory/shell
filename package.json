@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "things factory shell",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -133,7 +133,7 @@
     "ts-node": "^8.2.0",
     "tsconfig-paths": "^3.7.0",
     "typeorm": "0.2.20",
-    "typescript": "3.6.4",
+    "typescript": "3.7.3",
     "url-loader": "^2.0.0",
     "web-animations-js": "^2.3.1",
     "web-push": "^3.3.5",
