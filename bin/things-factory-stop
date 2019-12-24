@@ -7,7 +7,7 @@ echo "## Things Factory Stopping ##"
 echo "#############################"
 echo ""
 
-PROCESS_NAME=$1
+PROCESS_NAME="things-factory $1"
 
 echo "Process Name: $PROCESS_NAME"
 
