@@ -37,15 +37,15 @@ class ThingsApp extends connect(store)(LitElement) {
     var fullbleed = (this._context && this._context.fullbleed) || (params.fullbleed && params.fullbleed == 'Y')
 
     return html`
-      <header-bar ?fullbleed=${fullbleed}></header-bar>
+      <header-bar ?hidden=${fullbleed}></header-bar>
 
-      <nav-bar ?fullbleed=${fullbleed}></nav-bar>
+      <nav-bar ?hidden=${fullbleed}></nav-bar>
 
       <main></main>
 
-      <aside-bar ?fullbleed=${fullbleed}></aside-bar>
+      <aside-bar ?hidden=${fullbleed}></aside-bar>
 
-      <footer-bar ?fullbleed=${fullbleed}></footer-bar>
+      <footer-bar ?hidden=${fullbleed}></footer-bar>
 
       <snack-bar></snack-bar>
     `
