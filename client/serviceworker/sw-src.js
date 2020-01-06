@@ -2,7 +2,13 @@ workbox.core.skipWaiting()
 workbox.core.clientsClaim()
 
 workbox.navigationPreload.enable()
-workbox.precaching.precacheAndRoute(self.__precacheManifest || [])
+var precacheManifest = self.__precacheManifest || []
+workbox.precaching.precacheAndRoute(
+  precacheManifest.filter(precache => {
+    let url = precache.url
+    return !/^\/index\.html/.test(url)
+  })
+)
 workbox.precaching.cleanupOutdatedCaches()
 
 workbox.routing.registerRoute(
@@ -16,6 +22,13 @@ workbox.routing.registerRoute(
   new RegExp('^https://fonts.gstatic.com/'),
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'google-fonts-cache'
+  })
+)
+
+workbox.routing.registerRoute(
+  new RegExp('^[^.]+$'),
+  new workbox.strategies.NetworkFirst({
+    cacheName: 'api'
   })
 )
 
@@ -44,8 +57,8 @@ self.addEventListener('push', event => {
 
   const options = {
     body: message.body,
-    icon: 'assets/manifest/icon-128x128.png',
-    badge: 'assets/manifest/icon-128x128.png',
+    icon: '/assets/manifest/icon-128x128.png',
+    badge: '/assets/manifest/icon-128x128.png',
     data: message
     // actions: [{ action: 'like', title: 'Like' }, { action: 'reply', title: 'Reply' }]
   }

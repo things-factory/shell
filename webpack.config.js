@@ -8,6 +8,7 @@ const FolderOverridePlugin = require('./webpack-plugins/folder-override-plugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ThemeOverridePlugin = require('./webpack-plugins/theme-override-plugin')
+const glob = require('glob')
 
 const AppRootPath = require('app-root-path').path
 const AppPackage = require(path.resolve(AppRootPath, 'package.json'))
@@ -51,12 +52,26 @@ try {
 
 console.log('Index.html TemplatePath', TemplatePath)
 
+let MODULE_ENTRIES = glob
+  .sync(`${path.join(NodeModulePath, '@things-factory', '**', 'client', 'entries', '**', '*.js')}`)
+  .reduce((acc, p) => {
+    acc[path.parse(p).name] = [p]
+    return acc
+  }, {})
+
+let LOCAL_ENTRIES = glob.sync(`${path.join(AppRootPath, 'client', 'entries', '**', '*.js')}`).reduce((acc, p) => {
+  acc[path.parse(p).name] = [p]
+  return acc
+}, {})
+
+let entries = Object.assign({}, MODULE_ENTRIES, LOCAL_ENTRIES, {
+  main: path.resolve(__dirname, 'client', 'index.js'),
+  'headless-scene-components': [path.resolve(ShellModulePath, 'client', 'scene', 'scene-components.js')]
+})
+
 module.exports = {
   mode: 'production',
-  entry: {
-    main: path.resolve(__dirname, 'client', 'index.js'),
-    'headless-scene-components': [path.resolve(ShellModulePath, 'client', 'scene', 'scene-components.js')]
-  },
+  entry: entries,
   resolve: {
     aliasFields: ['browser'],
     alias: {
@@ -76,9 +91,8 @@ module.exports = {
         },
   output: {
     path: OUTPUT_PATH,
-    filename: chunkData => {
-      return chunkData.chunk.name == 'headless-scene-components' ? '[name].js' : '[name].[hash].js'
-    },
+    filename: '[name].js',
+    chunkFilename: '[name].js',
     publicPath: '/'
   },
   module: {
@@ -87,6 +101,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         options: {
+          cacheDirectory: true,
           presets: [
             [
               '@babel/env',
@@ -171,7 +186,10 @@ module.exports = {
         test: /things-scene-components.import$/,
         use: [
           {
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            }
           },
           {
             loader: 'things-scene-webpack-loader',
@@ -185,7 +203,10 @@ module.exports = {
         test: /things-scene-components-with-tools.import$/,
         use: [
           {
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            }
           },
           {
             loader: 'things-scene-config-webpack-loader',

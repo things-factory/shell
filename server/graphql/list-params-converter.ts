@@ -124,9 +124,17 @@ function makeFilterParams(filters) {
   return jsonParams
 }
 
-export function convertListParams(params: typeof ListParam) {
-  var { pagination, filters, sortings } = params as any
+export function convertListParams(params: typeof ListParam, domain?: String) {
+  var { pagination, filters = [], sortings } = params as any
   var jsonParams = {}
+
+  if (domain) {
+    filters.push({
+      name: 'domain',
+      operator: 'eq',
+      value: domain
+    })
+  }
 
   if (pagination) Object.assign(jsonParams, makePaginationParams(pagination))
   if (sortings) Object.assign(jsonParams, makeSortingParams(sortings))

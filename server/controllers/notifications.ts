@@ -1,7 +1,6 @@
+import { logger } from '@things-factory/env'
 import { debounce } from 'lodash'
-import fetch from 'node-fetch'
 import { getRepository } from 'typeorm'
-import { URL } from 'url'
 import { UserNotification } from '../entities'
 
 const webPush = require('web-push')
@@ -35,7 +34,7 @@ async function getSubscriptionsFromDatabase() {
 
   gotFromDatabase = true
 
-  if (!userNotifications.length) return
+  if (!userNotifications?.length) return
 
   userNotifications.forEach((un: UserNotification) => {
     var subscriptions = USER_SUBSCIPTIONS_MAP[un.userId]
@@ -63,9 +62,8 @@ export async function sendNotificationToAll() {
 
 export function sendNotification({ receiver, message }) {
   var subscriptions = USER_SUBSCIPTIONS_MAP[receiver]
-  if (!subscriptions) return
 
-  subscriptions.forEach(subscription => {
+  subscriptions?.forEach(subscription => {
     sendNotificationTo(subscription, message)
   })
 }
@@ -74,10 +72,10 @@ function sendNotificationTo(subscription, message) {
   webPush
     .sendNotification(subscription, message)
     .then(() => {
-      console.log(message, 'Push Application Server - Notification sent to ' + subscription.endpoint)
+      logger.info(message, 'Push Application Server - Notification sent to ' + subscription.endpoint)
     })
     .catch(err => {
-      console.log('ERROR in sending Notification, endpoint removed ' + subscription.endpoint)
+      logger.warn('ERROR in sending Notification, endpoint removed ' + subscription.endpoint)
       unregisterSubscription({
         subscription
       })
@@ -89,24 +87,25 @@ export function getVapidPublicKey() {
 }
 
 export async function register({ request: req }) {
-  var { subscription } = req.body
-  if (!subscription) return false
+  var { subscription, user } = req.body
+  if (!subscription || !user) return false
 
-  var authCheckURL = new URL('/authcheck', req.URL).toString()
+  // var authCheckURL = new URL('/authcheck', req.URL).toString()
 
-  var response = await fetch(authCheckURL, {
-    headers: {
-      cookie: req.headers.cookie
-    }
-  })
+  // var response = await fetch(authCheckURL, {
+  //   headers: {
+  //     cookie: req.headers.cookie
+  //   }
+  // })
 
-  var userInfo = await response.json()
-  if (!userInfo) return false
+  // var userInfo = await response.json()
 
-  var userId = userInfo.user.id
+  // if (!userInfo) return false
+
+  // var userId = userInfo.user.id
 
   registerSubscription({
-    userId,
+    userId: user,
     subscription
   })
 }

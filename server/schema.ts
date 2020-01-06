@@ -7,7 +7,7 @@ const selfModulePackage = require(path.resolve(appRootPath, 'package.json'))
 const selfModuleName = selfModulePackage.name
 const selfModule = selfModulePackage['things-factory'] && require(path.resolve(appRootPath, selfModulePackage.main))
 
-const orderedModuleNames = require('@things-factory/env').orderedModuleNames
+import { orderedModuleNames, logger } from '@things-factory/env'
 import { makeExecutableSchema } from 'graphql-tools'
 
 const schemas = orderedModuleNames
@@ -20,7 +20,7 @@ const schemas = orderedModuleNames
         return require(dep).schema
       }
     } catch (e) {
-      console.error(e)
+      logger.error(e)
     }
   })
   .filter(schema => schema)
@@ -33,11 +33,13 @@ const schemas = orderedModuleNames
           types: [...typeDefs.types, ...((schema.typeDefs && schema.typeDefs.types) || [])],
           queries: [...typeDefs.queries, ...((schema.typeDefs && schema.typeDefs.queries) || [])],
           mutations: [...typeDefs.mutations, ...((schema.typeDefs && schema.typeDefs.mutations) || [])],
+          subscriptions: [...typeDefs.subscriptions, ...((schema.typeDefs && schema.typeDefs.subscriptions) || [])],
           directives: [...typeDefs.directives, ...((schema.typeDefs && schema.typeDefs.directives) || [])]
         },
         resolvers: {
           queries: [...resolvers.queries, ...((schema.resolvers && schema.resolvers.queries) || [])],
           mutations: [...resolvers.mutations, ...((schema.resolvers && schema.resolvers.mutations) || [])],
+          subscriptions: [...resolvers.subscriptions, ...((schema.resolvers && schema.resolvers.subscriptions) || [])],
           directives: [...resolvers.directives, ...((schema.resolvers && schema.resolvers.directives) || [])]
         }
       }
@@ -47,21 +49,23 @@ const schemas = orderedModuleNames
         types: [],
         queries: [],
         mutations: [],
+        subscriptions: [],
         directives: []
       },
       resolvers: {
         queries: [],
         mutations: [],
+        subscriptions: [],
         directives: []
       }
     }
   )
 
-console.log('schemas')
-console.log(schemas)
+logger.info('schemas %s', JSON.stringify(schemas, null, 2))
 
 const queryTypes = ['type Query {', ...schemas.typeDefs.queries, '}'].join('\n')
 const mutationTypes = ['type Mutation {', ...schemas.typeDefs.mutations, '}'].join('\n')
+const subscriptionTypes = ['type Subscription {', ...schemas.typeDefs.subscriptions, '}'].join('\n')
 const directiveTypes = [...schemas.typeDefs.directives].join('\n')
 
 const typeDefs = [
@@ -69,10 +73,12 @@ const typeDefs = [
     schema {
       query: Query
       mutation: Mutation
+      subscription: Subscription
     }
   `,
   queryTypes,
   mutationTypes,
+  subscriptionTypes,
   directiveTypes,
 
   `scalar Upload`,
@@ -94,6 +100,13 @@ var mutationResolvers = schemas.resolvers.mutations.reduce((sum, mutation) => {
   }
 }, {})
 
+var subscriptionResolvers = schemas.resolvers.subscriptions.reduce((sum, subscription) => {
+  return {
+    ...sum,
+    ...subscription
+  }
+}, {})
+
 var directiveResolvers = schemas.resolvers.directives.reduce((sum, directive) => {
   return {
     ...sum,
@@ -106,6 +119,7 @@ export const schema = makeExecutableSchema({
   resolvers: {
     Query: queryResolvers as any,
     Mutation: mutationResolvers as any,
+    Subscription: subscriptionResolvers as any,
     Upload: GraphQLUpload as any
   },
   directiveResolvers

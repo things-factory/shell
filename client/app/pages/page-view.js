@@ -24,7 +24,7 @@ function diff(after, before) {
 
 export class PageView extends LitElement {
   // Only render this page if it's actually visible.
-  shouldUpdate() {
+  shouldUpdate(changes) {
     var active = String(this.active) == 'true'
     var { active: oldActive = false } = this._oldLifecycleInfo$ || {}
 
@@ -49,7 +49,8 @@ export class PageView extends LitElement {
   static get properties() {
     return {
       active: Boolean,
-      lifecycle: Object
+      lifecycle: Object,
+      contextPath: { attribute: 'context-path' }
     }
   }
 
@@ -60,6 +61,7 @@ export class PageView extends LitElement {
     var after = {
       ...before,
       ...this.lifecycle,
+      contextPath: this.contextPath,
       ...changes
     }
 
@@ -78,6 +80,12 @@ export class PageView extends LitElement {
 
     this._oldLifecycleInfo$ = after
 
+    /* page의 이미 초기화된 상태에서 contextPath가 바뀐다면, 무조건 page가 리셋되어야 한다. */
+    if (before.initialized && changed.contextPath) {
+      await this.pageReset()
+      return
+    }
+
     if (changed.initialized) {
       await this.pageInitialized(after)
     }
@@ -88,8 +96,8 @@ export class PageView extends LitElement {
          * 방금 초기화된 경우라면, 엘리먼트들이 만들어지지 않았을 가능성이 있으므로,
          * 다음 animationFrame에서 pageUpdated 콜백을 호출한다.
          */
-        requestAnimationFrame(() => {
-          this.pageUpdated(changed, after, before)
+        requestAnimationFrame(async () => {
+          await this.pageUpdated(changed, after, before)
           /* active page인 경우에는, page Context 갱신도 필요할 것이다. */
           after.active && this.updateContext()
         })

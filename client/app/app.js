@@ -2,17 +2,22 @@ import { LicenseChecker } from '@hatiolab/license-checker'
 import { html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { installRouter } from 'pwa-helpers/router.js'
-import { UPDATE_MODULES } from '../actions/app'
+import { UPDATE_MODULES, UPDATE_CONTEXT_PATH } from '../actions/app'
 import { UPDATE_LICENSE_INFO, UPDATE_LICENSE_KEY, UPDATE_LICENSE_VALIDITY } from '../actions/license'
 import { navigateWithSilence, UPDATE_ACTIVE_PAGE } from '../actions/route'
 import { store } from '../store'
 import { AppStyle } from './app-style'
 import { ScrollbarStyles } from './styles/scrollbar-styles'
+import { getPathInfo } from '../utils/context-path'
+
+var titleMeta = document.querySelector('meta[name="application-name"]').content
 
 class ThingsApp extends connect(store)(LitElement) {
   static get properties() {
     return {
+      _contextPath: String,
       _page: String,
+      _pages: Object,
       _resourceId: String,
       _params: Object,
       _callbacks: Array,
@@ -40,6 +45,8 @@ class ThingsApp extends connect(store)(LitElement) {
       <aside-bar ?hidden=${fullbleed}></aside-bar>
 
       <footer-bar ?hidden=${fullbleed}></footer-bar>
+
+      <snack-bar></snack-bar>
     `
   }
 
@@ -58,7 +65,6 @@ class ThingsApp extends connect(store)(LitElement) {
 
   connectedCallback() {
     super.connectedCallback()
-    // unsubscribe()
 
     /* 모듈 임포트를 동적으로 처리한다. */
     import('../module-importer.import').then(module => {
@@ -86,6 +92,18 @@ class ThingsApp extends connect(store)(LitElement) {
       })
 
       installRouter((location, e) => {
+        var { contextPath, domain, path } = getPathInfo(location.pathname)
+
+        if (!contextPath) {
+          // TODO contextPath가 존재하지 않으면, 마지막 접속했던 도메인으로 이동
+        }
+
+        if (this._contextPath != contextPath)
+          store.dispatch({
+            type: UPDATE_CONTEXT_PATH,
+            contextPath: contextPath
+          })
+
         store.dispatch(navigateWithSilence(location))
         this._callbacks &&
           this._callbacks.forEach(callback => {
@@ -97,6 +115,8 @@ class ThingsApp extends connect(store)(LitElement) {
           })
       })
     })
+
+    this.setBase()
   }
 
   routeToPage() {
@@ -106,8 +126,26 @@ class ThingsApp extends connect(store)(LitElement) {
     })
 
     this._activePage = this.shadowRoot.querySelector(`main > .page[data-page=${this._page}]`)
+
+    if (!this._activePage) {
+      /* 해당 route에 연결된 page가 없는 경우에 main 섹션에 해당 element를 추가해준다. */
+      var tagname = this._pages[this._page]
+      if (tagname) {
+        var main = this.shadowRoot.querySelector('main')
+
+        var el = document.createElement(tagname)
+        el.setAttribute('class', 'page')
+        el.setAttribute('data-page', this._page)
+
+        main.appendChild(el)
+
+        this._activePage = el
+      }
+    }
+
     if (this._activePage) {
       this._activePage.setAttribute('active', true)
+      this._activePage.setAttribute('context-path', this._contextPath)
       this._activePage.lifecycle = {
         ...(this._activePage.lifecycle || {}),
         active: true,
@@ -125,11 +163,25 @@ class ThingsApp extends connect(store)(LitElement) {
 
   async updated(changedProps) {
     if (changedProps.has('_modules')) {
-      this._appendFactoryModulePages()
+      this._readyPageList()
     }
 
     if (changedProps.has('_page') || changedProps.has('_resourceId') || changedProps.has('_params')) {
       this.routeToPage()
+    }
+
+    if (changedProps.has('_context')) {
+      const pageTitle = this._context.title ? `${titleMeta} - ${this._context.title.toUpperCase()}` : titleMeta
+
+      updateMetadata({
+        title: pageTitle,
+        description: pageTitle
+        // This object also takes an image property, that points to an img src.
+      })
+    }
+
+    if (changedProps.has('_contextPath')) {
+      this.setBase()
     }
   }
 
@@ -144,6 +196,7 @@ class ThingsApp extends connect(store)(LitElement) {
     this._callbacks = state.route.callbacks
     this._context = state.route.context
     this._modules = state.app.modules
+    this._contextPath = state.app.contextPath
 
     LicenseChecker.checkValidity().then(info => {
       if (!info) return
@@ -159,27 +212,24 @@ class ThingsApp extends connect(store)(LitElement) {
     })
   }
 
-  _appendFactoryModulePages() {
-    var main = this.shadowRoot.querySelector('main')
+  _readyPageList() {
     var reversedModules = [...this._modules].reverse()
-    var pages = {}
+    this._pages = {}
 
     /* 모듈 참조 순서 역순으로 page를 추가한다. (for overidable) */
     reversedModules.forEach(m => {
       m.routes &&
         m.routes.forEach(route => {
-          if (pages[route.page]) {
-            /* 이미 추가된 page는 추가하지 않는다. */
-            return
+          if (!this._pages[route.page]) {
+            this._pages[route.page] = route.tagname
           }
-          var el = document.createElement(route.tagname)
-          el.setAttribute('class', 'page')
-          el.setAttribute('data-page', route.page)
-
-          main.appendChild(el)
-          pages[route.page] = true
         })
     })
+  }
+
+  setBase() {
+    var base = document.querySelector('base')
+    base.setAttribute('href', this._contextPath ? `${this._contextPath}/` : '/')
   }
 }
 

@@ -4,7 +4,7 @@ export async function unsubscribe() {
   if (!subscription) return false
 
   await subscription.unsubscribe()
-  await fetch('unregister', {
+  await fetch('/unregister', {
     method: 'post',
     headers: {
       'Content-type': 'application/json'

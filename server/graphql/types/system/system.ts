@@ -1,9 +1,9 @@
 import gql from 'graphql-tag'
 
-export const ObjectRef = gql`
-  input ObjectRef {
-    id: String!
+export const System = gql`
+  type System {
     name: String
     description: String
+    version: String
   }
 `
