@@ -1,7 +1,6 @@
 import { LicenseChecker } from '@hatiolab/license-checker'
 import { html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
-import { updateMetadata } from 'pwa-helpers/metadata.js'
 import { installRouter } from 'pwa-helpers/router.js'
 import { UPDATE_MODULES, UPDATE_CONTEXT_PATH } from '../actions/app'
 import { UPDATE_LICENSE_INFO, UPDATE_LICENSE_KEY, UPDATE_LICENSE_VALIDITY } from '../actions/license'

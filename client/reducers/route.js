@@ -5,6 +5,10 @@ import {
   REGISTER_NAVIGATION_CALLBACK,
   UNREGISTER_NAVIGATION_CALLBACK
 } from '../actions/route.js'
+import { updateMetadata } from 'pwa-helpers/metadata.js'
+import startCase from 'lodash/startCase'
+
+const APP_TITLE = document.querySelector('meta[name="application-name"]').content
 
 const INITIAL_STATE = {
   page: '',
@@ -25,6 +29,9 @@ const route = (state = INITIAL_STATE, action) => {
         params: action.params
       }
     case UPDATE_CONTEXT:
+      updateMetadata({
+        title: APP_TITLE + (action.context && action.context.title ? ` - ${startCase(action.context.title)}` : '')
+      })
       return {
         ...state,
         context: action.context || (state.activePage && state.activePage.context) || {}
