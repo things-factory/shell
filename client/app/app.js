@@ -10,8 +10,6 @@ import { AppStyle } from './app-style'
 import { ScrollbarStyles } from './styles/scrollbar-styles'
 import { getPathInfo } from '../utils/context-path'
 
-var titleMeta = document.querySelector('meta[name="application-name"]').content
-
 class ThingsApp extends connect(store)(LitElement) {
   static get properties() {
     return {
@@ -168,16 +166,6 @@ class ThingsApp extends connect(store)(LitElement) {
 
     if (changedProps.has('_page') || changedProps.has('_resourceId') || changedProps.has('_params')) {
       this.routeToPage()
-    }
-
-    if (changedProps.has('_context')) {
-      const pageTitle = this._context.title ? `${titleMeta} - ${this._context.title.toUpperCase()}` : titleMeta
-
-      updateMetadata({
-        title: pageTitle,
-        description: pageTitle
-        // This object also takes an image property, that points to an img src.
-      })
     }
 
     if (changedProps.has('_contextPath')) {
