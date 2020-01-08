@@ -59,7 +59,8 @@ self.addEventListener('push', event => {
     body: message.body,
     icon: '/assets/manifest/icon-128x128.png',
     badge: '/assets/manifest/icon-128x128.png',
-    data: message
+    data: message,
+    requireInteraction: message.requireInteraction
     // actions: [{ action: 'like', title: 'Like' }, { action: 'reply', title: 'Reply' }]
   }
   event.waitUntil(self.registration.showNotification(title, options))

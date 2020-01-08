@@ -87,6 +87,7 @@ routes.post('/request-notification', koaBodyParser(bodyParserOption), async (con
   var { receivers = [], message, url, title } = context.request.body
 
   var msg = {
+    ...context.request.body,
     title,
     body: message,
     url: url || context.request.href
