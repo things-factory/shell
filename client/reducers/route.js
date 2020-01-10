@@ -8,7 +8,10 @@ import {
 import { updateMetadata } from 'pwa-helpers/metadata.js'
 import startCase from 'lodash/startCase'
 
-const APP_TITLE = document.querySelector('meta[name="application-name"]').content
+const APP_TITLE_EL = document.querySelector('meta[name="application-name"]')
+var appTitle
+if(APP_TITLE_EL) appTitle = APP_TITLE_EL.content
+
 
 const INITIAL_STATE = {
   page: '',
@@ -30,7 +33,7 @@ const route = (state = INITIAL_STATE, action) => {
       }
     case UPDATE_CONTEXT:
       updateMetadata({
-        title: APP_TITLE + (action.context && action.context.title ? ` - ${startCase(action.context.title)}` : '')
+        title: appTitle + (action.context && action.context.title ? ` - ${startCase(action.context.title)}` : '')
       })
       return {
         ...state,
