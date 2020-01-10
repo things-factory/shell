@@ -143,7 +143,7 @@ const bootstrap = async () => {
   render(app, {
     root: '/views',
     host: `http://127.0.0.1:${PORT}`,
-    layout: false,
+    layout: 'template',
     viewExt: 'html',
     cache: false,
     debug: true
@@ -195,14 +195,6 @@ const bootstrap = async () => {
       logger.info(`🚀 Subscriptions ready at ws://0.0.0.0:${PORT}${server.subscriptionsPath}`)
 
       process.emit('bootstrap-module-start' as any, app, config)
-
-      pubsub.publish('systemRebooted', {
-        systemRebooted: {
-          name: 'Things Factory',
-          description: 'Reimagining Software',
-          version: '1.0.0-alpha.45'
-        }
-      })
     })
 
     SubscriptionServer.create(

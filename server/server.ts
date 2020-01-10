@@ -132,7 +132,7 @@ const bootstrap = async () => {
   render(app, {
     root: '/views',
     host: `http://127.0.0.1:${PORT}`,
-    layout: 'template',
+    layout: false,
     viewExt: 'html',
     cache: false,
     debug: true
