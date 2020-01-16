@@ -1,4 +1,4 @@
-import * as contextPath from '@things-factory/utils/src/context-path'
+import * as contextPath from '@things-factory/utils'
 
 export function getPathInfo(pathname) {
   console.warn(`getPathInfo is deprecated. please use @things-factory/utils's instead of @things-factory/shell's`)

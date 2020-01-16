@@ -1,4 +1,4 @@
-import * as cookie from '@things-factory/utils/src/cookie'
+import * as cookie from '@things-factory/utils'
 
 export function setCookie(cname, cvalue, exdays) {
   console.warn(`setCookie is deprecated. please use @things-factory/utils's instead of @things-factory/shell's`)

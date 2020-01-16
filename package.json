@@ -58,6 +58,7 @@
     "@material/mwc-slider": "^0.11.1",
     "@material/mwc-textfield": "^0.11.1",
     "@things-factory/env": "^2.0.0",
+    "@things-factory/utils": "^0.0.4",
     "@types/lodash": "^4.14.139",
     "@types/node": "^12.11.2",
     "@webcomponents/webcomponentsjs": "^2.2.7",

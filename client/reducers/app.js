@@ -1,5 +1,5 @@
 import { UPDATE_MODULES, UPDATE_BASE_URL, UPDATE_CONTEXT_PATH, SET_DOMAINS } from '../actions/app.js'
-import { getPathInfo } from '@things-factory/utils/src/context-path'
+import { getPathInfo } from '@things-factory/utils'
 
 const INITIAL_STATE = {
   baseUrl: location.origin,

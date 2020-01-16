@@ -1,4 +1,4 @@
-import * as osUtil from '@things-factory/utils/src/os'
+import * as osUtil from '@things-factory/utils'
 
 export function getOS() {
   console.warn(`getOS is deprecated. please use @things-factory/utils's instead of @things-factory/shell's`)

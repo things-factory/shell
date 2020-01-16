@@ -1,4 +1,4 @@
-import * as fullscreenLib from '@things-factory/utils/src/fullscreen'
+import * as fullscreenLib from '@things-factory/utils'
 
 export function fullscreen(element, afterfull, afterfinish) {
   console.warn(`fullscreen is deprecated. please use @things-factory/utils's instead of @things-factory/shell's`)

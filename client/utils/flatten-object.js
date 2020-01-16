@@ -1,4 +1,4 @@
-import * as flatten from '@things-factory/utils/src/flatten-object'
+import * as flatten from '@things-factory/utils'
 
 export function flattenObject(obj, delimiter = '|') {
   console.warn(`flattenObject is deprecated. please use @things-factory/utils's instead of @things-factory/shell's`)
