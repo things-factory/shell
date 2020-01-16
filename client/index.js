@@ -23,9 +23,6 @@ export * from './app/pages/page-view'
 // styles
 export * from './app/styles'
 
-// utils
-export * from './utils'
-
 // graphql-client
 export * from './graphql-client'
 
