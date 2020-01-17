@@ -1,19 +1,11 @@
-import { CONTEXT_PATH_PREFIX } from '../context-path-prefix'
+import * as contextPath from '@things-factory/utils'
 
 export function getPathInfo(pathname) {
-  var regexp = new RegExp(`(/${CONTEXT_PATH_PREFIX}/(\\w+))?(/?.*)`)
-  var matched = pathname.match(regexp)
-  var contextPath = matched[1] || ''
-  var domain = matched[2] || ''
-  var path = matched[3]
-
-  return {
-    contextPath,
-    domain,
-    path
-  }
+  console.warn(`getPathInfo is deprecated. please use @things-factory/utils's instead of @things-factory/shell's`)
+  return contextPath.getPathInfo(pathname)
 }
 
 export function makeContextPath(context) {
-  return `/${CONTEXT_PATH_PREFIX}/${context}/`
+  console.warn(`makeContextPath is deprecated. please use @things-factory/utils's instead of @things-factory/shell's`)
+  return contextPath.makeContextPath(context)
 }

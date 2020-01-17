@@ -1,21 +1,16 @@
-var os = 'Unknown OS'
-
-if (navigator.appVersion.indexOf('Win') != -1) os = 'Windows'
-else if (navigator.appVersion.indexOf('Macintosh') != -1) os = 'Mac'
-else if (navigator.appVersion.indexOf('Android') != -1) os = 'Android'
-else if (navigator.appVersion.indexOf('iPad') != -1) os = 'iOS'
-else if (navigator.appVersion.indexOf('iPhone') != -1) os = 'iOS'
-
-var mobile = os === 'iOS' || os === 'Android'
+import * as osUtil from '@things-factory/utils'
 
 export function getOS() {
-  return os
+  console.warn(`getOS is deprecated. please use @things-factory/utils's instead of @things-factory/shell's`)
+  return osUtil.getOS()
 }
 
 export function isMobileDevice() {
-  return mobile
+  console.warn(`isMobileDevice is deprecated. please use @things-factory/utils's instead of @things-factory/shell's`)
+  return osUtil.isMobileDevice()
 }
 
 export function isIOS() {
-  return os === 'iOS'
+  console.warn(`isIOS is deprecated. please use @things-factory/utils's instead of @things-factory/shell's`)
+  return osUtil.isIOS()
 }

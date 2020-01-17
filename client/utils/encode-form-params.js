@@ -1,5 +1,6 @@
+import * as encodeForm from '@things-factory/utils'
+
 export function encodeFormParams(obj) {
-  return Object.keys(obj)
-    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`)
-    .join('&')
+  console.warn(`encodeFormParams is deprecated. please use @things-factory/utils's instead of @things-factory/shell's`)
+  return encodeForm.encodeFormParams(obj)
 }
