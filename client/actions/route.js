@@ -1,5 +1,5 @@
 import { store } from '../store'
-import { getPathInfo } from '@things-factory/utils'
+import { getPathInfo } from '../utils/context-path'
 
 export const UPDATE_PAGE = 'UPDATE_PAGE'
 export const UPDATE_CONTEXT = 'UPDATE_CONTEXT'

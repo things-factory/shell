@@ -8,7 +8,7 @@ import { navigateWithSilence, UPDATE_ACTIVE_PAGE } from '../actions/route'
 import { store } from '../store'
 import { AppStyle } from './app-style'
 import { ScrollbarStyles } from './styles/scrollbar-styles'
-import { getPathInfo } from '@things-factory/utils'
+import { getPathInfo } from '../utils/context-path'
 
 class ThingsApp extends connect(store)(LitElement) {
   static get properties() {
