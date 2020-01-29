@@ -6,6 +6,7 @@ body {
   --primary-background-color: var(--secondary-color);
   --secondary-background-color: #283644;
   --main-section-background-color: #f4f7fb;
+  --primary-color-rgb: 34, 166, 167;
 
   --focus-background-color: var(--primary-color);
   --primary-text-color: #111;
