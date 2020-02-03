@@ -39,8 +39,6 @@ const bodyParserOption = {
   textLimit: '10mb'
 }
 
-// const { context } = require('./server-context')
-
 /* bootstrap */
 const bootstrap = async () => {
   await databaseInitializer()
@@ -124,7 +122,6 @@ const bootstrap = async () => {
       return response
     },
     context: ({ ctx }) => ctx
-    // context
   })
 
   process.emit('bootstrap-module-middleware' as any, app as any)
@@ -162,7 +159,7 @@ const bootstrap = async () => {
     logger.info(`🚀 Server ready at http://0.0.0.0:${PORT}${server.graphqlPath}`)
     logger.info(`🚀 Subscriptions ready at ws://0.0.0.0:${PORT}${server.subscriptionsPath}`)
 
-    process.emit('bootstrap-module-start' as any, { app, config, client: createLocalClient(server) } as any)
+    process.emit('bootstrap-module-start' as any, { app, config, client: createLocalClient(schema) } as any)
   })
 
   SubscriptionServer.create(

@@ -28,21 +28,42 @@ export interface ApolloServerLocalClient {
   mutate: (mutation: Mutation) => Promise<GraphQLResponse>
 }
 
-export function createLocalClient(server: ApolloServerBase): ApolloServerLocalClient {
-  const executeOperation = server.executeOperation.bind(server)
-  const resolve = ({ query, mutation, ...args }: Query | Mutation) => {
-    const operation = query || mutation
+export function createLocalClient(schema): ApolloServerLocalClient {
+  const resolve = async ({ query, mutation, variables, context }) => {
+    // Create a new Apollo Server for each request
+    const server = new ApolloServerBase({
+      schema,
+      context: {
+        // ⚠️ Note: here you should construct your GraphQL
+        // context! When calling the query/mutation, I
+        // usually like to override some properties (eg the
+        // authed user which I attach to the context). Here
+        // is where you need to put all your default GraphQL
+        // context data. Eg dataloaders etc.
+        ...context
+      }
+    })
 
-    if (!operation || (query && mutation)) {
-      throw new Error('Either `query` or `mutation` must be passed, but not both.')
+    const executeOperation = server.executeOperation.bind(server)
+    const operation = query || mutation
+    if (!operation || (!!query && !!mutation)) {
+      throw new Error('Either query or mutation must be passed, but not both')
     }
 
-    return executeOperation({
-      // Convert ASTs, which are produced by `graphql-tag` but not currently
-      // used by `executeOperation`, to a String using `graphql/language/print`.
-      query: typeof operation === 'string' ? operation : print(operation),
-      ...args
+    // Execute the actual operation
+    const res = await executeOperation({
+      variables,
+      query: typeof operation === 'string' ? operation : print(operation)
     })
+
+    // Throw an error with all the messages of the
+    // errors to make them easy to match using Jest
+    if (!!res.errors && !!res.errors.length) {
+      const message = res.errors.map(error => error.message).join('\n')
+      throw new Error(message)
+    }
+
+    return res
   }
 
   return { query: resolve, mutate: resolve }
