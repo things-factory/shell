@@ -11,7 +11,6 @@ import { ApolloServer } from 'apollo-server-koa'
 import { graphqlUploadKoa } from 'graphql-upload'
 import { execute, subscribe } from 'graphql'
 import { SubscriptionServer } from 'subscriptions-transport-ws'
-import { createLocalClient } from './graphql-local-client'
 
 import { config, logger } from '@things-factory/env'
 
@@ -159,7 +158,7 @@ const bootstrap = async () => {
     logger.info(`🚀 Server ready at http://0.0.0.0:${PORT}${server.graphqlPath}`)
     logger.info(`🚀 Subscriptions ready at ws://0.0.0.0:${PORT}${server.subscriptionsPath}`)
 
-    process.emit('bootstrap-module-start' as any, { app, config, client: createLocalClient(schema) } as any)
+    process.emit('bootstrap-module-start' as any, { app, config, schema } as any)
   })
 
   SubscriptionServer.create(
