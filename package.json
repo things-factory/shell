@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "2.0.19",
+  "version": "2.0.20",
   "description": "things factory shell",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -127,6 +127,7 @@
     "postcss-loader": "^3.0.0",
     "promises-all": "^1.0.0",
     "pwa-helpers": "^0.9.1",
+    "raw-loader": "^4.0.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.2",
