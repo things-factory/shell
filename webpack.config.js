@@ -174,6 +174,10 @@ module.exports = {
         ]
       },
       {
+        test: /\.bpmn$/,
+        use: 'raw-loader'
+      },
+      {
         test: /module-importer.import$/,
         use: {
           loader: 'things-factory-module-loader',
