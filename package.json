@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "2.0.25",
+  "version": "2.0.26",
   "description": "things factory shell",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -59,7 +59,7 @@
     "@material/mwc-textfield": "^0.13.0",
     "@things-factory/env": "^2.0.0",
     "@things-factory/styles": "^0.0.1",
-    "@things-factory/utils": "^0.0.5",
+    "@things-factory/utils": "^0.0.6",
     "@types/lodash": "^4.14.139",
     "@types/node": "^12.11.2",
     "@webcomponents/webcomponentsjs": "^2.2.7",
