@@ -1,23 +1,20 @@
 import { urlBase64ToUint8Array } from './url-base64-to-uint8-array'
-import { unsubscribe } from './unsubscribe'
 
 export async function subscribe(userInfo) {
   try {
     var registration = await navigator.serviceWorker.ready
     var subscription = await registration.pushManager.getSubscription()
 
-    if (subscription) {
-      unsubscribe()
+    if (!subscription) {
+      const response = await fetch('/vapidPublicKey')
+      const vapidPublicKey = await response.text()
+      const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey)
+
+      subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: convertedVapidKey
+      })
     }
-
-    const response = await fetch('/vapidPublicKey')
-    const vapidPublicKey = await response.text()
-    const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey)
-
-    subscription = await registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: convertedVapidKey
-    })
 
     if (!subscription) return false
     if (!userInfo) return
