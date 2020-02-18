@@ -5,6 +5,7 @@ import { HttpLink } from 'apollo-link-http'
 import { onError } from 'apollo-link-error'
 import { createUploadLink } from 'apollo-upload-client'
 import { BatchHttpLink } from 'apollo-link-batch-http'
+import { persistCache } from 'apollo-cache-persist'
 
 const GRAPHQL_URI = '/graphql'
 
@@ -14,7 +15,7 @@ const defaultOptions = {
     errorPolicy: 'ignore'
   },
   query: {
-    fetchPolicy: 'no-cache', //'network-only'
+    fetchPolicy: 'network-first', //'network-only'
     errorPolicy: 'all'
   },
   mutate: {
@@ -62,7 +63,8 @@ const ERROR_HANDLER = ({ graphQLErrors, networkError }) => {
 }
 
 const cache = new InMemoryCache({
-  addTypename: false
+  addTypename: false,
+  dataIdFromObject: object => object.key
 })
 
 const httpOptions = {
@@ -75,6 +77,15 @@ const httpLink = ApolloLink.split(
   createUploadLink(httpOptions),
   new BatchHttpLink(httpOptions)
 )
+
+const initPersistCache = async () => {
+  persistCache({
+    cache,
+    storage: window.localStorage
+  })
+}
+
+initPersistCache()
 
 export const client = new ApolloClient({
   defaultOptions,
