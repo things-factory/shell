@@ -94,7 +94,7 @@
     "graphql-subscriptions": "^1.1.0",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^4.0.4",
-    "graphql-upload": "^10.0.0",
+    "graphql-upload": "^9.0.0",
     "graphql-voyager": "^1.0.0-rc.27",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^3.0.0",
