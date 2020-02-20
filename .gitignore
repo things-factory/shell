@@ -3,6 +3,7 @@ dist-server/
 node_modules/
 logs/
 uploads/
+attachments/
 db.sqlite
 yarn*.*
 package-lock.json
