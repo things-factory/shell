@@ -15,7 +15,7 @@ const defaultOptions = {
     errorPolicy: 'ignore'
   },
   query: {
-    fetchPolicy: 'network-first', //'network-only'
+    fetchPolicy: 'no-cache', //'network-only'
     errorPolicy: 'all'
   },
   mutate: {
@@ -63,8 +63,8 @@ const ERROR_HANDLER = ({ graphQLErrors, networkError }) => {
 }
 
 const cache = new InMemoryCache({
-  addTypename: false,
-  dataIdFromObject: object => object.key
+  addTypename: false
+  // dataIdFromObject: object => object.key
 })
 
 const httpOptions = {
