@@ -85,7 +85,7 @@ const initPersistCache = async () => {
   })
 }
 
-initPersistCache()
+// initPersistCache()
 
 export const client = new ApolloClient({
   defaultOptions,
