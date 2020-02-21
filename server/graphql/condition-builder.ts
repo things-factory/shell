@@ -2,7 +2,7 @@ export const buildCondition = function(
   alias: string,
   fieldName: string,
   operator: string,
-  value: string,
+  value: any,
   relation: boolean,
   seq: number
 ) {
@@ -70,15 +70,19 @@ export const buildCondition = function(
       }
 
     case 'in':
-      const clause = relation ? `"${fieldName}"."id" IN (:args${seq})` : `"${alias}"."${fieldName}" IN (:args${seq})`
+      const clause = relation
+        ? `"${fieldName}"."id" IN (:...args${seq})`
+        : `"${alias}"."${fieldName}" IN (:...args${seq})`
+      value = value?.length ? value : [value]
       return {
         clause,
-        parameters: { [`args${seq}`]: `(${value})` }
+        parameters: { [`args${seq}`]: value }
       }
     case 'notin':
+      value = value?.length ? value : [value]
       return {
-        clause: `"${alias}"."${fieldName}" NOT IN (:args${seq})`,
-        parameters: { [`args${seq}`]: `(${value})` }
+        clause: `"${alias}"."${fieldName}" NOT IN (:...args${seq})`,
+        parameters: { [`args${seq}`]: value }
       }
 
     case 'is_null':
