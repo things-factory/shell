@@ -8,5 +8,6 @@ export const Filter = gql`
     name: String
     operator: String
     value: AnyScalar
+    relation: Boolean
   }
 `

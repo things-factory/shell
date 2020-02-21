@@ -2,19 +2,10 @@ export const buildCondition = function(
   fieldName: string,
   operator: string,
   value: string,
-  dataType: string = '',
+  relation: boolean,
   seq: number
 ) {
   seq++
-  dataType = dataType.toLowerCase()
-  value =
-    dataType.indexOf('boolean') >= 0
-      ? JSON.parse(value)
-      : dataType.indexOf('int') >= 0
-      ? parseInt(value)
-      : dataType.indexOf('float') >= 0
-      ? parseFloat(value)
-      : value
 
   switch (operator) {
     case 'eq':
@@ -78,8 +69,9 @@ export const buildCondition = function(
       }
 
     case 'in':
+      const clause = relation ? `${fieldName}.id IN (:args${seq})` : `${fieldName} IN (:args${seq})`
       return {
-        clause: `${fieldName} IN (:args${seq})`,
+        clause,
         parameters: { [`args${seq}`]: `(${value})` }
       }
     case 'notin':
