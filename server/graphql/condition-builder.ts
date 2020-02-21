@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 export const buildCondition = function(
   alias: string,
   fieldName: string,
@@ -7,6 +9,8 @@ export const buildCondition = function(
   seq: number
 ) {
   seq++
+
+  fieldName = _.snakeCase(fieldName)
 
   switch (operator) {
     case 'eq':
