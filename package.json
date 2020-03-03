@@ -157,10 +157,7 @@
     "workbox-webpack-plugin": "^4.3.1"
   },
   "devDependencies": {
-    "@things-factory/board-test": "^2.0.0",
-    "@things-factory/board-ui": "^2.0.0",
-    "@things-factory/opa-app": "^2.0.0",
-    "@things-factory/opa-test": "^2.0.0",
+    "@things-factory/biz-base": "^2.2.0",
     "cordova-plugin-qr-barcode-scanner": "~8.0.3",
     "cordova-plugin-whitelist": "1",
     "cordova-plugin-zeroconf": "~1.4.0"

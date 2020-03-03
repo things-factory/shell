@@ -62,7 +62,6 @@ const schemas = orderedModuleNames
   )
 
 logger.info('schemas %s', JSON.stringify(schemas, null, 2))
-
 const queryTypes = ['type Query {', ...schemas.typeDefs.queries, '}'].join('\n')
 const mutationTypes = ['type Mutation {', ...schemas.typeDefs.mutations, '}'].join('\n')
 const subscriptionTypes = ['type Subscription {', ...schemas.typeDefs.subscriptions, '}'].join('\n')
@@ -113,6 +112,15 @@ var directiveResolvers = schemas.resolvers.directives.reduce((sum, directive) =>
     ...directive
   }
 }, {})
+console.log('####################')
+console.log('####################')
+console.log('typeDefs', typeDefs)
+console.log('queryResolvers', queryResolvers)
+console.log('####################')
+console.log('####################')
+
+var parentResolvers = queryResolvers.Parent
+delete queryResolvers.Parent
 
 export const schema = makeExecutableSchema({
   typeDefs,
@@ -120,7 +128,21 @@ export const schema = makeExecutableSchema({
     Query: queryResolvers as any,
     Mutation: mutationResolvers as any,
     Subscription: subscriptionResolvers as any,
-    Upload: GraphQLUpload as any
+    Upload: GraphQLUpload as any,
+    Parent: parentResolvers
   },
   directiveResolvers
 })
+
+// const resolvers = {
+//   Query: {
+//     author(parent, args, context, info) {
+//       return find(authors, { id: args.id });
+//     },
+//   },
+//   Author: {
+//     books(author) {
+//       return filter(books, { author: author.name });
+//     },
+//   },
+// };
