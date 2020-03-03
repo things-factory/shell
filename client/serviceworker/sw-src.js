@@ -1,33 +1,40 @@
-workbox.core.skipWaiting()
-workbox.core.clientsClaim()
+import { skipWaiting, clientsClaim } from 'workbox-core'
+import * as navigationPreload from 'workbox-navigation-preload'
+import * as precaching from 'workbox-precaching'
+import * as routing from 'workbox-routing'
+import * as strategies from 'workbox-strategies'
 
-workbox.navigationPreload.enable()
-var precacheManifest = self.__precacheManifest || []
-workbox.precaching.precacheAndRoute(
+skipWaiting()
+clientsClaim()
+
+navigationPreload.enable()
+
+var precacheManifest = self.__WB_MANIFEST
+precaching.precacheAndRoute(
   precacheManifest.filter(precache => {
     let url = precache.url
     return !/^\/index\.html/.test(url)
   })
 )
-workbox.precaching.cleanupOutdatedCaches()
+precaching.cleanupOutdatedCaches()
 
-workbox.routing.registerRoute(
+routing.registerRoute(
   new RegExp('.(?:png|jpe?g|svg|gif)'),
-  new workbox.strategies.StaleWhileRevalidate({
+  new strategies.StaleWhileRevalidate({
     cacheName: 'images-cache'
   })
 )
 
-workbox.routing.registerRoute(
+routing.registerRoute(
   new RegExp('^https://fonts.gstatic.com/'),
-  new workbox.strategies.StaleWhileRevalidate({
+  new strategies.StaleWhileRevalidate({
     cacheName: 'google-fonts-cache'
   })
 )
 
-workbox.routing.registerRoute(
+routing.registerRoute(
   new RegExp('^[^.]+$'),
-  new workbox.strategies.NetworkFirst({
+  new strategies.NetworkFirst({
     cacheName: 'api'
   })
 )

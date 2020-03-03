@@ -65,7 +65,12 @@ class ThingsApp extends connect(store)(LitElement) {
     super.connectedCallback()
 
     /* 모듈 임포트를 동적으로 처리한다. */
-    import('../module-importer.import').then(module => {
+    import(
+      /* webpackPrefetch: true */
+      /* webpackPreload: true */
+      /* webpackChunkName: "modules" */
+      '../module-importer.import'
+    ).then(module => {
       var modules = module.modules
 
       /* lifecycle - bootstrapping */

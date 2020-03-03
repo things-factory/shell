@@ -8,6 +8,8 @@ const FolderOverridePlugin = require('./webpack-plugins/folder-override-plugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ThemeOverridePlugin = require('./webpack-plugins/theme-override-plugin')
+const Visualizer = require('webpack-visualizer-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const glob = require('glob')
 
 const AppRootPath = require('app-root-path').path
@@ -96,6 +98,16 @@ module.exports = {
     chunkFilename: '[name].js',
     publicPath: '/'
   },
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       commons: {
+  //         test: /[\\/]node_modules[\\/](?!workbox)/i,
+  //         chunks: 'all'
+  //       }
+  //     }
+  //   }
+  // },
   module: {
     rules: [
       {
@@ -276,7 +288,6 @@ module.exports = {
       output: 'translations'
     }),
     new WorkboxWebpackPlugin.InjectManifest({
-      importWorkboxFrom: 'local',
       swSrc: path.resolve(__dirname, 'client/serviceworker/sw-src.js'),
       swDest: 'service-worker.js'
     }),
@@ -289,7 +300,9 @@ module.exports = {
         'APP-LICENSE': JSON.stringify(AppPackage.license),
         'APP-NAME': JSON.stringify(AppPackage.name)
       }
-    })
+    }),
+    // new Visualizer(),
+    new BundleAnalyzerPlugin()
   ],
-  devtool: 'cheap-module-source-map'
+  devtool: 'eval-cheap-module-source-map'
 }

@@ -277,7 +277,6 @@ module.exports = {
       output: 'translations'
     }),
     new WorkboxWebpackPlugin.InjectManifest({
-      importWorkboxFrom: 'local',
       swSrc: path.resolve(__dirname, 'client/serviceworker/sw-src.js'),
       swDest: 'service-worker.js'
     }),
