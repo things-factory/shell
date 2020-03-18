@@ -7,16 +7,24 @@ import * as strategies from 'workbox-strategies'
 skipWaiting()
 clientsClaim()
 
-navigationPreload.enable()
+// navigationPreload.enable()
 
 var precacheManifest = self.__WB_MANIFEST
 precaching.precacheAndRoute(
   precacheManifest.filter(precache => {
     let url = precache.url
-    return !/^\/index\.html/.test(url)
+    // return !/^\/index\.html/.test(url)
+    return true
   })
 )
 precaching.cleanupOutdatedCaches()
+
+const indexHandler = precaching.createHandlerBoundToURL('/index.html')
+const indexNavigationRoute = new routing.NavigationRoute(indexHandler, {
+  allowlist: [new RegExp('/domain/')]
+})
+
+routing.registerRoute(indexNavigationRoute)
 
 routing.registerRoute(
   new RegExp('.(?:png|jpe?g|svg|gif)'),
@@ -32,12 +40,12 @@ routing.registerRoute(
   })
 )
 
-routing.registerRoute(
-  new RegExp('^[^.]+$'),
-  new strategies.NetworkFirst({
-    cacheName: 'api'
-  })
-)
+// routing.registerRoute(
+//   new RegExp('^[^.]+$'),
+//   new strategies.NetworkFirst({
+//     cacheName: 'api'
+//   })
+// )
 
 self.addEventListener('activate', e => {
   self.clients.matchAll().then(clientArr => {
