@@ -66,10 +66,10 @@ let LOCAL_ENTRIES = glob.sync(`${path.join(AppRootPath, 'client', 'entries', '**
 
 let entries = Object.assign({}, MODULE_ENTRIES, LOCAL_ENTRIES, {
   main: [
-    path.resolve(__dirname, 'client/index.js'),
+    path.resolve(__dirname, 'client', 'index.js'),
     'webpack-hot-client/client?path=/__webpack_hmr&timeout=20000&reload=true'
   ],
-  'headless-scene-components': [path.resolve(ShellModulePath, './client/scene/scene-components.js')]
+  'headless-scene-components': [path.resolve(ShellModulePath, '.', 'client', 'scene', 'scene-components.js')]
 })
 
 module.exports = {
