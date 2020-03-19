@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "2.3.0-beta.6",
+  "version": "2.3.0-beta.7",
   "description": "things factory shell",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -152,10 +152,12 @@
     "web-push": "^3.3.5",
     "webfontloader": "^1.6.28",
     "webpack": "^4.41.0",
+    "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cleanup-plugin": "^0.5.1",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.6.0",
     "webpack-hot-client": "^4.1.1",
+    "webpack-visualizer-plugin": "^0.1.11",
     "workbox-webpack-plugin": "^5.0.0"
   },
   "devDependencies": {
@@ -164,9 +166,7 @@
     "@things-factory/board-ui": "^2.0.0",
     "cordova-plugin-qr-barcode-scanner": "~8.0.3",
     "cordova-plugin-whitelist": "1",
-    "cordova-plugin-zeroconf": "~1.4.0",
-    "webpack-bundle-analyzer": "^3.6.0",
-    "webpack-visualizer-plugin": "^0.1.11"
+    "cordova-plugin-zeroconf": "~1.4.0"
   },
   "resolutions": {
     "@things-factory/auth-base": "^2.3.0-beta.2"
