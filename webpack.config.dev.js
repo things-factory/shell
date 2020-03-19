@@ -178,6 +178,20 @@ module.exports = {
         ]
       },
       {
+        test: /\.less$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: true,
+              reloadAll: true
+            }
+          },
+          'css-loader',
+          'less-loader'
+        ]
+      },
+      {
         test: /\.(obj|mtl|tga|3ds|max|dae)$/,
         use: [
           {
