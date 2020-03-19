@@ -62,7 +62,7 @@
     "@things-factory/styles": "^0.0.2",
     "@things-factory/utils": "^0.0.6",
     "@types/lodash": "^4.14.139",
-    "@types/node": "^13.7.7",
+    "@types/node": "^13.9.2",
     "@webcomponents/webcomponentsjs": "^2.2.7",
     "apollo-cache-inmemory": "^1.6.1",
     "apollo-cache-persist": "^0.1.1",
@@ -105,7 +105,7 @@
     "koa-body": "^4.0.4",
     "koa-bodyparser": "^4.2.0",
     "koa-ejs-remote": "^1.1.6",
-    "koa-router": "^7.4.0",
+    "koa-router": "^8.0.8",
     "koa-send": "^5.0.0",
     "koa-static": "^5.0.0",
     "koa-unless": "^1.0.7",
@@ -114,7 +114,7 @@
     "koa2-cors": "^2.0.6",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
-    "lit-element": "^2.1.0",
+    "lit-element": "^2.3.0",
     "loader-utils": "^2.0.0",
     "lodash": "^4.17.15",
     "mini-css-extract-plugin": "^0.9.0",
@@ -142,9 +142,9 @@
     "swipe-listener": "^1.1.0",
     "terser": "4.6.7",
     "text-loader": "^0.0.1",
-    "ts-node": "^8.2.0",
+    "ts-node": "^8.7.0",
     "tsconfig-paths": "^3.7.0",
-    "typeorm": "0.2.21",
+    "typeorm": "0.2.24",
     "typescript": "3.8.3",
     "url-loader": "^4.0.0",
     "web-animations-js": "^2.3.1",
@@ -168,8 +168,7 @@
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "resolutions": {
-    "@things-factory/auth-base": "^2.3.0-beta.2",
-    "workbox-webpack-plugin": "^5.0.0"
+    "@things-factory/auth-base": "^2.3.0-beta.2"
   },
   "cordova": {
     "plugins": {
