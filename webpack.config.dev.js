@@ -8,6 +8,8 @@ const FolderOverridePlugin = require('./webpack-plugins/folder-override-plugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ThemeOverridePlugin = require('./webpack-plugins/theme-override-plugin')
+const Visualizer = require('webpack-visualizer-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const glob = require('glob')
 
 const AppRootPath = require('app-root-path').path
@@ -64,10 +66,10 @@ let LOCAL_ENTRIES = glob.sync(`${path.join(AppRootPath, 'client', 'entries', '**
 
 let entries = Object.assign({}, MODULE_ENTRIES, LOCAL_ENTRIES, {
   main: [
-    path.resolve(__dirname, 'client/index.js'),
+    path.resolve(__dirname, 'client', 'index.js'),
     'webpack-hot-client/client?path=/__webpack_hmr&timeout=20000&reload=true'
   ],
-  'headless-scene-components': [path.resolve(ShellModulePath, './client/scene/scene-components.js')]
+  'headless-scene-components': [path.resolve(ShellModulePath, '.', 'client', 'scene', 'scene-components.js')]
 })
 
 module.exports = {
@@ -96,6 +98,16 @@ module.exports = {
     chunkFilename: '[name].js',
     publicPath: '/'
   },
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       commons: {
+  //         test: /[\\/]node_modules[\\/](?!workbox)/i,
+  //         chunks: 'all'
+  //       }
+  //     }
+  //   }
+  // },
   module: {
     rules: [
       {
@@ -290,7 +302,6 @@ module.exports = {
       output: 'translations'
     }),
     new WorkboxWebpackPlugin.InjectManifest({
-      importWorkboxFrom: 'local',
       swSrc: path.resolve(__dirname, 'client/serviceworker/sw-src.js'),
       swDest: 'service-worker.js'
     }),
@@ -303,7 +314,9 @@ module.exports = {
         'APP-LICENSE': JSON.stringify(AppPackage.license),
         'APP-NAME': JSON.stringify(AppPackage.name)
       }
-    })
+    }),
+    // new Visualizer(),
+    new BundleAnalyzerPlugin()
   ],
-  devtool: 'cheap-module-source-map'
+  devtool: 'eval-cheap-module-source-map'
 }
