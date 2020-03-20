@@ -139,7 +139,7 @@
     "scrollbooster": "^2.2.2",
     "sqlite3": "^4.0.4",
     "subscriptions-transport-ws": "^0.9.16",
-    "sweetalert2": "^9.8.2",
+    "sweetalert2": "^9.10.3",
     "swipe-listener": "^1.1.0",
     "terser": "4.6.7",
     "text-loader": "^0.0.1",
@@ -152,13 +152,11 @@
     "web-push": "^3.3.5",
     "webfontloader": "^1.6.28",
     "webpack": "^4.41.0",
-    "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cleanup-plugin": "^0.5.1",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.6.0",
     "webpack-hot-client": "^4.1.1",
-    "webpack-visualizer-plugin": "^0.1.11",
-    "workbox-webpack-plugin": "^5.0.0"
+    "workbox-webpack-plugin": "^5.1.1"
   },
   "devDependencies": {
     "@things-factory/board-app": "^2.0.4",

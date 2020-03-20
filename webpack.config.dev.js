@@ -8,8 +8,6 @@ const FolderOverridePlugin = require('./webpack-plugins/folder-override-plugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ThemeOverridePlugin = require('./webpack-plugins/theme-override-plugin')
-const Visualizer = require('webpack-visualizer-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const glob = require('glob')
 
 const AppRootPath = require('app-root-path').path
@@ -314,9 +312,8 @@ module.exports = {
         'APP-LICENSE': JSON.stringify(AppPackage.license),
         'APP-NAME': JSON.stringify(AppPackage.name)
       }
-    }),
-    // new Visualizer(),
-    new BundleAnalyzerPlugin()
+    })
+    // new BundleAnalyzerPlugin()
   ],
   devtool: 'eval-cheap-module-source-map'
 }
