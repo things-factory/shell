@@ -24,7 +24,16 @@
 
 ## jwt authentication을 위한 secret key
 
-- TODO
+- application 루트 디렉토리에 각 모듈의 디폴트 컨피규레이션을 오버라이드 할 수 있는 파일에 설정할 수 있다.
+- 컨피규레이션 파일
+  - 개발 모드 : config.development.js
+  - 운영 모드 : config.production.js
+
+```
+module.exports = {
+  SECRET: '0xD58F835B69D207A76CC5F84a70a1D0d4C79dAC95'
+}
+```
 
 ## database configuration
 
