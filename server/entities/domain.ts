@@ -8,50 +8,32 @@ export class Domain {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column({
-    unique: true
-  })
+  @Column({ unique: true })
   name: string
 
-  @Column({
-    nullable: true
-  })
-  description: string
+  @Column({ nullable: true })
+  description?: string
 
-  @Column({
-    nullable: true
-  })
-  timezone: string
+  @Column({ nullable: true })
+  timezone?: string
 
-  @Column({
-    default: false
-  })
+  @Column({ default: false })
   systemFlag: boolean
 
-  @Column({
-    nullable: true
-  })
-  subdomain: string
+  @Column({ nullable: true })
+  subdomain?: string
 
-  @Column({
-    nullable: true
-  })
-  brandName: string
+  @Column({ nullable: true })
+  brandName?: string
 
-  @Column({
-    nullable: true
-  })
-  brandImage: string
+  @Column({ nullable: true })
+  brandImage?: string
 
-  @Column({
-    nullable: true
-  })
-  contentImage: string
+  @Column({ nullable: true })
+  contentImage?: string
 
-  @Column({
-    nullable: true
-  })
-  theme: string
+  @Column({ nullable: true })
+  theme?: string
 
   @CreateDateColumn()
   createdAt: Date

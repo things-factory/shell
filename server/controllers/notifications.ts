@@ -3,7 +3,8 @@ import { debounce } from 'lodash'
 import { getRepository } from 'typeorm'
 import { UserNotification } from '../entities'
 
-const webPush = require('web-push')
+import webPush, { PushSubscription } from 'web-push'
+import type { Request } from 'koa'
 
 // VAPID keys should only be generated only once.
 const vapidKeys = webPush.generateVAPIDKeys()
@@ -11,7 +12,7 @@ const vapidKeys = webPush.generateVAPIDKeys()
 // webpush.setGCMAPIKey('AIzaSyBL961BMJrB40CaN77pc5STNxUQF6z083I')
 webPush.setVapidDetails('https://kimeda.opa-x.com/', vapidKeys.publicKey, vapidKeys.privateKey)
 
-const USER_SUBSCIPTIONS_MAP = {}
+const USER_SUBSCIPTIONS_MAP: Record<string, PushSubscription[]> = {}
 const SEND_ALL_PERIOD = 7 * 24 * 60 * 60 * 1000
 
 var lastSendAllTime = 0
@@ -29,7 +30,7 @@ var gotFromDatabase = false
 async function getSubscriptionsFromDatabase() {
   if (gotFromDatabase) return
 
-  var repo = getRepository('UserNotification')
+  var repo = getRepository(UserNotification)
   var userNotifications = await repo.find()
 
   gotFromDatabase = true
@@ -60,7 +61,7 @@ export async function sendNotificationToAll() {
   }
 }
 
-export function sendNotification({ receiver, message }) {
+export function sendNotification({ receiver, message }: Record<string, string>) {
   var subscriptions = USER_SUBSCIPTIONS_MAP[receiver]
 
   subscriptions?.forEach(subscription => {
@@ -68,7 +69,7 @@ export function sendNotification({ receiver, message }) {
   })
 }
 
-function sendNotificationTo(subscription, message) {
+function sendNotificationTo(subscription: PushSubscription, message: string) {
   webPush
     .sendNotification(subscription, message)
     .then(() => {
@@ -82,11 +83,11 @@ function sendNotificationTo(subscription, message) {
     })
 }
 
-export function getVapidPublicKey() {
+export function getVapidPublicKey(): string {
   return vapidKeys.publicKey
 }
 
-export async function register({ request: req }) {
+export async function register({ request: req }: { request: Request }) {
   var { subscription, user } = req.body
   if (!subscription || !user) return false
 
@@ -110,14 +111,14 @@ export async function register({ request: req }) {
   })
 }
 
-export async function unregister(req) {
+export async function unregister(req: Request) {
   var subscription = req.body.subscription
   unregisterSubscription({
     subscription
   })
 }
 
-function registerSubscription({ userId, subscription }) {
+function registerSubscription({ userId, subscription }: { userId: string; subscription: PushSubscription }) {
   var userSubscriptions = USER_SUBSCIPTIONS_MAP[userId]
   if (!userSubscriptions) userSubscriptions = USER_SUBSCIPTIONS_MAP[userId] = []
 
@@ -129,7 +130,7 @@ function registerSubscription({ userId, subscription }) {
   return true
 }
 
-function unregisterSubscription({ subscription }) {
+function unregisterSubscription({ subscription }: { subscription: PushSubscription }) {
   var empties = []
   for (var userId in USER_SUBSCIPTIONS_MAP) {
     var userSubscriptions = USER_SUBSCIPTIONS_MAP[userId]
@@ -151,7 +152,7 @@ function unregisterSubscription({ subscription }) {
   return true
 }
 
-function findSubscription(subscription) {
+function findSubscription(subscription: PushSubscription): PushSubscription {
   for (var userId in USER_SUBSCIPTIONS_MAP) {
     var userSubscriptions = USER_SUBSCIPTIONS_MAP[userId]
 
@@ -168,7 +169,7 @@ function findSubscription(subscription) {
 async function saveSubscriptions() {
   var repo = getRepository('UserNotification')
 
-  var userNotifications = []
+  var userNotifications: { userId: string; subscription: string }[] = []
 
   for (var userId in USER_SUBSCIPTIONS_MAP) {
     var subscriptions = USER_SUBSCIPTIONS_MAP[userId]

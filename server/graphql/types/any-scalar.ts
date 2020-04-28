@@ -24,3 +24,5 @@ export const AnyScalarType = new GraphQLScalarType({
     }
   }
 })
+
+export type AnyScalar = any

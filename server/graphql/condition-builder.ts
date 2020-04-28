@@ -1,13 +1,19 @@
 import _ from 'lodash'
 
-export const buildCondition = function(
+export type BuildConditionOutput = {
+  clause: string
+  value?: any
+  parameters?: any
+}
+
+export const buildCondition = function (
   alias: string,
   fieldName: string,
   operator: string,
   value: any,
   relation: boolean,
   seq: number
-) {
+): BuildConditionOutput {
   seq++
 
   fieldName = _.snakeCase(fieldName)

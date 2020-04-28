@@ -1,4 +1,9 @@
 import gql from 'graphql-tag'
+import { Domain } from '../../../entities'
+
+export type NewDomain = Omit<Domain, 'id' | 'subdomain'> & {
+  subdomain: string
+}
 
 export const NewDomain = gql`
   input NewDomain {

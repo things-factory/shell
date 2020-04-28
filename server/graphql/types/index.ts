@@ -2,9 +2,9 @@ import * as Domain from './domain'
 import * as System from './system'
 export { Filter } from './filter'
 export { ListParam } from './list-param'
+export { ObjectRef } from './object-ref'
 export { Pagination } from './pagination'
 export { Sorting } from './sorting'
-export { ObjectRef } from './object-ref'
 
 export const queries = [Domain.Query]
 

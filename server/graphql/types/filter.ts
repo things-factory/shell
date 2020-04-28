@@ -1,5 +1,12 @@
 import gql from 'graphql-tag'
-import { AnyScalarType } from './any-scalar'
+import { AnyScalar } from './any-scalar'
+
+export type Filter = {
+  name: string
+  operator?: string
+  value: AnyScalar
+  relation?: boolean
+}
 
 export const Filter = gql`
   scalar AnyScalar

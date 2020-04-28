@@ -1,4 +1,7 @@
 import gql from 'graphql-tag'
+import { Domain } from '../../../entities'
+
+export type DomainPatch = Partial<Domain>
 
 export const DomainPatch = gql`
   input DomainPatch {
