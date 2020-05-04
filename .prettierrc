@@ -8,7 +8,11 @@
   "trailingComma": "none",
   "overrides": [
     {
-      "files": ["*.json", ".md", ".markdown"],
+      "files": [
+        "*.json",
+        ".md",
+        ".markdown"
+      ],
       "options": {
         "tabWidth": 2
       }
