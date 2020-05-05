@@ -129,6 +129,10 @@ text-transform: uppercase;
 
 # Prerequisites
 
+- Install Windows Subsystem for Linux on Windows (Windows)
+
+  > Install WSL using Ubuntu following https://docs.microsoft.com/en-gb/windows/wsl/install-win10
+
 - VS Code Extensions
 
   > Prettier - Code formatter
@@ -160,21 +164,22 @@ text-transform: uppercase;
 - Things Factory Generator
 
   > npm install -g generator-things-factory
-  
+
 - Node-gyp (For Ubuntu)
 
   > npm install -g node-gyp
 
 - Python2 (For Ubuntu)
 
+  > sudo apt-get install python
   > npm install --python=python2.7
   > npm config set python python2.7
 
 - mdns (For Ubuntu)
 
   > sudo apt-get install build-essential
-  > sudo apt-get install libavahi-compat-libnsssd-dev
-  
+  > sudo apt-get install libavahi-compat-libdbnsssd-dev
+
 - node-printer (For Ubuntu)
 
   > sudo apt-get install libcups2-dev
