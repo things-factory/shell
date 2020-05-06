@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { getRepository } from 'typeorm'
 import { Domain } from '../../../entities/domain'
 import { DomainPatch } from '../../types/domain/domain-patch'

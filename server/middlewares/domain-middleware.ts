@@ -1,4 +1,5 @@
 import { getPathInfo } from '@things-factory/utils'
+import 'reflect-metadata'
 import { getRepository } from 'typeorm'
 import { URL } from 'url'
 import { Domain } from '../entities'

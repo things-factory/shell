@@ -1,4 +1,5 @@
 import type { Context } from 'koa'
+import 'reflect-metadata'
 import { getRepository } from 'typeorm'
 import { Domain } from '../../../entities'
 import { buildQuery } from '../../list-query-builder'

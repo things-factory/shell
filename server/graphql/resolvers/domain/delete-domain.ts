@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { DeleteResult, getRepository } from 'typeorm'
 import { Domain } from '../../../entities/domain'
 

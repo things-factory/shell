@@ -2,7 +2,7 @@ workbox.core.skipWaiting()
 workbox.core.clientsClaim()
 
 workbox.navigationPreload.enable()
-var precacheManifest = self.__precacheManifest || []
+var precacheManifest = self.__WB_MANIFEST || self.__precacheManifest || []
 workbox.precaching.precacheAndRoute(
   precacheManifest.filter(precache => {
     let url = precache.url

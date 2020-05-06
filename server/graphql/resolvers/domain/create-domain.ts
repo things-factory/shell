@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { getRepository } from 'typeorm'
 import { Domain } from '../../../entities'
 import { NewDomain } from '../../types/domain/new-domain'

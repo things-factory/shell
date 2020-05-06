@@ -1,10 +1,10 @@
 import { logger } from '@things-factory/env'
-import { debounce } from 'lodash'
-import { getRepository } from 'typeorm'
-import { UserNotification } from '../entities'
-
-import webPush, { PushSubscription } from 'web-push'
 import type { Request } from 'koa'
+import { debounce } from 'lodash'
+import 'reflect-metadata'
+import { getRepository } from 'typeorm'
+import webPush, { PushSubscription } from 'web-push'
+import { UserNotification } from '../entities'
 
 // VAPID keys should only be generated only once.
 const vapidKeys = webPush.generateVAPIDKeys()
