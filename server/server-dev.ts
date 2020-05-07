@@ -1,26 +1,21 @@
 process.env.NODE_ENV = 'development'
 process.setMaxListeners(0)
 
-import Koa from 'koa'
-import cors from 'koa2-cors'
-import koaStatic from 'koa-static'
-import koaBodyParser from 'koa-bodyparser'
-import { historyApiFallback } from 'koa2-connect-history-api-fallback'
-
-import koaWebpack from 'koa-webpack'
-
-import { ApolloServer } from 'apollo-server-koa'
-import { graphqlUploadKoa } from 'graphql-upload'
-import { execute, subscribe } from 'graphql'
-import { SubscriptionServer } from 'subscriptions-transport-ws'
-
 import { config, logger } from '@things-factory/env'
-
+import { ApolloServer } from 'apollo-server-koa'
+import { execute, subscribe } from 'graphql'
+import { graphqlUploadKoa } from 'graphql-upload'
+import Koa from 'koa'
+import koaBodyParser from 'koa-bodyparser'
+import koaStatic from 'koa-static'
+import koaWebpack from 'koa-webpack'
+import { historyApiFallback } from 'koa2-connect-history-api-fallback'
+import cors from 'koa2-cors'
+import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { databaseInitializer } from './initializers/database'
+import './middlewares'
 import { routes } from './routes'
 import { schema } from './schema'
-import { pubsub } from './pubsub'
-import './middlewares'
 
 const args = require('args')
 

@@ -92,7 +92,6 @@
     "csvtojson": "^2.0.10",
     "file-loader": "^6.0.0",
     "glob": "^7.1.5",
-    "graphql": "^15.0.0",
     "graphql-subscriptions": "^1.1.0",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^5.0.0",
@@ -168,7 +167,9 @@
     "cordova-plugin-whitelist": "1",
     "cordova-plugin-zeroconf": "~1.4.0"
   },
-  "resolutions": {},
+  "resolutions": {
+    "workbox-webpack-plugin": "^5.1.3"
+  },
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},

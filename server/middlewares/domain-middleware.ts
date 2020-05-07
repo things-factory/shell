@@ -15,7 +15,7 @@ export async function domainMiddleware(context: any, next: any): Promise<void> {
     var domainObj = {}
 
     if (domain) {
-      var repo = getRepository(Domain)
+      var repo = getRepository('Domain')
       var d = await repo.findOne({
         where: [{ subdomain: domain }],
         cache: true

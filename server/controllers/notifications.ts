@@ -30,7 +30,7 @@ var gotFromDatabase = false
 async function getSubscriptionsFromDatabase() {
   if (gotFromDatabase) return
 
-  var repo = getRepository(UserNotification)
+  var repo = getRepository('UserNotification')
   var userNotifications = await repo.find()
 
   gotFromDatabase = true

@@ -108,7 +108,7 @@ const bootstrap = async () => {
   })
 
   const server = new ApolloServer({
-    schema,
+    schema: schema as any,
     subscriptions: {
       path: '/subscriptions'
     },
@@ -164,8 +164,8 @@ const bootstrap = async () => {
   SubscriptionServer.create(
     {
       schema,
-      execute,
-      subscribe
+      execute: execute as any,
+      subscribe: subscribe as any
     },
     {
       server: httpServer,
