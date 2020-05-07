@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "2.3.0-beta.9",
+  "version": "3.0.0-beta.1",
   "description": "things factory shell",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -97,9 +97,9 @@
     "graphql-tools": "^5.0.0",
     "graphql-upload": "^9.0.0",
     "graphql-voyager": "^1.0.0-rc.27",
+    "haunted": "^4.7.0",
     "html-webpack-plugin": "^4.3.0",
     "husky": "^4.2.5",
-    "haunted": "^4.7.0",
     "imports-loader": "^0.8.0",
     "inquirer": "^7.0.0",
     "koa": "^2.6.2",
