@@ -1,5 +1,5 @@
 import { logger } from '@things-factory/env'
-import type { Request } from 'koa'
+import { Request } from 'koa'
 import { debounce } from 'lodash'
 import 'reflect-metadata'
 import { getRepository } from 'typeorm'

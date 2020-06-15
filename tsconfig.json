@@ -11,10 +11,13 @@
     "module": "commonjs",
     "target": "es2017",
     "outDir": "./dist-server",
+    "incremental": true,
+    "removeComments": true,
     "sourceMap": true,
+    "pretty": true,
     "baseUrl": "./",
     "lib": ["esnext.asynciterable", "es7", "es2017"]
   },
   "include": ["./server/**/*"],
-  "exclude": ["**/*.spec.ts"]
+  "exclude": ["**/*.spec.ts", "node_modules"]
 }

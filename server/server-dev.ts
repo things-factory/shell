@@ -2,20 +2,24 @@ process.env.NODE_ENV = 'development'
 process.setMaxListeners(0)
 
 import { config, logger } from '@things-factory/env'
-import { ApolloServer } from 'apollo-server-koa'
-import { execute, subscribe } from 'graphql'
-import { graphqlUploadKoa } from 'graphql-upload'
 import Koa from 'koa'
 import koaBodyParser from 'koa-bodyparser'
 import koaStatic from 'koa-static'
 import koaWebpack from 'koa-webpack'
 import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 import cors from 'koa2-cors'
+
+import { ApolloServer } from 'apollo-server-koa'
+import { graphqlUploadKoa } from 'graphql-upload'
+import { execute, subscribe, GraphQLError } from '@things-factory/common'
 import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { databaseInitializer } from './initializers/database'
 import './middlewares'
 import { routes } from './routes'
 import { schema } from './schema'
+import { pubsub } from './pubsub'
+import './middlewares'
+import { ThingsFactoryErrorFactory } from '@things-factory/error'
 
 const args = require('args')
 
@@ -43,6 +47,8 @@ const bodyParserOption = {
   jsonLimit: '10mb',
   textLimit: '10mb'
 }
+
+const errorFactory = ThingsFactoryErrorFactory.getInstance()
 
 /* bootstrap */
 const bootstrap = async () => {
@@ -118,9 +124,12 @@ const bootstrap = async () => {
     subscriptions: {
       path: '/subscriptions'
     },
-    formatError: error => {
+    formatError: (error: GraphQLError) => {
       logger.error(error)
-      return error
+      const { extensions } = error
+
+      const customError = errorFactory.create(extensions.code, error)
+      return customError
     },
     formatResponse: response => {
       // logger.info('response %s', JSON.stringify(response, null, 2))
@@ -192,8 +201,8 @@ const bootstrap = async () => {
     SubscriptionServer.create(
       {
         schema,
-        execute,
-        subscribe
+        execute: execute as any,
+        subscribe: subscribe as any
         // onConnect: (connectionParams, webSocket, context) => {
         //   console.log('connectionParams', connectionParams)
 

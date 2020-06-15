@@ -9,7 +9,7 @@ import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
 import { ApolloServer } from 'apollo-server-koa'
 import { graphqlUploadKoa } from 'graphql-upload'
-import { execute, subscribe } from 'graphql'
+import { execute, subscribe } from '@things-factory/common'
 import { SubscriptionServer } from 'subscriptions-transport-ws'
 
 import { config, logger } from '@things-factory/env'
