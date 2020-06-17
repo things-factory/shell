@@ -1,5 +1,11 @@
 import _ from 'lodash'
 
+export type BuildConditionOutput = {
+  clause: string
+  value?: any
+  parameters?: any
+}
+
 export const buildCondition = function (
   alias: string,
   fieldName: string,
@@ -7,7 +13,7 @@ export const buildCondition = function (
   value: any,
   relation: boolean,
   seq: number
-) {
+): BuildConditionOutput {
   seq++
 
   fieldName = _.snakeCase(fieldName)

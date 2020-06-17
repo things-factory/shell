@@ -1,7 +1,6 @@
-import { NamingStrategyInterface } from 'typeorm'
-import { DefaultNamingStrategy } from 'typeorm'
-import pluralize from 'pluralize'
 import _ from 'lodash'
+import pluralize from 'pluralize'
+import { DefaultNamingStrategy, NamingStrategyInterface } from 'typeorm'
 
 export class NamingStrategy extends DefaultNamingStrategy implements NamingStrategyInterface {
   tableName(targetName: string, userSpecifiedName: string): string {

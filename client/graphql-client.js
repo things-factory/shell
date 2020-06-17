@@ -6,6 +6,7 @@ import { onError } from 'apollo-link-error'
 import { createUploadLink } from 'apollo-upload-client'
 import { BatchHttpLink } from 'apollo-link-batch-http'
 import { persistCache } from 'apollo-cache-persist'
+import { AbstractThingsFactoryGraphQLError } from '@things-factory/error'
 
 const GRAPHQL_URI = '/graphql'
 
@@ -25,13 +26,32 @@ const defaultOptions = {
 
 const ERROR_HANDLER = ({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
-    graphQLErrors.map(({ message, locations, path }) => {
+    graphQLErrors.map(error => {
+      const { message, locations, path, extensions } = error
+
       document.dispatchEvent(
-        new CustomEvent('notify', {
+        new CustomEvent('localize', {
+          bubbles: true,
+          composed: true,
           detail: {
-            level: 'error',
-            message: `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-            ex: graphQLErrors
+            messageId: `error.${message}`,
+            callback: localizedMessage => {
+              document.dispatchEvent(
+                new CustomEvent('notify', {
+                  detail: {
+                    level: 'error',
+                    message: localizedMessage,
+                    ex: graphQLErrors,
+                    option: {
+                      action: {
+                        label: 'detail',
+                        callback: () => alert(extensions.exception.stacktrace.join('\n'))
+                      }
+                    }
+                  }
+                })
+              )
+            }
           }
         })
       )

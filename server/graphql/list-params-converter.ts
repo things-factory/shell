@@ -1,4 +1,5 @@
-import { Equal, Not, Like, Raw, In, IsNull, Between } from 'typeorm'
+import { Between, Equal, FindOperator, In, IsNull, Like, Not, Raw } from 'typeorm'
+import { Filter, Pagination, Sorting } from './types'
 import { ListParam } from './types/list-param'
 
 const OPERATION_FUNCTION_MAP = {
@@ -70,12 +71,12 @@ const OPERATION_FUNCTION_MAP = {
 //   }
 // }
 
-function getOperatorFunction({ operator, name, value, dataType }) {
+function getOperatorFunction({ operator, name, value, relation }: Filter): FindOperator<any> {
   return OPERATION_FUNCTION_MAP[operator](value)
 }
 
-function makePaginationParams(pagination) {
-  var jsonParams = {}
+function makePaginationParams(pagination: Pagination): ListParam {
+  var jsonParams: ListParam = {}
   if (pagination) {
     var { page = 0, limit = 0 } = pagination
     var skip = 0
@@ -94,8 +95,8 @@ function makePaginationParams(pagination) {
   return jsonParams
 }
 
-function makeSortingParams(sortings) {
-  var jsonParams = {}
+function makeSortingParams(sortings: Sorting[]): ListParam {
+  var jsonParams: ListParam = {}
   if (sortings) {
     var order = {}
     sortings.forEach(s => {
@@ -110,8 +111,8 @@ function makeSortingParams(sortings) {
   return jsonParams
 }
 
-function makeFilterParams(filters) {
-  var jsonParams = {}
+function makeFilterParams(filters: Filter[]): ListParam {
+  var jsonParams: ListParam = {}
   if (filters) {
     var where = {}
     filters.forEach(f => {
@@ -124,9 +125,9 @@ function makeFilterParams(filters) {
   return jsonParams
 }
 
-export function convertListParams(params: typeof ListParam, domain?: String) {
-  var { pagination, filters = [], sortings } = params as any
-  var jsonParams = {}
+export function convertListParams(params: ListParam, domain?: string): ListParam {
+  var { pagination, filters = [], sortings } = params
+  var jsonParams: ListParam = {}
 
   if (domain) {
     filters.push({

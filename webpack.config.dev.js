@@ -64,10 +64,10 @@ let LOCAL_ENTRIES = glob.sync(`${path.join(AppRootPath, 'client', 'entries', '**
 
 let entries = Object.assign({}, MODULE_ENTRIES, LOCAL_ENTRIES, {
   main: [
-    path.resolve(__dirname, 'client/index.js'),
+    path.resolve(__dirname, 'client', 'index.js'),
     'webpack-hot-client/client?path=/__webpack_hmr&timeout=20000&reload=true'
   ],
-  'headless-scene-components': [path.resolve(ShellModulePath, './client/scene/scene-components.js')]
+  'headless-scene-components': [path.resolve(ShellModulePath, '.', 'client', 'scene', 'scene-components.js')]
 })
 
 module.exports = {
@@ -96,6 +96,16 @@ module.exports = {
     chunkFilename: '[name].js',
     publicPath: '/'
   },
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       commons: {
+  //         test: /[\\/]node_modules[\\/](?!workbox)/i,
+  //         chunks: 'all'
+  //       }
+  //     }
+  //   }
+  // },
   module: {
     rules: [
       {
@@ -163,6 +173,20 @@ module.exports = {
           },
           'css-loader',
           'sass-loader'
+        ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: true,
+              reloadAll: true
+            }
+          },
+          'css-loader',
+          'less-loader'
         ]
       },
       {
@@ -242,30 +266,25 @@ module.exports = {
       chunkFilename: '[name].[hash].css',
       ignoreOrder: false
     }),
-    new CopyWebpackPlugin(
-      [
+    new CopyWebpackPlugin({
+      patterns: [
         {
           from: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js*',
-          to: OUTPUT_PATH
+          to: OUTPUT_PATH,
+          context: AppRootPath
         },
         {
           from: 'node_modules/web-animations-js/web-animations-next.min.js*',
-          to: OUTPUT_PATH
+          to: OUTPUT_PATH,
+          context: AppRootPath
         },
         {
           from: 'node_modules/@hatiolab/things-scene/*.js*',
-          to: OUTPUT_PATH
-        },
-        {
-          from: 'licenses/**/*',
-          to: OUTPUT_PATH
+          to: OUTPUT_PATH,
+          context: AppRootPath
         }
-      ],
-      {
-        /* application base */
-        context: AppRootPath
-      }
-    ),
+      ]
+    }),
     new FolderOverridePlugin({
       target: 'views'
     }),
@@ -276,7 +295,6 @@ module.exports = {
       output: 'translations'
     }),
     new WorkboxWebpackPlugin.InjectManifest({
-      importWorkboxFrom: 'local',
       swSrc: path.resolve(__dirname, 'client/serviceworker/sw-src.js'),
       swDest: 'service-worker.js'
     }),
@@ -290,6 +308,7 @@ module.exports = {
         'APP-NAME': JSON.stringify(AppPackage.name)
       }
     })
+    // new BundleAnalyzerPlugin()
   ],
-  devtool: 'cheap-module-source-map'
+  devtool: 'eval-cheap-module-source-map'
 }
