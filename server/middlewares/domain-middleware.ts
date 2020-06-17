@@ -10,7 +10,9 @@ export async function domainMiddleware(context: any, next: any): Promise<void> {
     var { header } = request
     var { referer } = header
     var { pathname } = new URL(referer)
-    var { domain } = getPathInfo(pathname)
+    var pathInfo = getPathInfo(pathname)
+
+    var domain = request.get('x-things-factory-domain') || pathInfo?.domain
 
     var domainObj = {}
 
