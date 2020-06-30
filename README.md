@@ -107,17 +107,6 @@ text-transform: uppercase;
 - That is, it sets through auth base and provides auth-related extension point.
 - In particular, auth base function is provided directly in things-factory shell.
 
-## things-factory/auth-provider-session
-
-- Sample of authentication provider in Session key type
-- Provide auth-provider.
-- Can be used for things-factory server.
-  things-factory/auth-ui-session
-
-## things-factory/auth-ui-session
-
-- Provide the sample view page of authentication in Session key type.
-
 ## things-factory/auth-provider-jwt
 
 - Sample of authentication provider in JSON token type.
@@ -191,11 +180,14 @@ $ yo things-factory:app
 ```
 
 # Create a new module
-
+## base module
 ```
-$ yo things-factory:module
+$ yo things-factory:base-module
 ```
-
+## ui module
+```
+$ yo things-factory:ui-module
+```
 # References
 
 - https://github.com/material-components/material-components-web-components
