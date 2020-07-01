@@ -170,7 +170,7 @@ text-transform: uppercase;
 
   > sudo apt-get install build-essential
   
-  > sudo apt-get install libavahi-compat-libdbnsssd-dev
+  > sudo apt-get install libavahi-compat-libdnssd-dev
 
 - node-printer (For Ubuntu)
 
