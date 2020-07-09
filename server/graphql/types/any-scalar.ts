@@ -1,4 +1,4 @@
-import { GraphQLScalarType, Kind } from '@things-factory/common'
+import { GraphQLScalarType, Kind } from 'graphql'
 
 export const AnyScalarType = new GraphQLScalarType({
   name: 'AnyScalar',
@@ -21,6 +21,8 @@ export const AnyScalarType = new GraphQLScalarType({
         return ast.value
       case Kind.STRING:
         return ast.value
+      default:
+        return null
     }
   }
 })

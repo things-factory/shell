@@ -3,6 +3,7 @@ const path = require('path')
 import { logger, orderedModuleNames } from '@things-factory/env'
 import { makeExecutableSchema } from 'graphql-tools'
 import { GraphQLUpload } from 'graphql-upload'
+import gql from 'graphql-tag'
 
 const appRootPath = require('app-root-path').path
 const selfModulePackage = require(path.resolve(appRootPath, 'package.json'))
@@ -85,37 +86,73 @@ const schemas = orderedModuleNames
 
 logger.info('schemas %s', JSON.stringify(schemas, null, 2))
 
-const queryTypes = ['type Query {', ...schemas.typeDefs.queries, '}'].join('\n')
-const mutationTypes = ['type Mutation {', ...schemas.typeDefs.mutations, '}'].join('\n')
-const subscriptionTypes = ['type Subscription {', ...schemas.typeDefs.subscriptions, '}'].join('\n')
-const directiveTypes = [...schemas.typeDefs.directives].join('\n')
+const hasMutation = schemas.typeDefs.mutations.length > 0
+const hasSubscription = schemas.typeDefs.subscriptions.length > 0
+const hasDirective = schemas.typeDefs.directives.length > 0
 
-const typeDefs = [
-  /* GraphQL */ `
-    schema {
-      query: Query
-      mutation: Mutation
-      subscription: Subscription
+const queryTypes = ['type Query {', ...schemas.typeDefs.queries, 'greeting: String', '}'].join('\n')
+const mutationTypes = hasMutation ? ['type Mutation {', ...schemas.typeDefs.mutations, '}'].join('\n') : ''
+const subscriptionTypes = hasSubscription
+  ? ['type Subscription {', ...schemas.typeDefs.subscriptions, '}'].join('\n')
+  : ''
+const directiveTypes = hasDirective ? [...schemas.typeDefs.directives].join('\n') : ''
+
+const schemaDefs = []
+
+schemaDefs.push(`query: Query`)
+if (hasMutation) {
+  schemaDefs.push(`mutation: Mutation`)
+}
+if (hasSubscription) {
+  schemaDefs.push(`subscription: Subscription`)
+}
+
+const typeDefs = gql`
+  ${hasMutation && hasSubscription
+    ? gql`
+        schema {
+          query: Query
+          mutation: Mutation
+          subscription: Subscription
+        }
+      `
+    : ''}
+
+  ${queryTypes}
+
+  ${hasMutation
+    ? gql`
+        ${mutationTypes}
+      `
+    : ''}
+  ${hasSubscription
+    ? gql`
+        ${subscriptionTypes}
+      `
+    : ''}
+  ${hasDirective
+    ? gql`
+        ${directiveTypes}
+      `
+    : ''}
+
+  scalar Upload
+  scalar AnyScalar
+`
+
+var queryResolvers = schemas.resolvers.queries.reduce(
+  (sum, query) => {
+    return {
+      ...sum,
+      ...query
     }
-  `,
-  queryTypes,
-  mutationTypes,
-  subscriptionTypes,
-  directiveTypes,
-
-  /* GraphQL */ `
-    scalar Upload
-  `,
-
-  ...schemas.typeDefs.types
-]
-
-var queryResolvers = schemas.resolvers.queries.reduce((sum, query) => {
-  return {
-    ...sum,
-    ...query
+  },
+  {
+    greeting: () => {
+      return 'hello'
+    }
   }
-}, {})
+)
 
 var mutationResolvers = schemas.resolvers.mutations.reduce((sum, mutation) => {
   return {
@@ -145,12 +182,16 @@ var subqueryResolvers = schemas.resolvers.subqueryResolvers.reduce((sum, subReso
   }
 }, {})
 
+const resolvers = {}
+
+resolvers['Query'] = queryResolvers as any
+if (hasMutation) resolvers['Mutation'] = mutationResolvers as any
+if (hasSubscription) resolvers['Subscription'] = subscriptionResolvers as any
+
 export const schema = makeExecutableSchema({
   typeDefs,
   resolvers: {
-    Query: queryResolvers as any,
-    Mutation: mutationResolvers as any,
-    Subscription: subscriptionResolvers as any,
+    ...resolvers,
     Upload: GraphQLUpload as any,
     ...subqueryResolvers
   },

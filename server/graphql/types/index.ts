@@ -1,4 +1,5 @@
 import * as Domain from './domain'
+import { AnyScalarType } from './any-scalar'
 export { Filter } from './filter'
 export { ListParam } from './list-param'
 export { ObjectRef } from './object-ref'
@@ -11,4 +12,4 @@ export const mutations = [Domain.Mutation]
 
 export const subscriptions = []
 
-export const types = [...Domain.Types]
+export const types = [...Domain.Types, AnyScalarType]
