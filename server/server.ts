@@ -1,6 +1,13 @@
 process.env.NODE_ENV = 'production'
 process.setMaxListeners(0)
 
+import 'reflect-metadata'
+
+import { Container } from 'typedi'
+import * as TypeORM from 'typeorm'
+import { DomainResolver } from './graphql/resolvers/domain.resolver'
+import { Domain } from './entities'
+
 import Koa from 'koa'
 import cors from 'koa2-cors'
 import koaStatic from 'koa-static'
@@ -9,7 +16,7 @@ import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
 import { ApolloServer } from 'apollo-server-koa'
 import { graphqlUploadKoa } from 'graphql-upload'
-import { execute, subscribe } from '@things-factory/common'
+import { execute, subscribe } from 'graphql'
 import { SubscriptionServer } from 'subscriptions-transport-ws'
 
 import { config, logger } from '@things-factory/env'

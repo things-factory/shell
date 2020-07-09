@@ -1,6 +1,6 @@
-import type { Context } from 'koa'
+import { Context } from 'koa'
 import { buildCondition } from './condition-builder'
-import type { ListParam } from './types'
+import { ListParam } from './types'
 
 export const buildQuery = function (queryBuilder: any, params: ListParam, context: Context, domainRef: Boolean = true) {
   const filters = params.filters

@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import type { Domain } from '../../../entities'
+import { Domain } from '../../../entities'
 
 export type DomainList = {
   items: Domain[]

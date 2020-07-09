@@ -1,6 +1,14 @@
 process.env.NODE_ENV = 'development'
 process.setMaxListeners(0)
 
+import 'reflect-metadata'
+
+import { Container } from 'typedi'
+import * as TypeORM from 'typeorm'
+import * as TypeGraphQL from 'type-graphql'
+import { DomainResolver } from './graphql/resolvers/domain.resolver'
+import { Domain } from './entities'
+
 import { config, logger } from '@things-factory/env'
 import Koa from 'koa'
 import koaBodyParser from 'koa-bodyparser'
@@ -11,15 +19,17 @@ import cors from 'koa2-cors'
 
 import { ApolloServer } from 'apollo-server-koa'
 import { graphqlUploadKoa } from 'graphql-upload'
-import { execute, subscribe, GraphQLError } from '@things-factory/common'
+import { execute, subscribe, GraphQLError } from 'graphql'
 import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { databaseInitializer } from './initializers/database'
 import './middlewares'
 import { routes } from './routes'
-import { schema } from './schema'
+// import { schema } from './schema'
 import { pubsub } from './pubsub'
 import './middlewares'
 import { ThingsFactoryErrorFactory } from '@things-factory/error'
+
+TypeORM.useContainer(Container)
 
 const args = require('args')
 
@@ -53,6 +63,11 @@ const errorFactory = ThingsFactoryErrorFactory.getInstance()
 /* bootstrap */
 const bootstrap = async () => {
   await databaseInitializer()
+
+  const schema = await TypeGraphQL.buildSchema({
+    resolvers: [DomainResolver],
+    container: Container
+  })
 
   const app = new Koa()
 

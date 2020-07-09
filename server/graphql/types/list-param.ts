@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
-import type { Filter } from './filter'
-import type { Pagination } from './pagination'
-import type { Sorting } from './sorting'
+import { Filter } from './filter'
+import { Pagination } from './pagination'
+import { Sorting } from './sorting'
 
 export type ListParam = {
   filters?: Filter[]

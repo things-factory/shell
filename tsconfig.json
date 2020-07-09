@@ -5,19 +5,24 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "declaration": true,
+    "resolveJsonModule": true,
     "types": ["node"],
     "module": "commonjs",
-    "target": "es2017",
+    "target": "ES2016",
     "outDir": "./dist-server",
-    "incremental": true,
     "removeComments": true,
     "sourceMap": true,
     "pretty": true,
     "baseUrl": "./",
-    "lib": ["esnext.asynciterable", "es7", "es2017"]
+    "lib": ["dom", "esnext", "dom.iterable", "scripthost", "esnext.asynciterable", "es7", "es2018"],
+    "paths": {
+      "*": ["*"],
+      "@things-factory/shell": ["."]
+    }
   },
-  "include": ["./server/**/*"],
+  "include": ["server"],
   "exclude": ["**/*.spec.ts", "node_modules"]
 }
