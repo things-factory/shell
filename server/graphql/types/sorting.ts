@@ -1,13 +1,9 @@
-import gql from 'graphql-tag'
+import { Field, InputType } from 'type-graphql'
 
-export type Sorting = {
+@InputType()
+export class Sorting {
+  @Field()
   name: string
-  desc?: boolean
+  @Field()
+  desc: boolean
 }
-
-export const Sorting = gql`
-  input Sorting {
-    name: String
-    desc: Boolean
-  }
-`

@@ -1,13 +1,9 @@
-import gql from 'graphql-tag'
+import { ObjectType, InputType, Field, Int } from 'type-graphql'
 
-export type Pagination = {
-  page?: number
-  limit?: number
+@InputType()
+export class Pagination {
+  @Field(type => Int)
+  page: number
+  @Field(type => Int)
+  limit: number
 }
-
-export const Pagination = gql`
-  input Pagination {
-    page: Int
-    limit: Int
-  }
-`

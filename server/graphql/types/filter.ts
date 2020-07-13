@@ -1,20 +1,16 @@
-import gql from 'graphql-tag'
-import { AnyScalar } from './any-scalar'
+import { AnyScalarType, AnyScalar } from './any-scalar'
+import { ObjectType, InputType, Field } from 'type-graphql'
 
-export type Filter = {
+@InputType()
+export class Filter {
+  @Field()
   name: string
+  @Field({ nullable: true, defaultValue: 'eq' })
   operator?: string
-  value: AnyScalar
+
+  @Field({ nullable: true })
   relation?: boolean
+
+  @Field(type => AnyScalarType)
+  value: AnyScalar
 }
-
-export const Filter = gql`
-  scalar AnyScalar
-
-  input Filter {
-    name: String
-    operator: String
-    value: AnyScalar
-    relation: Boolean
-  }
-`

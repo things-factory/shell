@@ -1,7 +1,7 @@
 import { Field, ID, ObjectType } from 'type-graphql'
 import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
-@ObjectType()
+@ObjectType('Domain')
 @Entity('domains')
 @Index('ix_domain_0', (domain: Domain) => [domain.name], { unique: true })
 @Index('ix_domain_1', (domain: Domain) => [domain.subdomain])

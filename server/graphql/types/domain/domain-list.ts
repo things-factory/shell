@@ -1,14 +1,10 @@
-import gql from 'graphql-tag'
+import { Field, ObjectType, Int } from 'type-graphql'
 import { Domain } from '../../../entities'
 
-export type DomainList = {
+@ObjectType()
+export class DomainList {
+  @Field(type => [Domain])
   items: Domain[]
+  @Field(type => Int)
   total: number
 }
-
-export const DomainList = gql`
-  type DomainList {
-    items: [Domain]
-    total: Int
-  }
-`

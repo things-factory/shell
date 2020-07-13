@@ -1,18 +1,14 @@
-import gql from 'graphql-tag'
+import { Field, ArgsType } from 'type-graphql'
 import { Filter } from './filter'
 import { Pagination } from './pagination'
 import { Sorting } from './sorting'
 
-export type ListParam = {
+@ArgsType()
+export class ListParam {
+  @Field(type => [Filter], { nullable: 'itemsAndList' })
   filters?: Filter[]
+  @Field(type => Pagination, { nullable: true })
   pagination?: Pagination
+  @Field(type => [Sorting], { nullable: 'itemsAndList' })
   sortings?: Sorting[]
 }
-
-export const ListParam = gql`
-  input ListParam {
-    filters: [Filter]
-    pagination: Pagination
-    sortings: [Sorting]
-  }
-`

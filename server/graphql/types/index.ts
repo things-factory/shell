@@ -1,15 +1,7 @@
-import * as Domain from './domain'
-import { AnyScalarType } from './any-scalar'
-export { Filter } from './filter'
-export { ListParam } from './list-param'
-export { ObjectRef } from './object-ref'
-export { Pagination } from './pagination'
-export { Sorting } from './sorting'
-
-export const queries = [Domain.Query]
-
-export const mutations = [Domain.Mutation]
-
-export const subscriptions = []
-
-export const types = [...Domain.Types, AnyScalarType]
+export * from './any-scalar'
+export * from './filter'
+export * from './list-param'
+export * from './object-ref'
+export * from './pagination'
+export * from './sorting'
+export * from './domain'

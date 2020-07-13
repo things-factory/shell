@@ -1,18 +1,16 @@
-import gql from 'graphql-tag'
+import { ArgsType, Field, InputType } from 'type-graphql'
 import { Domain } from '../../../entities'
+import Partial from '../../mixins/partial'
 
-export type DomainPatch = Partial<Domain>
+@InputType()
+export class DomainPatch extends Partial(Domain) {
 
-export const DomainPatch = gql`
-  input DomainPatch {
-    name: String
-    description: String
-    timezone: String
-    systemFlag: Boolean
-    subdomain: String
-    brandName: String
-    brandImage: String
-    contentImage: String
-    theme: String
-  }
-`
+}
+
+@ArgsType()
+export class UpdateDomainInput {
+  @Field()
+  name: string
+  @Field(type => DomainPatch)
+  patch: DomainPatch
+}
