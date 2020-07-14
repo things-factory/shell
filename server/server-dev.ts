@@ -57,7 +57,7 @@ const bootstrap = async () => {
 
   app.use(
     cors({
-      origin: function(ctx) {
+      origin: function (ctx) {
         var origin = ctx.request.headers.origin
         if (origin) {
           return origin
@@ -143,7 +143,7 @@ const bootstrap = async () => {
     layout: false,
     viewExt: 'html',
     cache: false,
-    debug: true
+    debug: false
   })
 
   koaWebpack({
