@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner, getRepository } from 'typeorm'
-import { Domain } from '../entities'
+import { Domain } from '@things-factory/domain-base'
 
 const SEED_DOMAINS = [
   {

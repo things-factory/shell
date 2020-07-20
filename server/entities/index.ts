@@ -1,6 +1,5 @@
-import { Domain } from './domain'
 import { UserNotification } from './user-notification'
 
-export const entities = [Domain, UserNotification]
+export const entities = [UserNotification]
 
-export { Domain, UserNotification }
+export { UserNotification }

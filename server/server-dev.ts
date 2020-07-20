@@ -1,33 +1,26 @@
 process.env.NODE_ENV = 'development'
 process.setMaxListeners(0)
 
-import 'reflect-metadata'
-
-import { Container } from 'typedi'
-import * as TypeORM from 'typeorm'
-import * as TypeGraphQL from 'type-graphql'
-import { DomainResolver } from './graphql/resolvers/domain.resolver'
-import { Domain } from './entities'
-
 import { config, logger } from '@things-factory/env'
+import { ThingsFactoryErrorFactory } from '@things-factory/error'
+import { ApolloServer } from 'apollo-server-koa'
+import { execute, GraphQLError, subscribe } from 'graphql'
+import { graphqlUploadKoa } from 'graphql-upload'
 import Koa from 'koa'
 import koaBodyParser from 'koa-bodyparser'
 import koaStatic from 'koa-static'
 import koaWebpack from 'koa-webpack'
 import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 import cors from 'koa2-cors'
-
-import { ApolloServer } from 'apollo-server-koa'
-import { graphqlUploadKoa } from 'graphql-upload'
-import { execute, subscribe, GraphQLError } from 'graphql'
+import 'reflect-metadata'
 import { SubscriptionServer } from 'subscriptions-transport-ws'
+import * as TypeGraphQL from 'type-graphql'
+import { Container } from 'typedi'
+import * as TypeORM from 'typeorm'
 import { databaseInitializer } from './initializers/database'
 import './middlewares'
+import { resolvers } from './resolvers'
 import { routes } from './routes'
-// import { schema } from './schema'
-import { pubsub } from './pubsub'
-import './middlewares'
-import { ThingsFactoryErrorFactory } from '@things-factory/error'
 
 TypeORM.useContainer(Container)
 
@@ -65,7 +58,7 @@ const bootstrap = async () => {
   await databaseInitializer()
 
   const schema = await TypeGraphQL.buildSchema({
-    resolvers: [DomainResolver],
+    resolvers: [...resolvers] as TypeGraphQL.NonEmptyArray<Function>,
     container: Container
   })
 
@@ -142,12 +135,10 @@ const bootstrap = async () => {
     formatError: (error: GraphQLError) => {
       logger.error(error)
       const { extensions } = error
-
       const customError = errorFactory.create(extensions.code, error)
       return customError
     },
     formatResponse: response => {
-      // logger.info('response %s', JSON.stringify(response, null, 2))
       return response
     },
     context: ({ ctx }) => ctx
@@ -218,35 +209,6 @@ const bootstrap = async () => {
         schema,
         execute: execute as any,
         subscribe: subscribe as any
-        // onConnect: (connectionParams, webSocket, context) => {
-        //   console.log('connectionParams', connectionParams)
-
-        //   try {
-        //     const { user } = jwt.verify(connectionParams.authToken, env('AUTH_SECRET'))
-        //     const jwtData = jwtDecode(connectionParams.authToken)
-        //     const timeout = jwtData.exp * 1000 - Date.now()
-        //     debugPubSub('authenticated', jwtData)
-        //     debugPubSub('set connection timeout', timeout)
-        //     setTimeout(() => {
-        //       // let the client reconnect
-        //       socket.close()
-        //     }, timeout)
-        //     return { subscriptionUser: user }
-        //   } catch (error) {
-        //     debugPubSub('authentication failed', error.message)
-        //     return { subscriptionUser: null }
-        //   }
-        // },
-        // onOperation(message: string, params: Object) {
-        //   setTimeout(() => {
-        //     R.forEach((todo: Todo) => {
-        //       pubsub.publish(TODO_UPDATED_TOPIC, { todoUpdated: todo })
-        //       debugPubSub('publish', TODO_UPDATED_TOPIC, todo)
-        //     }, todos)
-        //   }, 0)
-        // return Promise.resolve(params)
-        // },
-        // onDisconnect: (webSocket, context) => {}
       },
       {
         server: httpServer,

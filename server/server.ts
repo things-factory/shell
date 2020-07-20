@@ -1,31 +1,27 @@
 process.env.NODE_ENV = 'production'
 process.setMaxListeners(0)
 
+import { config, logger } from '@things-factory/env'
+import { ThingsFactoryErrorFactory } from '@things-factory/error'
+import { ApolloServer } from 'apollo-server-koa'
+import { execute, GraphQLError, subscribe } from 'graphql'
+import { graphqlUploadKoa } from 'graphql-upload'
+import Koa from 'koa'
+import koaBodyParser from 'koa-bodyparser'
+import koaStatic from 'koa-static'
+import { historyApiFallback } from 'koa2-connect-history-api-fallback'
+import cors from 'koa2-cors'
 import 'reflect-metadata'
-
+import { SubscriptionServer } from 'subscriptions-transport-ws'
+import * as TypeGraphQL from 'type-graphql'
 import { Container } from 'typedi'
 import * as TypeORM from 'typeorm'
-import { DomainResolver } from './graphql/resolvers/domain.resolver'
-import { Domain } from './entities'
-
-import Koa from 'koa'
-import cors from 'koa2-cors'
-import koaStatic from 'koa-static'
-import koaBodyParser from 'koa-bodyparser'
-import { historyApiFallback } from 'koa2-connect-history-api-fallback'
-
-import { ApolloServer } from 'apollo-server-koa'
-import { graphqlUploadKoa } from 'graphql-upload'
-import { execute, subscribe } from 'graphql'
-import { SubscriptionServer } from 'subscriptions-transport-ws'
-
-import { config, logger } from '@things-factory/env'
-
 import { databaseInitializer } from './initializers/database'
-import { routes } from './routes'
-import { schema } from './schema'
-import { pubsub } from './pubsub'
 import './middlewares'
+import { resolvers } from './resolvers'
+import { routes } from './routes'
+
+TypeORM.useContainer(Container)
 
 const args = require('args')
 
@@ -45,9 +41,16 @@ const bodyParserOption = {
   textLimit: '10mb'
 }
 
+const errorFactory = ThingsFactoryErrorFactory.getInstance()
+
 /* bootstrap */
 const bootstrap = async () => {
   await databaseInitializer()
+
+  const schema = await TypeGraphQL.buildSchema({
+    resolvers: [...resolvers] as TypeGraphQL.NonEmptyArray<Function>,
+    container: Container
+  })
 
   const app = new Koa()
 
@@ -115,13 +118,15 @@ const bootstrap = async () => {
   })
 
   const server = new ApolloServer({
-    schema: schema as any,
+    schema,
     subscriptions: {
       path: '/subscriptions'
     },
-    formatError: error => {
+    formatError: (error: GraphQLError) => {
       logger.error(error)
-      return error
+      const { extensions } = error
+      const customError = errorFactory.create(extensions.code, error)
+      return customError
     },
     formatResponse: response => {
       logger.info('response %s', JSON.stringify(response, null, 2))

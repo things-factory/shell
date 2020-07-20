@@ -11,7 +11,7 @@
     "resolveJsonModule": true,
     "types": ["node"],
     "module": "commonjs",
-    "target": "ES2016",
+    "target": "ES2018",
     "outDir": "./dist-server",
     "removeComments": true,
     "sourceMap": true,
@@ -19,8 +19,8 @@
     "baseUrl": "./",
     "lib": ["dom", "esnext", "dom.iterable", "scripthost", "esnext.asynciterable", "es7", "es2018"],
     "paths": {
-      "*": ["*"],
-      "@things-factory/shell": ["."]
+      "*": ["*"]
+      // "graphql": ["node_modules/graphql"]
     }
   },
   "include": ["server"],
