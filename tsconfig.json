@@ -19,8 +19,10 @@
     "baseUrl": "./",
     "lib": ["dom", "esnext", "dom.iterable", "scripthost", "esnext.asynciterable", "es7", "es2018"],
     "paths": {
-      "*": ["*"]
-      // "graphql": ["node_modules/graphql"]
+      "*": ["*"],
+      "graphql": ["node_modules/graphql"],
+      "typedi": ["node_modules/typedi"],
+      "typeorm": ["node_modules/typeorm"]
     }
   },
   "include": ["server"],

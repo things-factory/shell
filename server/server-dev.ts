@@ -1,6 +1,5 @@
 process.env.NODE_ENV = 'development'
 process.setMaxListeners(0)
-
 import { config, logger } from '@things-factory/env'
 import { ThingsFactoryErrorFactory } from '@things-factory/error'
 import { ApolloServer } from 'apollo-server-koa'
