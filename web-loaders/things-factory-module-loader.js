@@ -4,42 +4,48 @@ const loaderUtils = require('loader-utils')
 
 const { orderedModuleNames } = require('@things-factory/env')
 
-module.exports = function(content) {
+module.exports = function (content) {
   console.time('Module Configuration')
+
   const moduleConfigMap = {}
 
   const options = loaderUtils.getOptions(this) || {}
 
-  var modulePath = options.module_path ? options.module_path : path.resolve(__dirname, '../node_modules')
+  var modulePath = module.paths
+  if (options.module_path) modulePath.push(options.module_path)
 
-  try {
-    const thingsdir = path.resolve(modulePath, '@things-factory')
-    const folders = fs.readdirSync(thingsdir)
+  modulePath.forEach(p => {
+    try {
+      console.log('pathname', p)
+      const thingsdir = path.resolve(p, '@things-factory')
+      const folders = fs.readdirSync(thingsdir)
 
-    /**
-     * package.json의 things-factory 속성이 truthy 인 경우를 필터링한다.
-     */
-    folders.forEach(folder => {
-      try {
-        const pkg = require(path.resolve(thingsdir, folder, 'package.json'))
+      /**
+       * package.json의 things-factory 속성이 truthy 인 경우를 필터링한다.
+       */
+      folders.forEach(folder => {
+        try {
+          console.log('folder', folder)
+          const pkg = require(path.resolve(thingsdir, folder, 'package.json'))
 
-        if (pkg['things-factory']) {
-          moduleConfigMap[pkg.name] = {
-            pkg,
-            config: path.resolve(thingsdir, folder, 'things-factory.config.js')
+          if (pkg['things-factory']) {
+            moduleConfigMap[pkg.name] = {
+              pkg,
+              config: path.resolve(thingsdir, folder, 'things-factory.config.js')
+            }
           }
+        } catch (e) {
+          console.warn(e)
         }
-      } catch (e) {
-        console.warn(e)
-      }
-    })
-  } catch (e) {
-    console.warn('[things-factory-module-loader]', '@things-factory module folder not found.')
-  }
+      })
+    } catch (e) {
+      console.warn('[things-factory-module-loader]', '@things-factory module folder not found.')
+    }
+  })
 
   try {
     /* 현재폴더의 package.json을 보고 moduleConfigMap에 추가한다. */
-    const appRootPath = require('app-root-path').path
+    const appRootPath = process.cwd()
     const pkg = require(path.resolve(appRootPath, 'package.json'))
 
     if (pkg['things-factory']) {

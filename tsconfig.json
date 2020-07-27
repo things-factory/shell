@@ -1,30 +1,7 @@
 {
-  "compileOnSave": false,
+  "extends": "../../tsconfig",
   "compilerOptions": {
-    "noImplicitAny": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "declaration": true,
-    "resolveJsonModule": true,
-    "types": ["node"],
-    "module": "commonjs",
-    "target": "ES2018",
-    "outDir": "./dist-server",
-    "removeComments": true,
-    "sourceMap": true,
-    "pretty": true,
-    "baseUrl": "./",
-    "lib": ["dom", "esnext", "dom.iterable", "scripthost", "esnext.asynciterable", "es7", "es2018"],
-    "paths": {
-      "*": ["*"],
-      "graphql": ["node_modules/graphql"],
-      "typedi": ["node_modules/typedi"],
-      "typeorm": ["node_modules/typeorm"]
-    }
+    "outDir": "./dist-server"
   },
-  "include": ["server"],
-  "exclude": ["**/*.spec.ts", "node_modules"]
+  "include": ["server"]
 }

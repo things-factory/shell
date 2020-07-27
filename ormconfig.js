@@ -1,6 +1,6 @@
 const path = require('path')
 
-const appRootPath = require('app-root-path').path
+const appRootPath = process.cwd()
 const selfModulePackage = require(path.resolve(appRootPath, 'package.json'))
 const selfModuleName = selfModulePackage.name
 const selfModule = selfModulePackage['things-factory'] && require(path.resolve(appRootPath, selfModulePackage.main))

@@ -78,10 +78,10 @@ module.exports = {
       [AppPackage.name]:
         AppPackage.name == '@hatiolab/things-scene' ? path.resolve(AppRootPath, 'src', 'index.js') : AppRootPath
     },
-    modules: [NodeModulePath]
+    modules: [NodeModulePath, ...module.paths]
   },
   resolveLoader: {
-    modules: [path.resolve(ShellModulePath, 'web-loaders'), NodeModulePath]
+    modules: [path.resolve(ShellModulePath, 'web-loaders'), NodeModulePath, ...module.paths]
   },
   externals:
     AppPackage.name == '@hatiolab/things-scene'
@@ -260,17 +260,20 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js*',
+          from: `${path.resolve(
+            require.resolve('@webcomponents/webcomponentsjs/package.json'),
+            '../'
+          )}/webcomponents-loader.js*`,
           to: OUTPUT_PATH,
           context: AppRootPath
         },
         {
-          from: 'node_modules/web-animations-js/web-animations-next.min.js*',
+          from: `${path.resolve(require.resolve('web-animations-js/package.json'), '../')}/web-animations-next.min.js*`,
           to: OUTPUT_PATH,
           context: AppRootPath
         },
         {
-          from: 'node_modules/@hatiolab/things-scene/*.js*',
+          from: `${path.resolve(require.resolve('@hatiolab/things-scene/package.json'), '../')}/*.js*`,
           to: OUTPUT_PATH,
           context: AppRootPath
         }
