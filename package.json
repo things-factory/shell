@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "2.2.15",
+  "version": "2.2.16",
   "description": "things factory shell",
   "bin": {
     "things-factory": "bin/things-factory",
