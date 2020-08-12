@@ -34,8 +34,8 @@ export async function domainMiddleware(context: any, next: any) {
 
     context.state.domain = domainObj
 
-    await next()
+    return next()
   } catch (e) {
-    await next()
+    return next()
   }
 }

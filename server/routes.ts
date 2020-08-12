@@ -64,7 +64,7 @@ routes.get('/licenses', (context, next) => {
 
 routes.all('*', async (context, next) => {
   sendNotificationToAll()
-  await next()
+  return next()
 })
 
 routes.get('/vapidPublicKey', async (context, next) => {
