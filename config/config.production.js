@@ -1,5 +1,6 @@
 module.exports = {
   port: 3000,
+  subdomainOffset: 2,
   logger: {
     file: {
       filename: 'logs/application-%DATE%.log',

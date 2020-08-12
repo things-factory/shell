@@ -3,11 +3,12 @@ import { getRepository } from 'typeorm'
 import { URL } from 'url'
 import { Domain } from '../entities'
 
-export async function domainMiddleware(context: any, next: any): Promise<void> {
+export async function domainMiddleware(context: any, next: any) {
   try {
     var { request } = context
     var { header } = request
     var { referer } = header
+
     var domain
     var pathInfo
     if (referer) {
@@ -15,7 +16,7 @@ export async function domainMiddleware(context: any, next: any): Promise<void> {
       pathInfo = getPathInfo(pathname)
     }
 
-    domain = request.get('x-things-factory-domain') || pathInfo?.domain
+    domain = request.get('x-things-factory-domain') || pathInfo?.domain || context.subdomains.slice(-1)[0]
 
     var domainObj = {}
 
@@ -33,8 +34,8 @@ export async function domainMiddleware(context: any, next: any): Promise<void> {
 
     context.state.domain = domainObj
 
-    return next()
+    await next()
   } catch (e) {
-    return next()
+    await next()
   }
 }
