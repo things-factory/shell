@@ -20,6 +20,7 @@ import { databaseInitializer } from './initializers/database'
 import './middlewares'
 import { resolvers } from './resolvers'
 import { routes } from './routes'
+import { authChecker } from '@things-factory/auth-base'
 
 TypeORM.useContainer(Container)
 
@@ -49,7 +50,8 @@ const bootstrap = async () => {
 
   const schema = await TypeGraphQL.buildSchema({
     resolvers: [...resolvers] as TypeGraphQL.NonEmptyArray<Function>,
-    container: Container
+    container: Container,
+    authChecker
   })
 
   const app = new Koa()

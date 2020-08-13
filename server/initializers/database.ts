@@ -1,7 +1,12 @@
 const path = require('path')
 const appRootPath = process.cwd()
-import { createConnection } from 'typeorm'
+
+import 'reflect-metadata'
+import { createConnection, useContainer } from 'typeorm'
+import { Container } from 'typedi'
 import { logger } from '@things-factory/env'
+
+useContainer(Container)
 
 var ormconfig
 try {
