@@ -62,7 +62,7 @@ routes.get('/licenses', (context, next) => {
   })
 })
 
-routes.all('*', async (context, next) => {
+routes.all('(.*)', async (context, next) => {
   sendNotificationToAll()
   return next()
 })
