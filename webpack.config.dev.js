@@ -296,8 +296,7 @@ module.exports = {
     }),
     new WorkboxWebpackPlugin.InjectManifest({
       swSrc: path.resolve(__dirname, 'client/serviceworker/sw-src.js'),
-      swDest: 'service-worker.js',
-      maximumFileSizeToCacheInBytes: 100000000
+      swDest: 'service-worker.js'
     }),
     new webpack.DefinePlugin({
       'process.env': {
