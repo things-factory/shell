@@ -266,26 +266,25 @@ module.exports = {
       chunkFilename: '[name].[hash].css',
       ignoreOrder: false
     }),
-    new CopyWebpackPlugin(
-      [
+    new CopyWebpackPlugin({
+      patterns: [
         {
           from: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js*',
-          to: OUTPUT_PATH
+          to: OUTPUT_PATH,
+          context: AppRootPath
         },
         {
           from: 'node_modules/web-animations-js/web-animations-next.min.js*',
-          to: OUTPUT_PATH
+          to: OUTPUT_PATH,
+          context: AppRootPath
         },
         {
           from: 'node_modules/@hatiolab/things-scene/*.js*',
-          to: OUTPUT_PATH
+          to: OUTPUT_PATH,
+          context: AppRootPath
         }
-      ],
-      {
-        /* application base */
-        context: AppRootPath
-      }
-    ),
+      ]
+    }),
     new FolderOverridePlugin({
       target: 'views'
     }),
@@ -297,7 +296,8 @@ module.exports = {
     }),
     new WorkboxWebpackPlugin.InjectManifest({
       swSrc: path.resolve(__dirname, 'client/serviceworker/sw-src.js'),
-      swDest: 'service-worker.js'
+      swDest: 'service-worker.js',
+      maximumFileSizeToCacheInBytes: 100000000
     }),
     new webpack.DefinePlugin({
       'process.env': {
