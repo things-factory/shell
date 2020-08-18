@@ -6,7 +6,6 @@
     "things-factory": "bin/things-factory",
     "things-factory-dev": "bin/things-factory-dev",
     "things-factory-migration": "bin/things-factory-migration",
-    "things-factory-app": "bin/things-factory-app",
     "things-factory-stop": "bin/things-factory-stop"
   },
   "main": "dist-server/index.js",
@@ -25,17 +24,11 @@
     "build:server": "npm run clean:server && tsc",
     "build:dev:client": "webpack-cli --config ./webpack.config.dev.js",
     "build:client": "npm run clean:client && webpack-cli --mode production",
-    "build:app": "webpack-cli --config ./webpack.config.app.js && ./bin/things-factory-app --platform=android --mode=build",
-    "build:app:android": "./bin/things-factory-app --platform=android --mode=build",
     "clean": "npm run clean:server && npm run clean:client",
     "prepublish": "npm run build:server",
     "clean:server": "rm -rf dist-server",
     "clean:client": "rm -rf dist-client",
     "start": "node dist-server/server.js",
-    "start:app": "webpack-cli --config ./webpack.config.app.js && ./bin/things-factory-app",
-    "start:app:android": "./bin/things-factory-app --platform=android",
-    "emulate:app": "./bin/things-factory-app --emulate",
-    "emulate:app:android": "./bin/things-factory-app --emulate --platform=android",
     "migration": "npm run build:server && node bin/things-factory-migration",
     "migration:generate": "node ./node_modules/typeorm/cli.js migration:generate",
     "migration:run": "node ./node_modules/typeorm/cli.js migration:run",
@@ -78,13 +71,6 @@
     "chalk": "^3.0.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.2",
-    "cordova-android": "^8.0.0",
-    "cordova-plugin-add-swift-support": "^2.0.1",
-    "cordova-plugin-device": "^2.0.3",
-    "cordova-plugin-fetch": "git+https://github.com/aporat/cordova-plugin-fetch.git",
-    "cordova-plugin-inappbrowser": "^3.1.0",
-    "cordova-plugin-networkinterface": "^2.0.0",
-    "cordova-wheel-selector-plugin": "^1.1.6",
     "core-js": "^3.3.3",
     "css-loader": "^3.0.0",
     "csvtojson": "^2.0.10",
@@ -160,24 +146,6 @@
   "devDependencies": {
     "@things-factory/board-app": "^2.0.4",
     "@things-factory/board-test": "^2.0.0",
-    "@things-factory/board-ui": "^2.0.0",
-    "cordova-plugin-qr-barcode-scanner": "~8.0.3",
-    "cordova-plugin-whitelist": "1",
-    "cordova-plugin-zeroconf": "~1.4.0"
-  },
-  "resolutions": {
-    "@things-factory/auth-base": "^2.3.0-beta.2"
-  },
-  "cordova": {
-    "plugins": {
-      "cordova-plugin-whitelist": {},
-      "cordova-plugin-inappbrowser": {},
-      "cordova-plugin-networkinterface": {},
-      "cordova-plugin-device": {},
-      "cordova-plugin-fetch": {},
-      "cordova-plugin-zeroconf": {},
-      "cordova-plugin-qr-barcode-scanner": {},
-      "cordova-wheel-selector-plugin": {}
-    }
+    "@things-factory/board-ui": "^2.0.0"
   }
 }
