@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-export const buildCondition = function(
+export const buildCondition = function (
   alias: string,
   fieldName: string,
   operator: string,
@@ -86,6 +86,13 @@ export const buildCondition = function(
       value = value?.length ? value : [value]
       return {
         clause: `"${alias}"."${fieldName}" NOT IN (:...args${seq})`,
+        parameters: { [`args${seq}`]: value }
+      }
+
+    case 'notin_with_null':
+      value = value?.length ? value : [value]
+      return {
+        clause: `("${alias}"."${fieldName}" IS NULL OR "${alias}"."${fieldName}" NOT IN (:...args${seq}))`,
         parameters: { [`args${seq}`]: value }
       }
 

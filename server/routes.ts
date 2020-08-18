@@ -39,7 +39,7 @@ routes.get(
 )
 
 routes.get('/licenses', (context, next) => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     var options = {
       start: ['.'],
       exclude: ['./node_modules/@things-factory'],
@@ -49,7 +49,7 @@ routes.get('/licenses', (context, next) => {
       unknown: false
     }
 
-    crawler.dumpLicenses(options, function(error, res) {
+    crawler.dumpLicenses(options, function (error, res) {
       if (error) {
         console.error('Error:', error)
         reject(error)

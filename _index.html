@@ -57,7 +57,7 @@
     <script>
       // Load and register pre-caching Service Worker
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
           navigator.serviceWorker
             .register('/service-worker.js', {
               scope: '/'
@@ -73,7 +73,7 @@
             })
         })
 
-        navigator.serviceWorker.addEventListener('message', function(e) {
+        navigator.serviceWorker.addEventListener('message', function (e) {
           if (!e.data) return
 
           switch (e.data) {

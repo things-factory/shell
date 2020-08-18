@@ -1,9 +1,7 @@
-import { LicenseChecker } from '@hatiolab/license-checker'
 import { html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { installRouter } from 'pwa-helpers/router.js'
 import { UPDATE_MODULES, UPDATE_CONTEXT_PATH } from '../actions/app'
-import { UPDATE_LICENSE_INFO, UPDATE_LICENSE_KEY, UPDATE_LICENSE_VALIDITY } from '../actions/license'
 import { navigateWithSilence, UPDATE_ACTIVE_PAGE } from '../actions/route'
 import { store } from '../store'
 import { AppStyle } from './app-style'
@@ -50,15 +48,6 @@ class ThingsApp extends connect(store)(LitElement) {
 
   constructor() {
     super()
-
-    if (window.ThingsLicense)
-      LicenseChecker.setKey(ThingsLicense).then(key => {
-        store.dispatch({
-          type: UPDATE_LICENSE_KEY,
-          key: key
-        })
-      })
-    else console.warn('License file not found.')
   }
 
   connectedCallback() {
@@ -190,19 +179,6 @@ class ThingsApp extends connect(store)(LitElement) {
     this._context = state.route.context
     this._modules = state.app.modules
     this._contextPath = state.app.contextPath
-
-    LicenseChecker.checkValidity().then(info => {
-      if (!info) return
-      var { validity, licenseInfo } = info
-      store.dispatch({
-        type: UPDATE_LICENSE_VALIDITY,
-        validity: validity
-      })
-      store.dispatch({
-        type: UPDATE_LICENSE_INFO,
-        licenseInfo
-      })
-    })
   }
 
   _readyPageList() {

@@ -143,7 +143,7 @@ const bootstrap = async () => {
     layout: false,
     viewExt: 'html',
     cache: false,
-    debug: true
+    debug: false
   })
 
   koaWebpack({

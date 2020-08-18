@@ -3,13 +3,20 @@ import { getRepository } from 'typeorm'
 import { URL } from 'url'
 import { Domain } from '../entities'
 
-export async function domainMiddleware(context: any, next: any): Promise<void> {
+export async function domainMiddleware(context: any, next: any) {
   try {
     var { request } = context
     var { header } = request
     var { referer } = header
-    var { pathname } = new URL(referer)
-    var { domain } = getPathInfo(pathname)
+
+    var domain
+    var pathInfo
+    if (referer) {
+      var { pathname } = new URL(referer)
+      pathInfo = getPathInfo(pathname)
+    }
+
+    domain = request.get('x-things-factory-domain') || pathInfo?.domain || context.subdomains.slice(-1)[0]
 
     var domainObj = {}
 

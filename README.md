@@ -107,17 +107,6 @@ text-transform: uppercase;
 - That is, it sets through auth base and provides auth-related extension point.
 - In particular, auth base function is provided directly in things-factory shell.
 
-## things-factory/auth-provider-session
-
-- Sample of authentication provider in Session key type
-- Provide auth-provider.
-- Can be used for things-factory server.
-  things-factory/auth-ui-session
-
-## things-factory/auth-ui-session
-
-- Provide the sample view page of authentication in Session key type.
-
 ## things-factory/auth-provider-jwt
 
 - Sample of authentication provider in JSON token type.
@@ -128,6 +117,10 @@ text-transform: uppercase;
 - Provide the sample view page of authentication in JSON token type.
 
 # Prerequisites
+
+- Install Windows Subsystem for Linux on Windows (Windows)
+
+  > Install WSL using Ubuntu following https://docs.microsoft.com/en-gb/windows/wsl/install-win10
 
 - VS Code Extensions
 
@@ -160,21 +153,25 @@ text-transform: uppercase;
 - Things Factory Generator
 
   > npm install -g generator-things-factory
-  
+
 - Node-gyp (For Ubuntu)
 
   > npm install -g node-gyp
 
 - Python2 (For Ubuntu)
 
+  > sudo apt-get install python
+  
   > npm install --python=python2.7
+  
   > npm config set python python2.7
 
 - mdns (For Ubuntu)
 
   > sudo apt-get install build-essential
-  > sudo apt-get install libavahi-compat-libnsssd-dev
   
+  > sudo apt-get install libavahi-compat-libdnssd-dev
+
 - node-printer (For Ubuntu)
 
   > sudo apt-get install libcups2-dev
@@ -186,11 +183,14 @@ $ yo things-factory:app
 ```
 
 # Create a new module
-
+## base module
 ```
-$ yo things-factory:module
+$ yo things-factory:base-module
 ```
-
+## ui module
+```
+$ yo things-factory:ui-module
+```
 # References
 
 - https://github.com/material-components/material-components-web-components
