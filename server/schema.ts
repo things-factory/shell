@@ -108,7 +108,7 @@ const typeDefs = [
   `,
 
   ...schemas.typeDefs.types
-]
+].filter(type => !!type)
 
 var queryResolvers = schemas.resolvers.queries.reduce((sum, query) => {
   return {
