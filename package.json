@@ -126,12 +126,12 @@
     "subscriptions-transport-ws": "^0.9.16",
     "sweetalert2": "^9.10.3",
     "swipe-listener": "^1.1.0",
-    "terser": "5.1.0",
+    "terser": "^5.1.0",
     "text-loader": "^0.0.1",
     "ts-node": "^8.7.0",
     "tsconfig-paths": "^3.7.0",
-    "typeorm": "0.2.25",
-    "typescript": "3.9.7",
+    "typeorm": "^0.2.25",
+    "typescript": "^3.9.7",
     "url-loader": "^4.0.0",
     "web-animations-js": "^2.3.1",
     "web-push": "^3.3.5",
@@ -144,7 +144,9 @@
     "workbox-webpack-plugin": "^4.3.1"
   },
   "devDependencies": {
+    "@things-factory/auth-base": "^2.5.6",
     "@things-factory/auth-ui-jwt": "^2.0.12",
-    "@things-factory/oauth2-base": "^1.0.0-beta.11"
+    "@things-factory/oauth2-base": "^1.0.0-beta.11",
+    "@things-factory/operato-demo": "^1.0.0-beta.4"
   }
 }
