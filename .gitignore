@@ -12,4 +12,5 @@ package-lock.json
 platforms
 plugins
 
+/config.*.js
 www/js/index.js*
