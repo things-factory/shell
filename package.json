@@ -130,7 +130,7 @@
     "text-loader": "^0.0.1",
     "ts-node": "^8.7.0",
     "tsconfig-paths": "^3.7.0",
-    "typeorm": "^0.2.25",
+    "typeorm": "0.2.21",
     "typescript": "^3.9.7",
     "url-loader": "^4.0.0",
     "web-animations-js": "^2.3.1",
