@@ -110,6 +110,8 @@ const typeDefs = [
   ...types
 ].filter(type => !!type)
 
+logger.info('schema:\n%s', typeDefs.join('\n'))
+
 var { resolvers } = schemas
 var queryResolvers =
   resolvers.queries.length > 0 &&
