@@ -7,7 +7,7 @@ import {
   sendNotification,
   sendNotificationToAll,
   unregister
-} from './controllers/notifications'
+} from '../controllers/notifications'
 
 const send = require('koa-send')
 var crawler = require('npm-license-crawler')
@@ -18,27 +18,22 @@ const bodyParserOption = {
   textLimit: '10mb'
 }
 
-export const routes = new Router()
+export const publicRouter = new Router()
 
-// for providing resource
-routes.get('/file/:file', async (context, next) => {
-  await send(context, context.params.file, { root: process.env.UPLOAD_DIR })
-})
-
-routes.get('/dependencies', async (context, next) => {
+publicRouter.get('/dependencies', async (context, next) => {
   const dependencyGraph = require('@things-factory/env/lib/dependency-graph')
 
   await context.render('dependencies-view-graphviz', { model: dependencyGraph })
 })
 
-routes.get(
+publicRouter.get(
   '/graphql-voyager',
   voyagerMiddleware({
     endpointUrl: '/graphiql'
   })
 )
 
-routes.get('/licenses', (context, next) => {
+publicRouter.get('/licenses', (context, next) => {
   return new Promise(function (resolve, reject) {
     var options = {
       start: ['.'],
@@ -62,28 +57,28 @@ routes.get('/licenses', (context, next) => {
   })
 })
 
-routes.all('(.*)', async (context, next) => {
+publicRouter.all('(.*)', async (context, next) => {
   sendNotificationToAll()
   return next()
 })
 
-routes.get('/vapidPublicKey', async (context, next) => {
+publicRouter.get('/vapidPublicKey', async (context, next) => {
   context.body = getVapidPublicKey()
 })
 
-routes.post('/register', koaBodyParser(bodyParserOption), async (context, next) => {
+publicRouter.post('/register', koaBodyParser(bodyParserOption), async (context, next) => {
   await register({
     request: context.request
   })
   context.status = 201
 })
 
-routes.post('/unregister', async (context, next) => {
+publicRouter.post('/unregister', async (context, next) => {
   await unregister(context.request)
   context.status = 201
 })
 
-routes.post('/request-notification', koaBodyParser(bodyParserOption), async (context, next) => {
+publicRouter.post('/request-notification', koaBodyParser(bodyParserOption), async (context, next) => {
   var { receivers = [], message, url, title } = context.request.body
 
   var msg = {
