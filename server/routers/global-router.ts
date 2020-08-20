@@ -18,27 +18,26 @@ const bodyParserOption = {
   textLimit: '10mb'
 }
 
-export const publicRouter = new Router()
+export const globalRouter = new Router()
 
-publicRouter.get('/dependencies', async (context, next) => {
+globalRouter.get('/dependencies', async (context, next) => {
   const dependencyGraph = require('@things-factory/env/lib/dependency-graph')
 
   await context.render('dependencies-view-graphviz', { model: dependencyGraph })
 })
 
-publicRouter.get(
+globalRouter.get(
   '/graphql-voyager',
   voyagerMiddleware({
     endpointUrl: '/graphiql'
   })
 )
 
-publicRouter.get('/licenses', (context, next) => {
+globalRouter.get('/licenses', (context, next) => {
   return new Promise(function (resolve, reject) {
     var options = {
       start: ['.'],
       exclude: ['./node_modules/@things-factory'],
-      // json: 'licenses.json',
       noColor: true,
       production: true,
       unknown: false
@@ -57,28 +56,28 @@ publicRouter.get('/licenses', (context, next) => {
   })
 })
 
-publicRouter.all('(.*)', async (context, next) => {
+globalRouter.all('(.*)', async (context, next) => {
   sendNotificationToAll()
   return next()
 })
 
-publicRouter.get('/vapidPublicKey', async (context, next) => {
+globalRouter.get('/vapidPublicKey', async (context, next) => {
   context.body = getVapidPublicKey()
 })
 
-publicRouter.post('/register', koaBodyParser(bodyParserOption), async (context, next) => {
+globalRouter.post('/register', koaBodyParser(bodyParserOption), async (context, next) => {
   await register({
     request: context.request
   })
   context.status = 201
 })
 
-publicRouter.post('/unregister', async (context, next) => {
+globalRouter.post('/unregister', async (context, next) => {
   await unregister(context.request)
   context.status = 201
 })
 
-publicRouter.post('/request-notification', koaBodyParser(bodyParserOption), async (context, next) => {
+globalRouter.post('/request-notification', koaBodyParser(bodyParserOption), async (context, next) => {
   var { receivers = [], message, url, title } = context.request.body
 
   var msg = {

@@ -17,7 +17,7 @@ import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { config, logger } from '@things-factory/env'
 
 import { databaseInitializer } from './initializers/database'
-import { publicRouter, secureRouter } from './routers'
+import { globalRouter, domainRouter } from './routers'
 import { schema } from './schema'
 import { pubsub } from './pubsub'
 import './middlewares'
@@ -182,15 +182,15 @@ const bootstrap = async () => {
       })
     )
 
-    process.emit('bootstrap-module-public-route' as any, app, publicRouter)
-    process.emit('bootstrap-module-route' as any, app, secureRouter) // TODO deprecate
-    process.emit('bootstrap-module-secure-route' as any, app, secureRouter)
+    process.emit('bootstrap-module-global-public-route' as any, app, globalRouter)
+    process.emit('bootstrap-module-route' as any, app, domainRouter) // TODO deprecate
+    process.emit('bootstrap-module-domain-public-route' as any, app, domainRouter)
 
-    app.use(publicRouter.routes())
-    app.use(publicRouter.allowedMethods())
+    app.use(globalRouter.routes())
+    app.use(globalRouter.allowedMethods())
 
-    app.use(secureRouter.routes())
-    app.use(secureRouter.allowedMethods())
+    app.use(domainRouter.routes())
+    app.use(domainRouter.allowedMethods())
 
     const httpServer = app.listen({ port: PORT }, () => {
       logger.info(`🚀 Server ready at http://0.0.0.0:${PORT}${server.graphqlPath}`)

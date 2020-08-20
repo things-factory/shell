@@ -1,2 +1,2 @@
-export * from './public-router'
-export * from './secure-router'
+export * from './global-router'
+export * from './domain-router'
