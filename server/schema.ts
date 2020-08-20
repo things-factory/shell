@@ -123,7 +123,7 @@ var queryResolvers =
   }, {})
 
 var mutationResolvers =
-  resolvers.mutations > 0 &&
+  resolvers.mutations.length > 0 &&
   resolvers.mutations.reduce((sum, mutation) => {
     return {
       ...sum,
