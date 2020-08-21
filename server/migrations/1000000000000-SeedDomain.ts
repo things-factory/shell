@@ -27,7 +27,7 @@ export class SeedDomain1000000000000 implements MigrationInterface {
 
     return Promise.all(
       SEED_DOMAINS.reverse().map(async domain => {
-        let recode = await repository.findOne({ name: domain.name })
+        let recode = await repository.findOne({ subdomain: domain.subdomain })
         await repository.remove(recode)
       })
     )
