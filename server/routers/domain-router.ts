@@ -3,9 +3,8 @@ import { domainMiddleware } from '../middlewares/domain-middleware'
 
 const send = require('koa-send')
 
-export const domainRouter = new Router()
-domainRouter.use(domainMiddleware)
+export const domainPublicRouter = new Router()
+domainPublicRouter.use(domainMiddleware)
 
-domainRouter.get('/file/:file', async (context, next) => {
-  await send(context, context.params.file, { root: process.env.UPLOAD_DIR })
-})
+export const domainPrivateRouter = new Router()
+domainPrivateRouter.use(domainMiddleware)

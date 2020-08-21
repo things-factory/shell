@@ -15,7 +15,14 @@ import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { config, logger } from '@things-factory/env'
 
 import { databaseInitializer } from './initializers/database'
-import { globalRouter, domainRouter } from './routers'
+import {
+  globalPublicRouter,
+  globalPrivateRouter,
+  domainPublicRouter,
+  domainPrivateRouter,
+  fileDownloadRouter,
+  notificationRouter
+} from './routers'
 import { schema } from './schema'
 import { pubsub } from './pubsub'
 import './middlewares'
@@ -138,26 +145,39 @@ const bootstrap = async () => {
   app.use(koaBodyParser(bodyParserOption))
 
   /* jwt 인증에 graphql middleware를 포함하기 위해서 jwt 인증 설정 다음에 둔다. */
-  server.applyMiddleware({
-    app
-  })
+  // server.applyMiddleware({
+  //   app
+  // })
 
-  app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
+  // app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
   app.use(
     koaStatic(path.join(process.cwd(), 'dist-client'), {
       index: 'index.html'
     })
   )
 
-  process.emit('bootstrap-module-public-route' as any, app, globalRouter)
-  process.emit('bootstrap-module-route' as any, app, domainRouter) // TODO deprecate
-  process.emit('bootstrap-module-secure-route' as any, app, domainRouter)
+  /* routers */
+  process.emit('bootstrap-module-global-public-route' as any, app, globalPublicRouter)
+  process.emit('bootstrap-module-global-private-route' as any, app, globalPrivateRouter)
+  process.emit('bootstrap-module-route' as any, app, domainPublicRouter) // TODO deprecate
+  process.emit('bootstrap-module-domain-public-route' as any, app, domainPublicRouter)
+  process.emit('bootstrap-module-domain-private-route' as any, app, domainPrivateRouter)
 
-  app.use(globalRouter.routes())
-  app.use(globalRouter.allowedMethods())
+  globalPublicRouter.use('', notificationRouter.routes(), notificationRouter.allowedMethods())
+  globalPrivateRouter.use('/file', fileDownloadRouter.routes(), fileDownloadRouter.allowedMethods())
+  domainPrivateRouter.use('/graphiql', server.getMiddleware())
+  domainPrivateRouter.use('/graphql', server.getMiddleware())
+  domainPrivateRouter.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
 
-  app.use(domainRouter.routes())
-  app.use(domainRouter.allowedMethods())
+  app
+    .use(globalPublicRouter.routes())
+    .use(globalPublicRouter.allowedMethods())
+    .use(globalPrivateRouter.routes())
+    .use(globalPrivateRouter.allowedMethods())
+    .use(domainPublicRouter.routes())
+    .use(domainPublicRouter.allowedMethods())
+    .use(domainPrivateRouter.routes())
+    .use(domainPrivateRouter.allowedMethods())
 
   const httpServer = app.listen({ port: PORT }, () => {
     logger.info(`🚀 Server ready at http://0.0.0.0:${PORT}${server.graphqlPath}`)

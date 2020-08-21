@@ -10,6 +10,7 @@ import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 import koaWebpack from 'koa-webpack'
 
 import { ApolloServer } from 'apollo-server-koa'
+
 import { graphqlUploadKoa } from 'graphql-upload'
 import { execute, subscribe } from 'graphql'
 import { SubscriptionServer } from 'subscriptions-transport-ws'
@@ -17,10 +18,17 @@ import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { config, logger } from '@things-factory/env'
 
 import { databaseInitializer } from './initializers/database'
-import { globalRouter, domainRouter } from './routers'
 import { schema } from './schema'
 import { pubsub } from './pubsub'
 import './middlewares'
+import {
+  globalPublicRouter,
+  globalPrivateRouter,
+  domainPublicRouter,
+  domainPrivateRouter,
+  fileDownloadRouter,
+  notificationRouter
+} from './routers'
 
 const args = require('args')
 
@@ -158,10 +166,10 @@ const bootstrap = async () => {
 
     app.use(koaBodyParser(bodyParserOption))
 
-    /* jwt 인증에 graphql middleware를 포함하기 위해서 jwt 인증 설정 다음에 둔다. */
-    server.applyMiddleware({
-      app
-    })
+    // app.use(server.getMiddleware())
+    // server.applyMiddleware({
+    //   app
+    // })
 
     /* 개발 환경에서는 두개의 graphql path를 둔다.
       /graphql : application 에서 사용.
@@ -169,12 +177,13 @@ const bootstrap = async () => {
 
       /graphql 을 test UI에서 시도하면, authcheck 대상에 해당되어, 미인증 이유로 테스트가 불가능하기 때문이다.
     */
-    server.applyMiddleware({
-      path: '/graphiql',
-      app
-    })
 
-    app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
+    // server.applyMiddleware({
+    //   path: '/graphiql',
+    //   app
+    // })
+
+    // app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
 
     app.use(
       koaStatic(path.join(webpackConfig.output.path), {
@@ -182,16 +191,30 @@ const bootstrap = async () => {
       })
     )
 
-    process.emit('bootstrap-module-global-public-route' as any, app, globalRouter)
-    process.emit('bootstrap-module-route' as any, app, domainRouter) // TODO deprecate
-    process.emit('bootstrap-module-domain-public-route' as any, app, domainRouter)
+    /* routers */
+    process.emit('bootstrap-module-global-public-route' as any, app, globalPublicRouter)
+    process.emit('bootstrap-module-global-private-route' as any, app, globalPrivateRouter)
+    process.emit('bootstrap-module-route' as any, app, domainPublicRouter) // TODO deprecate
+    process.emit('bootstrap-module-domain-public-route' as any, app, domainPublicRouter)
+    process.emit('bootstrap-module-domain-private-route' as any, app, domainPrivateRouter)
 
-    app.use(globalRouter.routes())
-    app.use(globalRouter.allowedMethods())
+    globalPublicRouter.use('', notificationRouter.routes(), notificationRouter.allowedMethods())
+    globalPrivateRouter.use('/file', fileDownloadRouter.routes(), fileDownloadRouter.allowedMethods())
+    domainPublicRouter.use('/graphiql', server.getMiddleware())
+    domainPrivateRouter.use('/graphql', server.getMiddleware())
+    domainPrivateRouter.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
 
-    app.use(domainRouter.routes())
-    app.use(domainRouter.allowedMethods())
+    app
+      .use(globalPublicRouter.routes())
+      .use(globalPublicRouter.allowedMethods())
+      .use(globalPrivateRouter.routes())
+      .use(globalPrivateRouter.allowedMethods())
+      .use(domainPublicRouter.routes())
+      .use(domainPublicRouter.allowedMethods())
+      .use(domainPrivateRouter.routes())
+      .use(domainPrivateRouter.allowedMethods())
 
+    /* httpServer */
     const httpServer = app.listen({ port: PORT }, () => {
       logger.info(`🚀 Server ready at http://0.0.0.0:${PORT}${server.graphqlPath}`)
       logger.info(`🚀 Subscriptions ready at ws://0.0.0.0:${PORT}${server.subscriptionsPath}`)
