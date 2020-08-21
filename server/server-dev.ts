@@ -166,10 +166,10 @@ const bootstrap = async () => {
 
     app.use(koaBodyParser(bodyParserOption))
 
-    // app.use(server.getMiddleware())
-    // server.applyMiddleware({
-    //   app
-    // })
+    app.use(server.getMiddleware())
+    server.applyMiddleware({
+      app
+    })
 
     /* 개발 환경에서는 두개의 graphql path를 둔다.
       /graphql : application 에서 사용.
@@ -178,12 +178,12 @@ const bootstrap = async () => {
       /graphql 을 test UI에서 시도하면, authcheck 대상에 해당되어, 미인증 이유로 테스트가 불가능하기 때문이다.
     */
 
-    // server.applyMiddleware({
-    //   path: '/graphiql',
-    //   app
-    // })
+    server.applyMiddleware({
+      path: '/graphiql',
+      app
+    })
 
-    // app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
+    app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
 
     app.use(
       koaStatic(path.join(webpackConfig.output.path), {
@@ -200,9 +200,6 @@ const bootstrap = async () => {
 
     globalPublicRouter.use('', notificationRouter.routes(), notificationRouter.allowedMethods())
     globalPrivateRouter.use('/file', fileDownloadRouter.routes(), fileDownloadRouter.allowedMethods())
-    domainPublicRouter.use('/graphiql', server.getMiddleware())
-    domainPrivateRouter.use('/graphql', server.getMiddleware())
-    domainPrivateRouter.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
 
     app
       .use(globalPublicRouter.routes())

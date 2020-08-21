@@ -1,4 +1,3 @@
-import koaBodyParser from 'koa-bodyparser'
 import Router from 'koa-router'
 import {
   getVapidPublicKey,
@@ -7,14 +6,6 @@ import {
   sendNotificationToAll,
   unregister
 } from '../controllers/notifications'
-
-const send = require('koa-send')
-
-const bodyParserOption = {
-  formLimit: '10mb',
-  jsonLimit: '10mb',
-  textLimit: '10mb'
-}
 
 export const notificationRouter = new Router()
 
@@ -27,7 +18,7 @@ notificationRouter.get('/vapidPublicKey', async (context, next) => {
   context.body = getVapidPublicKey()
 })
 
-notificationRouter.post('/register', koaBodyParser(bodyParserOption), async (context, next) => {
+notificationRouter.post('/register', async (context, next) => {
   await register({
     request: context.request
   })
@@ -39,7 +30,7 @@ notificationRouter.post('/unregister', async (context, next) => {
   context.status = 201
 })
 
-notificationRouter.post('/request-notification', koaBodyParser(bodyParserOption), async (context, next) => {
+notificationRouter.post('/request-notification', async (context, next) => {
   var { receivers = [], message, url, title } = context.request.body
 
   var msg = {

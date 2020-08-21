@@ -145,11 +145,12 @@ const bootstrap = async () => {
   app.use(koaBodyParser(bodyParserOption))
 
   /* jwt 인증에 graphql middleware를 포함하기 위해서 jwt 인증 설정 다음에 둔다. */
-  // server.applyMiddleware({
-  //   app
-  // })
+  server.applyMiddleware({
+    app
+  })
 
-  // app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
+  app.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
+
   app.use(
     koaStatic(path.join(process.cwd(), 'dist-client'), {
       index: 'index.html'
@@ -165,9 +166,6 @@ const bootstrap = async () => {
 
   globalPublicRouter.use('', notificationRouter.routes(), notificationRouter.allowedMethods())
   globalPrivateRouter.use('/file', fileDownloadRouter.routes(), fileDownloadRouter.allowedMethods())
-  domainPrivateRouter.use('/graphiql', server.getMiddleware())
-  domainPrivateRouter.use('/graphql', server.getMiddleware())
-  domainPrivateRouter.use(graphqlUploadKoa({ maxFileSize: 10000000, maxFiles: 10 }))
 
   app
     .use(globalPublicRouter.routes())
