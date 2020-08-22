@@ -1,11 +1,12 @@
 const path = require('path')
 const fs = require('fs')
 const loaderUtils = require('loader-utils')
+const debug = require('debug')('things-factory:shell:things-factory-module-loader')
 
 const { orderedModuleNames } = require('@things-factory/env')
 
-module.exports = function(content) {
-  console.time('Module Configuration')
+module.exports = function (content) {
+  debug('Module Configuration Begin')
   const moduleConfigMap = {}
 
   const options = loaderUtils.getOptions(this) || {}
@@ -71,9 +72,7 @@ modules.push({
     .join('')}
   `
 
-  console.log('\x1b[31m')
-  console.timeEnd('Module Configuration')
-  console.log('\x1b[0m')
+  debug('Module Configuration End.')
 
   return result
 }

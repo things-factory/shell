@@ -32,7 +32,8 @@
     "migration": "npm run build:server && node bin/things-factory-migration",
     "migration:generate": "node ./node_modules/typeorm/cli.js migration:generate",
     "migration:run": "node ./node_modules/typeorm/cli.js migration:run",
-    "migration:revert": "node ./node_modules/typeorm/cli.js migration:revert"
+    "migration:revert": "node ./node_modules/typeorm/cli.js migration:revert",
+    "test": "NODE_ENV=test jest"
   },
   "dependencies": {
     "@babel/cli": "^7.6.2",
@@ -146,8 +147,10 @@
     "workbox-webpack-plugin": "^4.3.1"
   },
   "devDependencies": {
-    "@things-factory/auth-ui-jwt": "^2.0.12",
     "@things-factory/oauth2-base": "^1.0.0-beta.11",
-    "@things-factory/operato-demo": "^1.0.0-beta.4"
+    "@things-factory/operato-demo": "^1.0.0-beta.4",
+    "@types/jest": "^26.0.10",
+    "jest": "^26.4.1",
+    "ts-jest": "^26.2.0"
   }
 }

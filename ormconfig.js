@@ -1,4 +1,5 @@
 const path = require('path')
+const debug = require('debug')('things-factory:shell:ormconfig')
 
 const appRootPath = require('app-root-path').path
 const selfModulePackage = require(path.resolve(appRootPath, 'package.json'))
@@ -64,12 +65,9 @@ var subscribers = orderedModuleNames
   .filter(entity => entity && entity.length > 0)
 subscribers = flattenDeep(subscribers)
 
-console.log('entities')
-console.log(entities)
-console.log('migrations')
-console.log(migrations)
-console.log('subscribers')
-console.log(subscribers)
+debug('entities', entities)
+debug('migrations', migrations)
+debug('subscribers', subscribers)
 
 module.exports = {
   namingStrategy: new NamingStrategy(),

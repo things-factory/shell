@@ -11,7 +11,11 @@ try {
 }
 
 export const databaseInitializer = async () => {
-  return await createConnection(ormconfig).then(async (connection, ...others) => {
+  try {
+    const connection = await createConnection(ormconfig)
     logger.info('Database connection established')
-  })
+    return connection
+  } catch (e) {
+    logger.error(e)
+  }
 }

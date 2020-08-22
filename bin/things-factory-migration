@@ -4,6 +4,7 @@
 
 const args = require('args')
 const path = require('path')
+const debug = require('debug')('things-factory:shell:migration')
 
 const createConnection = require('typeorm').createConnection
 const appRootPath = require('app-root-path').path
@@ -80,7 +81,7 @@ function migrate(ormconfig) {
     args.option('undo', 'Reverts last executed migration')
     const flags = args.parse(process.argv)
 
-    console.log('Database connection established')
+    debug('Database connection established')
 
     if (flags.undo) {
       await connection.undoLastMigration()
@@ -89,7 +90,7 @@ function migrate(ormconfig) {
     }
 
     await connection.close()
-    console.log('Database Migration Done.')
+    debug('Database Migration Done.')
 
     /*
      * migration 후 프로세스가 종료되지 않는 경우가 있기 때문에,

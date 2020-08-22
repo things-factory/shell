@@ -4,7 +4,8 @@
 
 const fs = require('fs-extra')
 const path = require('path')
-var glob = require('glob')
+const glob = require('glob')
+const debug = require('debug')('things-factory:shell:i18n-bundler-plugin')
 
 const { orderedModuleNames, sceneModuleNames } = require('@things-factory/env')
 
@@ -73,13 +74,13 @@ class I18nBundlerPlugin {
         let localePath = path.join(translationsDir, `${locale}.json`)
         let content = JSON.stringify(translations[locale], null, 2)
 
-        console.log(`Restoring locale '${locale}' resource into '${localePath}'`)
+        debug(`Restoring locale '${locale}' resource into '${localePath}'`)
 
         compilation.assets[localePath] = {
-          source: function() {
+          source: function () {
             return content
           },
-          size: function() {
+          size: function () {
             return content.length
           }
         }

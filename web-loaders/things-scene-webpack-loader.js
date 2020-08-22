@@ -1,8 +1,9 @@
 const path = require('path')
 const fs = require('fs')
 const loaderUtils = require('loader-utils')
+const debug = require('debug')('things-factory:shell:things-scene-webpack-loader')
 
-module.exports = function(content) {
+module.exports = function (content) {
   const sceneComponents = []
 
   const options = loaderUtils.getOptions(this) || {}
@@ -36,9 +37,7 @@ module.exports = function(content) {
 
   const script = sceneComponents.map(component => `import '${component}'\n`).join('')
 
-  console.log('\n\n############ [ Things Scene Components - BEGIN ] ##############\n\n')
-  console.log(script)
-  console.log('\n############ [ Things Scene Components - END   ] ################\n\n')
+  debug('Things Scene Components', script)
 
   return script
 }

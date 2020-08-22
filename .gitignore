@@ -4,7 +4,7 @@ node_modules/
 logs/
 uploads/
 attachments/
-db.sqlite
+*.sqlite
 yarn*.*
 package-lock.json
 .DS_Store

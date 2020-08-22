@@ -9,13 +9,14 @@ const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ThemeOverridePlugin = require('./webpack-plugins/theme-override-plugin')
 const glob = require('glob')
+const debug = require('debug')('things-factory:shell:webpack.config.dev')
 
 const AppRootPath = require('app-root-path').path
 const AppPackage = require(path.resolve(AppRootPath, 'package.json'))
 
 const OUTPUT_PATH = path.resolve('./dist-client')
 
-console.log('Output Path: ', OUTPUT_PATH)
+debug('Output Path: ', OUTPUT_PATH)
 
 const module_resolve = require('resolve')
 
@@ -34,8 +35,8 @@ if (AppPackage.name !== '@things-factory/shell') {
   var NodeModulePath = path.resolve(__dirname, 'node_modules')
 }
 
-console.log('FactoryShell Module Path', ShellModulePath)
-console.log('Extern Module Path', NodeModulePath)
+debug('FactoryShell Module Path', ShellModulePath)
+debug('Extern Module Path', NodeModulePath)
 
 const ShellPackage = require(path.resolve(ShellModulePath, 'package.json'))
 

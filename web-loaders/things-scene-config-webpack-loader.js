@@ -1,8 +1,9 @@
 const path = require('path')
 const fs = require('fs')
 const loaderUtils = require('loader-utils')
+const debug = require('debug')('things-factory:shell:things-scene-config-webpack-loader')
 
-module.exports = function(content) {
+module.exports = function (content) {
   const sceneModuleFolders = {}
 
   const options = loaderUtils.getOptions(this) || {}
@@ -61,9 +62,7 @@ module.exports = function(content) {
       .join('\n') +
     '\nexport default metas\n'
 
-  console.log('\n\n############ [ Things Scene Components for Modeller - BEGIN ] ##############\n\n')
-  console.log(script)
-  console.log('\n############ [ Things Scene Components for Modeller - END   ] ################\n\n')
+  debug('Things Scene Components for Modeller', script)
 
   return script
 }

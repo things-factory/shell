@@ -6,6 +6,7 @@ const path = require('path')
 const fs = require('fs-extra')
 const glob = require('glob')
 const loaderUtils = require('loader-utils')
+const debug = require('debug')('things-factory:shell:folder-override-plugin')
 
 const { orderedModuleNames } = require('@things-factory/env')
 
@@ -89,11 +90,11 @@ class FolderOverridePlugin {
     }
 
     if (this.writtenFrom[filepath] && this.writtenFrom[filepath][hash]) {
-      // console.log(`skipping '${filepath}', because it hasn't changed`)
+      // debug(`skipping '${filepath}', because it hasn't changed`)
       return
     }
 
-    console.log(`writing '${webpackTo}' from '${filepath}'`)
+    debug(`writing '${webpackTo}' from '${filepath}'`)
     this.writtenTo[webpackTo] = filepath
     this.writtenFrom[filepath] = {
       [hash]: true
