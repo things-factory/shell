@@ -19,7 +19,8 @@ module.exports = {
     type: 'sqlite',
     database: 'db.sqlite',
     synchronize: true,
-    logging: true
+    logging: true,
+    logger: 'debug'
   },
   uploads: 'uploads'
 }

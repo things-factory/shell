@@ -9,9 +9,6 @@ module.exports = {
       maxSize: '20m',
       maxFiles: '2d',
       level: 'info'
-    },
-    console: {
-      level: 'silly'
     }
   },
   ormconfig: {
@@ -19,7 +16,8 @@ module.exports = {
     type: 'sqlite',
     database: 'db.test.sqlite',
     synchronize: true,
-    logging: true
+    logging: true,
+    logger: 'debug'
   },
   uploads: 'uploads'
 }

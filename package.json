@@ -52,7 +52,7 @@
     "@material/mwc-slider": "^0.13.0",
     "@material/mwc-textfield": "^0.13.0",
     "@things-factory/auth-base": "^2.6.0-beta.1",
-    "@things-factory/env": "^2.0.0",
+    "@things-factory/env": "^3.0.0-beta.1",
     "@things-factory/styles": "^2.0.0",
     "@things-factory/utils": "^2.0.0",
     "@types/lodash": "^4.14.139",
