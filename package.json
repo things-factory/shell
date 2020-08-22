@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/shell",
-  "version": "2.3.0-beta.21",
+  "version": "2.3.0-beta.22",
   "description": "things factory shell",
   "bin": {
     "things-factory": "bin/things-factory",
@@ -51,10 +51,10 @@
     "@material/mwc-icon-button": "^0.13.0",
     "@material/mwc-slider": "^0.13.0",
     "@material/mwc-textfield": "^0.13.0",
-    "@things-factory/auth-base": "^2.6.0-beta.1",
     "@things-factory/env": "^3.0.0-beta.1",
     "@things-factory/styles": "^2.0.0",
     "@things-factory/utils": "^2.0.0",
+    "@types/jest": "^26.0.10",
     "@types/lodash": "^4.14.139",
     "@types/node": "^14.6.0",
     "@webcomponents/webcomponentsjs": "^2.2.7",
@@ -73,7 +73,7 @@
     "chalk": "^4.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.3",
-    "core-js": "^3.3.3",
+    "core-js": "^3.6.5",
     "css-loader": "^4.2.1",
     "csvtojson": "^2.0.10",
     "debug": "^4.1.1",
@@ -90,6 +90,7 @@
     "husky": "^4.2.3",
     "imports-loader": "^1.1.0",
     "inquirer": "^7.0.0",
+    "jest": "^26.4.1",
     "koa": "^2.6.2",
     "koa-body": "^4.0.4",
     "koa-bodyparser": "^4.2.0",
@@ -131,6 +132,7 @@
     "swipe-listener": "^1.1.0",
     "terser": "^5.1.0",
     "text-loader": "^0.0.1",
+    "ts-jest": "^26.2.0",
     "ts-node": "^8.7.0",
     "tsconfig-paths": "^3.7.0",
     "typeorm": "0.2.21",
@@ -148,9 +150,9 @@
   },
   "devDependencies": {
     "@things-factory/oauth2-base": "^1.0.0-beta.11",
-    "@things-factory/operato-demo": "^1.0.0-beta.4",
-    "@types/jest": "^26.0.10",
-    "jest": "^26.4.1",
-    "ts-jest": "^26.2.0"
+    "@things-factory/operato-demo": "^1.0.0-beta.4"
+  },
+  "resolutions": {
+    "core-js": "^3.6.5"
   }
 }
