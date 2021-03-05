@@ -4,7 +4,6 @@ import { ApolloLink } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import { onError } from 'apollo-link-error'
 import { createUploadLink } from 'apollo-upload-client'
-import { BatchHttpLink } from 'apollo-link-batch-http'
 import { persistCache } from 'apollo-cache-persist'
 
 const GRAPHQL_URI = '/graphql'
@@ -75,7 +74,7 @@ const httpOptions = {
 const httpLink = ApolloLink.split(
   operation => operation.getContext().hasUpload,
   createUploadLink(httpOptions),
-  new BatchHttpLink(httpOptions)
+  new HttpLink(httpOptions)
 )
 
 const initPersistCache = async () => {
